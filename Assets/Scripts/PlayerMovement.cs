@@ -1,92 +1,79 @@
 ﻿using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
-{
-    private Vector2 velocityToApply = new Vector2(0, 0);
-    private Vector2 baseMousePosition = new Vector2(0, 0);
-    private bool direction = false;
-    public bool canJump = true;
-    private Rigidbody2D rigidbody2d;
-    [SerializeField] private TrajectoryPrediction trajectoryPrediction;
-    private SpriteRenderer spriteRenderer;
-    private HangingPoint currentHangingPoint = null;
-    private bool dragging = false;
+public class PlayerMovement : MonoBehaviour {
+	private Vector2 velocityToApply = new Vector2 (0, 0);
+	private Vector2 baseMousePosition = new Vector2 (0, 0);
+	private bool direction = false;
+	public bool canJump = true;
+	private Rigidbody2D rigidbody2d;
+	[SerializeField] private TrajectoryPrediction trajectoryPrediction;
+	private SpriteRenderer spriteRenderer;
+	private HangingPoint currentHangingPoint = null;
+	private bool dragging = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        rigidbody2d = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+	// Start is called before the first frame update
+	void Start () {
+		rigidbody2d = GetComponent<Rigidbody2D> ();
+		spriteRenderer = GetComponent<SpriteRenderer> ();
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (!canJump)
-            return;
+	// Update is called once per frame
+	void Update () {
+		if (!canJump)
+			return;
 
-        if (Input.GetMouseButton(0))
-        {
-            if (!dragging)
-            {
-                baseMousePosition = Input.mousePosition;
-                dragging = true;
-            }
+		if (Input.GetMouseButton (0)) {
+			if (!dragging) {
+				baseMousePosition = Input.mousePosition;
+				dragging = true;
+			}
 
-            velocityToApply.x = (baseMousePosition.x - Input.mousePosition.x) / 5;
-            velocityToApply.y = (baseMousePosition.y - Input.mousePosition.y) / 5;
-            trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), velocityToApply, Physics2D.gravity, 20);
-            direction = baseMousePosition.x < Input.mousePosition.x;
-        }
+			velocityToApply.x = (baseMousePosition.x - Input.mousePosition.x) / 5;
+			velocityToApply.y = (baseMousePosition.y - Input.mousePosition.y) / 5;
+			trajectoryPrediction.UpdateTrajectory (new Vector2 (transform.position.x, transform.position.y), velocityToApply, Physics2D.gravity, 20);
+			direction = baseMousePosition.x < Input.mousePosition.x;
+		}
 
-        if (!Input.GetMouseButton(0) && dragging)
-        {
-            if (currentHangingPoint != null)
-            {
-                currentHangingPoint.TurnOff();
-                currentHangingPoint = null;
-            }
-            rigidbody2d.velocity = Vector2.zero;
-            trajectoryPrediction.RemoveIndicators();
-            rigidbody2d.AddForce(velocityToApply, ForceMode2D.Impulse);
-            dragging = false;
-            DisableJump();
-        }
+		if (!Input.GetMouseButton (0) && dragging) {
+			if (currentHangingPoint != null) {
+				currentHangingPoint.TurnOff ();
+				currentHangingPoint = null;
+			}
+			rigidbody2d.velocity = Vector2.zero;
+			trajectoryPrediction.RemoveIndicators ();
+			rigidbody2d.AddForce (velocityToApply, ForceMode2D.Impulse);
+			dragging = false;
+			DisableJump ();
+		}
 
-        spriteRenderer.flipX = direction;
-    }
+		spriteRenderer.flipX = direction;
+	}
 
-    public void StartHang(HangingPoint hangingPoint)
-    {
-        currentHangingPoint = hangingPoint;
-        EnableJump();
-        DisablePhysics();
-    }
+	public void StartHang (HangingPoint hangingPoint) {
+		currentHangingPoint = hangingPoint;
+		EnableJump ();
+		DisablePhysics ();
+	}
 
-    public void StopHang()
-    {
-        EnablePhysics();
-        DisableJump();
-    }
+	public void StopHang () {
+		EnablePhysics ();
+		DisableJump ();
+	}
 
-    public void EnableJump()
-    {
-        canJump = true;
-    }
+	public void EnableJump () {
+		canJump = true;
+	}
 
-    private void DisableJump()
-    {
-        canJump = false;
-    }
+	private void DisableJump () {
+		canJump = false;
+	}
 
-    private void EnablePhysics()
-    {
-        rigidbody2d.bodyType = RigidbodyType2D.Dynamic;
-    }
+	private void EnablePhysics () {
+		rigidbody2d.bodyType = RigidbodyType2D.Dynamic;
+	}
 
-    private void DisablePhysics()
-    {
-        rigidbody2d.bodyType = RigidbodyType2D.Kinematic;
-        rigidbody2d.velocity = Vector3.zero;
-    }
+	private void DisablePhysics () {
+		rigidbody2d.bodyType = RigidbodyType2D.Kinematic;
+		rigidbody2d.velocity = Vector3.zero;
+	}
 }
