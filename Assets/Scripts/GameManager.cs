@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start() {
+        player = FindObjectOfType<Player>();
+    }
+
     public void SetLatestCheckpoint(Checkpoint checkpoint)
     {
         latestCheckPoint = checkpoint;
