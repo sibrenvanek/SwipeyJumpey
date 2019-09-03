@@ -7,12 +7,9 @@ public class PlayerMovement : MonoBehaviour
     private bool direction = false;
     public bool canJump = true;
     private Rigidbody2D rigidbody2d;
-    [SerializeField] GameObject indicator;
     [SerializeField] private TrajectoryPrediction trajectoryPrediction;
     private SpriteRenderer spriteRenderer;
-
     private HangingPoint currentHangingPoint = null;
-
     private bool dragging = false;
 
     // Start is called before the first frame update
