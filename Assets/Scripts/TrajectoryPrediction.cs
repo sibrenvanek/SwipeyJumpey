@@ -9,12 +9,6 @@ public class TrajectoryPrediction : MonoBehaviour
     // List of the indicators that are currently active
     private List<GameObject> activeIndicators = new List<GameObject>();
 
-    // Constructor
-    public TrajectoryPrediction(GameObject indicator)
-    {
-        this.indicator = indicator;
-    }
-
     // Update the current trajectory
     public void UpdateTrajectory(Vector2 startPosition, Vector2 startVelocity, Vector2 gravity, int steps)
     {
