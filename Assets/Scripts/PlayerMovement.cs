@@ -67,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     {
         EnablePhysics();
         DisableJump();
+        trajectoryPrediction.RemoveIndicators();
     }
 
     public void EnableJump()
@@ -77,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
     private void DisableJump()
     {
         canJump = false;
+        trajectoryPrediction.RemoveIndicators();
     }
 
     private void EnablePhysics()
