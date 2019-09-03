@@ -1,51 +1,72 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+public enum HangingPointType
+{
+    Fuel,
+    ACouldHaveHangingPointType
+}
 
 public class HangingPoint : MonoBehaviour
 {
-    //TODO: Single responsibility!!!
     public Transform player;
+    [SerializeField]private bool active = true;
+    [SerializeField]private float timeBeforeReset = 5f;
+    [SerializeField]private float maxHangingTime = 2f;
     [SerializeField]private float detectionRange = 2f;
     [SerializeField]private float centerRange = .2f;
     [SerializeField]private float dragSpeed = 3f;
-    private Rigidbody2D playerRigidbody = null;
+    [SerializeField]private bool holdingPlayer = false;
 
-    private bool holdingPlayer = false;
-
-    private void Start() {
-        playerRigidbody = player.GetComponent<Rigidbody2D>();
-    }
+    [SerializeField]private HangingPointType hangingPointType;
 
     private void Update() {
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-
-        if(distanceToPlayer <= detectionRange && !holdingPlayer)
+        if(active)
         {
-            if(distanceToPlayer > centerRange)
-            {
-                DisablePlayerPhysics(); //Should be done in player script
-                DragPlayer();
-            }else
-            {
-                EnablePlayerMovement();
-                holdingPlayer = true;
-                playerRigidbody.velocity = Vector3.zero;
-            }
-        }  
-    }
+            float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-    private void EnablePlayerMovement()
-    {
-        print("Player can move");
+            if(distanceToPlayer <= detectionRange && !holdingPlayer)
+            {
+                if(distanceToPlayer > centerRange)
+                {
+                    DragPlayer();
+                }else
+                {
+                    HoldPlayer();
+                    StartCoroutine(WaitAndTurnOff());
+                }
+            }  
+        }
     }
     
-    private void DisablePlayerPhysics()
+    private void HoldPlayer()
     {
-        playerRigidbody.velocity /= 1.2f;
-        playerRigidbody.bodyType = RigidbodyType2D.Kinematic;
+        holdingPlayer = true;
+
+        //Tell player to start hanging
     }
 
+    private IEnumerator WaitAndTurnOff()
+    {
+        yield return new WaitForSeconds(maxHangingTime);
+
+        //Tell player to stop hanging
+        active = false;
+        StartCoroutine(WaitAndResetPoint());
+    }
+
+    private IEnumerator WaitAndResetPoint()
+    {
+        yield return new WaitForSeconds(timeBeforeReset);
+        ResetPoint();
+    }
+
+    private void ResetPoint() {
+        active = true;
+    }
+    
     private void DragPlayer()
     {
         player.position = Vector2.MoveTowards(player.position, transform.position, dragSpeed * Time.deltaTime);

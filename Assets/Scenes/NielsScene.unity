@@ -252,13 +252,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1168843663}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beae1a9b69cd78741b2d09ab420a75f3, type: 3}
+  m_Script: {fileID: 11500000, guid: d6a241e8d5f2ebd438b8d7851adfaa34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1279893445}
-  detectionRange: 1
-  centerRange: 0.1
+  player: {fileID: 0}
+  active: 1
+  timeBeforeReset: 5
+  maxHangingTime: 2
+  detectionRange: 2
+  centerRange: 0.2
   dragSpeed: 3
+  holdingPlayer: 0
+  hangingPointType: 0
 --- !u!212 &1168843666
 SpriteRenderer:
   m_ObjectHideFlags: 0
