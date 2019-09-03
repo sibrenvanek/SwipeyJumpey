@@ -1,0 +1,28 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance;
+
+    [SerializeField]private Checkpoint latestCheckPoint = null;
+
+    private void Awake() {
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+
+    public void SetLatestCheckpoint(Checkpoint checkpoint)
+    {
+        latestCheckPoint = checkpoint;
+    }
+}
