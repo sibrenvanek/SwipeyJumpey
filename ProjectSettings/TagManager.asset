@@ -46,15 +46,21 @@ TagManager:
   - name: Background
     uniqueID: 266184249
     locked: 0
-  - name: Obstacles
+  - name: Obstacle
     uniqueID: 4090997045
     locked: 0
-  - name: Bouncepads
+  - name: Bouncepad
     uniqueID: 283659885
     locked: 0
-  - name: Star
+  - name: HangingPoint
     uniqueID: 2782694887
     locked: 0
   - name: Player
     uniqueID: 505967787
+    locked: 0
+  - name: Foreground
+    uniqueID: 1329887773
+    locked: 0
+  - name: Environment
+    uniqueID: 3823041237
     locked: 0
