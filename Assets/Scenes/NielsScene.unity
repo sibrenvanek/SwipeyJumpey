@@ -362,6 +362,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7036387252550545492, guid: b3624a3e7c9e50f468625a830be71147,
         type: 3}
+    - target: {fileID: 1946067523713256595, guid: f8a1a67ea9e524d4e9edce007c9e2311,
+        type: 3}
+      propertyPath: trajectoryPrediction
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8a1a67ea9e524d4e9edce007c9e2311, type: 3}
 --- !u!1 &1668377635 stripped
