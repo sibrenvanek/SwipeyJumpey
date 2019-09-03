@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 348436156}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: DeadZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -269,6 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   latestCheckPoint: {fileID: 0}
+  player: {fileID: 1668377636}
 --- !u!1001 &1668377634
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -375,6 +376,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1668377634}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1668377636 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6132433486888057015, guid: f8a1a67ea9e524d4e9edce007c9e2311,
+    type: 3}
+  m_PrefabInstance: {fileID: 1668377634}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668377635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 477f538b367ab744f962886b5095277e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &1668377637
 BoxCollider2D:
   m_ObjectHideFlags: 0
