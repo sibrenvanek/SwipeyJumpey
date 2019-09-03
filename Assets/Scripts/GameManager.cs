@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]private Checkpoint latestCheckPoint = null;
 
+    [SerializeField]private Player player = null;
+
     private void Awake() {
         if(Instance == null)
         {
@@ -24,5 +26,10 @@ public class GameManager : MonoBehaviour
     public void SetLatestCheckpoint(Checkpoint checkpoint)
     {
         latestCheckPoint = checkpoint;
+    }
+
+    public void ResetPlayerToCheckpoint()
+    {
+        player.transform.position = latestCheckPoint.transform.position;
     }
 }

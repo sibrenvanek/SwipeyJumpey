@@ -57,7 +57,10 @@ public class HangingPoint : MonoBehaviour
     public void TurnOff()
     {
         playerMovement.StopHang();
+        
         active = false;
+        holdingPlayer = false;
+
         if(isInfinite || resetCounter < maxResets)
         {
             StartCoroutine(WaitAndResetPoint());
