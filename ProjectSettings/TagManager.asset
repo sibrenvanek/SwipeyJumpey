@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 266184249
+    locked: 0
+  - name: Obstacles
+    uniqueID: 4090997045
+    locked: 0
+  - name: Bouncepads
+    uniqueID: 283659885
+    locked: 0
+  - name: Star
+    uniqueID: 2782694887
+    locked: 0
+  - name: Player
+    uniqueID: 505967787
+    locked: 0
