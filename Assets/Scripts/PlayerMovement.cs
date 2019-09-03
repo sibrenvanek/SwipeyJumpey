@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragJump : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     private Vector2 velocityToApply = new Vector2(0, 0);
     private Vector2 baseMousePosition = new Vector2(0, 0);
