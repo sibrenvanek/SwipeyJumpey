@@ -11,7 +11,7 @@ public enum HangingPointType
 
 public class HangingPoint : MonoBehaviour
 {
-    public Player player;
+    public PlayerMovement playerMovement;
     [SerializeField]private bool active = true;
     [SerializeField]private float timeBeforeReset = 5f;
     [SerializeField]private float maxHangingTime = 2f;
@@ -31,7 +31,7 @@ public class HangingPoint : MonoBehaviour
     private void Update() {
         if(active)
         {
-            float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+            float distanceToPlayer = Vector2.Distance(transform.position, playerMovement.transform.position);
 
             if(distanceToPlayer <= detectionRange && !holdingPlayer)
             {
@@ -51,12 +51,12 @@ public class HangingPoint : MonoBehaviour
     {
         holdingPlayer = true;
 
-        //Tell player to start hanging
+        playerMovement.StartHang(this);
     }
 
     public void TurnOff()
     {
-        //Tell player to stop hanging
+        playerMovement.StopHang();
         active = false;
         if(isInfinite || resetCounter < maxResets)
         {
@@ -87,6 +87,6 @@ public class HangingPoint : MonoBehaviour
     
     private void DragPlayer()
     {
-        player.transform.position = Vector2.MoveTowards(player.transform.position, transform.position, dragSpeed * Time.deltaTime);
+        playerMovement.transform.position = Vector2.MoveTowards(playerMovement.transform.position, transform.position, dragSpeed * Time.deltaTime);
     }
 }
