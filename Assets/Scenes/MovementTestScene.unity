@@ -337,6 +337,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7036387252550545492, guid: b3624a3e7c9e50f468625a830be71147,
         type: 3}
+    - target: {fileID: 1946067523713256595, guid: f8a1a67ea9e524d4e9edce007c9e2311,
+        type: 3}
+      propertyPath: trajectoryPrediction
+      value: 
+      objectReference: {fileID: 5012401861362606273, guid: ebe920b4e2f1a4f4c849c34d1992e44a,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8a1a67ea9e524d4e9edce007c9e2311, type: 3}
 --- !u!1 &1497540362

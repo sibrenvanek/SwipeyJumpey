@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public bool canJump = true;
     private Rigidbody2D rigidbody2d;
     [SerializeField] GameObject indicator;
-    private TrajectoryPrediction trajectoryPrediction;
+    [SerializeField] private TrajectoryPrediction trajectoryPrediction;
     private SpriteRenderer spriteRenderer;
 
     private HangingPoint currentHangingPoint = null;
@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        trajectoryPrediction = new TrajectoryPrediction(indicator);
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
