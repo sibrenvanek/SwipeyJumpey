@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
 
     private HangingPoint currentHangingPoint = null;
 
+    private bool dragging = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,37 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!canJump)
+            return;
+
+        if (Input.GetMouseButton(0))
+        {
+            if (!dragging)
+            {
+                baseMousePosition = Input.mousePosition;
+                dragging = true;
+            }
+
+            velocityToApply.x = (baseMousePosition.x - Input.mousePosition.x) / 5;
+            velocityToApply.y = (baseMousePosition.y - Input.mousePosition.y) / 5;
+            trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), velocityToApply, Physics2D.gravity, 20);
+            direction = baseMousePosition.x < Input.mousePosition.x;
+        }
+
+        if (!Input.GetMouseButton(0) && dragging)
+        {
+            if (currentHangingPoint != null)
+            {
+                currentHangingPoint.TurnOff();
+                currentHangingPoint = null;
+            }
+            rigidbody2d.velocity = Vector2.zero;
+            trajectoryPrediction.RemoveIndicators();
+            rigidbody2d.AddForce(velocityToApply, ForceMode2D.Impulse);
+            dragging = false;
+            DisableJump();
+        }
+
         spriteRenderer.flipX = direction;
     }
 
@@ -59,45 +92,5 @@ public class PlayerMovement : MonoBehaviour
     {
         rigidbody2d.bodyType = RigidbodyType2D.Kinematic;
         rigidbody2d.velocity = Vector3.zero;
-    }
-
-    // OnMouseDown is called when the player taps on the gameobject
-    private void OnMouseDown()
-    {
-        if(canJump)
-        {
-            baseMousePosition = Input.mousePosition;
-        }
-    }
-
-    // OnMouseDrag is called while the player is dragging across the screen
-    private void OnMouseDrag()
-    {
-        if(canJump)
-        {
-            velocityToApply.x = (baseMousePosition.x - Input.mousePosition.x) / 5;
-            velocityToApply.y = (baseMousePosition.y - Input.mousePosition.y) / 5;
-
-            trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), velocityToApply, Physics2D.gravity, 20);
-
-            direction = baseMousePosition.x < Input.mousePosition.x;
-        }
-    }
-
-    // OnMouseUp is called when the player stops holding the screen
-    private void OnMouseUp()
-    {
-        if(canJump)
-        {
-            if(currentHangingPoint != null)
-            {
-                currentHangingPoint.TurnOff();
-                currentHangingPoint = null;
-            }
-            rigidbody2d.velocity = Vector2.zero;
-            trajectoryPrediction.RemoveIndicators();
-            rigidbody2d.AddForce(velocityToApply, ForceMode2D.Impulse);
-            DisableJump();
-        }
     }
 }
