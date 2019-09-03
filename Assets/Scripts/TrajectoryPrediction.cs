@@ -9,11 +9,16 @@ public class TrajectoryPrediction : MonoBehaviour
     // List of the indicators that are currently active
     private List<GameObject> activeIndicators = new List<GameObject>();
 
-    // Update the current trajectory
-    private void UpdateTrajectory(Vector2 startPosition, Vector2 startVelocity, Vector2 gravity, int steps)
+    // Constructor
+    public TrajectoryPrediction(GameObject indicator)
     {
-        foreach (GameObject indicator in activeIndicators)
-            Destroy(indicator);
+        this.indicator = indicator;
+    }
+
+    // Update the current trajectory
+    public void UpdateTrajectory(Vector2 startPosition, Vector2 startVelocity, Vector2 gravity, int steps)
+    {
+        RemoveIndicators();
 
         Vector2[] points = PlotTrajectory(startPosition, startVelocity, gravity, steps);
 
@@ -26,12 +31,14 @@ public class TrajectoryPrediction : MonoBehaviour
     {
         List<Vector2> points = new List<Vector2>();
 
+        if (startVelocity.x == 0 && startVelocity.y == 0)
+            return points.ToArray();
+
         float velocity = startVelocity.magnitude;
         float gravityMagnitude = gravity.magnitude;
         float angle = Mathf.Atan(startVelocity.y / startVelocity.x);
-
-        float velocityX = Mathf.Cos(angle);
-        float velocityY = Mathf.Sin(angle);
+        float velocityX = (startVelocity.x < 0) ? Mathf.Cos(angle) * -1 : Mathf.Cos(angle);
+        float velocityY = (startVelocity.x < 0) ? Mathf.Sin(angle) * -1 : Mathf.Sin(angle);
 
         float timestep, timespend;
         timestep = timespend = 0.25f;
@@ -48,5 +55,12 @@ public class TrajectoryPrediction : MonoBehaviour
         }
 
         return points.ToArray();
+    }
+
+    // Remove all of the plotted points
+    public void RemoveIndicators()
+    {
+        foreach (GameObject indicator in activeIndicators)
+            Destroy(indicator);
     }
 }
