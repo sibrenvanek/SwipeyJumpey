@@ -33,7 +33,7 @@ public class HangingPoint : MonoBehaviour
     {
         if (active)
         {
-            float distanceToPlayer = Vector2.Distance (transform.position, playerMovement.transform.position);
+            float distanceToPlayer = Vector2.Distance(transform.position, playerMovement.transform.position);
 
             if (distanceToPlayer <= detectionRange && !holdingPlayer)
             {
@@ -43,8 +43,8 @@ public class HangingPoint : MonoBehaviour
                 }
                 else
                 {
-                    HoldPlayer ();
-                    StartCoroutine (WaitAndTurnOff ());
+                    HoldPlayer();
+                    StartCoroutine(WaitAndTurnOff());
                 }
             }
         }
@@ -54,10 +54,10 @@ public class HangingPoint : MonoBehaviour
     {
         holdingPlayer = true;
 
-        playerMovement.StartHang (this);
+        playerMovement.StartHang(this);
     }
 
-    public void TurnOff ()
+    public void TurnOff()
     {
         playerMovement.StopHang();
 
@@ -66,24 +66,24 @@ public class HangingPoint : MonoBehaviour
 
         if (isInfinite || resetCounter < maxResets)
         {
-            StartCoroutine (WaitAndResetPoint ());
+            StartCoroutine(WaitAndResetPoint());
         }
     }
 
-    private IEnumerator WaitAndTurnOff ()
+    private IEnumerator WaitAndTurnOff()
     {
-        yield return new WaitForSeconds (maxHangingTime);
+        yield return new WaitForSeconds(maxHangingTime);
 
         if (active)
         {
-            TurnOff ();
+            TurnOff();
         }
     }
 
-    private IEnumerator WaitAndResetPoint ()
+    private IEnumerator WaitAndResetPoint()
     {
-        yield return new WaitForSeconds (timeBeforeReset);
-        ResetPoint ();
+        yield return new WaitForSeconds(timeBeforeReset);
+        ResetPoint();
     }
 
     private void ResetPoint()
@@ -94,6 +94,6 @@ public class HangingPoint : MonoBehaviour
 
     private void DragPlayer()
     {
-        playerMovement.transform.position = Vector2.MoveTowards (playerMovement.transform.position, transform.position, dragSpeed * Time.deltaTime);
+        playerMovement.transform.position = Vector2.MoveTowards(playerMovement.transform.position, transform.position, dragSpeed * Time.deltaTime);
     }
 }
