@@ -37,6 +37,6 @@ public class GameManager : MonoBehaviour
 
     public void ResetPlayerToCheckpoint()
     {
-        player.transform.position = latestCheckPoint.transform.position;
+        player.transform.position = new Vector3(latestCheckPoint.transform.position.x, latestCheckPoint.transform.position.y + 0.2f);
     }
 }
