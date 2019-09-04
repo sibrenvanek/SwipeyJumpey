@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
                 currentHangingPoint.TurnOff();
                 currentHangingPoint = null;
             }
-            rigidbody2d.velocity = Vector2.zero;
+            KillVelocity();
             trajectoryPrediction.RemoveIndicators();
             rigidbody2d.AddForce(velocityToApply, ForceMode2D.Impulse);
             dragging = false;
@@ -89,6 +89,15 @@ public class PlayerMovement : MonoBehaviour
     private void DisablePhysics()
     {
         rigidbody2d.bodyType = RigidbodyType2D.Kinematic;
+        KillVelocity();
+    }
+
+    public void CancelJump()
+    {
+        dragging=false;
+    }
+
+    public void KillVelocity(){
         rigidbody2d.velocity = Vector3.zero;
     }
 }
