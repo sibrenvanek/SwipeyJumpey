@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
             direction = baseMousePosition.x < Input.mousePosition.x;
         }
 
-        if (!Input.GetMouseButton(0) && dragging)
+        if (!Input.GetMouseButton(0) && dragging && canJump)
         {
             if (currentHangingPoint != null)
             {
@@ -65,9 +65,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void StopHang()
     {
-        EnablePhysics();
         DisableJump();
-        trajectoryPrediction.RemoveIndicators();
+        EnablePhysics();
     }
 
     public void EnableJump()
@@ -77,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void DisableJump()
     {
+        dragging = false;
         canJump = false;
         trajectoryPrediction.RemoveIndicators();
     }

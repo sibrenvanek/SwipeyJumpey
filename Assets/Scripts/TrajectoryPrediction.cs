@@ -42,8 +42,7 @@ public class TrajectoryPrediction : MonoBehaviour
             Vector2 position;
             position.x = startPosition.x + velocity * timespend * velocityX;
             position.y = startPosition.y + velocity * timespend * velocityY - gravityMagnitude * Mathf.Pow(timespend, 2) / 2;
-            if (position.y < -5)
-                break;
+
             timespend += timestep;
             points.Add(position);
         }
