@@ -5,8 +5,8 @@ public class PlayerMovement : MonoBehaviour {
 	private Vector2 baseMousePosition = new Vector2 (0, 0);
 	private bool direction = false;
 	public bool canJump = true;
-	private Rigidbody2D rigidbody2d;
-	[SerializeField] private TrajectoryPrediction trajectoryPrediction;
+	private Rigidbody2D rigidbody2d = null;
+	[SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
 	private SpriteRenderer spriteRenderer;
 	private HangingPoint currentHangingPoint = null;
 	private bool dragging = false;
@@ -58,6 +58,7 @@ public class PlayerMovement : MonoBehaviour {
 	public void StopHang () {
 		EnablePhysics ();
 		DisableJump ();
+		trajectoryPrediction.RemoveIndicators ();
 	}
 
 	public void EnableJump () {
@@ -66,6 +67,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void DisableJump () {
 		canJump = false;
+		trajectoryPrediction.RemoveIndicators ();
 	}
 
 	private void EnablePhysics () {

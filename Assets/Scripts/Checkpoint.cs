@@ -8,12 +8,4 @@ public class Checkpoint : MonoBehaviour
     {
         GameManager.Instance.SetLatestCheckpoint(this);
     }
-
-    private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.CompareTag("Player"))
-        {
-            Check();
-            other.gameObject.GetComponent<PlayerMovement>().EnableJump();
-        }
-    }
 }

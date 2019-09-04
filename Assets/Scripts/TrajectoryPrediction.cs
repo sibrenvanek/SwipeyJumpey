@@ -4,7 +4,7 @@ using UnityEngine;
 public class TrajectoryPrediction : MonoBehaviour
 {
     // Indicator which will be placed at points along the predicted trajectory
-    [SerializeField] private GameObject indicator;
+    [SerializeField] private GameObject indicator = null;
 
     // List of the indicators that are currently active
     private List<GameObject> activeIndicators = new List<GameObject>();

@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 2906305162544773850}
   - component: {fileID: 6132433486888057015}
   - component: {fileID: 1946067523713256595}
-  - component: {fileID: -6217281434481864815}
+  - component: {fileID: 5844925875063857029}
+  - component: {fileID: 7929468682730686913}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -110,7 +111,33 @@ MonoBehaviour:
   canJump: 1
   trajectoryPrediction: {fileID: 5012401861362606273, guid: ebe920b4e2f1a4f4c849c34d1992e44a,
     type: 3}
---- !u!50 &-6217281434481864815
+--- !u!61 &5844925875063857029
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585780739684234313}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 0.04, y: 0.04}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!50 &7929468682730686913
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
