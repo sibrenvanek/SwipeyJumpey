@@ -1,1 +1,1 @@
-# swipyJumpy
+# Swipey Jumpey!
