@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private HangingPoint currentHangingPoint = null;
     private bool dragging = false;
+    [SerializeField] private float speedLimiter = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -33,8 +34,8 @@ public class PlayerMovement : MonoBehaviour
                 dragging = true;
             }
 
-            velocityToApply.x = (baseMousePosition.x - Input.mousePosition.x) / 5;
-            velocityToApply.y = (baseMousePosition.y - Input.mousePosition.y) / 5;
+            velocityToApply.x = (baseMousePosition.x - Input.mousePosition.x) / speedLimiter;
+            velocityToApply.y = (baseMousePosition.y - Input.mousePosition.y) / speedLimiter;
             trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), velocityToApply, Physics2D.gravity, 20);
             direction = baseMousePosition.x < Input.mousePosition.x;
         }
@@ -94,10 +95,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void CancelJump()
     {
-        dragging=false;
+        dragging = false;
     }
 
-    public void KillVelocity(){
+    public void KillVelocity()
+    {
         rigidbody2d.velocity = Vector3.zero;
     }
 }
