@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
 	private Vector2 velocityToApply = new Vector2 (0, 0);
 	private Vector2 baseMousePosition = new Vector2 (0, 0);
 	private bool direction = false;
@@ -12,18 +13,22 @@ public class PlayerMovement : MonoBehaviour {
 	private bool dragging = false;
 
 	// Start is called before the first frame update
-	void Start () {
+	void Start ()
+	{
 		rigidbody2d = GetComponent<Rigidbody2D> ();
 		spriteRenderer = GetComponent<SpriteRenderer> ();
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		if (!canJump)
 			return;
 
-		if (Input.GetMouseButton (0)) {
-			if (!dragging) {
+		if (Input.GetMouseButton (0))
+		{
+			if (!dragging)
+			{
 				baseMousePosition = Input.mousePosition;
 				dragging = true;
 			}
@@ -34,8 +39,10 @@ public class PlayerMovement : MonoBehaviour {
 			direction = baseMousePosition.x < Input.mousePosition.x;
 		}
 
-		if (!Input.GetMouseButton (0) && dragging) {
-			if (currentHangingPoint != null) {
+		if (!Input.GetMouseButton (0) && dragging)
+		{
+			if (currentHangingPoint != null)
+			{
 				currentHangingPoint.TurnOff ();
 				currentHangingPoint = null;
 			}
@@ -49,32 +56,38 @@ public class PlayerMovement : MonoBehaviour {
 		spriteRenderer.flipX = direction;
 	}
 
-	public void StartHang (HangingPoint hangingPoint) {
+	public void StartHang (HangingPoint hangingPoint)
+	{
 		currentHangingPoint = hangingPoint;
 		EnableJump ();
 		DisablePhysics ();
 	}
 
-	public void StopHang () {
+	public void StopHang ()
+	{
 		EnablePhysics ();
 		DisableJump ();
 		trajectoryPrediction.RemoveIndicators ();
 	}
 
-	public void EnableJump () {
+	public void EnableJump ()
+	{
 		canJump = true;
 	}
 
-	private void DisableJump () {
+	private void DisableJump ()
+	{
 		canJump = false;
 		trajectoryPrediction.RemoveIndicators ();
 	}
 
-	private void EnablePhysics () {
+	private void EnablePhysics ()
+	{
 		rigidbody2d.bodyType = RigidbodyType2D.Dynamic;
 	}
 
-	private void DisablePhysics () {
+	private void DisablePhysics ()
+	{
 		rigidbody2d.bodyType = RigidbodyType2D.Kinematic;
 		rigidbody2d.velocity = Vector3.zero;
 	}
