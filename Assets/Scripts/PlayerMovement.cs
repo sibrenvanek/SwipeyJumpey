@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 baseMousePosition = new Vector2(0, 0);
     public bool canJump = true;
     private bool dragging = false;
+    [SerializeField] private float speedLimiter = 10;
 
 
     /*************
@@ -74,8 +75,8 @@ public class PlayerMovement : MonoBehaviour
                 dragging = true;
             }
 
-            jumpVelocity.x = (baseMousePosition.x - Input.mousePosition.x) / 5;
-            jumpVelocity.y = (baseMousePosition.y - Input.mousePosition.y) / 5;
+            jumpVelocity.x = (baseMousePosition.x - Input.mousePosition.x) / speedLimiter;
+            jumpVelocity.y = (baseMousePosition.y - Input.mousePosition.y) / speedLimiter;
             trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity, 20);
             facingLeft = baseMousePosition.x < Input.mousePosition.x;
         }
