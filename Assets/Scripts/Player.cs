@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("SafeGround"))
         {
+            playerMovement.KillVelocity();
             playerMovement.EnableJump();
         }
     }
