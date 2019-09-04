@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
                 currentHangingPoint.TurnOff();
                 currentHangingPoint = null;
             }
-            rigidbody2d.velocity = Vector2.zero;
+            KillVelocity();
             trajectoryPrediction.RemoveIndicators();
             rigidbody2d.AddForce(velocityToApply, ForceMode2D.Impulse);
             dragging = false;
