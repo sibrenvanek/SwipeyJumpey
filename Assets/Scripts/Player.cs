@@ -14,10 +14,16 @@ public class Player : MonoBehaviour
 		if(other.gameObject.CompareTag("DeadZone"))
 		{
 			GameManager.Instance.ResetPlayerToCheckpoint();
-		}if(other.gameObject.CompareTag("Checkpoint"))
+		}else if (other.gameObject.CompareTag("SafeGround"))
+		{
+			playerMovement.EnableJump();
+		}
+	}
+
+	private void OnTriggerEnter2D(Collider2D other) {
+		if(other.gameObject.CompareTag("Checkpoint"))
 		{
 			other.gameObject.GetComponent<Checkpoint>().Check();
-			playerMovement.EnableJump();
 		}
 	}
 }
