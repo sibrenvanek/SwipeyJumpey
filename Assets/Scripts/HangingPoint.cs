@@ -24,12 +24,12 @@ public class HangingPoint : MonoBehaviour
     private bool isInfinite = false;
     private int resetCounter = 0;
 
-    private void Start ()
+    private void Start()
     {
         isInfinite = maxResets > 0 ? false : true;
     }
 
-    private void Update ()
+    private void Update()
     {
         if (active)
         {
@@ -39,7 +39,7 @@ public class HangingPoint : MonoBehaviour
             {
                 if (distanceToPlayer > centerRange)
                 {
-                    DragPlayer ();
+                    DragPlayer();
                 }
                 else
                 {
@@ -50,7 +50,7 @@ public class HangingPoint : MonoBehaviour
         }
     }
 
-    private void HoldPlayer ()
+    private void HoldPlayer()
     {
         holdingPlayer = true;
 
@@ -59,7 +59,7 @@ public class HangingPoint : MonoBehaviour
 
     public void TurnOff ()
     {
-        playerMovement.StopHang ();
+        playerMovement.StopHang();
 
         active = false;
         holdingPlayer = false;
@@ -86,13 +86,13 @@ public class HangingPoint : MonoBehaviour
         ResetPoint ();
     }
 
-    private void ResetPoint ()
+    private void ResetPoint()
     {
         active = true;
         resetCounter++;
     }
 
-    private void DragPlayer ()
+    private void DragPlayer()
     {
         playerMovement.transform.position = Vector2.MoveTowards (playerMovement.transform.position, transform.position, dragSpeed * Time.deltaTime);
     }
