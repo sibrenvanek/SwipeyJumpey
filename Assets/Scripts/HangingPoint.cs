@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +11,8 @@ public enum HangingPointType
 
 public class HangingPoint : MonoBehaviour
 {
-    public PlayerMovement playerMovement;
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerManager playerManager;
     [SerializeField] private bool active = true;
     [SerializeField] private float timeBeforeReset = 5f;
     [SerializeField] private float maxHangingTime = 2f;
@@ -33,7 +34,7 @@ public class HangingPoint : MonoBehaviour
     {
         if (active)
         {
-            float distanceToPlayer = Vector2.Distance(transform.position, playerMovement.transform.position);
+            float distanceToPlayer = Vector2.Distance(transform.position, playerManager.transform.position);
 
             if (distanceToPlayer <= detectionRange && !holdingPlayer)
             {
@@ -54,17 +55,17 @@ public class HangingPoint : MonoBehaviour
     {
         holdingPlayer = true;
 
-        //playerMovement.StartHang(this);
-        playerMovement.EnableJump();
-        playerMovement.DisablePhysics();
+        playerMovement.SetCanJump(true);
+        playerManager.DisablePhysics();
+        playerMovement.KillVelocity();
         playerMovement.SetHangingPoint(this);
     }
 
     public void TurnOff()
     {
-        //playerMovement.StopHang();
-        playerMovement.DisableJump();
-        playerMovement.EnablePhysics();
+        playerMovement.SetCanJump(false);
+        playerMovement.CancelJump();
+        playerManager.EnablePhysics();
 
         active = false;
         holdingPlayer = false;
@@ -99,6 +100,6 @@ public class HangingPoint : MonoBehaviour
 
     private void DragPlayer()
     {
-        playerMovement.transform.position = Vector2.MoveTowards(playerMovement.transform.position, transform.position, dragSpeed * Time.deltaTime);
+        playerManager.transform.position = Vector2.MoveTowards(playerManager.transform.position, transform.position, dragSpeed * Time.deltaTime);
     }
 }
