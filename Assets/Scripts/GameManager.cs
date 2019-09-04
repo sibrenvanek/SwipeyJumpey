@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Checkpoint latestCheckPoint = null;
 
     [SerializeField] private Player player = null;
+    [SerializeField] private float respawnYOffset = 0.2f;
 
     private void Awake()
     {
@@ -37,6 +38,6 @@ public class GameManager : MonoBehaviour
 
     public void ResetPlayerToCheckpoint()
     {
-        player.transform.position = latestCheckPoint.transform.position;
+        player.transform.position = new Vector3(latestCheckPoint.transform.position.x, latestCheckPoint.transform.position.y + respawnYOffset);
     }
 }
