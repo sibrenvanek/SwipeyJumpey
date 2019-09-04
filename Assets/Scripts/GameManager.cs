@@ -38,6 +38,10 @@ public class GameManager : MonoBehaviour
 
     public void ResetPlayerToCheckpoint()
     {
+        HangingPoint[] hangingpoints = FindObjectsOfType<HangingPoint>();
+        foreach(HangingPoint fuel in hangingpoints) {
+            fuel.ResetPoint();
+        }
         player.transform.position = new Vector3(latestCheckPoint.transform.position.x, latestCheckPoint.transform.position.y + respawnYOffset);
     }
 }

@@ -27,7 +27,7 @@ public class HangingPoint : MonoBehaviour
 
     private void Start()
     {
-        isInfinite = maxResets > 0 ? false : true;
+        isInfinite = !(maxResets > 0);
     }
 
     private void Update()
@@ -67,6 +67,8 @@ public class HangingPoint : MonoBehaviour
         playerMovement.CancelJump();
         playerManager.EnablePhysics();
 
+        playerMovement.RemoveHangingPoint();
+
         active = false;
         holdingPlayer = false;
 
@@ -92,7 +94,7 @@ public class HangingPoint : MonoBehaviour
         ResetPoint();
     }
 
-    private void ResetPoint()
+    public void ResetPoint()
     {
         active = true;
         resetCounter++;

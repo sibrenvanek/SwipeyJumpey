@@ -52,6 +52,12 @@ public class PlayerMovement : MonoBehaviour
         this.hangingPoint = hangingPoint;
     }
 
+    // reset the value of hangingpoint
+    public void RemoveHangingPoint()
+    {
+        hangingPoint = null;
+    }
+
     // Set the value for the canJump variable
     public void SetCanJump(bool canJump)
     {
