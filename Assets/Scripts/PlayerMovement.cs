@@ -1,16 +1,30 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Vector2 velocityToApply = new Vector2(0, 0);
-    private Vector2 baseMousePosition = new Vector2(0, 0);
-    private bool direction = false;
-    public bool canJump = true;
-    private Rigidbody2D rigidbody2d = null;
+    /*************
+     * VARIABLES *
+     *************/
+
+    /**General**/
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
+    private Rigidbody2D rigidbody2d = null;
     private SpriteRenderer spriteRenderer;
-    private HangingPoint currentHangingPoint = null;
+    private HangingPoint hangingPoint = null;
+    private bool facingLeft = false;
+
+    /**Jumping**/
+    private Vector2 jumpVelocity = new Vector2(0, 0);
+    private Vector2 baseMousePosition = new Vector2(0, 0);
+    private bool canJump = true;
     private bool dragging = false;
+    [SerializeField] private float speedLimiter = 10;
+
+    /*************
+     * FUNCTIONS *
+     *************/
+
+    /**General**/
 
     // Start is called before the first frame update
     void Start()
@@ -22,10 +36,43 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!canJump)
-            return;
+        HandleInput();
+        SetDirection();
+    }
 
+    // Set the direction the object is facing
+    private void SetDirection()
+    {
+        spriteRenderer.flipX = facingLeft;
+    }
+
+    // Set the value for the hanging point variable
+    public void SetHangingPoint(HangingPoint hangingPoint)
+    {
+        this.hangingPoint = hangingPoint;
+    }
+
+    // Set the value for the canJump variable
+    public void SetCanJump(bool canJump)
+    {
+        this.canJump = canJump;
+    }
+
+    /**Player Input**/
+
+    // Handle playerinput
+    private void HandleInput()
+    {
         if (Input.GetMouseButton(0))
+            HandleDrag();
+        else
+            HandleRelease();
+    }
+
+    // Handle the player dragging on the screen
+    private void HandleDrag()
+    {
+        if (Input.GetMouseButton(0) && canJump)
         {
             if (!dragging)
             {
@@ -33,62 +80,45 @@ public class PlayerMovement : MonoBehaviour
                 dragging = true;
             }
 
-            velocityToApply.x = (baseMousePosition.x - Input.mousePosition.x) / 5;
-            velocityToApply.y = (baseMousePosition.y - Input.mousePosition.y) / 5;
-            trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), velocityToApply, Physics2D.gravity, 20);
-            direction = baseMousePosition.x < Input.mousePosition.x;
+            jumpVelocity.x = (baseMousePosition.x - Input.mousePosition.x) / speedLimiter;
+            jumpVelocity.y = (baseMousePosition.y - Input.mousePosition.y) / speedLimiter;
+            trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity, 20);
+            facingLeft = baseMousePosition.x < Input.mousePosition.x;
         }
+    }
 
-        if (!Input.GetMouseButton(0) && dragging)
+    // Handle the player releasing their finger from the screen
+    private void HandleRelease()
+    {
+        if (!Input.GetMouseButton(0) && dragging && canJump)
         {
-            if (currentHangingPoint != null)
+            if (hangingPoint != null)
             {
-                currentHangingPoint.TurnOff();
-                currentHangingPoint = null;
+                hangingPoint.TurnOff();
+                hangingPoint = null;
             }
-            rigidbody2d.velocity = Vector2.zero;
+            KillVelocity();
             trajectoryPrediction.RemoveIndicators();
-            rigidbody2d.AddForce(velocityToApply, ForceMode2D.Impulse);
             dragging = false;
-            DisableJump();
+            canJump = false;
+            rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
         }
-
-        spriteRenderer.flipX = direction;
     }
 
-    public void StartHang(HangingPoint hangingPoint)
-    {
-        currentHangingPoint = hangingPoint;
-        EnableJump();
-        DisablePhysics();
-    }
+    /**Jumping**/
 
-    public void StopHang()
+    // Cancel any current jump plans
+    public void CancelJump()
     {
-        EnablePhysics();
-        DisableJump();
+        dragging = false;
         trajectoryPrediction.RemoveIndicators();
     }
 
-    public void EnableJump()
-    {
-        canJump = true;
-    }
+    /**Velocity**/
 
-    private void DisableJump()
+    // Set the current velocity of the player to zero
+    public void KillVelocity()
     {
-        canJump = false;
-        trajectoryPrediction.RemoveIndicators();
-    }
-
-    private void EnablePhysics()
-    {
-        rigidbody2d.bodyType = RigidbodyType2D.Dynamic;
-    }
-
-    private void DisablePhysics()
-    {
-        rigidbody2d.bodyType = RigidbodyType2D.Kinematic;
         rigidbody2d.velocity = Vector3.zero;
     }
 }
