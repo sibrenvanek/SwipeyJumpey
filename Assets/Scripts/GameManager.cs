@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Checkpoint latestCheckPoint = null;
 
-    [SerializeField] private Player player = null;
+    [SerializeField] private PlayerManager player = null;
     [SerializeField] private float respawnYOffset = 0.2f;
 
     private void Awake()
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<PlayerManager>();
     }
 
     public void SetLatestCheckpoint(Checkpoint checkpoint)

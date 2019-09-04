@@ -16,10 +16,9 @@ public class PlayerMovement : MonoBehaviour
     /**Jumping**/
     private Vector2 jumpVelocity = new Vector2(0, 0);
     private Vector2 baseMousePosition = new Vector2(0, 0);
-    public bool canJump = true;
+    private bool canJump = true;
     private bool dragging = false;
     [SerializeField] private float speedLimiter = 10;
-
 
     /*************
      * FUNCTIONS *
@@ -53,6 +52,12 @@ public class PlayerMovement : MonoBehaviour
         this.hangingPoint = hangingPoint;
     }
 
+    // Set the value for the canJump variable
+    public void SetCanJump(bool canJump)
+    {
+        this.canJump = canJump;
+    }
+
     /**Player Input**/
 
     // Handle playerinput
@@ -67,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
     // Handle the player dragging on the screen
     private void HandleDrag()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && canJump)
         {
             if (!dragging)
             {
@@ -94,27 +99,13 @@ public class PlayerMovement : MonoBehaviour
             }
             KillVelocity();
             trajectoryPrediction.RemoveIndicators();
-            rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
             dragging = false;
-            DisableJump();
+            canJump = false;
+            rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
         }
     }
 
     /**Jumping**/
-
-    // Set the canJump value to true
-    public void EnableJump()
-    {
-        canJump = true;
-    }
-
-    // Disable the jump and cancel any current plans
-    public void DisableJump()
-    {
-        dragging = false;
-        canJump = false;
-        trajectoryPrediction.RemoveIndicators();
-    }
 
     // Cancel any current jump plans
     public void CancelJump()
@@ -123,20 +114,7 @@ public class PlayerMovement : MonoBehaviour
         trajectoryPrediction.RemoveIndicators();
     }
 
-    /**Velocity&&Physics**/
-
-    // Enable the physics calculations
-    public void EnablePhysics()
-    {
-        rigidbody2d.bodyType = RigidbodyType2D.Dynamic;
-    }
-
-    // Disable the physics calculations
-    public void DisablePhysics()
-    {
-        rigidbody2d.bodyType = RigidbodyType2D.Kinematic;
-        KillVelocity();
-    }
+    /**Velocity**/
 
     // Set the current velocity of the player to zero
     public void KillVelocity()
