@@ -7,23 +7,26 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [SerializeField]private Checkpoint latestCheckPoint = null;
+    [SerializeField] private Checkpoint latestCheckPoint = null;
 
-    [SerializeField]private Player player = null;
+    [SerializeField] private Player player = null;
 
-    private void Awake() {
-        if(Instance == null)
+    private void Awake()
+    {
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-        }else
+        }
+        else
         {
             Destroy(gameObject);
             return;
         }
     }
 
-    private void Start() {
+    private void Start()
+    {
         player = FindObjectOfType<Player>();
     }
 
