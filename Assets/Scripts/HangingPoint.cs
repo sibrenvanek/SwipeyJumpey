@@ -54,12 +54,17 @@ public class HangingPoint : MonoBehaviour
     {
         holdingPlayer = true;
 
-        playerMovement.StartHang(this);
+        //playerMovement.StartHang(this);
+        playerMovement.EnableJump();
+        playerMovement.DisablePhysics();
+        playerMovement.SetHangingPoint(this);
     }
 
     public void TurnOff()
     {
-        playerMovement.StopHang();
+        //playerMovement.StopHang();
+        playerMovement.DisableJump();
+        playerMovement.EnablePhysics();
 
         active = false;
         holdingPlayer = false;
