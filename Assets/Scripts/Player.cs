@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("DeadZone"))
         {
+            playerMovement.CancelJump();
+            playerMovement.KillVelocity();
             GameManager.Instance.ResetPlayerToCheckpoint();
         }
         else if (other.gameObject.CompareTag("SafeGround"))
