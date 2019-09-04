@@ -17,10 +17,17 @@ public class Player : MonoBehaviour
         {
             GameManager.Instance.ResetPlayerToCheckpoint();
         }
+        else if (other.gameObject.CompareTag("SafeGround"))
+        {
+            playerMovement.EnableJump();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
         if (other.gameObject.CompareTag("Checkpoint"))
         {
             other.gameObject.GetComponent<Checkpoint>().Check();
-            playerMovement.EnableJump();
         }
     }
 }
