@@ -1,13 +1,21 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TrajectoryPrediction : MonoBehaviour
 {
-    // Indicator which will be placed at points along the predicted trajectory
-    [SerializeField] private GameObject indicator = null;
+    /*************
+     * VARIABLES *
+     *************/
 
-    // List of the indicators that are currently active
+    /**General**/
+    [SerializeField] private GameObject indicator = null;
     private List<GameObject> activeIndicators = new List<GameObject>();
+
+    /*************
+     * FUNCTIONS *
+     *************/
+
+    /**Trajectory**/
 
     // Update the current trajectory
     public void UpdateTrajectory(Vector2 startPosition, Vector2 startVelocity, Vector2 gravity, int steps)

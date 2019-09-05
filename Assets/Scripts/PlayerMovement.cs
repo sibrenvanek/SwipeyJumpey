@@ -58,6 +58,18 @@ public class PlayerMovement : MonoBehaviour
         this.canJump = canJump;
     }
 
+    // Get the velocity of the player object
+    public Vector2 GetVelocity()
+    {
+        return rigidbody2d.velocity;
+    }
+
+    // Add force to the player object
+    public void AddForce(Vector2 force, ForceMode2D forceMode2d)
+    {
+        rigidbody2d.AddForce(force, forceMode2d);
+    }
+
     /**Player Input**/
 
     // Handle playerinput
