@@ -59,6 +59,12 @@ TagManager:
   - name: Environment
     uniqueID: 3823041237
     locked: 0
+  - name: Safeground
+    uniqueID: 1975536553
+    locked: 0
+  - name: Fuel
+    uniqueID: 1768093043
+    locked: 0
   - name: Player
     uniqueID: 505967787
     locked: 0
