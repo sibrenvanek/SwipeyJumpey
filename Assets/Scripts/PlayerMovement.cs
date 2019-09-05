@@ -104,8 +104,8 @@ public class PlayerMovement : MonoBehaviour
             if (limiter <= 0)
                 limiter = 1;
 
-            jumpVelocity.x = (baseMousePosition.x - Input.mousePosition.x) / (speedLimiter - speedBoost);
-            jumpVelocity.y = (baseMousePosition.y - Input.mousePosition.y) / (speedLimiter - speedBoost);
+            jumpVelocity.x = (baseMousePosition.x - Input.mousePosition.x) / limiter;
+            jumpVelocity.y = (baseMousePosition.y - Input.mousePosition.y) / limiter;
             trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity, 20);
             facingLeft = baseMousePosition.x < Input.mousePosition.x;
         }
