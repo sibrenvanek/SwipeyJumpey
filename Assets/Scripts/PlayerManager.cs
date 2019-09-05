@@ -7,7 +7,7 @@ public class PlayerManager : MonoBehaviour
      *************/
 
     /**General**/
-    public Rigidbody2D rigidbody2d = null;
+    private Rigidbody2D rigidbody2d = null;
     private PlayerMovement playerMovement = null;
 
     /*************
