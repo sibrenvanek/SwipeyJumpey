@@ -71,6 +71,7 @@ public abstract class HangingPoint : MonoBehaviour
     {
         playerMovement.SetCanJump(false);
         playerMovement.CancelJump();
+        playerMovement.SetSpeedBoost(0);
         playerManager.EnablePhysics();
 
         active = false;
