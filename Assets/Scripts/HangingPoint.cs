@@ -25,8 +25,6 @@ public abstract class HangingPoint : MonoBehaviour
     [SerializeField] public float detectionRange = 2f;
     [SerializeField] public float centerRange = .2f;
     [SerializeField] public float dragSpeed = 3f;
-    [SerializeField] private float dragRange = 0.5f;
-    [SerializeField] private float minimalDraggingVelocity = 3f;
 
     /*************
      * FUNCTIONS *
