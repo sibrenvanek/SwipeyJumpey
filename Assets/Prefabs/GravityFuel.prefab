@@ -120,8 +120,8 @@ MonoBehaviour:
   maxHangingTime: 2
   holdingPlayer: 0
   maxResets: 0
-  detectionRange: 3
+  detectionRange: 2
   centerRange: 0.2
-  dragRange: 1
   dragSpeed: 3
+  dragRange: 1
   minimalDraggingVelocity: 3
