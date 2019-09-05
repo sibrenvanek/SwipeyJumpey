@@ -39,7 +39,7 @@ public class HangingPoint : MonoBehaviour
     [SerializeField] private float centerRange = .2f;
     [SerializeField] private float dragRange = 1f;
     [SerializeField] private float dragSpeed = 3f;
-    [SerializeField] private float minimalDraggingVelocity = 5f;
+    [SerializeField] private float minimalDraggingVelocity = 3f;
 
     /*************
      * FUNCTIONS *
@@ -77,8 +77,9 @@ public class HangingPoint : MonoBehaviour
                 HoldPlayer();
                 StartCoroutine(WaitAndTurnOff());
             }
-            else if (distanceToPlayer < dragRange && playerVelocity.x + playerVelocity.y < minimalDraggingVelocity)
+            else if (distanceToPlayer < dragRange && Mathf.Abs(playerVelocity.x + playerVelocity.y) < minimalDraggingVelocity)
             {
+                Debug.Log(playerVelocity.x + playerVelocity.y);
                 playerMovement.KillVelocity();
                 playerManager.transform.position = Vector2.MoveTowards(playerManager.transform.position, transform.position, dragSpeed * Time.deltaTime);
             }
@@ -104,11 +105,9 @@ public class HangingPoint : MonoBehaviour
     private void DragPlayer()
     {
         Vector2 force = Vector2.zero;
-
         force.x = transform.position.x - playerManager.transform.position.x;
         force.y = transform.position.y - playerManager.transform.position.y;
-
-        playerMovement.AddForce(force, ForceMode2D.Force);
+        playerMovement.AddForce(force * 15, ForceMode2D.Force);
     }
 
     /**HangingPoint**/
