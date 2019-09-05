@@ -1,43 +1,32 @@
 using System.Collections;
 using UnityEngine;
 
-/*********
- * ENUMS *
- *********/
-
-public enum HangingPointType
-{
-    Fuel,
-    ACouldHaveHangingPointType
-}
-
-public class HangingPoint : MonoBehaviour
+public abstract class HangingPoint : MonoBehaviour
 {
     /*************
      * VARIABLES *
      *************/
 
     /**General**/
-    [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private PlayerManager playerManager;
+    [SerializeField] public PlayerMovement playerMovement;
+    [SerializeField] public PlayerManager playerManager;
     private SpriteRenderer spriteRenderer;
 
     /**HangingPoint**/
-    [SerializeField] private bool active = true;
+    [SerializeField] public bool active = true;
     [SerializeField] private float timeBeforeReset = 5f;
     [SerializeField] private float maxHangingTime = 2f;
-    [SerializeField] private bool holdingPlayer = false;
-    [SerializeField] private HangingPointType hangingPointType;
+    [SerializeField] public bool holdingPlayer = false;
     [SerializeField] private int maxResets = 0; //0 is infinite
     private bool isInfinite = false;
     private int resetCounter = 0;
 
     /**Dragging**/
-    [SerializeField] private float detectionRange = 5f;
-    [SerializeField] private float centerRange = .2f;
-    [SerializeField] private float dragRange = 1f;
-    [SerializeField] private float dragSpeed = 3f;
-    [SerializeField] private float minimalDraggingVelocity = 3f;
+    [SerializeField] public float detectionRange = 2f;
+    [SerializeField] public float centerRange = .2f;
+    [SerializeField] public float dragRange = 0.5f;
+    [SerializeField] public float dragSpeed = 3f;
+    [SerializeField] public float minimalDraggingVelocity = 3f;
 
     /*************
      * FUNCTIONS *
@@ -61,52 +50,18 @@ public class HangingPoint : MonoBehaviour
     /**Dragging**/
 
     // Handle functionality related to dragging the player towards the gameobject
-    private void HandleDragging()
-    {
-        if (!active)
-            return;
-
-        float distanceToPlayer = Vector2.Distance(transform.position, playerManager.transform.position);
-        Vector2 playerVelocity = playerMovement.GetVelocity();
-
-        if (distanceToPlayer <= detectionRange && !holdingPlayer)
-        {
-            if (distanceToPlayer < centerRange)
-            {
-                HoldPlayer();
-                StartCoroutine(WaitAndTurnOff());
-            }
-            else if (distanceToPlayer < dragRange && Mathf.Abs(playerVelocity.x + playerVelocity.y) < minimalDraggingVelocity)
-            {
-                Debug.Log(playerVelocity.x + playerVelocity.y);
-                playerMovement.KillVelocity();
-                playerManager.transform.position = Vector2.MoveTowards(playerManager.transform.position, transform.position, dragSpeed * Time.deltaTime);
-            }
-            else
-            {
-                DragPlayer();
-            }
-        }
-    }
+    public virtual void HandleDragging() { }
 
     // Hold the player object at the point and freeze its position
-    private void HoldPlayer()
+    public void HoldPlayer()
     {
+        Debug.Log("HEY");
         holdingPlayer = true;
 
         playerMovement.SetCanJump(true);
         playerManager.DisablePhysics();
         playerMovement.KillVelocity();
         playerMovement.SetHangingPoint(this);
-    }
-
-    // Drag the player towards the object by applying force in the direction
-    private void DragPlayer()
-    {
-        Vector2 force = Vector2.zero;
-        force.x = transform.position.x - playerManager.transform.position.x;
-        force.y = transform.position.y - playerManager.transform.position.y;
-        playerMovement.AddForce(force * 15, ForceMode2D.Force);
     }
 
     /**HangingPoint**/
@@ -128,7 +83,7 @@ public class HangingPoint : MonoBehaviour
     }
 
     // Wait for the maximum allowed hangingtime and then turn the point off
-    private IEnumerator WaitAndTurnOff()
+    public IEnumerator WaitAndTurnOff()
     {
         float wait = maxHangingTime / 20;
         
