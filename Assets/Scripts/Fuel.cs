@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class Fuel : HangingPoint
 {
+    /*************
+     * FUNCTIONS *
+     *************/
+
     /**Dragging**/
 
     // Handle functionality related to dragging the player towards the gameobject

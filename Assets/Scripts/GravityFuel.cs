@@ -2,9 +2,17 @@ using UnityEngine;
 
 public class GravityFuel : HangingPoint
 {
+    /*************
+     * VARIABLES *
+     *************/
+
     /**Dragging**/
     [SerializeField] private float dragRange = 0.5f;
     [SerializeField] private float minimalDraggingVelocity = 3f;
+
+    /*************
+     * FUNCTIONS *
+     *************/
 
     /**Dragging**/
 
