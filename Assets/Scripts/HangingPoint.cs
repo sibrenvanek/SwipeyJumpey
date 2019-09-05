@@ -18,12 +18,10 @@ public class HangingPoint : MonoBehaviour
      *************/
 
     /**General**/
-
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerManager playerManager;
 
     /**HangingPoint**/
-
     [SerializeField] private bool active = true;
     [SerializeField] private float timeBeforeReset = 5f;
     [SerializeField] private float maxHangingTime = 2f;
