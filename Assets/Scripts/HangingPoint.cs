@@ -68,6 +68,7 @@ public class HangingPoint : MonoBehaviour
             return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, playerManager.transform.position);
+        Vector2 playerVelocity = playerMovement.GetVelocity();
 
         if (distanceToPlayer <= detectionRange && !holdingPlayer)
         {
@@ -76,7 +77,7 @@ public class HangingPoint : MonoBehaviour
                 HoldPlayer();
                 StartCoroutine(WaitAndTurnOff());
             }
-            else if (distanceToPlayer < dragRange && playerManager.rigidbody2d.velocity.x + playerManager.rigidbody2d.velocity.y < minimalDraggingVelocity)
+            else if (distanceToPlayer < dragRange && playerVelocity.x + playerVelocity.y < minimalDraggingVelocity)
             {
                 playerMovement.KillVelocity();
                 playerManager.transform.position = Vector2.MoveTowards(playerManager.transform.position, transform.position, dragSpeed * Time.deltaTime);
@@ -107,7 +108,7 @@ public class HangingPoint : MonoBehaviour
         force.x = transform.position.x - playerManager.transform.position.x;
         force.y = transform.position.y - playerManager.transform.position.y;
 
-        playerManager.rigidbody2d.AddForce(force * 15, ForceMode2D.Force);
+        playerMovement.AddForce(force, ForceMode2D.Force);
     }
 
     /**HangingPoint**/
