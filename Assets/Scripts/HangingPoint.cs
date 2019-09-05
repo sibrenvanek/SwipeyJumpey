@@ -20,6 +20,7 @@ public class HangingPoint : MonoBehaviour
     /**General**/
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerManager playerManager;
+    private SpriteRenderer spriteRenderer;
 
     /**HangingPoint**/
     [SerializeField] private bool active = true;
@@ -32,7 +33,6 @@ public class HangingPoint : MonoBehaviour
     private int resetCounter = 0;
 
     /**Dragging**/
-
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private float centerRange = .2f;
     [SerializeField] private float dragRange = 1f;
@@ -48,6 +48,7 @@ public class HangingPoint : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        spriteRenderer = this.GetComponent<SpriteRenderer>();
         isInfinite = maxResets > 0 ? false : true;
     }
 
@@ -129,7 +130,15 @@ public class HangingPoint : MonoBehaviour
     // Wait for the maximum allowed hangingtime and then turn the point off
     private IEnumerator WaitAndTurnOff()
     {
-        yield return new WaitForSeconds(maxHangingTime);
+        float wait = maxHangingTime / 20;
+        
+        while (spriteRenderer.color.a > 0)
+        {
+             Color color = spriteRenderer.color;
+             color.a -= 0.05f;
+             spriteRenderer.color = color;
+            yield return new WaitForSeconds(wait);
+        }
 
         if (active)
         {
@@ -147,6 +156,9 @@ public class HangingPoint : MonoBehaviour
     // Set the point active and reset the counter
     private void ResetPoint()
     {
+        Color color = spriteRenderer.color;
+        color.a = 1;
+        spriteRenderer.color = color;
         active = true;
         resetCounter++;
     }
