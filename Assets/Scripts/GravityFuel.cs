@@ -3,13 +3,14 @@ using UnityEngine;
 public class GravityFuel : HangingPoint
 {
     /**Dragging**/
+    [SerializeField] private float dragRange = 0.5f;
+    [SerializeField] private float minimalDraggingVelocity = 3f;
+
+    /**Dragging**/
 
     // Handle functionality related to dragging the player towards the gameobject
     public override void HandleDragging()
     {
-        if (!active)
-            return;
-
         float distanceToPlayer = Vector2.Distance(transform.position, playerManager.transform.position);
         Vector2 playerVelocity = playerMovement.GetVelocity();
 

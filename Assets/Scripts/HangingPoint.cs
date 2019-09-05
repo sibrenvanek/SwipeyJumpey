@@ -13,7 +13,7 @@ public abstract class HangingPoint : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     /**HangingPoint**/
-    [SerializeField] public bool active = true;
+    [SerializeField] private bool active = true;
     [SerializeField] private float timeBeforeReset = 5f;
     [SerializeField] private float maxHangingTime = 2f;
     [SerializeField] public bool holdingPlayer = false;
@@ -24,9 +24,9 @@ public abstract class HangingPoint : MonoBehaviour
     /**Dragging**/
     [SerializeField] public float detectionRange = 2f;
     [SerializeField] public float centerRange = .2f;
-    [SerializeField] public float dragRange = 0.5f;
     [SerializeField] public float dragSpeed = 3f;
-    [SerializeField] public float minimalDraggingVelocity = 3f;
+    [SerializeField] private float dragRange = 0.5f;
+    [SerializeField] private float minimalDraggingVelocity = 3f;
 
     /*************
      * FUNCTIONS *
@@ -44,6 +44,9 @@ public abstract class HangingPoint : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (!active)
+            return;
+
         HandleDragging();
     }
 
@@ -55,7 +58,6 @@ public abstract class HangingPoint : MonoBehaviour
     // Hold the player object at the point and freeze its position
     public void HoldPlayer()
     {
-        Debug.Log("HEY");
         holdingPlayer = true;
 
         playerMovement.SetCanJump(true);

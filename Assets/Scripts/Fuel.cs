@@ -7,9 +7,6 @@ public class Fuel : HangingPoint
     // Handle functionality related to dragging the player towards the gameobject
     public override void HandleDragging()
     {
-        if (!active)
-            return;
-
         float distanceToPlayer = Vector2.Distance(transform.position, playerMovement.transform.position);
 
         if (distanceToPlayer <= detectionRange && !holdingPlayer)
