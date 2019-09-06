@@ -110,10 +110,6 @@ public class PlayerMovement : MonoBehaviour
         Vector3 mousePoint = mainCamera.ScreenToWorldPoint(lastMousePosition);
         mousePoint.z = transform.position.z;
 
-        Debug.Log(mousePoint);
-        Debug.Log(transform.position);
-        Debug.Log(Vector2.Distance(transform.position, mousePoint));
-
         if (Vector2.Distance(transform.position, mousePoint) < maximumCancelDistance)
         {
             CancelJump();
