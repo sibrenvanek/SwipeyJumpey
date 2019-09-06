@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private bool grounded = false;
 
     /**Jumping**/
+    [SerializeField] private Vector2 maxVelocity = Vector2.zero;
     private Vector2 jumpVelocity = new Vector2(0, 0);
     private Vector2 baseMousePosition = new Vector2(0, 0);
     private bool jumpAvailable = true;
@@ -89,9 +90,10 @@ public class PlayerMovement : MonoBehaviour
             if (limiter <= 0)
                 limiter = 1;
 
-            jumpVelocity.x = (baseMousePosition.x - Input.mousePosition.x) / limiter;
-            jumpVelocity.y = (baseMousePosition.y - Input.mousePosition.y) / limiter;
-            trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, 20);
+            jumpVelocity.x = Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / limiter, -maxVelocity.x, maxVelocity.x);
+            jumpVelocity.y = Mathf.Clamp((baseMousePosition.y - Input.mousePosition.y) / limiter, -maxVelocity.y, maxVelocity.y);
+            
+            //trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, 20);
             facingLeft = baseMousePosition.x < Input.mousePosition.x;
         }
     }
@@ -103,9 +105,10 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpAvailable = false;
             KillVelocity();
-            trajectoryPrediction.RemoveIndicators();
+            //trajectoryPrediction.RemoveIndicators();
             speedBoost = 0;
             dragging = false;
+            slowMotion.Cancel();
             rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
             Jump();
             grounded = false;

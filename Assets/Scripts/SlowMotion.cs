@@ -21,7 +21,7 @@ public class SlowMotion : MonoBehaviour
         playerManager = GetComponent<PlayerManager>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (doingSlowmotion)
         {
