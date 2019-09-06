@@ -52,6 +52,7 @@ public class PlayerManager : MonoBehaviour
         {
             playerMovement.KillVelocity();
             playerMovement.SetJumpAvailable(true);
+            playerMovement.SetGrounded(true);
         }
     }
 
