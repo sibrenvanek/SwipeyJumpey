@@ -129,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
                 hangingPoint.TurnOff();
                 hangingPoint = null;
             }
-            slowMotion.cancel();
+            slowMotion.Cancel();
             trajectoryPrediction.RemoveIndicators();
             speedBoost = 0;
             dragging = false;

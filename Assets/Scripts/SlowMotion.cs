@@ -58,10 +58,8 @@ public class SlowMotion : MonoBehaviour
 
     private void SlowTime()
     {
-        float newX = Mathf.Clamp(playerRigidbody.velocity.x - (slowSpeed * Time.deltaTime), goalVelocity.x, oldVelocity.x);
-        float newY = Mathf.Clamp(playerRigidbody.velocity.y - (slowSpeed * Time.deltaTime), goalVelocity.y, oldVelocity.y);
-
-        playerRigidbody.velocity = new Vector2(newX, newY);
+        playerRigidbody.velocity *= slowSpeed;
+        print(playerRigidbody.velocity);
     }
 
     private void ResetTime()
