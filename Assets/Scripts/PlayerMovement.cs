@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rigidbody2d = null;
     private SpriteRenderer spriteRenderer;
     private bool facingLeft = false;
+    private bool grounded = false;
 
     /**Jumping**/
     private Vector2 jumpVelocity = new Vector2(0, 0);
@@ -79,7 +80,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 baseMousePosition = Input.mousePosition;
                 dragging = true;
-                slowMotion.Go();
+                if (!grounded)
+                  slowMotion.Go();
             }
 
             float limiter = speedLimiter - speedBoost;
@@ -105,9 +107,15 @@ public class PlayerMovement : MonoBehaviour
             speedBoost = 0;
             dragging = false;
             rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
-            slowMotion.Cancel();
             Jump();
+            grounded = false;
         }
+    }
+
+    // Set the value of the grounded variable
+    public void SetGrounded(bool grounded)
+    {
+        this.grounded = grounded;
     }
 
     /**Jumping**/
