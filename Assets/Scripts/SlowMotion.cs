@@ -67,8 +67,11 @@ public class SlowMotion : MonoBehaviour
 
     private void ResetTime()
     {
-        doingSlowmotion = false;
-        playerManager.EnablePhysics();
+        if(doingSlowmotion)
+        {
+            doingSlowmotion = false;
+            playerManager.EnablePhysics();
+        }
     }
 
 }
