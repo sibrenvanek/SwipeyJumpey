@@ -10,16 +10,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     private Rigidbody2D rigidbody2d = null;
     private SpriteRenderer spriteRenderer;
-    private HangingPoint hangingPoint = null;
     private bool facingLeft = false;
 
     /**Jumping**/
     private Vector2 jumpVelocity = new Vector2(0, 0);
     private Vector2 baseMousePosition = new Vector2(0, 0);
-    private bool canJump = true;
+    private bool freeJump = true;
     private bool dragging = false;
     [SerializeField] private float speedLimiter = 20;
     private float speedBoost = 0f;
+    private int jumps = 0;
 
     /*************
      * FUNCTIONS *
@@ -47,34 +47,10 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer.flipX = facingLeft;
     }
 
-    // Set the value for the hanging point variable
-    public void SetHangingPoint(HangingPoint hangingPoint)
+    // Set the value for the freeJump variable
+    public void SetFreeJump(bool freeJump)
     {
-        this.hangingPoint = hangingPoint;
-    }
-
-    // Set the value for the canJump variable
-    public void SetCanJump(bool canJump)
-    {
-        this.canJump = canJump;
-    }
-
-    // Get the velocity of the player object
-    public Vector2 GetVelocity()
-    {
-        return rigidbody2d.velocity;
-    }
-
-    // Add force to the player object
-    public void AddForce(Vector2 force, ForceMode2D forceMode2d)
-    {
-        rigidbody2d.AddForce(force, forceMode2d);
-    }
-
-    // Set the value for the speedboost variable
-    public void SetSpeedBoost(float speedBoost)
-    {
-        this.speedBoost = speedBoost;
+        this.freeJump = freeJump;
     }
 
     /**Player Input**/
@@ -91,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
     // Handle the player dragging on the screen
     private void HandleDrag()
     {
-        if (Input.GetMouseButton(0) && canJump)
+        if (Input.GetMouseButton(0) && (freeJump || jumps > 0))
         {
             if (!dragging)
             {
@@ -114,18 +90,17 @@ public class PlayerMovement : MonoBehaviour
     // Handle the player releasing their finger from the screen
     private void HandleRelease()
     {
-        if (!Input.GetMouseButton(0) && dragging && canJump)
+        if (!Input.GetMouseButton(0) && dragging && (freeJump || jumps > 0))
         {
-            if (hangingPoint != null)
-            {
-                hangingPoint.TurnOff();
-                hangingPoint = null;
-            }
+            if (freeJump)
+                freeJump = false;
+            else
+                jumps--;
+
             KillVelocity();
             trajectoryPrediction.RemoveIndicators();
             speedBoost = 0;
             dragging = false;
-            canJump = false;
             rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
         }
     }
@@ -145,5 +120,17 @@ public class PlayerMovement : MonoBehaviour
     public void KillVelocity()
     {
         rigidbody2d.velocity = Vector3.zero;
+    }
+
+    /**Collisions**/
+
+    // OnTriggerEnter is called when a collision with a trigger occurs
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Fuel"))
+        {
+            jumps++;
+            Destroy(collision.gameObject);
+        }
     }
 }
