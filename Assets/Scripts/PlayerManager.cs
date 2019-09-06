@@ -51,7 +51,7 @@ public class PlayerManager : MonoBehaviour
         else if (other.gameObject.CompareTag("SafeGround"))
         {
             playerMovement.KillVelocity();
-            playerMovement.SetFreeJump(true);
+            playerMovement.SetJumpAvailable(true);
         }
     }
 
