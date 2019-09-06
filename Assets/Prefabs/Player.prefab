@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2906305162544773850}
   - component: {fileID: 6132433486888057015}
   - component: {fileID: 1946067523713256595}
+  - component: {fileID: 4857256654572397243}
   - component: {fileID: 7929468682730686913}
   - component: {fileID: 7167695845223043636}
   - component: {fileID: 7746442083131123663}
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 505967787
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 37d8b1b49003243d8a4bd7cb86964370, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -111,7 +112,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trajectoryPrediction: {fileID: 5012401861362606273, guid: ebe920b4e2f1a4f4c849c34d1992e44a,
     type: 3}
+  slowMotion: {fileID: 4857256654572397243}
   speedLimiter: 10
+--- !u!114 &4857256654572397243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585780739684234313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 884c9cb96f4d2f049a4b478af92c96c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &7929468682730686913
 Rigidbody2D:
   serializedVersion: 4
