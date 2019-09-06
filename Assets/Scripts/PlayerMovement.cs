@@ -18,7 +18,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 baseMousePosition = new Vector2(0, 0);
     private bool canJump = true;
     private bool dragging = false;
-    [SerializeField] private float speedLimiter = 10;
+    [SerializeField] private float speedLimiter = 20;
+    private float speedBoost = 0f;
 
     /*************
      * FUNCTIONS *
@@ -64,6 +65,24 @@ public class PlayerMovement : MonoBehaviour
         this.canJump = canJump;
     }
 
+    // Get the velocity of the player object
+    public Vector2 GetVelocity()
+    {
+        return rigidbody2d.velocity;
+    }
+
+    // Add force to the player object
+    public void AddForce(Vector2 force, ForceMode2D forceMode2d)
+    {
+        rigidbody2d.AddForce(force, forceMode2d);
+    }
+
+    // Set the value for the speedboost variable
+    public void SetSpeedBoost(float speedBoost)
+    {
+        this.speedBoost = speedBoost;
+    }
+
     /**Player Input**/
 
     // Handle playerinput
@@ -86,8 +105,13 @@ public class PlayerMovement : MonoBehaviour
                 dragging = true;
             }
 
-            jumpVelocity.x = (baseMousePosition.x - Input.mousePosition.x) / speedLimiter;
-            jumpVelocity.y = (baseMousePosition.y - Input.mousePosition.y) / speedLimiter;
+            float limiter = speedLimiter - speedBoost;
+
+            if (limiter <= 0)
+                limiter = 1;
+
+            jumpVelocity.x = (baseMousePosition.x - Input.mousePosition.x) / limiter;
+            jumpVelocity.y = (baseMousePosition.y - Input.mousePosition.y) / limiter;
             trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity, 20);
             facingLeft = baseMousePosition.x < Input.mousePosition.x;
         }
@@ -105,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
             }
             KillVelocity();
             trajectoryPrediction.RemoveIndicators();
+            speedBoost = 0;
             dragging = false;
             canJump = false;
             rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);

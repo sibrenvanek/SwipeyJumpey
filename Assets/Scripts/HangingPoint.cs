@@ -1,57 +1,60 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public enum HangingPointType
+public abstract class HangingPoint : MonoBehaviour
 {
-    Fuel,
-    ACouldHaveHangingPointType
-}
+    /*************
+     * VARIABLES *
+     *************/
 
-public class HangingPoint : MonoBehaviour
-{
-    [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private PlayerManager playerManager;
+    /**General**/
+    [SerializeField] public PlayerMovement playerMovement;
+    [SerializeField] public PlayerManager playerManager;
+    private SpriteRenderer spriteRenderer;
+
+    /**HangingPoint**/
     [SerializeField] private bool active = true;
     [SerializeField] private float timeBeforeReset = 5f;
     [SerializeField] private float maxHangingTime = 2f;
-    [SerializeField] private float detectionRange = 2f;
-    [SerializeField] private float centerRange = .2f;
-    [SerializeField] private float dragSpeed = 3f;
-    [SerializeField] private bool holdingPlayer = false;
-    [SerializeField] private HangingPointType hangingPointType;
+    [SerializeField] public bool holdingPlayer = false;
     [SerializeField] private int maxResets = 0; //0 is infinite
     private bool isInfinite = false;
     private int resetCounter = 0;
 
+    /**Dragging**/
+    [SerializeField] public float detectionRange = 2f;
+    [SerializeField] public float centerRange = .2f;
+    [SerializeField] public float dragSpeed = 3f;
+
+    /*************
+     * FUNCTIONS *
+     *************/
+
+    /**General**/
+
+    // Start is called before the first frame update
     private void Start()
     {
+        spriteRenderer = this.GetComponent<SpriteRenderer>();
         isInfinite = !(maxResets > 0);
     }
 
+    // Update is called once per frame
     private void Update()
     {
-        if (active)
-        {
-            float distanceToPlayer = Vector2.Distance(transform.position, playerManager.transform.position);
+        if (!active)
+            return;
 
-            if (distanceToPlayer <= detectionRange && !holdingPlayer)
-            {
-                if (distanceToPlayer > centerRange)
-                {
-                    DragPlayer();
-                }
-                else
-                {
-                    HoldPlayer();
-                    StartCoroutine(WaitAndTurnOff());
-                }
-            }
-        }
+        HandleDragging();
     }
 
-    private void HoldPlayer()
+    /**Dragging**/
+
+    // Handle functionality related to dragging the player towards the gameobject
+    public virtual void HandleDragging() { }
+
+    // Hold the player object at the point and freeze its position
+    public void HoldPlayer()
     {
         holdingPlayer = true;
 
@@ -61,10 +64,14 @@ public class HangingPoint : MonoBehaviour
         playerMovement.SetHangingPoint(this);
     }
 
+    /**HangingPoint**/
+
+    // Turn the hangingpoint off
     public void TurnOff()
     {
         playerMovement.SetCanJump(false);
         playerMovement.CancelJump();
+        playerMovement.SetSpeedBoost(0);
         playerManager.EnablePhysics();
 
         playerMovement.RemoveHangingPoint();
@@ -78,9 +85,18 @@ public class HangingPoint : MonoBehaviour
         }
     }
 
-    private IEnumerator WaitAndTurnOff()
+    // Wait for the maximum allowed hangingtime and then turn the point off
+    public IEnumerator WaitAndTurnOff()
     {
-        yield return new WaitForSeconds(maxHangingTime);
+        float wait = maxHangingTime / 20;
+        
+        while (spriteRenderer.color.a > 0)
+        {
+             Color color = spriteRenderer.color;
+             color.a -= 0.05f;
+             spriteRenderer.color = color;
+            yield return new WaitForSeconds(wait);
+        }
 
         if (active)
         {
@@ -88,20 +104,20 @@ public class HangingPoint : MonoBehaviour
         }
     }
 
+    // Wait and reset the point
     private IEnumerator WaitAndResetPoint()
     {
         yield return new WaitForSeconds(timeBeforeReset);
         ResetPoint();
     }
 
+    // Set the point active and reset the counter
     public void ResetPoint()
     {
+        Color color = spriteRenderer.color;
+        color.a = 1;
+        spriteRenderer.color = color;
         active = true;
         resetCounter++;
-    }
-
-    private void DragPlayer()
-    {
-        playerManager.transform.position = Vector2.MoveTowards(playerManager.transform.position, transform.position, dragSpeed * Time.deltaTime);
     }
 }
