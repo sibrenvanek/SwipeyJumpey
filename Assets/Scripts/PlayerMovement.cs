@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     /**General**/
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
+    [SerializeField] private SlowMotion slowMotion = null;
     private Rigidbody2D rigidbody2d = null;
     private SpriteRenderer spriteRenderer;
     private bool facingLeft = false;
@@ -17,8 +19,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 baseMousePosition = new Vector2(0, 0);
     private bool jumpAvailable = true;
     private bool dragging = false;
-    [SerializeField] private float speedLimiter = 20;
+    [SerializeField] private float speedLimiter = 20f;
     private float speedBoost = 0f;
+    private float defaultGravity = 0f;
+    [SerializeField] private float dashSpeedReduction = 1.5f;
+    [SerializeField] private float dashTime = 0.2f;
+    [SerializeField] private float gravityReduction = 5f;
 
     /*************
      * FUNCTIONS *
@@ -31,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        defaultGravity = rigidbody2d.gravityScale;
     }
 
     // Update is called once per frame
@@ -72,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 baseMousePosition = Input.mousePosition;
                 dragging = true;
+                slowMotion.Go();
             }
 
             float limiter = speedLimiter - speedBoost;
@@ -97,6 +105,8 @@ public class PlayerMovement : MonoBehaviour
             speedBoost = 0;
             dragging = false;
             rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
+            slowMotion.Cancel();
+            Jump();
         }
     }
 
@@ -107,6 +117,22 @@ public class PlayerMovement : MonoBehaviour
     {
         dragging = false;
         trajectoryPrediction.RemoveIndicators();
+    }
+
+    // Make the player character jump
+    private void Jump()
+    {
+        KillVelocity();
+        StartCoroutine(ReduceGravity());
+        rigidbody2d.AddForce(jumpVelocity / dashSpeedReduction, ForceMode2D.Impulse);
+    }
+
+    // Temporarily reduce the gravityscale
+    private IEnumerator ReduceGravity()
+    {
+        rigidbody2d.gravityScale = defaultGravity / gravityReduction;
+        yield return new WaitForSeconds(dashTime);
+        rigidbody2d.gravityScale = defaultGravity;
     }
 
     /**Velocity**/
