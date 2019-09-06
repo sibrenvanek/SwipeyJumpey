@@ -519,31 +519,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7929468682730686913, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7929468682730686913, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: m_GravityScale
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4857256654572397243, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: slowSpeed
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 4857256654572397243, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: slowMotionDuration
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4857256654572397243, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: minVelocityInPercent
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8a1a67ea9e524d4e9edce007c9e2311, type: 3}
 --- !u!1001 &1503895380
