@@ -5,6 +5,7 @@ using UnityEngine;
 public class SlowMotion : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D playerRigidbody = null;
+    [SerializeField] private PlayerManager playerManager = null;
     [SerializeField] private float slowSpeed = .9f;
     [SerializeField] private float slowMotionDuration = 2f;
     [SerializeField] private float minVelocityInPercent = 10f;
@@ -17,9 +18,10 @@ public class SlowMotion : MonoBehaviour
     private void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
+        playerManager = GetComponent<PlayerManager>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (doingSlowmotion)
         {
@@ -39,6 +41,8 @@ public class SlowMotion : MonoBehaviour
 
     private IEnumerator StartSlowMotionSequence()
     {
+        playerManager.DisablePhysics();
+
         oldVelocity = playerRigidbody.velocity;
         goalVelocity = CalculateVelocityGoal();
         doingSlowmotion = true;
@@ -59,12 +63,12 @@ public class SlowMotion : MonoBehaviour
     private void SlowTime()
     {
         playerRigidbody.velocity *= slowSpeed;
-        print(playerRigidbody.velocity);
     }
 
     private void ResetTime()
     {
         doingSlowmotion = false;
+        playerManager.EnablePhysics();
     }
 
 }
