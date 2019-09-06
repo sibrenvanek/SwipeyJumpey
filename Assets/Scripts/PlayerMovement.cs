@@ -15,11 +15,10 @@ public class PlayerMovement : MonoBehaviour
     /**Jumping**/
     private Vector2 jumpVelocity = new Vector2(0, 0);
     private Vector2 baseMousePosition = new Vector2(0, 0);
-    private bool freeJump = true;
+    private bool jumpAvailable = true;
     private bool dragging = false;
     [SerializeField] private float speedLimiter = 20;
     private float speedBoost = 0f;
-    private int jumps = 0;
 
     /*************
      * FUNCTIONS *
@@ -50,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     // Set the value for the freeJump variable
     public void SetFreeJump(bool freeJump)
     {
-        this.freeJump = freeJump;
+        this.jumpAvailable = freeJump;
     }
 
     /**Player Input**/
@@ -67,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
     // Handle the player dragging on the screen
     private void HandleDrag()
     {
-        if (Input.GetMouseButton(0) && (freeJump || jumps > 0))
+        if (Input.GetMouseButton(0) && jumpAvailable)
         {
             if (!dragging)
             {
@@ -90,13 +89,9 @@ public class PlayerMovement : MonoBehaviour
     // Handle the player releasing their finger from the screen
     private void HandleRelease()
     {
-        if (!Input.GetMouseButton(0) && dragging && (freeJump || jumps > 0))
+        if (!Input.GetMouseButton(0) && dragging && jumpAvailable)
         {
-            if (freeJump)
-                freeJump = false;
-            else
-                jumps--;
-
+            jumpAvailable = false;
             KillVelocity();
             trajectoryPrediction.RemoveIndicators();
             speedBoost = 0;
@@ -129,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.CompareTag("Fuel"))
         {
-            jumps++;
+            jumpAvailable = true;
             Destroy(collision.gameObject);
         }
     }
