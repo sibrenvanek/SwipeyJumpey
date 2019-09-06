@@ -46,10 +46,10 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer.flipX = facingLeft;
     }
 
-    // Set the value for the freeJump variable
-    public void SetFreeJump(bool freeJump)
+    // Set the value for the jumpAvailable variable
+    public void SetJumpAvailable(bool jumpAvailable)
     {
-        this.jumpAvailable = freeJump;
+        this.jumpAvailable = jumpAvailable;
     }
 
     /**Player Input**/
