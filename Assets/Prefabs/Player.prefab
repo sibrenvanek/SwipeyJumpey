@@ -113,6 +113,7 @@ MonoBehaviour:
   trajectoryPrediction: {fileID: 5012401861362606273, guid: ebe920b4e2f1a4f4c849c34d1992e44a,
     type: 3}
   slowMotion: {fileID: 4857256654572397243}
+  maxVelocity: {x: 20, y: 20}
   speedLimiter: 10
   dashSpeedReduction: 1.5
   dashTime: 0.2

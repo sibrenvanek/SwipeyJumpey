@@ -522,12 +522,12 @@ PrefabInstance:
     - target: {fileID: 1946067523713256595, guid: f8a1a67ea9e524d4e9edce007c9e2311,
         type: 3}
       propertyPath: maxVelocity.x
-      value: 100
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1946067523713256595, guid: f8a1a67ea9e524d4e9edce007c9e2311,
         type: 3}
       propertyPath: maxVelocity.y
-      value: 100
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8a1a67ea9e524d4e9edce007c9e2311, type: 3}
