@@ -14,10 +14,12 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private bool facingLeft = false;
     private bool grounded = false;
+    private Camera mainCamera = null;
 
     /**Jumping**/
     private Vector2 jumpVelocity = new Vector2(0, 0);
     private Vector2 baseMousePosition = new Vector2(0, 0);
+    private Vector2 lastMousePosition = new Vector2(0, 0);
     private bool jumpAvailable = true;
     private bool dragging = false;
     [SerializeField] private float speedLimiter = 20f;
@@ -26,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashSpeedReduction = 1.5f;
     [SerializeField] private float dashTime = 0.2f;
     [SerializeField] private float gravityReduction = 5f;
+    [SerializeField] private float maximumCancelDistance = 1f;
 
     /*************
      * FUNCTIONS *
@@ -36,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        mainCamera = Camera.main;
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         defaultGravity = rigidbody2d.gravityScale;
@@ -89,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
             if (limiter <= 0)
                 limiter = 1;
 
+            lastMousePosition = Input.mousePosition;
             jumpVelocity.x = (baseMousePosition.x - Input.mousePosition.x) / limiter;
             jumpVelocity.y = (baseMousePosition.y - Input.mousePosition.y) / limiter;
             trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, 20);
@@ -99,7 +104,23 @@ public class PlayerMovement : MonoBehaviour
     // Handle the player releasing their finger from the screen
     private void HandleRelease()
     {
-        if (!Input.GetMouseButton(0) && dragging && jumpAvailable)
+        if (Input.GetMouseButton(0) || !dragging)
+            return;
+
+        Vector3 mousePoint = mainCamera.ScreenToWorldPoint(lastMousePosition);
+        mousePoint.z = transform.position.z;
+
+        Debug.Log(mousePoint);
+        Debug.Log(transform.position);
+        Debug.Log(Vector2.Distance(transform.position, mousePoint));
+
+        if (Vector2.Distance(transform.position, mousePoint) < maximumCancelDistance)
+        {
+            CancelJump();
+            return;
+        }
+
+        if (jumpAvailable)
         {
             jumpAvailable = false;
             KillVelocity();
