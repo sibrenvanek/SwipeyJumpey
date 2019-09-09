@@ -63,5 +63,10 @@ public class PlayerManager : MonoBehaviour
         {
             other.gameObject.GetComponent<Checkpoint>().Check();
         }
+        if(other.gameObject.layer == LayerMask.NameToLayer("Grid"))
+        {
+            print("hoi");
+            GameManager.Instance.SetConfinerBoundingShape(other.gameObject.GetComponent<Collider2D>());
+        }
     }
 }
