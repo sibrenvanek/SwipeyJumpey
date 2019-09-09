@@ -2,9 +2,18 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
+    private SpriteRenderer spriteRenderer = null;
+    [SerializeField] private Sprite active = null;
+    [SerializeField] private Sprite inActive = null;
+
     /*************
      * FUNCTIONS *
      *************/
+
+    private void Awake() 
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     /**Checkpoint**/
 
@@ -12,5 +21,11 @@ public class Checkpoint : MonoBehaviour
     public void Check()
     {
         GameManager.Instance.SetLastCheckpoint(this);
+        spriteRenderer.sprite = active;
+    }
+
+    public void DeActivate()
+    {
+        spriteRenderer.sprite = inActive;
     }
 }
