@@ -43,5 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc6aab13771ad148a5fb71564a8ab3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicator: {fileID: 7036387252550545492, guid: b3624a3e7c9e50f468625a830be71147,
+  indicatorPrefab: {fileID: 2497441223246862094, guid: b3624a3e7c9e50f468625a830be71147,
     type: 3}
