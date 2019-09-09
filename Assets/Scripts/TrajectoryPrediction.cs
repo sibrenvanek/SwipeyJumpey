@@ -8,7 +8,7 @@ public class TrajectoryPrediction : MonoBehaviour
      *************/
 
     /**General**/
-    [SerializeField] private GameObject indicator = null;
+    [SerializeField] private GameObject indicatorPrefab = null;
     private List<GameObject> activeIndicators = new List<GameObject>();
 
     /*************
@@ -18,44 +18,46 @@ public class TrajectoryPrediction : MonoBehaviour
     /**Trajectory**/
 
     // Update the current trajectory
-    public void UpdateTrajectory(Vector2 startPosition, Vector2 startVelocity, Vector2 gravity, int steps)
+    public void UpdateTrajectory(Vector2 startPosition, Vector2 startVelocity, Vector2 gravity, float time)
     {
         RemoveIndicators();
 
-        Vector2[] points = PlotTrajectory(startPosition, startVelocity, gravity, steps);
+        PlotTrajectory(startPosition, startVelocity, gravity, time);
 
-        foreach (Vector2 point in points)
-            activeIndicators.Add(Instantiate(indicator, point, Quaternion.identity));
+        //foreach (Vector2 point in points)
+        //    activeIndicators.Add(Instantiate(indicator, point, Quaternion.identity));
     }
 
     // Plot the expected trajectory of the player character
-    private Vector2[] PlotTrajectory(Vector2 startPosition, Vector2 startVelocity, Vector2 gravity, int steps)
+    private void PlotTrajectory(Vector2 startPosition, Vector2 startVelocity, Vector2 gravity, float time)
     {
-        List<Vector2> points = new List<Vector2>();
-
+        Debug.Log(startVelocity);
         if (startVelocity.x == 0 && startVelocity.y == 0)
-            return points.ToArray();
+            return;
+
+        Vector2[] points = new Vector2[2] { transform.position, transform.position };
 
         float velocity = startVelocity.magnitude;
         float gravityMagnitude = gravity.magnitude;
-        float angle = Mathf.Atan(startVelocity.y / startVelocity.x);
+        float angle = Mathf.Rad2Deg * Mathf.Atan(startVelocity.y / startVelocity.x) + 90;
         float velocityX = (startVelocity.x < 0) ? Mathf.Cos(angle) * -1 : Mathf.Cos(angle);
         float velocityY = (startVelocity.x < 0) ? Mathf.Sin(angle) * -1 : Mathf.Sin(angle);
 
-        float timestep, timespend;
-        timestep = timespend = 0.25f;
+        Vector2 position;
+        position.x = startPosition.x + velocity * time * velocityX;
+        position.y = startPosition.y + velocity * time * velocityY;
 
-        for (int i = 0; i < steps; i++)
-        {
-            Vector2 position;
-            position.x = startPosition.x + velocity * timespend * velocityX;
-            position.y = startPosition.y + velocity * timespend * velocityY - gravityMagnitude * Mathf.Pow(timespend, 2) / 2;
+        float lengthX = position.x - startPosition.x;
+        float lengthY = position.y - startPosition.y;
 
-            timespend += timestep;
-            points.Add(position);
-        }
+        float length = Mathf.Sqrt(Mathf.Pow(lengthX, 2) + Mathf.Pow(lengthY, 2));
 
-        return points.ToArray();
+        GameObject indicator = Instantiate(indicatorPrefab, startPosition, Quaternion.identity);
+        indicator.transform.localScale = new Vector2(1, length);
+        indicator.transform.position = new Vector2(startPosition.x + 2, startPosition.y + 2);
+        indicator.transform.Rotate(0, 0, angle);
+
+        activeIndicators.Add(indicator);
     }
 
     // Remove all of the plotted points
