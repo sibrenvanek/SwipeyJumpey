@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SlowMotion : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class SlowMotion : MonoBehaviour
      *************/
 
     /**General**/
+    public event Action OnSlowMotionActivated = delegate{};
+    public event Action OnSlowMotionDeActivated = delegate{};
     [SerializeField] private Rigidbody2D playerRigidbody = null;
     [SerializeField] private PlayerManager playerManager = null;
 
@@ -65,6 +68,7 @@ public class SlowMotion : MonoBehaviour
     // Starts the sequence involved in the slowmotion effects
     private IEnumerator StartSlowMotionSequence()
     {
+        OnSlowMotionActivated.Invoke();
         playerManager.DisablePhysics();
 
         oldVelocity = playerRigidbody.velocity;
@@ -96,6 +100,7 @@ public class SlowMotion : MonoBehaviour
     {
         if(doingSlowmotion)
         {
+            OnSlowMotionDeActivated.Invoke();
             doingSlowmotion = false;
             playerManager.EnablePhysics();
         }
