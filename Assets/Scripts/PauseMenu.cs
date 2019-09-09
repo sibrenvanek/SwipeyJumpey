@@ -37,4 +37,9 @@ public class PauseMenu : MonoBehaviour
     {
         SceneManager.LoadScene("Main Menu");
     }
+
+    public void ChangeLevelText(string newText)
+    {
+        currentLevelPlaceholder.text = newText;
+    }
 }
