@@ -23,10 +23,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 lastMousePosition = new Vector2(0, 0);
     private bool jumpAvailable = true;
     private bool dragging = false;
-    [SerializeField] private float speedLimiter = 20f;
-    private float speedBoost = 0f;
     private float defaultGravity = 0f;
-    [SerializeField] private float dashSpeedReduction = 1.5f;
+    [SerializeField] private float speedLimiter = 20f;
     [SerializeField] private float dashTime = 0.2f;
     [SerializeField] private float gravityReduction = 5f;
     [SerializeField] private float maximumCancelDistance = 1f;
@@ -89,16 +87,14 @@ public class PlayerMovement : MonoBehaviour
                   slowMotion.Go();
             }
 
-            float limiter = speedLimiter - speedBoost;
-
-            if (limiter <= 0)
-                limiter = 1;
+            if (speedLimiter <= 0)
+                speedLimiter = 1;
 
             lastMousePosition = Input.mousePosition;
-            jumpVelocity.x = Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / limiter, -maxVelocity.x, maxVelocity.x);
-            jumpVelocity.y = Mathf.Clamp((baseMousePosition.y - Input.mousePosition.y) / limiter, -maxVelocity.y, maxVelocity.y);
-            
-            //trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, 20);
+            jumpVelocity.x = Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / speedLimiter, -maxVelocity.x, maxVelocity.x);
+            jumpVelocity.y = Mathf.Clamp((baseMousePosition.y - Input.mousePosition.y) / speedLimiter, -maxVelocity.y, maxVelocity.y);
+
+            trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, dashTime);
             facingLeft = baseMousePosition.x < Input.mousePosition.x;
         }
     }
@@ -122,8 +118,7 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpAvailable = false;
             KillVelocity();
-            //trajectoryPrediction.RemoveIndicators();
-            speedBoost = 0;
+            trajectoryPrediction.RemoveIndicators();
             dragging = false;
             slowMotion.Cancel();
             rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
@@ -152,13 +147,13 @@ public class PlayerMovement : MonoBehaviour
     {
         KillVelocity();
         StartCoroutine(ReduceGravity());
-        rigidbody2d.AddForce(jumpVelocity / dashSpeedReduction, ForceMode2D.Impulse);
+        rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
     }
 
     // Temporarily reduce the gravityscale
     private IEnumerator ReduceGravity()
     {
-        rigidbody2d.gravityScale = defaultGravity / gravityReduction;
+        rigidbody2d.gravityScale = 0/*defaultGravity / gravityReduction*/;
         yield return new WaitForSeconds(dashTime);
         rigidbody2d.gravityScale = defaultGravity;
     }
