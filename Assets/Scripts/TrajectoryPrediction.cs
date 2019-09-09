@@ -8,8 +8,8 @@ public class TrajectoryPrediction : MonoBehaviour
      *************/
 
     /**General**/
-    [SerializeField] private GameObject indicatorPrefab = null;
-    private List<GameObject> activeIndicators = new List<GameObject>();
+    [SerializeField] private Indicator indicatorPrefab = null;
+    private Indicator activeIndicator = null;
 
     /*************
      * FUNCTIONS *
@@ -31,39 +31,45 @@ public class TrajectoryPrediction : MonoBehaviour
     // Plot the expected trajectory of the player character
     private void PlotTrajectory(Vector2 startPosition, Vector2 startVelocity, Vector2 gravity, float time)
     {
-        Debug.Log(startVelocity);
         if (startVelocity.x == 0 && startVelocity.y == 0)
             return;
 
         Vector2[] points = new Vector2[2] { transform.position, transform.position };
 
         float velocity = startVelocity.magnitude;
-        float gravityMagnitude = gravity.magnitude;
-        float angle = Mathf.Rad2Deg * Mathf.Atan(startVelocity.y / startVelocity.x) + 90;
-        float velocityX = (startVelocity.x < 0) ? Mathf.Cos(angle) * -1 : Mathf.Cos(angle);
-        float velocityY = (startVelocity.x < 0) ? Mathf.Sin(angle) * -1 : Mathf.Sin(angle);
+        float angle = Mathf.Rad2Deg * Mathf.Atan(startVelocity.y / startVelocity.x);
 
-        Vector2 position;
-        position.x = startPosition.x + velocity * time * velocityX;
-        position.y = startPosition.y + velocity * time * velocityY;
+        if (startVelocity.x < 0 && startVelocity.y < 0)
+            angle -= 180;
+        else if (startVelocity.x < 0 && startVelocity.y >= 0)
+            angle += 180;
 
-        float lengthX = position.x - startPosition.x;
-        float lengthY = position.y - startPosition.y;
+        float velocityX = Mathf.Cos(angle);
+        float velocityY = Mathf.Sin(angle);
 
-        float length = Mathf.Sqrt(Mathf.Pow(lengthX, 2) + Mathf.Pow(lengthY, 2));
+        Vector2 distance;
+        distance.x = Mathf.Abs(velocity * time * velocityX);
+        distance.y = Mathf.Abs(velocity * time * velocityY);
 
-        GameObject indicator = Instantiate(indicatorPrefab, startPosition, Quaternion.identity);
-        indicator.transform.localScale = new Vector2(1, length);
-        indicator.transform.position = new Vector2(startPosition.x + 2, startPosition.y + 2);
+        float lengthZ = Mathf.Sqrt(Mathf.Pow(distance.x, 2) + Mathf.Pow(distance.y, 2));
+
+        if (startVelocity.x < 0)
+            distance.x *= -1;
+
+        if (startVelocity.y < 0)
+            distance.y *= -1;
+        Indicator indicator = Instantiate(indicatorPrefab, transform.position, Quaternion.identity);
         indicator.transform.Rotate(0, 0, angle);
+        indicator.SetDistance(lengthZ / 2);
+        indicator.SetWidth(lengthZ);
 
-        activeIndicators.Add(indicator);
+        activeIndicator = indicator;
     }
 
     // Remove all of the plotted points
     public void RemoveIndicators()
     {
-        foreach (GameObject indicator in activeIndicators)
-            Destroy(indicator);
+        Destroy(activeIndicator);
+        activeIndicator = null;
     }
 }
