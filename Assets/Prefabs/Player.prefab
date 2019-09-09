@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7167695845223043636}
   - component: {fileID: 7746442083131123663}
   - component: {fileID: 1191174178}
+  - component: {fileID: -2195771165354065761}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -111,12 +112,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3387d43b085ea304f9cb950b08f221c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trajectoryPrediction: {fileID: 5012401861362606273, guid: ebe920b4e2f1a4f4c849c34d1992e44a,
-    type: 3}
+  trajectoryPrediction: {fileID: -2195771165354065761}
   slowMotion: {fileID: 4857256654572397243}
   maxVelocity: {x: 20, y: 20}
   speedLimiter: 10
-  dashSpeedReduction: 1.5
   dashTime: 0.2
   gravityReduction: 5
   maximumCancelDistance: 1
@@ -249,3 +248,17 @@ MonoBehaviour:
   m_UseImpactDirection: 0
   m_ScaleImpactWithMass: 0
   m_ScaleImpactWithSpeed: 0
+--- !u!114 &-2195771165354065761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585780739684234313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc6aab13771ad148a5fb71564a8ab3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicatorPrefab: {fileID: 2497441223246862094, guid: b3624a3e7c9e50f468625a830be71147,
+    type: 3}
