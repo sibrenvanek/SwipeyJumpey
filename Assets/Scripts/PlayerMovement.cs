@@ -179,6 +179,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.CompareTag("Fuel"))
         {
             jumpAvailable = true;
+            collision.GetComponent<Fuel>().PickUp(rigidbody2d);
             Destroy(collision.gameObject);
         }
     }
