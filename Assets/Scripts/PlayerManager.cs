@@ -37,6 +37,12 @@ public class PlayerManager : MonoBehaviour
         rigidbody2d.bodyType = RigidbodyType2D.Kinematic;
     }
 
+    public void Fall()
+    {
+        playerMovement.SetJumpAvailable(false);
+        playerMovement.SetSlowMotionJumpAvailable(false);
+    }
+
     /**Collisions**/
 
     // Handle collisions with other gameobjects
