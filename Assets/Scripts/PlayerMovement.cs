@@ -12,12 +12,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private SlowMotion slowMotion = null;
     private Rigidbody2D rigidbody2d = null;
     private SpriteRenderer spriteRenderer;
+    private Camera mainCamera = null;
     private bool facingLeft = false;
     private bool grounded = false;
-    private Camera mainCamera = null;
 
     /**Jumping**/
     [SerializeField] private Vector2 maxVelocity = Vector2.zero;
+    [SerializeField] private float speedLimiter = 20f;
+    [SerializeField] private float dashTime = 0.2f;
+    [SerializeField] private float gravityReduction = 5f;
+    [SerializeField] private float maximumCancelDistance = 1f;
     private Vector2 jumpVelocity = new Vector2(0, 0);
     private Vector2 baseMousePosition = new Vector2(0, 0);
     private Vector2 lastMousePosition = new Vector2(0, 0);
@@ -25,10 +29,6 @@ public class PlayerMovement : MonoBehaviour
     private bool slowMotionJumpAvailable = false;
     private bool dragging = false;
     private float defaultGravity = 0f;
-    [SerializeField] private float speedLimiter = 20f;
-    [SerializeField] private float dashTime = 0.2f;
-    [SerializeField] private float gravityReduction = 5f;
-    [SerializeField] private float maximumCancelDistance = 1f;
 
     /*************
      * FUNCTIONS *
@@ -116,20 +116,21 @@ public class PlayerMovement : MonoBehaviour
         }
 
         trajectoryPrediction.RemoveIndicators();
+
         if (jumpAvailable)
         {
             jumpAvailable = false;
-            KillVelocity();
             dragging = false;
-            Jump();
             grounded = false;
-        }else if(slowMotionJumpAvailable)
+            Jump();
+        }
+        else if(slowMotionJumpAvailable)
         {
             slowMotionJumpAvailable = false;
             slowMotion.Cancel();
-            KillVelocity();
             Jump();
         }
+
         dragging = false;
     }
 
@@ -158,14 +159,14 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         KillVelocity();
-        StartCoroutine(ReduceGravity());
+        StartCoroutine(RemoveGravity());
         rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
     }
 
-    // Temporarily reduce the gravityscale
-    private IEnumerator ReduceGravity()
+    // Temporarily remove gravity
+    private IEnumerator RemoveGravity()
     {
-        rigidbody2d.gravityScale = 0/*defaultGravity / gravityReduction*/;
+        rigidbody2d.gravityScale = 0;
         yield return new WaitForSeconds(dashTime);
         rigidbody2d.gravityScale = defaultGravity;
     }

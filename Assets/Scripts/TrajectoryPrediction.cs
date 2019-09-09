@@ -23,9 +23,6 @@ public class TrajectoryPrediction : MonoBehaviour
         RemoveIndicators();
 
         PlotTrajectory(startPosition, startVelocity, gravity, time);
-
-        //foreach (Vector2 point in points)
-        //    activeIndicators.Add(Instantiate(indicator, point, Quaternion.identity));
     }
 
     // Plot the expected trajectory of the player character
@@ -33,8 +30,6 @@ public class TrajectoryPrediction : MonoBehaviour
     {
         if (startVelocity.x == 0 && startVelocity.y == 0)
             return;
-
-        Vector2[] points = new Vector2[2] { transform.position, transform.position };
 
         float velocity = startVelocity.magnitude;
         float angle = Mathf.Rad2Deg * Mathf.Atan(startVelocity.y / startVelocity.x);
@@ -58,6 +53,7 @@ public class TrajectoryPrediction : MonoBehaviour
 
         if (startVelocity.y < 0)
             distance.y *= -1;
+
         Indicator indicator = Instantiate(indicatorPrefab, transform.position, Quaternion.identity);
         indicator.transform.Rotate(0, 0, angle);
         indicator.SetDistance(lengthZ / 2);
