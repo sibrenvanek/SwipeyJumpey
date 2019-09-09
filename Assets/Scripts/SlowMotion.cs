@@ -15,6 +15,8 @@ public class SlowMotion : MonoBehaviour
     private Vector2 oldVelocity = Vector2.zero;
     private Vector2 goalVelocity = Vector2.zero;
 
+    private Coroutine curCoroutine = null;
+
     private void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
@@ -31,11 +33,15 @@ public class SlowMotion : MonoBehaviour
 
     public void Go()
     {
-        StartCoroutine(StartSlowMotionSequence());
+        curCoroutine = StartCoroutine(StartSlowMotionSequence());
     }
 
     public void Cancel()
     {
+        if(curCoroutine != null)
+        {
+            StopCoroutine(curCoroutine);
+        }
         ResetTime();
     }
 

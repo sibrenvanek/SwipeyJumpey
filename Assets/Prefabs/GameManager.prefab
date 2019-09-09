@@ -43,5 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0999b0ae8a3b4944bb705561588c5698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  latestCheckPoint: {fileID: 0}
+  lastCheckpoint: {fileID: 0}
   player: {fileID: 0}
+  respawnYOffset: 0.2
