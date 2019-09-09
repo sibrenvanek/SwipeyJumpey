@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
     private Rigidbody2D rigidbody2d = null;
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer spriteRenderer = null;
     private Camera mainCamera = null;
     private bool facingLeft = false;
     private bool grounded = false;
@@ -123,7 +123,6 @@ public class PlayerMovement : MonoBehaviour
         if (jumpAvailable)
         {
             jumpAvailable = false;
-            dragging = false;
             grounded = false;
             Jump();
         }
@@ -191,7 +190,6 @@ public class PlayerMovement : MonoBehaviour
         {
             slowMotionJumpAvailable = true;
             collision.GetComponent<Fuel>().PickUp(rigidbody2d);
-            Destroy(collision.gameObject);
         }
     }
 }

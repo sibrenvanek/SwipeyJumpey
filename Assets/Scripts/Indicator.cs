@@ -7,7 +7,7 @@ public class Indicator : MonoBehaviour
      *************/
 
     /**General**/
-    [SerializeField] private Transform indicatorSprite;
+    [SerializeField] private Transform indicatorSprite = null;
 
     /*************
      * FUNCTIONS *
