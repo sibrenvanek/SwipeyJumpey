@@ -2,42 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class FuelUI : MonoBehaviour
 {
     [SerializeField] private Image fuelImage = null;
+    [SerializeField] private Transform fuelBar = null;
     [SerializeField] private float secondsToEmpty = 2f;
-    private SlowMotion slowMotion = null;
-    private bool inSlowMotion = false;
+    [SerializeField] private SlowMotion slowMotion = null;
     private void Start() 
     {
         slowMotion.OnSlowMotionActivated += OnSlowMotionActivated;
         slowMotion.OnSlowMotionDeActivated += OnSlowMotionDeActivated;    
     }
 
-    private void Update() 
-    {
-        if(inSlowMotion)
-        {
-            
-        }
-    }
-
     private void OnSlowMotionActivated()
     {
-        inSlowMotion = true;
-        fuelImage.gameObject.SetActive(true);
+        ResetFuelImage();
+        fuelBar.gameObject.SetActive(true);
+        fuelImage.transform.DOScaleX(0, secondsToEmpty);
     }
 
     private void OnSlowMotionDeActivated()
     {
-        inSlowMotion = false;
         ResetFuelImage();
-        fuelImage.gameObject.SetActive(false);
+        fuelBar.gameObject.SetActive(false);
     }
 
     private void ResetFuelImage()
     {
-        fuelImage.transform.localScale = new Vector3(1,1,1);
+        fuelImage.transform.DOScaleX(1,0);
     }
 }
