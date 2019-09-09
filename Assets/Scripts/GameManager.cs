@@ -1,4 +1,5 @@
 using UnityEngine;
+using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Checkpoint lastCheckpoint = null;
     [SerializeField] private PlayerManager player = null;
     [SerializeField] private float respawnYOffset = 0.2f;
+    [SerializeField] private CinemachineConfiner cinemachineConfiner = null;
 
     /*************
      * FUNCTIONS *
@@ -53,5 +55,10 @@ public class GameManager : MonoBehaviour
     public void ResetPlayerToCheckpoint()
     {
         player.transform.position = new Vector3(lastCheckpoint.transform.position.x, lastCheckpoint.transform.position.y + respawnYOffset);
+    }
+
+    public void SetConfinerBoundingShape(Collider2D collider)
+    {
+        cinemachineConfiner.m_BoundingShape2D = collider;
     }
 }
