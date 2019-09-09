@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 baseMousePosition = new Vector2(0, 0);
     private Vector2 lastMousePosition = new Vector2(0, 0);
     private bool jumpAvailable = true;
+    private bool slowMotionJumpAvailable = false;
     private bool dragging = false;
     [SerializeField] private float speedLimiter = 20f;
     private float speedBoost = 0f;
@@ -79,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
     // Handle the player dragging on the screen
     private void HandleDrag()
     {
-        if (Input.GetMouseButton(0) && jumpAvailable)
+        if (Input.GetMouseButton(0) && (jumpAvailable || slowMotionJumpAvailable))
         {
             if (!dragging)
             {
@@ -124,12 +125,22 @@ public class PlayerMovement : MonoBehaviour
             KillVelocity();
             //trajectoryPrediction.RemoveIndicators();
             speedBoost = 0;
-            dragging = false;
-            slowMotion.Cancel();
-            rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
             Jump();
             grounded = false;
+        }else if(slowMotionJumpAvailable)
+        {
+            slowMotionJumpAvailable = false;
+            slowMotion.Cancel();
+            KillVelocity();
+            Jump();
         }
+        dragging = false;
+    }
+
+    //Set the value of the slowMotionJumpAvailable variable
+    public void SetSlowMotionJumpAvailable(bool slowMotionJumpAvailable)
+    {
+        this.slowMotionJumpAvailable = slowMotionJumpAvailable;
     }
 
     // Set the value of the grounded variable
@@ -178,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.CompareTag("Fuel"))
         {
-            jumpAvailable = true;
+            slowMotionJumpAvailable = true;
             collision.GetComponent<Fuel>().PickUp(rigidbody2d);
             Destroy(collision.gameObject);
         }
