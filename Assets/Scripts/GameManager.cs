@@ -48,6 +48,10 @@ public class GameManager : MonoBehaviour
     // Set the value for the lastCheckpoint variable
     public void SetLastCheckpoint(Checkpoint checkpoint)
     {
+        if(lastCheckpoint != null)
+        {
+            lastCheckpoint.DeActivate();
+        }
         lastCheckpoint = checkpoint;
     }
 

@@ -103,6 +103,7 @@ public class SlowMotion : MonoBehaviour
             OnSlowMotionDeActivated.Invoke();
             doingSlowmotion = false;
             playerManager.EnablePhysics();
+            playerManager.Fall();
         }
     }
 
