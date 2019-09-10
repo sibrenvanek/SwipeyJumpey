@@ -142,6 +142,12 @@ public class PlayerMovement : MonoBehaviour
     // Cancel any current jump plans
     public void CancelJump()
     {
+        if (slowMotionJumpAvailable && !grounded)
+        {
+            slowMotionJumpAvailable = false;
+            slowMotion.Cancel();
+        }
+
         dragging = false;
         trajectoryPrediction.RemoveIndicators();
     }
@@ -159,7 +165,9 @@ public class PlayerMovement : MonoBehaviour
     {
         rigidbody2d.gravityScale = 0;
         yield return new WaitForSeconds(dashTime);
-        rigidbody2d.gravityScale = defaultGravity;
+
+        if (!dragging)
+            rigidbody2d.gravityScale = defaultGravity;
     }
 
     /**Velocity**/
