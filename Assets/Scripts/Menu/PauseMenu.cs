@@ -47,11 +47,24 @@ public class PauseMenu : MonoBehaviour
 
     public void BackToMenu()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Main Menu");
     }
 
     public void ChangeLevelText(string newText)
     {
         currentLevelPlaceholder.text = newText;
+    }
+
+    public void ResetLevel()
+    {
+        GameManager.Instance.ResetPlayerToCheckpoint(PickCheckpoint.initialCheckpointLevel);
+        Resume();
+    }
+
+    public void ResetWorld()
+    {
+        GameManager.Instance.ResetPlayerToCheckpoint(PickCheckpoint.initialCheckpointWorld);
+        Resume();
     }
 }

@@ -52,8 +52,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleInput();
-        SetDirection();
+        if (!PauseMenu.isPaused)
+        {
+            HandleInput();
+            SetDirection();
+        }
     }
 
     // Set the direction the object is facing

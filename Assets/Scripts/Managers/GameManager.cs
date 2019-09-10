@@ -1,5 +1,5 @@
-using UnityEngine;
 using Cinemachine;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     /**General**/
+    [SerializeField] private Checkpoint initialCheckpointWorld = null;
+    [SerializeField] private Checkpoint initialCheckpointLevel = null;
     [SerializeField] private Checkpoint lastCheckpoint = null;
     [SerializeField] private PlayerManager player = null;
     [SerializeField] private float respawnYOffset = 0.2f;
@@ -48,7 +50,7 @@ public class GameManager : MonoBehaviour
     // Set the value for the lastCheckpoint variable
     public void SetLastCheckpoint(Checkpoint checkpoint)
     {
-        if(lastCheckpoint != null)
+        if (lastCheckpoint != null)
         {
             lastCheckpoint.DeActivate();
         }
@@ -56,13 +58,33 @@ public class GameManager : MonoBehaviour
     }
 
     // Set the player position equal to the last checkpoint
-    public void ResetPlayerToCheckpoint()
+    public void ResetPlayerToCheckpoint(PickCheckpoint pickCheckpoint = PickCheckpoint.lastCheckpoint)
     {
-        player.transform.position = new Vector3(lastCheckpoint.transform.position.x, lastCheckpoint.transform.position.y + respawnYOffset);
+        Vector3 newPosition = new Vector3();
+        if (pickCheckpoint == PickCheckpoint.lastCheckpoint)
+        {
+            newPosition = new Vector3(lastCheckpoint.transform.position.x, lastCheckpoint.transform.position.y + respawnYOffset);
+        }
+        else if (pickCheckpoint == PickCheckpoint.initialCheckpointWorld)
+        {
+            newPosition = new Vector3(initialCheckpointWorld.transform.position.x, initialCheckpointWorld.transform.position.y + respawnYOffset);
+        }
+        else if (pickCheckpoint == PickCheckpoint.initialCheckpointLevel)
+        {
+            newPosition = new Vector3(initialCheckpointLevel.transform.position.x, initialCheckpointLevel.transform.position.y + respawnYOffset);
+        }
+        player.transform.position = newPosition;
     }
 
     public void SetConfinerBoundingShape(Collider2D collider)
     {
         cinemachineConfiner.m_BoundingShape2D = collider;
     }
+}
+
+public enum PickCheckpoint
+{
+    lastCheckpoint,
+    initialCheckpointWorld,
+    initialCheckpointLevel
 }
