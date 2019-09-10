@@ -22,6 +22,7 @@ public class PlayerManager : MonoBehaviour
     {
         playerMovement = GetComponent<PlayerMovement>();
         rigidbody2d = GetComponent<Rigidbody2D>();
+        defaultScale = rigidbody2d.gravityScale;
     }
 
     /**Physics**/
@@ -35,7 +36,6 @@ public class PlayerManager : MonoBehaviour
     // Disable the physics calculations
     public void DisablePhysics()
     {
-        defaultScale = rigidbody2d.gravityScale;
         rigidbody2d.gravityScale = 0;
     }
 
