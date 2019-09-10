@@ -39,7 +39,6 @@ public class PlayerManager : MonoBehaviour
 
     public void Fall()
     {
-        playerMovement.SetJumpAvailable(false);
         playerMovement.SetSlowMotionJumpAvailable(false);
     }
 
@@ -57,7 +56,6 @@ public class PlayerManager : MonoBehaviour
         else if (other.gameObject.CompareTag("SafeGround"))
         {
             playerMovement.KillVelocity();
-            playerMovement.SetJumpAvailable(true);
             playerMovement.SetGrounded(true);
         }
     }
