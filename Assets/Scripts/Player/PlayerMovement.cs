@@ -166,7 +166,9 @@ public class PlayerMovement : MonoBehaviour
     {
         rigidbody2d.gravityScale = 0;
         yield return new WaitForSeconds(dashTime);
-        rigidbody2d.gravityScale = defaultGravity;
+
+        if (!dragging)
+            rigidbody2d.gravityScale = defaultGravity;
     }
 
     /**Velocity**/
