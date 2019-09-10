@@ -1,5 +1,5 @@
+using Cinemachine; 
 using UnityEngine;
-using Cinemachine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     // Set the value for the lastCheckpoint variable
     public void SetLastCheckpoint(Checkpoint checkpoint)
     {
-        if(lastCheckpoint != null)
+        if (lastCheckpoint != null)
         {
             lastCheckpoint.DeActivate();
         }

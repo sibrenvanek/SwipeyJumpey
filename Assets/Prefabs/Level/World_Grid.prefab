@@ -4179,7 +4179,7 @@ GameObject:
   - component: {fileID: 7441214434254657426}
   - component: {fileID: 7441214434254657427}
   - component: {fileID: 7441214434254657428}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SafeGround
   m_TagString: SafeGround
   m_Icon: {fileID: 0}
