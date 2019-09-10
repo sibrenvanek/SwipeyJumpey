@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 jumpVelocity = new Vector2(0, 0);
     private Vector2 baseMousePosition = new Vector2(0, 0);
     private Vector2 lastMousePosition = new Vector2(0, 0);
-    private bool jumpAvailable = true;
     private bool slowMotionJumpAvailable = false;
     private bool dragging = false;
     private float defaultGravity = 0f;
@@ -53,18 +52,14 @@ public class PlayerMovement : MonoBehaviour
     {
         HandleInput();
         SetDirection();
+        grounded = IsGrounded();
+        Debug.Log(grounded);
     }
 
     // Set the direction the object is facing
     private void SetDirection()
     {
         spriteRenderer.flipX = facingLeft;
-    }
-
-    // Set the value for the jumpAvailable variable
-    public void SetJumpAvailable(bool jumpAvailable)
-    {
-        this.jumpAvailable = jumpAvailable;
     }
 
     /**Player Input**/
@@ -81,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
     // Handle the player dragging on the screen
     private void HandleDrag()
     {
-        if (Input.GetMouseButton(0) && (jumpAvailable || slowMotionJumpAvailable))
+        if (Input.GetMouseButton(0) && (grounded || slowMotionJumpAvailable))
         {
             if (!dragging)
             {
@@ -120,12 +115,11 @@ public class PlayerMovement : MonoBehaviour
 
         trajectoryPrediction.RemoveIndicators();
 
-        if (jumpAvailable)
+        if (grounded)
         {
-            jumpAvailable = false;
-            grounded = false;
             Jump();
         }
+
         else if(slowMotionJumpAvailable)
         {
             slowMotionJumpAvailable = false;
@@ -191,5 +185,17 @@ public class PlayerMovement : MonoBehaviour
             slowMotionJumpAvailable = true;
             collision.GetComponent<Fuel>().PickUp(rigidbody2d);
         }
+    }
+
+    // Check if the player is on the ground
+    bool IsGrounded()
+    {
+        RaycastHit2D raycastHit2d = Physics2D.Raycast(transform.position, Vector2.down, 1f + transform.localScale.y * 0.5f);
+
+        if (!raycastHit2d)
+            return false;
+
+        Debug.Log(raycastHit2d.collider.gameObject.tag);
+        return (raycastHit2d.collider.gameObject.CompareTag("SafeGround") && rigidbody2d.velocity.y <= 0);
     }
 }
