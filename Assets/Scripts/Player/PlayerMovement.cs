@@ -29,12 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 jumpVelocity = new Vector2(0, 0);
     private Vector2 baseMousePosition = new Vector2(0, 0);
     private Vector2 lastMousePosition = new Vector2(0, 0);
-<<<<<<< HEAD:Assets/Scripts/PlayerMovement.cs
-    private bool slowMotionJumpAvailable = false;
-=======
-    public bool jumpAvailable { get; private set; } = true;
     public bool slowMotionJumpAvailable { get; private set; } = false;
->>>>>>> f30a4d22bb50fa80cc96c2550c55b5a45c153062:Assets/Scripts/Player/PlayerMovement.cs
     private bool dragging = false;
     private float defaultGravity = 0f;
 
@@ -125,12 +120,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Jump();
         }
-<<<<<<< HEAD:Assets/Scripts/PlayerMovement.cs
-
-        else if(slowMotionJumpAvailable)
-=======
         else if (slowMotionJumpAvailable)
->>>>>>> f30a4d22bb50fa80cc96c2550c55b5a45c153062:Assets/Scripts/Player/PlayerMovement.cs
         {
             slowMotionJumpAvailable = false;
             slowMotion.Cancel();
@@ -205,7 +195,6 @@ public class PlayerMovement : MonoBehaviour
         if (!raycastHit2d)
             return false;
 
-        Debug.Log(raycastHit2d.collider.gameObject.tag);
         return (raycastHit2d.collider.gameObject.CompareTag("SafeGround") && rigidbody2d.velocity.y <= 0);
     }
 }
