@@ -14,7 +14,7 @@ public class WorldManager : MonoBehaviour
     {
         currentRoomCheckpoint = roomInfo.RoomInitialCheckpoint;
         currentRoom = roomInfo.RoomName;
-        OnCurrentRoomChanged.Invoke(roomInfo);
+        OnCurrentRoomChanged(roomInfo);
     }
 
     public void ResetToRoomCheckpoint()

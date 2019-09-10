@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 58c79f7326864e14281ebaa75ae4acec
   - enabled: 1
+    path: Assets/Scenes/SibrenScene.unity
+    guid: 53e4eb01d96721e49a79c887e3af2a5e
+  - enabled: 1
     path: Assets/Scenes/BartScene.unity
     guid: f5ae009136c2d48bba5a645fb203c6c7
-  - enabled: 1
-    path: Assets/Scenes/NielsScene.unity
-    guid: d3f39af0d109bd442a8ddc86bdb067e2
   m_configObjects: {}
