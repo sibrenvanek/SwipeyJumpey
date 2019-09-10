@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour
     /**Buttons**/
     public void PlayGame()
     {
-        SceneManager.LoadScene("SibrenScene");
+        SceneManager.LoadScene("NielsScene");
     }
 
     public void ExitGame()
