@@ -54,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
         HandleInput();
         SetDirection();
         grounded = IsGrounded();
-        Debug.Log(grounded);
     }
 
     // Set the direction the object is facing
