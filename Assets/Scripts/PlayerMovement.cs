@@ -1,6 +1,7 @@
-using UnityEngine;
-using System.Collections;
 using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,8 +10,8 @@ public class PlayerMovement : MonoBehaviour
      *************/
 
     /**General**/
-    public event Action OnSlowMotionActivated = delegate{};
-    public event Action OnSlowMotionDeActivated = delegate{};
+    public event Action OnSlowMotionActivated = delegate {};
+    public event Action OnSlowMotionDeActivated = delegate {};
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
     private Rigidbody2D rigidbody2d = null;
@@ -28,8 +29,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 jumpVelocity = new Vector2(0, 0);
     private Vector2 baseMousePosition = new Vector2(0, 0);
     private Vector2 lastMousePosition = new Vector2(0, 0);
-    private bool jumpAvailable = true;
-    private bool slowMotionJumpAvailable = false;
+    public bool jumpAvailable { get; private set; } = true;
+    public bool slowMotionJumpAvailable { get; private set; } = false;
     private bool dragging = false;
     private float defaultGravity = 0f;
 
@@ -88,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
                 baseMousePosition = Input.mousePosition;
                 dragging = true;
                 if (!grounded)
-                  slowMotion.Go();
+                    slowMotion.Go();
             }
 
             if (speedLimiter <= 0)
@@ -126,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
             grounded = false;
             Jump();
         }
-        else if(slowMotionJumpAvailable)
+        else if (slowMotionJumpAvailable)
         {
             slowMotionJumpAvailable = false;
             slowMotion.Cancel();

@@ -11,6 +11,10 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseButton;
     public TextMeshProUGUI currentLevelPlaceholder;
     public string levelText;
+    public PlayerMovement playerMovement;
+
+    private bool playerCanJump = false;
+    private bool playerCanSlowMotionJump = false;
 
     public void Start()
     {
@@ -21,6 +25,10 @@ public class PauseMenu : MonoBehaviour
     {
         pauseButton.SetActive(true);
         pauseUI.SetActive(false);
+        playerMovement.SetJumpAvailable(playerCanJump);
+        playerMovement.SetSlowMotionJumpAvailable(playerCanSlowMotionJump);
+        playerCanJump = false;
+        playerCanSlowMotionJump = false;
         Time.timeScale = 1f;
         isPaused = false;
     }
@@ -29,6 +37,10 @@ public class PauseMenu : MonoBehaviour
     {
         pauseButton.SetActive(false);
         pauseUI.SetActive(true);
+        playerCanJump = playerMovement.jumpAvailable;
+        playerCanSlowMotionJump = playerMovement.slowMotionJumpAvailable;
+        playerMovement.SetJumpAvailable(false);
+        playerMovement.SetSlowMotionJumpAvailable(false);
         Time.timeScale = 0f;
         isPaused = true;
     }
