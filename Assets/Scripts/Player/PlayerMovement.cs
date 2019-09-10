@@ -104,10 +104,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButton(0) || !dragging)
             return;
 
-        Vector3 mousePoint = mainCamera.ScreenToWorldPoint(lastMousePosition);
-        mousePoint.z = transform.position.z;
+        Vector3 firstMousePoint = mainCamera.ScreenToWorldPoint(baseMousePosition);
+        firstMousePoint.z = transform.position.z;
+        Vector3 lastMousePoint = mainCamera.ScreenToWorldPoint(lastMousePosition);
+        lastMousePoint.z = transform.position.z;
 
-        if (Vector2.Distance(transform.position, mousePoint) < maximumCancelDistance)
+        if (Vector2.Distance(firstMousePoint, lastMousePoint) < maximumCancelDistance)
         {
             CancelJump();
             return;
