@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour
     /**Buttons**/
     public void PlayGame()
     {
-        SceneManager.LoadScene("NielsScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void ExitGame()
