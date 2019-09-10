@@ -54,7 +54,7 @@ public class PlayerManager : MonoBehaviour
         {
             playerMovement.CancelJump();
             playerMovement.KillVelocity();
-            GameManager.Instance.ResetPlayerToCheckpoint();
+            GameManager.Instance.SendPlayerToLastCheckpoint();
         }
         else if (other.gameObject.CompareTag("SafeGround"))
         {
@@ -74,6 +74,7 @@ public class PlayerManager : MonoBehaviour
         if(other.gameObject.layer == LayerMask.NameToLayer("Grid"))
         {
             GameManager.Instance.SetConfinerBoundingShape(other.gameObject.GetComponent<Collider2D>());
+            other.GetComponent<Room>().OnEnterRoom();
         }
     }
 }
