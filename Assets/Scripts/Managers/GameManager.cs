@@ -1,5 +1,6 @@
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -56,9 +57,19 @@ public class GameManager : MonoBehaviour
     }
 
     // Set the player position equal to the last checkpoint
-    public void ResetPlayerToCheckpoint()
+    public void SendPlayerToLastCheckpoint()
     {
         player.transform.position = new Vector3(lastCheckpoint.transform.position.x, lastCheckpoint.transform.position.y + respawnYOffset);
+    }
+
+    public void SendPlayerToCheckpoint(Checkpoint checkpoint)
+    {
+        player.transform.position = new Vector3(checkpoint.transform.position.x, checkpoint.transform.position.y + respawnYOffset);
+    }
+
+    public void ResetWorld()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void SetConfinerBoundingShape(Collider2D collider)
