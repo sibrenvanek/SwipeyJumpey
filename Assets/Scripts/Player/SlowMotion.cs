@@ -20,6 +20,7 @@ public class SlowMotion : MonoBehaviour
     [SerializeField] private float slowMotionDuration = 2f;
     [SerializeField] private float minVelocityInPercent = 10f;
     [SerializeField] private bool doingSlowmotion = false;
+    [SerializeField] private float pitchReduction = 0.1f;
     private Vector2 oldVelocity = Vector2.zero;
     private Vector2 goalVelocity = Vector2.zero;
     private Coroutine curCoroutine = null;
@@ -93,6 +94,7 @@ public class SlowMotion : MonoBehaviour
     private void SlowTime()
     {
         playerRigidbody.velocity *= slowSpeed;
+        GameManager.Instance.ReduceAudioPitch(pitchReduction);
     }
 
     // Resets the time that the player is in slowmotion
@@ -100,6 +102,7 @@ public class SlowMotion : MonoBehaviour
     {
         if(doingSlowmotion)
         {
+            GameManager.Instance.ResetAudioPitch();
             OnSlowMotionDeActivated.Invoke();
             doingSlowmotion = false;
             playerManager.EnablePhysics();
