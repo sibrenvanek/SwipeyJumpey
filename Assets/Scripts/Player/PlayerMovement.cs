@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     public bool slowMotionJumpAvailable { get; private set; } = false;
     private bool dragging = false;
     private float defaultGravity = 0f;
+    private bool inputEnabled = true;
 
     /*************
      * FUNCTIONS *
@@ -50,7 +51,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleInput();
+        if(inputEnabled)
+            HandleInput();
+
         SetDirection();
         grounded = IsGrounded();
     }
@@ -62,6 +65,16 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /**Player Input**/
+
+    public void Disable()
+    {
+        inputEnabled = false;
+    }
+
+    public void Enable()
+    {
+        inputEnabled = true;
+    }
 
     // Handle playerinput
     private void HandleInput()

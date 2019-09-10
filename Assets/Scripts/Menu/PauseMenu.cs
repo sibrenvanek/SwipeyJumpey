@@ -27,7 +27,8 @@ public class PauseMenu : MonoBehaviour
     {
         pauseButton.SetActive(true);
         pauseUI.SetActive(false);
-        playerMovement.SetSlowMotionJumpAvailable(playerCanSlowMotionJump);
+        //playerMovement.SetSlowMotionJumpAvailable(playerCanSlowMotionJump);
+        playerMovement.Enable();
         playerCanJump = false;
         playerCanSlowMotionJump = false;
         Time.timeScale = 1f;
@@ -39,7 +40,8 @@ public class PauseMenu : MonoBehaviour
         pauseButton.SetActive(false);
         pauseUI.SetActive(true);
         playerCanSlowMotionJump = playerMovement.slowMotionJumpAvailable;
-        playerMovement.SetSlowMotionJumpAvailable(false);
+        //playerMovement.SetSlowMotionJumpAvailable(false);
+        playerMovement.Disable();
         Time.timeScale = 0f;
         isPaused = true;
     }
