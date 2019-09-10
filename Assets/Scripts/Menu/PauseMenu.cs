@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -25,7 +25,6 @@ public class PauseMenu : MonoBehaviour
     {
         pauseButton.SetActive(true);
         pauseUI.SetActive(false);
-        playerMovement.SetJumpAvailable(playerCanJump);
         playerMovement.SetSlowMotionJumpAvailable(playerCanSlowMotionJump);
         playerCanJump = false;
         playerCanSlowMotionJump = false;
@@ -37,9 +36,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseButton.SetActive(false);
         pauseUI.SetActive(true);
-        playerCanJump = playerMovement.jumpAvailable;
         playerCanSlowMotionJump = playerMovement.slowMotionJumpAvailable;
-        playerMovement.SetJumpAvailable(false);
         playerMovement.SetSlowMotionJumpAvailable(false);
         Time.timeScale = 0f;
         isPaused = true;

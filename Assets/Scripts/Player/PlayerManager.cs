@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour
     /**General**/
     private Rigidbody2D rigidbody2d = null;
     private PlayerMovement playerMovement = null;
+    private float defaultScale = 0f;
 
     /*************
      * FUNCTIONS *
@@ -28,18 +29,18 @@ public class PlayerManager : MonoBehaviour
     // Enable the physics calculations
     public void EnablePhysics()
     {
-        rigidbody2d.bodyType = RigidbodyType2D.Dynamic;
+        rigidbody2d.gravityScale = defaultScale;
     }
 
     // Disable the physics calculations
     public void DisablePhysics()
     {
-        rigidbody2d.bodyType = RigidbodyType2D.Kinematic;
+        defaultScale = rigidbody2d.gravityScale;
+        rigidbody2d.gravityScale = 0;
     }
 
     public void Fall()
     {
-        playerMovement.SetJumpAvailable(false);
         playerMovement.SetSlowMotionJumpAvailable(false);
     }
 
@@ -52,13 +53,11 @@ public class PlayerManager : MonoBehaviour
         {
             playerMovement.CancelJump();
             playerMovement.KillVelocity();
-            GameManager.Instance.ResetPlayerToCheckpoint();
+            GameManager.Instance.SendPlayerToLastCheckpoint();
         }
         else if (other.gameObject.CompareTag("SafeGround"))
         {
             playerMovement.KillVelocity();
-            playerMovement.SetJumpAvailable(true);
-            playerMovement.SetGrounded(true);
         }
     }
 
@@ -72,6 +71,7 @@ public class PlayerManager : MonoBehaviour
         if(other.gameObject.layer == LayerMask.NameToLayer("Grid"))
         {
             GameManager.Instance.SetConfinerBoundingShape(other.gameObject.GetComponent<Collider2D>());
+            other.GetComponent<Room>().OnEnterRoom();
         }
     }
 }

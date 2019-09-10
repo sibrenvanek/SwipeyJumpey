@@ -1,5 +1,9 @@
-using Cinemachine;
-using UnityEngine;
+using Cinemachine; <<
+<<<<< HEAD
+using UnityEngine; ==
+== == =
+using UnityEngine.SceneManagement; >>
+>>>>> develop
 
 public class GameManager : MonoBehaviour
 {
@@ -58,22 +62,19 @@ public class GameManager : MonoBehaviour
     }
 
     // Set the player position equal to the last checkpoint
-    public void ResetPlayerToCheckpoint(PickCheckpoint pickCheckpoint = PickCheckpoint.lastCheckpoint)
+    public void SendPlayerToLastCheckpoint()
     {
-        Vector3 newPosition = new Vector3();
-        if (pickCheckpoint == PickCheckpoint.lastCheckpoint)
-        {
-            newPosition = new Vector3(lastCheckpoint.transform.position.x, lastCheckpoint.transform.position.y + respawnYOffset);
-        }
-        else if (pickCheckpoint == PickCheckpoint.initialCheckpointWorld)
-        {
-            newPosition = new Vector3(initialCheckpointWorld.transform.position.x, initialCheckpointWorld.transform.position.y + respawnYOffset);
-        }
-        else if (pickCheckpoint == PickCheckpoint.initialCheckpointLevel)
-        {
-            newPosition = new Vector3(initialCheckpointLevel.transform.position.x, initialCheckpointLevel.transform.position.y + respawnYOffset);
-        }
-        player.transform.position = newPosition;
+        player.transform.position = new Vector3(lastCheckpoint.transform.position.x, lastCheckpoint.transform.position.y + respawnYOffset);
+    }
+
+    public void SendPlayerToCheckpoint(Checkpoint checkpoint)
+    {
+        player.transform.position = new Vector3(checkpoint.transform.position.x, checkpoint.transform.position.y + respawnYOffset);
+    }
+
+    public void ResetWorld()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void SetConfinerBoundingShape(Collider2D collider)

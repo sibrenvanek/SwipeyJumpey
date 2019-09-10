@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7836860192840318287}
   - component: {fileID: 7836860192840318286}
+  - component: {fileID: 4207140909551667073}
   m_Layer: 8
   m_Name: LevelCollider
   m_TagString: Untagged
@@ -60,3 +61,18 @@ PolygonCollider2D:
       - {x: -18, y: 7.5}
       - {x: -18, y: -12.5}
       - {x: 12.5, y: -12.5}
+--- !u!114 &4207140909551667073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7836860192840318281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f80e0754fe4bb354e912d02c39e61f3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: LevelName
+  roomInitialCheckpoint: {fileID: 0}
+  worldManager: {fileID: 0}
