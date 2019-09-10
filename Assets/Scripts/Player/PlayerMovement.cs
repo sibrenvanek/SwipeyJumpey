@@ -82,7 +82,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 baseMousePosition = Input.mousePosition;
                 dragging = true;
-                Debug.Log("HEY");
                 if (!grounded)
                     slowMotion.Go();
             }
@@ -96,7 +95,6 @@ public class PlayerMovement : MonoBehaviour
 
             trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, dashTime);
             facingLeft = baseMousePosition.x < Input.mousePosition.x;
-            Debug.Log("OOHOH");
         }
     }
 
@@ -106,7 +104,6 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButton(0) || !dragging)
             return;
 
-        Debug.Log("WIE");
         Vector3 firstMousePoint = mainCamera.ScreenToWorldPoint(baseMousePosition);
         firstMousePoint.z = transform.position.z;
         Vector3 lastMousePoint = mainCamera.ScreenToWorldPoint(lastMousePosition);
