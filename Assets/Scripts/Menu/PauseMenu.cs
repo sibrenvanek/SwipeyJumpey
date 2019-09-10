@@ -10,15 +10,17 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseUI;
     public GameObject pauseButton;
     public TextMeshProUGUI currentLevelPlaceholder;
-    public string levelText;
+    public Room currentRoom;
     public PlayerMovement playerMovement;
+    public WorldManager worldManager;
 
     private bool playerCanJump = false;
     private bool playerCanSlowMotionJump = false;
 
     public void Start()
     {
-        currentLevelPlaceholder.text = levelText;
+        currentLevelPlaceholder.text = currentRoom.RoomName;
+        worldManager.OnCurrentRoomChanged += ChangeLevelText;
     }
 
     public void Resume()
@@ -48,20 +50,27 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("Main Menu");
     }
 
-    public void ChangeLevelText(string newText)
+    public void ChangeLevelText(Room newRoom)
     {
-        currentLevelPlaceholder.text = newText;
+        currentRoom = newRoom;
+        currentLevelPlaceholder.text = currentRoom.RoomName;
     }
 
     public void ResetLevel()
     {
-        GameManager.Instance.ResetPlayerToCheckpoint(PickCheckpoint.initialCheckpointLevel);
         Resume();
+        worldManager.ResetToRoomCheckpoint();
     }
 
     public void ResetWorld()
     {
-        GameManager.Instance.ResetPlayerToCheckpoint(PickCheckpoint.initialCheckpointWorld);
         Resume();
+        worldManager.ResetToInitialCheckpoint();
+    }
+
+    public void ResetLast()
+    {
+        Resume();
+        GameManager.Instance.SendPlayerToLastCheckpoint();
     }
 }

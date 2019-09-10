@@ -5,7 +5,6 @@ public class Checkpoint : MonoBehaviour
     private SpriteRenderer spriteRenderer = null;
     [SerializeField] private Sprite active = null;
     [SerializeField] private Sprite inActive = null;
-    [SerializeField] private bool isMainCheckpoint = true;
 
     /*************
      * FUNCTIONS *

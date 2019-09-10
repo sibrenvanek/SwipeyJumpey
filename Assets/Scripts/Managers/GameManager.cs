@@ -1,9 +1,6 @@
-using Cinemachine; <<
-<<<<< HEAD
-using UnityEngine; ==
-== == =
-using UnityEngine.SceneManagement; >>
->>>>> develop
+using Cinemachine; 
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,8 +12,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     /**General**/
-    [SerializeField] private Checkpoint initialCheckpointWorld = null;
-    [SerializeField] private Checkpoint initialCheckpointLevel = null;
     [SerializeField] private Checkpoint lastCheckpoint = null;
     [SerializeField] private PlayerManager player = null;
     [SerializeField] private float respawnYOffset = 0.2f;
@@ -96,11 +91,4 @@ public class GameManager : MonoBehaviour
     {
         audioSource.pitch = defaultPitch;
     }
-}
-
-public enum PickCheckpoint
-{
-    lastCheckpoint,
-    initialCheckpointWorld,
-    initialCheckpointLevel
 }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -51,12 +50,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!PauseMenu.isPaused)
-        {
-            HandleInput();
-            SetDirection();
-            grounded = IsGrounded();
-        }
+        HandleInput();
+        SetDirection();
+        grounded = IsGrounded();
     }
 
     // Set the direction the object is facing
