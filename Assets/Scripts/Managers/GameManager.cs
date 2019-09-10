@@ -1,5 +1,6 @@
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerManager player = null;
     [SerializeField] private float respawnYOffset = 0.2f;
     [SerializeField] private CinemachineConfiner cinemachineConfiner = null;
+    private AudioSource audioSource = null;
+    private float defaultPitch = 1f;
 
     /*************
      * FUNCTIONS *
@@ -40,6 +43,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        defaultPitch = audioSource.pitch;
         player = FindObjectOfType<PlayerManager>();
     }
 
@@ -56,13 +61,34 @@ public class GameManager : MonoBehaviour
     }
 
     // Set the player position equal to the last checkpoint
-    public void ResetPlayerToCheckpoint()
+    public void SendPlayerToLastCheckpoint()
     {
         player.transform.position = new Vector3(lastCheckpoint.transform.position.x, lastCheckpoint.transform.position.y + respawnYOffset);
+    }
+
+    public void SendPlayerToCheckpoint(Checkpoint checkpoint)
+    {
+        player.transform.position = new Vector3(checkpoint.transform.position.x, checkpoint.transform.position.y + respawnYOffset);
+    }
+
+    public void ResetWorld()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void SetConfinerBoundingShape(Collider2D collider)
     {
         cinemachineConfiner.m_BoundingShape2D = collider;
+    }
+
+    public void ReduceAudioPitch(float minus)
+    {
+        if (audioSource.pitch - minus > 0.5f)
+            audioSource.pitch -= minus;
+    }
+
+    public void ResetAudioPitch()
+    {
+        audioSource.pitch = defaultPitch;
     }
 }

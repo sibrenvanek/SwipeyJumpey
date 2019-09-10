@@ -41,7 +41,6 @@ public class PlayerManager : MonoBehaviour
 
     public void Fall()
     {
-        playerMovement.SetJumpAvailable(false);
         playerMovement.SetSlowMotionJumpAvailable(false);
     }
 
@@ -54,13 +53,11 @@ public class PlayerManager : MonoBehaviour
         {
             playerMovement.CancelJump();
             playerMovement.KillVelocity();
-            GameManager.Instance.ResetPlayerToCheckpoint();
+            GameManager.Instance.SendPlayerToLastCheckpoint();
         }
         else if (other.gameObject.CompareTag("SafeGround"))
         {
             playerMovement.KillVelocity();
-            playerMovement.SetJumpAvailable(true);
-            playerMovement.SetGrounded(true);
         }
     }
 
@@ -74,6 +71,7 @@ public class PlayerManager : MonoBehaviour
         if(other.gameObject.layer == LayerMask.NameToLayer("Grid"))
         {
             GameManager.Instance.SetConfinerBoundingShape(other.gameObject.GetComponent<Collider2D>());
+            other.GetComponent<Room>().OnEnterRoom();
         }
     }
 }
