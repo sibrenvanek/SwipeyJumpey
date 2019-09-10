@@ -12,12 +12,8 @@ GameObject:
   - component: {fileID: 870701888281216974}
   - component: {fileID: 3107256958101875598}
   - component: {fileID: 1237001785257964816}
-<<<<<<< HEAD:Assets/Prefabs/Checkpoint.prefab
   - component: {fileID: 2592006374337633624}
   m_Layer: 2
-=======
-  m_Layer: 0
->>>>>>> f30a4d22bb50fa80cc96c2550c55b5a45c153062:Assets/Prefabs/Objects/Checkpoint.prefab
   m_Name: Checkpoint
   m_TagString: Checkpoint
   m_Icon: {fileID: 0}
