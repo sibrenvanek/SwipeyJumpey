@@ -1,22 +1,23 @@
 using UnityEngine;
 using Cinemachine;
+using System.Collections;
 
 public class CameraManager : MonoBehaviour 
 {
-    
+    [SerializeField] private float dampingTime = .2f;
+    [SerializeField] private float dampingAmount = .15f; 
     [SerializeField] private CinemachineConfiner cinemachineConfiner = null;
-
+    [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera = null;
     private Collider2D currentCollider = null;
     private Collider2D previousCollider = null; 
+
     public void SetConfinerBoundingShape(Collider2D collider)
     {
+        StartCoroutine(TriggerConfinerDamping());
         if(currentCollider != null) 
             previousCollider = currentCollider;
         currentCollider = collider;
 
-        // if(previousCollider != null)
-        //     print(previousCollider.name);
-        // print(currentCollider.name);
         cinemachineConfiner.m_BoundingShape2D = currentCollider;
     }
 
@@ -26,5 +27,20 @@ public class CameraManager : MonoBehaviour
         {
             SetConfinerBoundingShape(previousCollider);
         }
+    }
+
+    private IEnumerator TriggerConfinerDamping()
+    {
+        CinemachineFramingTransposer cinemachineCameraBody = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+        
+        cinemachineConfiner.m_Damping = dampingAmount;
+        cinemachineCameraBody.m_XDamping = 0;
+        cinemachineCameraBody.m_XDamping = 0;
+
+        yield return new WaitForSeconds(dampingTime);
+
+        cinemachineConfiner.m_Damping = 0;
+        cinemachineCameraBody.m_XDamping = 1;
+        cinemachineCameraBody.m_XDamping = 1;
     }
 }
