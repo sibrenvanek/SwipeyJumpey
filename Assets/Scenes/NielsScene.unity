@@ -2945,16 +2945,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenu
       objectReference: {fileID: 0}
-    - target: {fileID: 9180694856282486502, guid: 25401abfec4b20a428b0118dcd83e010,
-        type: 3}
-      propertyPath: playerMovement
-      value: 
-      objectReference: {fileID: 478370360}
-    - target: {fileID: 9180694856282486498, guid: 25401abfec4b20a428b0118dcd83e010,
-        type: 3}
-      propertyPath: m_BlockingObjects
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9180694856282486503, guid: 25401abfec4b20a428b0118dcd83e010,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3078,6 +3068,16 @@ PrefabInstance:
     - target: {fileID: 9180694857080406396, guid: 25401abfec4b20a428b0118dcd83e010,
         type: 3}
       propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9180694856282486502, guid: 25401abfec4b20a428b0118dcd83e010,
+        type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 478370360}
+    - target: {fileID: 9180694856282486498, guid: 25401abfec4b20a428b0118dcd83e010,
+        type: 3}
+      propertyPath: m_BlockingObjects
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
