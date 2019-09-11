@@ -63,7 +63,7 @@ public class PauseMenu : MonoBehaviour
         worldManager.ResetToInitialCheckpoint();
     }
 
-    public void ResetLast()
+    public void ResetCheckpoint()
     {
         Resume();
         GameManager.Instance.SendPlayerToLastCheckpoint();
