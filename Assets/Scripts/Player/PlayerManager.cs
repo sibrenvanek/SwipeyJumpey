@@ -1,4 +1,5 @@
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -10,18 +11,19 @@ public class PlayerManager : MonoBehaviour
     private Rigidbody2D rigidbody2d = null;
     private PlayerMovement playerMovement = null;
     private float defaultScale = 0f;
-
+    private CameraManager cameraManager = null;
     /*************
      * FUNCTIONS *
      *************/
 
     /**General**/
 
-    // Start is called before the first frame update
-    void Start()
+    // Awake is called before the first frame update
+    void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
         rigidbody2d = GetComponent<Rigidbody2D>();
+        cameraManager = Camera.main.GetComponent<CameraManager>();
         defaultScale = rigidbody2d.gravityScale;
     }
 
@@ -70,8 +72,16 @@ public class PlayerManager : MonoBehaviour
         }
         if(other.gameObject.layer == LayerMask.NameToLayer("Grid"))
         {
-            GameManager.Instance.SetConfinerBoundingShape(other.gameObject.GetComponent<Collider2D>());
+            cameraManager.SetConfinerBoundingShape(other.gameObject.GetComponent<Collider2D>());
             other.GetComponent<Room>().OnEnterRoom();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        if(other.gameObject.layer == LayerMask.NameToLayer("Grid"))
+        {
+            print("exit" + other.name);
+            cameraManager.OnExitCollider(other.gameObject.GetComponent<Collider2D>());
         }
     }
 }
