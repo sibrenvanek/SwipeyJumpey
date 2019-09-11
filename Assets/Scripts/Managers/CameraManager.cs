@@ -8,8 +8,14 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float dampingAmount = .15f; 
     [SerializeField] private CinemachineConfiner cinemachineConfiner = null;
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera = null;
+    private CinemachineFramingTransposer cinemachineCameraBody = null;
     private Collider2D currentCollider = null;
     private Collider2D previousCollider = null; 
+
+    private void Awake() 
+    {
+        cinemachineCameraBody = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+    }
 
     public void SetConfinerBoundingShape(Collider2D collider)
     {
@@ -31,8 +37,6 @@ public class CameraManager : MonoBehaviour
 
     private IEnumerator TriggerConfinerDamping()
     {
-        CinemachineFramingTransposer cinemachineCameraBody = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
-        
         cinemachineConfiner.m_Damping = dampingAmount;
         cinemachineCameraBody.m_XDamping = 0;
         cinemachineCameraBody.m_XDamping = 0;
