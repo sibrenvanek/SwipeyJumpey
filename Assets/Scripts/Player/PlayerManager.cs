@@ -23,11 +23,6 @@ public class PlayerManager : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
-    public void Fall()
-    {
-        playerMovement.SetSlowMotionJumpAvailable(false);
-    }
-
     /**Collisions**/
 
     // Handle collisions with other gameobjects
