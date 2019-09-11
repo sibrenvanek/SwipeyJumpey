@@ -1,4 +1,4 @@
-using Cinemachine; 
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -89,5 +89,10 @@ public class GameManager : MonoBehaviour
     public void ResetAudioPitch()
     {
         audioSource.pitch = defaultPitch;
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }
