@@ -1,4 +1,5 @@
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -10,18 +11,19 @@ public class PlayerManager : MonoBehaviour
     private Rigidbody2D rigidbody2d = null;
     private PlayerMovement playerMovement = null;
     private float defaultScale = 0f;
-
+    private CameraManager cameraManager = null;
     /*************
      * FUNCTIONS *
      *************/
 
     /**General**/
 
-    // Start is called before the first frame update
-    void Start()
+    // Awake is called before the first frame update
+    void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
         rigidbody2d = GetComponent<Rigidbody2D>();
+        cameraManager = Camera.main.GetComponent<CameraManager>();
         defaultScale = rigidbody2d.gravityScale;
     }
 
@@ -39,25 +41,29 @@ public class PlayerManager : MonoBehaviour
         rigidbody2d.gravityScale = 0;
     }
 
-    public void Fall()
-    {
-        playerMovement.SetSlowMotionJumpAvailable(false);
-    }
-
     /**Collisions**/
 
     // Handle collisions with other gameobjects
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("DeadZone"))
+        ContactPoint2D[] contactPoints = new ContactPoint2D[3];
+        other.GetContacts(contactPoints);
+
+        foreach (ContactPoint2D contactPoint2D in contactPoints)
         {
-            playerMovement.CancelJump();
-            playerMovement.KillVelocity();
-            GameManager.Instance.SendPlayerToLastCheckpoint();
-        }
-        else if (other.gameObject.CompareTag("SafeGround"))
-        {
-            playerMovement.KillVelocity();
+            if (!contactPoint2D.rigidbody)
+                break;
+
+            if (contactPoint2D.rigidbody.CompareTag("DeadZone"))
+            {
+                playerMovement.CancelJump();
+                playerMovement.KillVelocity();
+                GameManager.Instance.SendPlayerToLastCheckpoint();
+                break;
+            }
+
+            if (contactPoint2D.otherCollider.name == "Feet" && contactPoint2D.rigidbody.CompareTag("SafeGround"))
+                playerMovement.KillVelocity();
         }
     }
 
@@ -68,10 +74,19 @@ public class PlayerManager : MonoBehaviour
         {
             other.gameObject.GetComponent<Checkpoint>().Check();
         }
+        if (other.gameObject.layer == LayerMask.NameToLayer("Grid"))
+        {
+            transform.position += (rigidbody2d.velocity.x < 0)? new Vector3(-1, 0): new Vector3(1, 0);
+            playerMovement.KillVelocity();
+            cameraManager.SetConfinerBoundingShape(other.gameObject.GetComponent<Collider2D>());
+            other.GetComponent<Room>().OnEnterRoom();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
         if(other.gameObject.layer == LayerMask.NameToLayer("Grid"))
         {
-            GameManager.Instance.SetConfinerBoundingShape(other.gameObject.GetComponent<Collider2D>());
-            other.GetComponent<Room>().OnEnterRoom();
+            cameraManager.OnExitCollider(other.gameObject.GetComponent<Collider2D>());
         }
     }
 }

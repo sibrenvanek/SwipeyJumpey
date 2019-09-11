@@ -8,6 +8,7 @@ TagManager:
   - Checkpoint
   - SafeGround
   - Fuel
+  - SafeGroundOneWay
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - Grid
   - Fuel
   - SafeGround
-  - 
-  - 
+  - Body
+  - SafeGroundOneWay
   - 
   - 
   - 

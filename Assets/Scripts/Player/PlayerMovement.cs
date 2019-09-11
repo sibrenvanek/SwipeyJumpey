@@ -9,8 +9,7 @@ public class PlayerMovement : MonoBehaviour
      *************/
 
     /**General**/
-    public event Action OnSlowMotionActivated = delegate {};
-    public event Action OnSlowMotionDeActivated = delegate {};
+    public event Action OnJump = delegate {};
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
     private Rigidbody2D rigidbody2d = null;
@@ -23,14 +22,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 maxVelocity = Vector2.zero;
     [SerializeField] private float speedLimiter = 20f;
     [SerializeField] private float dashTime = 0.2f;
-    [SerializeField] private float gravityReduction = 5f;
     [SerializeField] private float maximumCancelDistance = 1f;
     private Vector2 jumpVelocity = new Vector2(0, 0);
     private Vector2 baseMousePosition = new Vector2(0, 0);
     private Vector2 lastMousePosition = new Vector2(0, 0);
     public bool slowMotionJumpAvailable { get; private set; } = false;
     private bool dragging = false;
-    private float defaultGravity = 0f;
+    private bool inputEnabled = true;
+
+    /**Gravity**/
+    private float defaultGravityScale = 0f;
+    private bool gravityTemporarilyOff = false;
+    private bool gravityOff = false;
 
     /*************
      * FUNCTIONS *
@@ -44,15 +47,21 @@ public class PlayerMovement : MonoBehaviour
         mainCamera = Camera.main;
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        defaultGravity = rigidbody2d.gravityScale;
+        defaultGravityScale = rigidbody2d.gravityScale;
     }
 
     // Update is called once per frame
     void Update()
     {
-        HandleInput();
+        if (inputEnabled)
+            HandleInput();
+
         SetDirection();
         grounded = IsGrounded();
+        if (CheckCancelSlowmotionJump())
+        {
+            CancelSlowmotionJump();
+        }
     }
 
     // Set the direction the object is facing
@@ -62,6 +71,16 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /**Player Input**/
+
+    public void Disable()
+    {
+        inputEnabled = false;
+    }
+
+    public void Enable()
+    {
+        inputEnabled = true;
+    }
 
     // Handle playerinput
     private void HandleInput()
@@ -122,6 +141,7 @@ public class PlayerMovement : MonoBehaviour
         {
             grounded = false;
             Jump();
+            OnJump.Invoke();
         }
         else if (slowMotionJumpAvailable)
         {
@@ -158,18 +178,34 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         KillVelocity();
-        StartCoroutine(RemoveGravity());
+        StartCoroutine(RemoveGravityTemporarily());
         rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
     }
 
     // Temporarily remove gravity
-    private IEnumerator RemoveGravity()
+    private IEnumerator RemoveGravityTemporarily()
     {
+        gravityTemporarilyOff = true;
         rigidbody2d.gravityScale = 0;
         yield return new WaitForSeconds(dashTime);
+        gravityTemporarilyOff = false;
+        if (!gravityOff)
+            rigidbody2d.gravityScale = defaultGravityScale;
+    }
 
-        if (!dragging)
-            rigidbody2d.gravityScale = defaultGravity;
+    // Remove gravity
+    public void RemoveGravity()
+    {
+        gravityOff = true;
+        rigidbody2d.gravityScale = 0;
+    }
+
+    // Turn gravity back on
+    public void RestoreGravity()
+    {
+        gravityOff = false;
+        if (!gravityTemporarilyOff)
+            rigidbody2d.gravityScale = defaultGravityScale;
     }
 
     /**Velocity**/
@@ -195,11 +231,22 @@ public class PlayerMovement : MonoBehaviour
     // Check if the player is on the ground
     bool IsGrounded()
     {
-        RaycastHit2D raycastHit2d = Physics2D.Raycast(transform.position, Vector2.down, 1f + transform.localScale.y * 0.5f, LayerMask.GetMask("SafeGround"));
+        RaycastHit2D raycastHit2d = Physics2D.Raycast(transform.position, Vector2.down, 1f + transform.localScale.y * 0.5f, LayerMask.GetMask("SafeGroundOneWay") | LayerMask.GetMask("SafeGround"));
 
         if (!raycastHit2d)
             return false;
 
-        return (raycastHit2d.collider.gameObject.CompareTag("SafeGround") && rigidbody2d.velocity.y <= 0);
+        return ((raycastHit2d.collider.gameObject.CompareTag("SafeGround") || raycastHit2d.collider.gameObject.CompareTag("SafeGroundOneWay")) && rigidbody2d.velocity.y <= 0);
+    }
+
+    bool CheckCancelSlowmotionJump()
+    {
+        return IsGrounded() && slowMotion.doingSlowmotion;
+    }
+
+    void CancelSlowmotionJump()
+    {
+        slowMotion.Cancel();
+        SetSlowMotionJumpAvailable(true);
     }
 }

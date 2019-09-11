@@ -65,7 +65,10 @@ public class TrajectoryPrediction : MonoBehaviour
     // Remove all of the plotted points
     public void RemoveIndicators()
     {
-        Destroy(activeIndicator);
+        if (!activeIndicator)
+            return;
+
+        Destroy(activeIndicator.gameObject);
         activeIndicator = null;
     }
 }

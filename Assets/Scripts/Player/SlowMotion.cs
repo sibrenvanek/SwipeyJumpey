@@ -1,7 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class SlowMotion : MonoBehaviour
 {
@@ -10,17 +10,18 @@ public class SlowMotion : MonoBehaviour
      *************/
 
     /**General**/
-    public event Action OnSlowMotionActivated = delegate{};
-    public event Action OnSlowMotionDeActivated = delegate{};
+    public event Action OnSlowMotionActivated = delegate {};
+    public event Action OnSlowMotionDeActivated = delegate {};
     [SerializeField] private Rigidbody2D playerRigidbody = null;
     [SerializeField] private PlayerManager playerManager = null;
+    [SerializeField] private PlayerMovement playerMovement = null;
 
     /**SlowMotion**/
     [SerializeField] private float slowSpeed = .9f;
     [SerializeField] private float slowMotionDuration = 2f;
     [SerializeField] private float minVelocityInPercent = 10f;
-    [SerializeField] private bool doingSlowmotion = false;
     [SerializeField] private float pitchReduction = 0.1f;
+    public bool doingSlowmotion { get; private set; } = false;
     private Vector2 oldVelocity = Vector2.zero;
     private Vector2 goalVelocity = Vector2.zero;
     private Coroutine curCoroutine = null;
@@ -36,6 +37,7 @@ public class SlowMotion : MonoBehaviour
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerManager = GetComponent<PlayerManager>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     // FixedUpdate is called within fixed intervals
@@ -49,7 +51,6 @@ public class SlowMotion : MonoBehaviour
 
     /**SlowMotion**/
 
-
     // Starts the slowmotion coroutine
     public void Go()
     {
@@ -59,7 +60,7 @@ public class SlowMotion : MonoBehaviour
     // Stops the current coroutine
     public void Cancel()
     {
-        if(curCoroutine != null)
+        if (curCoroutine != null)
         {
             StopCoroutine(curCoroutine);
         }
@@ -70,12 +71,12 @@ public class SlowMotion : MonoBehaviour
     private IEnumerator StartSlowMotionSequence()
     {
         OnSlowMotionActivated.Invoke();
-        playerManager.DisablePhysics();
+        playerMovement.RemoveGravity();
 
         oldVelocity = playerRigidbody.velocity;
         goalVelocity = CalculateVelocityGoal();
         doingSlowmotion = true;
-        
+
         yield return new WaitForSeconds(slowMotionDuration);
 
         if (doingSlowmotion)
@@ -100,13 +101,13 @@ public class SlowMotion : MonoBehaviour
     // Resets the time that the player is in slowmotion
     private void ResetTime()
     {
-        if(doingSlowmotion)
+        if (doingSlowmotion)
         {
             GameManager.Instance.ResetAudioPitch();
             OnSlowMotionDeActivated.Invoke();
             doingSlowmotion = false;
-            playerManager.EnablePhysics();
-            playerManager.Fall();
+            playerMovement.CancelJump();
+            playerMovement.RestoreGravity();
         }
     }
 
