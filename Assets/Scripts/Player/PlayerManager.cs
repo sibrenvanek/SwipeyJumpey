@@ -9,7 +9,6 @@ public class PlayerManager : MonoBehaviour
     /**General**/
     private Rigidbody2D rigidbody2d = null;
     private PlayerMovement playerMovement = null;
-    private float defaultScale = 0f;
 
     /*************
      * FUNCTIONS *
@@ -22,21 +21,6 @@ public class PlayerManager : MonoBehaviour
     {
         playerMovement = GetComponent<PlayerMovement>();
         rigidbody2d = GetComponent<Rigidbody2D>();
-        defaultScale = rigidbody2d.gravityScale;
-    }
-
-    /**Physics**/
-
-    // Enable the physics calculations
-    public void EnablePhysics()
-    {
-        rigidbody2d.gravityScale = defaultScale;
-    }
-
-    // Disable the physics calculations
-    public void DisablePhysics()
-    {
-        rigidbody2d.gravityScale = 0;
     }
 
     public void Fall()

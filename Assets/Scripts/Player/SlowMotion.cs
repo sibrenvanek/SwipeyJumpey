@@ -14,6 +14,7 @@ public class SlowMotion : MonoBehaviour
     public event Action OnSlowMotionDeActivated = delegate{};
     [SerializeField] private Rigidbody2D playerRigidbody = null;
     [SerializeField] private PlayerManager playerManager = null;
+    [SerializeField] private PlayerMovement playerMovement = null;
 
     /**SlowMotion**/
     [SerializeField] private float slowSpeed = .9f;
@@ -36,6 +37,7 @@ public class SlowMotion : MonoBehaviour
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerManager = GetComponent<PlayerManager>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     // FixedUpdate is called within fixed intervals
@@ -70,7 +72,7 @@ public class SlowMotion : MonoBehaviour
     private IEnumerator StartSlowMotionSequence()
     {
         OnSlowMotionActivated.Invoke();
-        playerManager.DisablePhysics();
+        playerMovement.RemoveGravity();
 
         oldVelocity = playerRigidbody.velocity;
         goalVelocity = CalculateVelocityGoal();
@@ -105,7 +107,7 @@ public class SlowMotion : MonoBehaviour
             GameManager.Instance.ResetAudioPitch();
             OnSlowMotionDeActivated.Invoke();
             doingSlowmotion = false;
-            playerManager.EnablePhysics();
+            playerMovement.RestoreGravity();
             playerManager.Fall();
         }
     }
