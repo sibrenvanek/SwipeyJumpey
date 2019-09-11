@@ -2628,6 +2628,14 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 8.4375
       objectReference: {fileID: 0}
+    - target: {fileID: 378091846, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
+      propertyPath: cinemachineConfiner
+      value: 
+      objectReference: {fileID: 636282786}
+    - target: {fileID: 378091846, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
+      propertyPath: cinemachineVirtualCamera
+      value: 
+      objectReference: {fileID: 636282787}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
 --- !u!1001 &1508001201400423520
