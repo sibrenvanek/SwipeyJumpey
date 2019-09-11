@@ -107,8 +107,8 @@ public class SlowMotion : MonoBehaviour
             GameManager.Instance.ResetAudioPitch();
             OnSlowMotionDeActivated.Invoke();
             doingSlowmotion = false;
+            playerMovement.CancelJump();
             playerMovement.RestoreGravity();
-            playerManager.Fall();
         }
     }
 

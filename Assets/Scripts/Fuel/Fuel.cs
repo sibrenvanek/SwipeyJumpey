@@ -43,6 +43,7 @@ public class Fuel : MonoBehaviour
 
     private void DeActivate()
     {
+        spriteRenderer.DOKill();
         spriteRenderer.DOFade(0, 0);
         collider.enabled = false;
     }

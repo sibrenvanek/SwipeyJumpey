@@ -1,4 +1,4 @@
-using Cinemachine; 
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Checkpoint lastCheckpoint = null;
     [SerializeField] private PlayerManager player = null;
     [SerializeField] private float respawnYOffset = 0.2f;
-    [SerializeField] private CinemachineConfiner cinemachineConfiner = null;
     private AudioSource audioSource = null;
     private float defaultPitch = 1f;
 
@@ -76,10 +75,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void SetConfinerBoundingShape(Collider2D collider)
-    {
-        cinemachineConfiner.m_BoundingShape2D = collider;
-    }
 
     public void ReduceAudioPitch(float minus)
     {

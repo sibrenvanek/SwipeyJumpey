@@ -40,6 +40,7 @@ public class PauseMenu : MonoBehaviour
 
     public void BackToMenu()
     {
+        Destroy(GameManager.Instance.gameObject);
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
@@ -62,7 +63,7 @@ public class PauseMenu : MonoBehaviour
         worldManager.ResetToInitialCheckpoint();
     }
 
-    public void ResetLast()
+    public void ResetCheckpoint()
     {
         Resume();
         GameManager.Instance.SendPlayerToLastCheckpoint();

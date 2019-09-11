@@ -1,4 +1,5 @@
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -9,23 +10,35 @@ public class PlayerManager : MonoBehaviour
     /**General**/
     private Rigidbody2D rigidbody2d = null;
     private PlayerMovement playerMovement = null;
-
+    private float defaultScale = 0f;
+    private CameraManager cameraManager = null;
     /*************
      * FUNCTIONS *
      *************/
 
     /**General**/
 
-    // Start is called before the first frame update
-    void Start()
+    // Awake is called before the first frame update
+    void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
         rigidbody2d = GetComponent<Rigidbody2D>();
+        cameraManager = Camera.main.GetComponent<CameraManager>();
+        defaultScale = rigidbody2d.gravityScale;
     }
 
-    public void Fall()
+    /**Physics**/
+
+    // Enable the physics calculations
+    public void EnablePhysics()
     {
-        playerMovement.SetSlowMotionJumpAvailable(false);
+        rigidbody2d.gravityScale = defaultScale;
+    }
+
+    // Disable the physics calculations
+    public void DisablePhysics()
+    {
+        rigidbody2d.gravityScale = 0;
     }
 
     /**Collisions**/
@@ -61,10 +74,17 @@ public class PlayerManager : MonoBehaviour
         {
             other.gameObject.GetComponent<Checkpoint>().Check();
         }
+        if (other.gameObject.layer == LayerMask.NameToLayer("Grid"))
+        {
+            cameraManager.SetConfinerBoundingShape(other.gameObject.GetComponent<Collider2D>());
+            other.GetComponent<Room>().OnEnterRoom();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
         if(other.gameObject.layer == LayerMask.NameToLayer("Grid"))
         {
-            GameManager.Instance.SetConfinerBoundingShape(other.gameObject.GetComponent<Collider2D>());
-            other.GetComponent<Room>().OnEnterRoom();
+            cameraManager.OnExitCollider(other.gameObject.GetComponent<Collider2D>());
         }
     }
 }
