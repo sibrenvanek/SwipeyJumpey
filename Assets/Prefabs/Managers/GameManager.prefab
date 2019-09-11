@@ -47,7 +47,6 @@ MonoBehaviour:
   lastCheckpoint: {fileID: 0}
   player: {fileID: 0}
   respawnYOffset: 0.2
-  cinemachineConfiner: {fileID: 0}
 --- !u!82 &2898707142907956490
 AudioSource:
   m_ObjectHideFlags: 0
