@@ -74,13 +74,17 @@ public class PlayerManager : MonoBehaviour
         {
             other.gameObject.GetComponent<Checkpoint>().Check();
         }
+        if (other.CompareTag("RoomEntrance"))
+        {
+            other.GetComponent<RoomEntrance>().Enter(transform);
+            playerMovement.KillVelocity();
+        }
         if (other.gameObject.layer == LayerMask.NameToLayer("Grid"))
         {
-            transform.position += (rigidbody2d.velocity.x < 0)? new Vector3(-1, 0): new Vector3(1, 0);
-            playerMovement.KillVelocity();
             cameraManager.SetConfinerBoundingShape(other.gameObject.GetComponent<Collider2D>());
             other.GetComponent<Room>().OnEnterRoom();
         }
+        
     }
 
     private void OnTriggerExit2D(Collider2D other) {
