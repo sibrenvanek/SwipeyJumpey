@@ -229,12 +229,12 @@ public class PlayerMovement : MonoBehaviour
     // Check if the player is on the ground
     bool IsGrounded()
     {
-        RaycastHit2D raycastHit2d = Physics2D.Raycast(transform.position, Vector2.down, 1f + transform.localScale.y * 0.5f, LayerMask.GetMask("SafeGroundOneWay") | LayerMask.GetMask("SafeGround"));
+        RaycastHit2D raycastHit2d = Physics2D.Raycast(transform.position, Vector2.down, 1f + transform.localScale.y * 0.5f, LayerMask.GetMask("SafeGround"));
 
         if (!raycastHit2d)
             return false;
 
-        return ((raycastHit2d.collider.gameObject.CompareTag("SafeGround") || raycastHit2d.collider.gameObject.CompareTag("SafeGroundOneWay")) && rigidbody2d.velocity.y <= 0);
+        return ((raycastHit2d.collider.gameObject.CompareTag("SafeGround")) && rigidbody2d.velocity.y <= 0);
     }
 
     bool CheckCancelSlowmotionJump()
