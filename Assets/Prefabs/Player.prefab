@@ -133,6 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRigidbody: {fileID: 0}
   playerManager: {fileID: 0}
+  playerMovement: {fileID: 0}
   slowSpeed: 0.75
   slowMotionDuration: 2
   minVelocityInPercent: 2
@@ -289,7 +290,7 @@ GameObject:
   - component: {fileID: 7198294763772619496}
   - component: {fileID: 3518481831632312675}
   - component: {fileID: 6951564948761903761}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
