@@ -29,6 +29,30 @@ TextureImporter:
   - first:
       213: -3482227374399478912
     second: SafeGroundOne_8
+  - first:
+      213: -8691850185271341606
+    second: SafeGroundOne_9
+  - first:
+      213: 834365306205227239
+    second: SafeGroundOne_10
+  - first:
+      213: 2492661236420020297
+    second: SafeGroundOne_11
+  - first:
+      213: 8489996657219928997
+    second: SafeGroundOne_12
+  - first:
+      213: -7838235634553332244
+    second: SafeGroundOne_13
+  - first:
+      213: -5273388109614456888
+    second: SafeGroundOne_14
+  - first:
+      213: -6861824548332001581
+    second: SafeGroundOne_15
+  - first:
+      213: -1304432296796529753
+    second: SafeGroundOne_16
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -333,6 +357,174 @@ TextureImporter:
       bones: []
       spriteID: 058d18cece5974c28ad88aefdadb4c2c
       internalID: -3482227374399478912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafeGroundOne_9
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f47dd151541d44037baa91d5d99bba22
+      internalID: -8691850185271341606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafeGroundOne_10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5902f7d01aaf64a6e99883cb4a33f5ab
+      internalID: 834365306205227239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafeGroundOne_11
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c36138f6be7a488fa2cf4b3401ce70c
+      internalID: 2492661236420020297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafeGroundOne_12
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4df5ce3891f754d9ca307bd92d796dcd
+      internalID: 8489996657219928997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafeGroundOne_13
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd7fac2f96ff4490c807dd08de6f0b22
+      internalID: -7838235634553332244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafeGroundOne_14
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03ebe496d7d324e34bda2275d2ecc9b7
+      internalID: -5273388109614456888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafeGroundOne_15
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4463734e244de4c4ba790f04f534d372
+      internalID: -6861824548332001581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafeGroundOne_16
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dce5217721db1439598239d888707237
+      internalID: -1304432296796529753
       vertices: []
       indices: 
       edges: []

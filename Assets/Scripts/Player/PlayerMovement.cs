@@ -9,9 +9,7 @@ public class PlayerMovement : MonoBehaviour
      *************/
 
     /**General**/
-    public event Action OnSlowMotionActivated = delegate { };
-    public event Action OnSlowMotionDeActivated = delegate { };
-    public event Action OnJump = delegate { };
+    public event Action OnJump = delegate {};
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
     private Rigidbody2D rigidbody2d = null;
@@ -60,6 +58,10 @@ public class PlayerMovement : MonoBehaviour
 
         SetDirection();
         grounded = IsGrounded();
+        if (CheckCancelSlowmotionJump())
+        {
+            CancelSlowmotionJump();
+        }
     }
 
     // Set the direction the object is facing
@@ -233,5 +235,16 @@ public class PlayerMovement : MonoBehaviour
             return false;
 
         return ((raycastHit2d.collider.gameObject.CompareTag("SafeGround") || raycastHit2d.collider.gameObject.CompareTag("SafeGroundOneWay")) && rigidbody2d.velocity.y <= 0);
+    }
+
+    bool CheckCancelSlowmotionJump()
+    {
+        return IsGrounded() && slowMotion.doingSlowmotion;
+    }
+
+    void CancelSlowmotionJump()
+    {
+        slowMotion.Cancel();
+        SetSlowMotionJumpAvailable(true);
     }
 }
