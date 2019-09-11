@@ -9,8 +9,9 @@ public class PlayerMovement : MonoBehaviour
      *************/
 
     /**General**/
-    public event Action OnSlowMotionActivated = delegate {};
-    public event Action OnSlowMotionDeActivated = delegate {};
+    public event Action OnSlowMotionActivated = delegate { };
+    public event Action OnSlowMotionDeActivated = delegate { };
+    public event Action OnJump = delegate { };
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
     private Rigidbody2D rigidbody2d = null;
@@ -30,8 +31,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 lastMousePosition = new Vector2(0, 0);
     public bool slowMotionJumpAvailable { get; private set; } = false;
     private bool dragging = false;
-    private float defaultGravity = 0f;
     private bool inputEnabled = true;
+
+    /**Gravity**/
+    private float defaultGravityScale = 0f;
+    private bool gravityTemporarilyOff = false;
+    private bool gravityOff = false;
 
     /*************
      * FUNCTIONS *
@@ -45,13 +50,13 @@ public class PlayerMovement : MonoBehaviour
         mainCamera = Camera.main;
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        defaultGravity = rigidbody2d.gravityScale;
+        defaultGravityScale = rigidbody2d.gravityScale;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(inputEnabled)
+        if (inputEnabled)
             HandleInput();
 
         SetDirection();
@@ -133,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
         {
             grounded = false;
             Jump();
+            OnJump.Invoke();
         }
         else if (slowMotionJumpAvailable)
         {
@@ -169,18 +175,34 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         KillVelocity();
-        StartCoroutine(RemoveGravity());
+        StartCoroutine(RemoveGravityTemporarily());
         rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
     }
 
     // Temporarily remove gravity
-    private IEnumerator RemoveGravity()
+    private IEnumerator RemoveGravityTemporarily()
     {
+        gravityTemporarilyOff = true;
         rigidbody2d.gravityScale = 0;
         yield return new WaitForSeconds(dashTime);
+        gravityTemporarilyOff = false;
+        if (!gravityOff)
+            rigidbody2d.gravityScale = defaultGravityScale;
+    }
 
-        if (!dragging)
-            rigidbody2d.gravityScale = defaultGravity;
+    // Remove gravity
+    public void RemoveGravity()
+    {
+        gravityOff = true;
+        rigidbody2d.gravityScale = 0;
+    }
+
+    // Turn gravity back on
+    public void RestoreGravity()
+    {
+        gravityOff = false;
+        if (!gravityTemporarilyOff)
+            rigidbody2d.gravityScale = defaultGravityScale;
     }
 
     /**Velocity**/
