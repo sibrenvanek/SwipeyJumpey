@@ -90,9 +90,4 @@ public class GameManager : MonoBehaviour
     {
         audioSource.pitch = defaultPitch;
     }
-
-    public void Destroy()
-    {
-        Destroy(gameObject);
-    }
 }

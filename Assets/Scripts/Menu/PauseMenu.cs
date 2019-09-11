@@ -40,7 +40,7 @@ public class PauseMenu : MonoBehaviour
 
     public void BackToMenu()
     {
-        GameManager.Instance.Destroy();
+        Destroy(GameManager.Instance.gameObject);
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
