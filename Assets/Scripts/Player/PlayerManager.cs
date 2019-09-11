@@ -49,15 +49,24 @@ public class PlayerManager : MonoBehaviour
     // Handle collisions with other gameobjects
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("DeadZone"))
+        ContactPoint2D[] contactPoints = new ContactPoint2D[3];
+        other.GetContacts(contactPoints);
+
+        foreach (ContactPoint2D contactPoint2D in contactPoints)
         {
-            playerMovement.CancelJump();
-            playerMovement.KillVelocity();
-            GameManager.Instance.SendPlayerToLastCheckpoint();
-        }
-        else if (other.gameObject.CompareTag("SafeGround"))
-        {
-            playerMovement.KillVelocity();
+            if (!contactPoint2D.rigidbody)
+                break;
+
+            if (contactPoint2D.rigidbody.CompareTag("DeadZone"))
+            {
+                playerMovement.CancelJump();
+                playerMovement.KillVelocity();
+                GameManager.Instance.SendPlayerToLastCheckpoint();
+                break;
+            }
+
+            if (contactPoint2D.otherCollider.name == "Feet" && contactPoint2D.rigidbody.CompareTag("SafeGround"))
+                playerMovement.KillVelocity();
         }
     }
 
