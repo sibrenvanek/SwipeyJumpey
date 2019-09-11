@@ -101,7 +101,6 @@ public class SlowMotion : MonoBehaviour
     // Resets the time that the player is in slowmotion
     private void ResetTime()
     {
-        Debug.Log("test");
         if (doingSlowmotion)
         {
             GameManager.Instance.ResetAudioPitch();
