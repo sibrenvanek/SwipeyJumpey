@@ -137,7 +137,7 @@ MonoBehaviour:
   slowMotionDuration: 2
   minVelocityInPercent: 2
   doingSlowmotion: 0
-  pitchReduction: 0.01
+  pitchReduction: 1
 --- !u!50 &7929468682730686913
 Rigidbody2D:
   serializedVersion: 4

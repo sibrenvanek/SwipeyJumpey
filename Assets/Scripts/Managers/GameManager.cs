@@ -1,6 +1,7 @@
 using Cinemachine; 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -83,8 +84,7 @@ public class GameManager : MonoBehaviour
 
     public void ReduceAudioPitch(float minus)
     {
-        if (audioSource.pitch - minus > 0.5f)
-            audioSource.pitch -= minus;
+        audioSource.pitch = Mathf.Clamp(audioSource.pitch - minus * Time.deltaTime, 0.5f, 1);
     }
 
     public void ResetAudioPitch()
