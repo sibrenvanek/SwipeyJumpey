@@ -47,6 +47,7 @@ MonoBehaviour:
   lastCheckpoint: {fileID: 0}
   player: {fileID: 0}
   respawnYOffset: 0.2
+  audioMixer: {fileID: 24100000, guid: 090acfd6e6ac38e4a9f5a83ef8549fcb, type: 2}
 --- !u!82 &2898707142907956490
 AudioSource:
   m_ObjectHideFlags: 0
