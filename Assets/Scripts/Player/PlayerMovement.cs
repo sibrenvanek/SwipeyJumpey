@@ -9,8 +9,9 @@ public class PlayerMovement : MonoBehaviour
      *************/
 
     /**General**/
-    public event Action OnSlowMotionActivated = delegate {};
-    public event Action OnSlowMotionDeActivated = delegate {};
+    public event Action OnSlowMotionActivated = delegate { };
+    public event Action OnSlowMotionDeActivated = delegate { };
+    public event Action OnJump = delegate { };
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
     private Rigidbody2D rigidbody2d = null;
@@ -55,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(inputEnabled)
+        if (inputEnabled)
             HandleInput();
 
         SetDirection();
@@ -137,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
         {
             grounded = false;
             Jump();
+            OnJump.Invoke();
         }
         else if (slowMotionJumpAvailable)
         {
