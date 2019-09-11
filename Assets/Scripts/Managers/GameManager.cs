@@ -1,7 +1,6 @@
 using Cinemachine; 
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
