@@ -41,11 +41,6 @@ public class PlayerManager : MonoBehaviour
         rigidbody2d.gravityScale = 0;
     }
 
-    public void Fall()
-    {
-        playerMovement.SetSlowMotionJumpAvailable(false);
-    }
-
     /**Collisions**/
 
     // Handle collisions with other gameobjects
