@@ -72,6 +72,6 @@ public class PauseMenu : MonoBehaviour
 
     public void ToggleGodmode()
     {
-        playerManager.godmode = !playerManager.godmode;
+        playerManager.SetGodMode(!playerManager.GetGodMode());
     }
 }

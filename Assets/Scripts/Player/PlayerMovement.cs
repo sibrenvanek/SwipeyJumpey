@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
      *************/
 
     /**General**/
-    public event Action OnJump = delegate {};
+    public event Action OnJump = delegate { };
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
     private Rigidbody2D rigidbody2d = null;
@@ -118,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
             jumpVelocity.x = Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / speedLimiter, -maxVelocity.x, maxVelocity.x);
             jumpVelocity.y = Mathf.Clamp((baseMousePosition.y - Input.mousePosition.y) / speedLimiter, -maxVelocity.y, maxVelocity.y);
 
-            if (grounded || slowMotionJumpAvailable || playerManager.godmode)
+            if (grounded || slowMotionJumpAvailable || playerManager.GetGodMode())
             {
                 trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, dashTime);
                 facingLeft = baseMousePosition.x < Input.mousePosition.x;
@@ -151,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
             slowMotion.Cancel();
             Jump();
         }
-        else if (grounded || playerManager.godmode)
+        else if (grounded || playerManager.GetGodMode())
         {
             grounded = false;
             Jump();
