@@ -111,8 +111,7 @@ public class PlayerMovement : MonoBehaviour
 
             jumpVelocity.x = Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / speedLimiter, -maxVelocity, maxVelocity);
             jumpVelocity.y = Mathf.Clamp((baseMousePosition.y - Input.mousePosition.y) / speedLimiter, -maxVelocity, maxVelocity);
-            float angle = trajectoryPrediction.CalculateAngle(jumpVelocity);
-            jumpVelocity = trajectoryPrediction.LimitJumpVelocity(jumpVelocity, angle, maxVelocity);
+            jumpVelocity=trajectoryPrediction.LimitJumpVelocity(jumpVelocity, maxVelocity);
 
             trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, dashTime);
             facingLeft = baseMousePosition.x < Input.mousePosition.x;

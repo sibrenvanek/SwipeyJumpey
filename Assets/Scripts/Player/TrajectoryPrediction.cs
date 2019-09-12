@@ -79,35 +79,71 @@ public class TrajectoryPrediction : MonoBehaviour
         return angle;
     }
 
-    public Vector2 LimitJumpVelocity(Vector2 jumpVelocity, float angle, float maxVelocity)
+    public Vector2 LimitJumpVelocity(Vector2 jumpVelocity, float maxVelocity)
     {
+        float angle = CalculateAngle(jumpVelocity);
         Vector2 maxVelocityVector = CalculateMaxVelocity(maxVelocity, angle);
-        if (jumpVelocity.x > 0)
+        if (jumpVelocity.magnitude > maxVelocity)
         {
-            if (maxVelocityVector.x < jumpVelocity.x)
+            if (jumpVelocity.x > 0 && jumpVelocity.y > 0)
             {
-                jumpVelocity.x = maxVelocityVector.x;
+                if (jumpVelocity.x > maxVelocityVector.x)
+                {
+                    float ratio = maxVelocityVector.x / jumpVelocity.x;
+                    jumpVelocity.x *= ratio;
+                    jumpVelocity.y *= ratio;
+                }
+                else if (jumpVelocity.y > maxVelocityVector.y)
+                {
+                    float ratio = maxVelocityVector.y / jumpVelocity.y;
+                    jumpVelocity.x *= ratio;
+                    jumpVelocity.y *= ratio;
+                }
             }
-        }
-        else
-        {
-            if (-maxVelocityVector.x < jumpVelocity.x)
+            else if (jumpVelocity.x > 0 && jumpVelocity.y < 0)
             {
-                jumpVelocity.x = -maxVelocityVector.x;
+                if (jumpVelocity.x > maxVelocityVector.x)
+                {
+                    float ratio = maxVelocityVector.x / jumpVelocity.x;
+                    jumpVelocity.x *= ratio;
+                    jumpVelocity.y *= ratio;
+                }
+                else if (jumpVelocity.y > maxVelocityVector.y)
+                {
+                    float ratio = maxVelocityVector.y / -jumpVelocity.y;
+                    jumpVelocity.x *= ratio;
+                    jumpVelocity.y *= ratio;
+                }
             }
-        }
-        if (jumpVelocity.y > 0)
-        {
-            if (maxVelocityVector.y < jumpVelocity.y)
+            else if (jumpVelocity.x < 0 && jumpVelocity.y > 0)
             {
-                jumpVelocity.y = maxVelocityVector.y;
+                if (-jumpVelocity.x > maxVelocityVector.x)
+                {
+                    float ratio = maxVelocityVector.x / jumpVelocity.x;
+                    jumpVelocity.x *= ratio;
+                    jumpVelocity.y *= ratio;
+                }
+                else if (jumpVelocity.y > maxVelocityVector.y)
+                {
+                    float ratio = maxVelocityVector.y / jumpVelocity.y;
+                    jumpVelocity.x *= ratio;
+                    jumpVelocity.y *= ratio;
+                }
             }
-        }
-        else
-        {
-            if (-maxVelocityVector.y < jumpVelocity.y)
+            else if (jumpVelocity.x < 0 && jumpVelocity.y < 0)
             {
-                jumpVelocity.y = -maxVelocityVector.y;
+                if (-jumpVelocity.x > maxVelocityVector.x)
+                {
+                    float ratio = maxVelocityVector.x / jumpVelocity.x;
+                    jumpVelocity.x *= ratio;
+                    jumpVelocity.y *= ratio;
+                }
+                else if (jumpVelocity.y > maxVelocityVector.y)
+                {
+                    float ratio = maxVelocityVector.y / jumpVelocity.y;
+                    jumpVelocity.x *= ratio;
+                    jumpVelocity.y *= ratio;
+                }
             }
         }
         return jumpVelocity;
