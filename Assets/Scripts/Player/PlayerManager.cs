@@ -75,7 +75,7 @@ public class PlayerManager : MonoBehaviour
     // Handle passing through triggers
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Checkpoint") && playerMovement.IsGrounded())
+        if (other.gameObject.CompareTag("Checkpoint"))
         {
             other.gameObject.GetComponent<Checkpoint>().Check();
         }
