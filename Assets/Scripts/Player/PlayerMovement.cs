@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speedLimiter = 20f;
     [SerializeField] private float dashTime = 0.2f;
     [SerializeField] private float maximumCancelDistance = 1f;
+    [SerializeField] private float timeDiff = 1f;
     private Vector2 jumpVelocity = new Vector2(0, 0);
     private Vector2 baseMousePosition = new Vector2(0, 0);
     private Vector2 lastMousePosition = new Vector2(0, 0);
@@ -113,6 +114,7 @@ public class PlayerMovement : MonoBehaviour
             jumpVelocity.y = (baseMousePosition.y - Input.mousePosition.y) / speedLimiter;
             float angle = trajectoryPrediction.CalculateAngle(jumpVelocity);
             Vector2 maxVelocityVector = trajectoryPrediction.CalculateMaxVelocity(maxVelocity, angle);
+            Vector2 oldJumpVelocity = new Vector2(jumpVelocity.x, jumpVelocity.y);
             if (angle < 90 && angle > -90)
             {
                 jumpVelocity.x = Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / speedLimiter, -maxVelocityVector.x, maxVelocityVector.x);
@@ -123,7 +125,10 @@ public class PlayerMovement : MonoBehaviour
                 jumpVelocity.x = -Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / speedLimiter, -maxVelocityVector.x, maxVelocityVector.x);
                 jumpVelocity.y = Mathf.Clamp((baseMousePosition.y - Input.mousePosition.y) / speedLimiter, -maxVelocityVector.y, maxVelocityVector.y);
             }
-
+            if (oldJumpVelocity.magnitude != 0)
+            {
+                timeDiff = jumpVelocity.magnitude / oldJumpVelocity.magnitude;
+            }
             trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, dashTime);
             facingLeft = baseMousePosition.x < Input.mousePosition.x;
         }
@@ -198,7 +203,8 @@ public class PlayerMovement : MonoBehaviour
     {
         gravityTemporarilyOff = true;
         rigidbody2d.gravityScale = 0;
-        yield return new WaitForSeconds(dashTime);
+        yield return new WaitForSeconds(dashTime * timeDiff);
+        timeDiff = 1f;
         gravityTemporarilyOff = false;
         if (!gravityOff)
             rigidbody2d.gravityScale = defaultGravityScale;
