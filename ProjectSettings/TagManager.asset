@@ -8,6 +8,7 @@ TagManager:
   - Checkpoint
   - SafeGround
   - Fuel
+  - RoomEntrance
   layers:
   - Default
   - TransparentFX
@@ -77,4 +78,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 1329887773
+    locked: 0
+  - name: Foreground Extra
+    uniqueID: 1631072737
     locked: 0

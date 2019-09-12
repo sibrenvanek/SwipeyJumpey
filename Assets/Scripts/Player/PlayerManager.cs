@@ -70,17 +70,25 @@ public class PlayerManager : MonoBehaviour
     // Handle passing through triggers
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Checkpoint"))
+        if (other.gameObject.CompareTag("Checkpoint") && playerMovement.IsGrounded())
         {
             other.gameObject.GetComponent<Checkpoint>().Check();
         }
+        if (other.gameObject.CompareTag("Finish") && playerMovement.IsGrounded())
+        {
+            GameManager.Instance.LoadNextLevel();
+        }
+        if (other.CompareTag("RoomEntrance"))
+        {
+            other.GetComponent<RoomEntrance>().Enter(transform);
+            playerMovement.KillVelocity();
+        }
         if (other.gameObject.layer == LayerMask.NameToLayer("Grid"))
         {
-            transform.position += (rigidbody2d.velocity.x < 0)? new Vector3(-1, 0): new Vector3(1, 0);
-            playerMovement.KillVelocity();
             cameraManager.SetConfinerBoundingShape(other.gameObject.GetComponent<Collider2D>());
             other.GetComponent<Room>().OnEnterRoom();
         }
+        
     }
 
     private void OnTriggerExit2D(Collider2D other) {

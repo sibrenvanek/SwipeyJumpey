@@ -82,9 +82,6 @@ public class GameManager : MonoBehaviour
     {
         float pitchChange = minus * Time.deltaTime;
 
-        if (audioSource.pitch - pitchChange < 0.5f)
-            return;
-
         float audioMixerPitch = audioMixer.GetFloat("mixerPitch", out audioMixerPitch) ? audioMixerPitch : 0f;
 
         audioMixer.SetFloat("mixerPitch", audioMixerPitch + pitchChange);
@@ -95,5 +92,10 @@ public class GameManager : MonoBehaviour
     {
         audioMixer.SetFloat("mixerPitch", 1f);
         audioSource.pitch = defaultPitch;
+    }
+
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

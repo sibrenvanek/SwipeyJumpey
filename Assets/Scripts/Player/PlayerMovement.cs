@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     /**General**/
     public event Action OnJump = delegate {};
+    public event Action OnCanJump = delegate {};
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
     private Rigidbody2D rigidbody2d = null;
@@ -17,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private Camera mainCamera = null;
     private bool facingLeft = false;
     private bool grounded = false;
+    private bool notifiedJump = true;
 
     /**Jumping**/
     [SerializeField] private float maxVelocity = 0f;
@@ -28,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 baseMousePosition = new Vector2(0, 0);
     private Vector2 lastMousePosition = new Vector2(0, 0);
     public bool slowMotionJumpAvailable { get; private set; } = false;
+    public bool slowMotionActivated = false;
     private bool dragging = false;
     private bool inputEnabled = true;
 
@@ -63,6 +66,18 @@ public class PlayerMovement : MonoBehaviour
         {
             CancelSlowmotionJump();
         }
+
+        CheckIfCanJump();
+    }
+
+    private void CheckIfCanJump()
+    {
+
+        if ((slowMotionJumpAvailable || grounded) && !notifiedJump)
+        {
+            OnCanJump.Invoke();
+            notifiedJump = true;
+        }
     }
 
     // Set the direction the object is facing
@@ -95,14 +110,18 @@ public class PlayerMovement : MonoBehaviour
     // Handle the player dragging on the screen
     private void HandleDrag()
     {
-        if (Input.GetMouseButton(0) && (grounded || slowMotionJumpAvailable))
+        if (Input.GetMouseButton(0))
         {
             if (!dragging)
             {
                 baseMousePosition = Input.mousePosition;
                 dragging = true;
-                if (!grounded)
-                    slowMotion.Go();
+            }
+
+            if (!slowMotionActivated && !grounded && slowMotionJumpAvailable)
+            {
+                slowMotion.Go();
+                slowMotionActivated = true;
             }
 
             if (speedLimiter <= 0)
@@ -129,8 +148,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 timeDiff = jumpVelocity.magnitude / oldJumpVelocity.magnitude;
             }
-            trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, dashTime);
-            facingLeft = baseMousePosition.x < Input.mousePosition.x;
+            if (grounded || slowMotionJumpAvailable)
+            {
+                trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, dashTime);
+                facingLeft = baseMousePosition.x < Input.mousePosition.x;
+            }
         }
     }
 
@@ -157,7 +179,6 @@ public class PlayerMovement : MonoBehaviour
         {
             grounded = false;
             Jump();
-            OnJump.Invoke();
         }
         else if (slowMotionJumpAvailable)
         {
@@ -166,6 +187,7 @@ public class PlayerMovement : MonoBehaviour
             Jump();
         }
 
+        slowMotionActivated = false;
         dragging = false;
     }
 
@@ -193,6 +215,8 @@ public class PlayerMovement : MonoBehaviour
     // Make the player character jump
     private void Jump()
     {
+        notifiedJump = false;
+        OnJump.Invoke();
         KillVelocity();
         StartCoroutine(RemoveGravityTemporarily());
         rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
@@ -246,14 +270,14 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Check if the player is on the ground
-    bool IsGrounded()
+    public bool IsGrounded()
     {
         RaycastHit2D raycastHit2d = Physics2D.Raycast(transform.position, Vector2.down, 1f + transform.localScale.y * 0.5f, LayerMask.GetMask("SafeGround"));
 
         if (!raycastHit2d)
             return false;
 
-        return (raycastHit2d.collider.gameObject.CompareTag("SafeGround") && rigidbody2d.velocity.y <= 0);
+        return ((raycastHit2d.collider.gameObject.CompareTag("SafeGround")) && rigidbody2d.velocity.y <= 0);
     }
 
     bool CheckCancelSlowmotionJump()

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7929468682730686913}
   - component: {fileID: 1191174178}
   - component: {fileID: -2195771165354065761}
+  - component: {fileID: 7392386661118225966}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -77,7 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: 505967787
   m_SortingLayer: 10
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 37d8b1b49003243d8a4bd7cb86964370, type: 3}
+  m_Sprite: {fileID: -2311659948842064771, guid: 37d8b1b49003243d8a4bd7cb86964370,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -117,7 +119,6 @@ MonoBehaviour:
   maxVelocity: {x: 20, y: 20}
   speedLimiter: 10
   dashTime: 0.2
-  gravityReduction: 5
   maximumCancelDistance: 1
 --- !u!114 &4857256654572397243
 MonoBehaviour:
@@ -137,8 +138,8 @@ MonoBehaviour:
   slowSpeed: 0.75
   slowMotionDuration: 2
   minVelocityInPercent: 2
-  doingSlowmotion: 0
   pitchReduction: 1
+  totalPitchReduction: 0.5
 --- !u!50 &7929468682730686913
 Rigidbody2D:
   serializedVersion: 4
@@ -222,6 +223,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicatorPrefab: {fileID: 2497441223246862094, guid: b3624a3e7c9e50f468625a830be71147,
     type: 3}
+--- !u!114 &7392386661118225966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585780739684234313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a238ba661ffca484397db6cde2af275b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noJumpSprite: {fileID: 7364682651488144517, guid: 37d8b1b49003243d8a4bd7cb86964370,
+    type: 3}
+  canJumpLightColor: {r: 0, g: 0, b: 1, a: 1}
+  noJumpLightColor: {r: 1, g: 0, b: 0, a: 1}
+  fuelLightObject: {fileID: 0}
 --- !u!1 &3524120302390915896
 GameObject:
   m_ObjectHideFlags: 0

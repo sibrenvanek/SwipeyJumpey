@@ -558,7 +558,7 @@ GameObject:
   - component: {fileID: 4909104083979458352}
   - component: {fileID: 2713630874290667030}
   m_Layer: 5
-  m_Name: ResetLevelButton
+  m_Name: ResetRoomButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -926,7 +926,7 @@ GameObject:
   - component: {fileID: 7345656657448596551}
   - component: {fileID: 8607819105467386786}
   m_Layer: 5
-  m_Name: ResetWorldButton
+  m_Name: ResetLevelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1256,8 +1256,8 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 1
-  m_MatchWidthOrHeight: 0
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
