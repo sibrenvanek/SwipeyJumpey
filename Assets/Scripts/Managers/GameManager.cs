@@ -96,4 +96,9 @@ public class GameManager : MonoBehaviour
         audioMixer.SetFloat("mixerPitch", 1f);
         audioSource.pitch = defaultPitch;
     }
+
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 }
