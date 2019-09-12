@@ -86,9 +86,7 @@ public class PlayerMovement : MonoBehaviour
     private void HandleInput()
     {
         if (Input.GetMouseButton(0))
-        {
             HandleDrag();
-        }
         else
             HandleRelease();
     }
