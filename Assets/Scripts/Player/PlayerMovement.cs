@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 baseMousePosition = new Vector2(0, 0);
     private Vector2 lastMousePosition = new Vector2(0, 0);
     public bool slowMotionJumpAvailable { get; private set; } = false;
+    public bool slowMotionActivated = false;
     private bool dragging = false;
     private bool inputEnabled = true;
 
@@ -108,14 +109,18 @@ public class PlayerMovement : MonoBehaviour
     // Handle the player dragging on the screen
     private void HandleDrag()
     {
-        if (Input.GetMouseButton(0) && (grounded || slowMotionJumpAvailable))
+        if (Input.GetMouseButton(0))
         {
             if (!dragging)
             {
                 baseMousePosition = Input.mousePosition;
                 dragging = true;
-                if (!grounded)
-                    slowMotion.Go();
+            }
+
+            if (!slowMotionActivated && !grounded && slowMotionJumpAvailable)
+            {
+                slowMotion.Go();
+                slowMotionActivated = true;
             }
 
             if (speedLimiter <= 0)
@@ -125,8 +130,11 @@ public class PlayerMovement : MonoBehaviour
             jumpVelocity.x = Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / speedLimiter, -maxVelocity.x, maxVelocity.x);
             jumpVelocity.y = Mathf.Clamp((baseMousePosition.y - Input.mousePosition.y) / speedLimiter, -maxVelocity.y, maxVelocity.y);
 
-            trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, dashTime);
-            facingLeft = baseMousePosition.x < Input.mousePosition.x;
+            if (grounded || slowMotionJumpAvailable)
+            {
+                trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, dashTime);
+                facingLeft = baseMousePosition.x < Input.mousePosition.x;
+            }
         }
     }
 
@@ -161,6 +169,7 @@ public class PlayerMovement : MonoBehaviour
             Jump();
         }
 
+        slowMotionActivated = false;
         dragging = false;
     }
 
