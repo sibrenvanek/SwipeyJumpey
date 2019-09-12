@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 8652501105716578788}
   - component: {fileID: 8652501105716578789}
   - component: {fileID: 8652501105716578786}
+  - component: {fileID: 1259440152448867970}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -216,3 +217,23 @@ MonoBehaviour:
   m_ChannelMask: -1
   m_Gain: 1
   m_Use2DDistance: 1
+--- !u!114 &1259440152448867970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8652501105716578790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e188ee899633d0b49870a5ae38b7359d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ratio: {x: 16, y: 9}
+  forceRatioOnAwake: 1
+  listenForWindowChanges: 1
+  createCameraForLetterBoxRendering: 1
+  findCamerasAutomatically: 1
+  letterBoxCameraColor: {r: 0, g: 0, b: 0, a: 1}
+  cameras: []
+  letterBoxCamera: {fileID: 0}
