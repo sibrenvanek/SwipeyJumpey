@@ -227,7 +227,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Check if the player is on the ground
-    bool IsGrounded()
+    public bool IsGrounded()
     {
         RaycastHit2D raycastHit2d = Physics2D.Raycast(transform.position, Vector2.down, 1f + transform.localScale.y * 0.5f, LayerMask.GetMask("SafeGround"));
 
