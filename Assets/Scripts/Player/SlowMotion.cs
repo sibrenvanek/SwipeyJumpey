@@ -21,9 +21,8 @@ public class SlowMotion : MonoBehaviour
     [SerializeField] private float slowMotionDuration = 2f;
     [SerializeField] private float minVelocityInPercent = 10f;
     [SerializeField] private float pitchReduction = 0.1f;
+    [SerializeField] private float totalPitchReduction = 0.5f;
     public bool doingSlowmotion { get; private set; } = false;
-    private Vector2 oldVelocity = Vector2.zero;
-    private Vector2 goalVelocity = Vector2.zero;
     private Coroutine curCoroutine = null;
 
     /*************
@@ -73,8 +72,7 @@ public class SlowMotion : MonoBehaviour
         OnSlowMotionActivated.Invoke();
         playerMovement.RemoveGravity();
 
-        oldVelocity = playerRigidbody.velocity;
-        goalVelocity = CalculateVelocityGoal();
+        pitchReduction = totalPitchReduction / slowMotionDuration;
         doingSlowmotion = true;
 
         yield return new WaitForSeconds(slowMotionDuration);
@@ -83,12 +81,6 @@ public class SlowMotion : MonoBehaviour
         {
             ResetTime();
         }
-    }
-
-    // Calculates the desired slowmotion velocity
-    private Vector2 CalculateVelocityGoal()
-    {
-        return oldVelocity / 100 * minVelocityInPercent;
     }
 
     // Slows the player down
