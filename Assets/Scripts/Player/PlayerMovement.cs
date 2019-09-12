@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
 
     /**General**/
     public event Action OnJump = delegate { };
+    public event Action OnCanJump = delegate { };
+    
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
     private Rigidbody2D rigidbody2d = null;
@@ -18,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private bool facingLeft = false;
     private bool grounded = false;
     private PlayerManager playerManager = null;
+    private bool notifiedJump = true;
 
     /**Jumping**/
     [SerializeField] private Vector2 maxVelocity = Vector2.zero;
@@ -64,6 +67,18 @@ public class PlayerMovement : MonoBehaviour
         if (CheckCancelSlowmotionJump())
         {
             CancelSlowmotionJump();
+        }
+
+        CheckIfCanJump();
+    }
+
+    private void CheckIfCanJump()
+    {
+
+        if ((slowMotionJumpAvailable || grounded) && !notifiedJump)
+        {
+            OnCanJump.Invoke();
+            notifiedJump = true;
         }
     }
 
@@ -186,6 +201,8 @@ public class PlayerMovement : MonoBehaviour
     // Make the player character jump
     private void Jump()
     {
+        notifiedJump = false;
+        OnJump.Invoke();
         KillVelocity();
         StartCoroutine(RemoveGravityTemporarily());
         rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
