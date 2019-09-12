@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Camera mainCamera = null;
     private bool facingLeft = false;
     private bool grounded = false;
+    private PlayerManager playerManager = null;
 
     /**Jumping**/
     [SerializeField] private Vector2 maxVelocity = Vector2.zero;
@@ -45,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerManager = GetComponent<PlayerManager>();
         mainCamera = Camera.main;
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -116,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
             jumpVelocity.x = Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / speedLimiter, -maxVelocity.x, maxVelocity.x);
             jumpVelocity.y = Mathf.Clamp((baseMousePosition.y - Input.mousePosition.y) / speedLimiter, -maxVelocity.y, maxVelocity.y);
 
-            if (grounded || slowMotionJumpAvailable)
+            if (grounded || slowMotionJumpAvailable || playerManager.godmode)
             {
                 trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, dashTime);
                 facingLeft = baseMousePosition.x < Input.mousePosition.x;
@@ -143,17 +145,17 @@ public class PlayerMovement : MonoBehaviour
 
         trajectoryPrediction.RemoveIndicators();
 
-        if (grounded)
-        {
-            grounded = false;
-            Jump();
-            OnJump.Invoke();
-        }
-        else if (slowMotionJumpAvailable)
+        if (slowMotionJumpAvailable)
         {
             slowMotionJumpAvailable = false;
             slowMotion.Cancel();
             Jump();
+        }
+        else if (grounded || playerManager.godmode)
+        {
+            grounded = false;
+            Jump();
+            OnJump.Invoke();
         }
 
         slowMotionActivated = false;

@@ -12,6 +12,8 @@ public class PlayerManager : MonoBehaviour
     private PlayerMovement playerMovement = null;
     private float defaultScale = 0f;
     private CameraManager cameraManager = null;
+    public bool godmode { get; set; } = false;
+
     /*************
      * FUNCTIONS *
      *************/
@@ -54,7 +56,7 @@ public class PlayerManager : MonoBehaviour
             if (!contactPoint2D.rigidbody)
                 break;
 
-            if (contactPoint2D.rigidbody.CompareTag("DeadZone"))
+            if (contactPoint2D.rigidbody.CompareTag("DeadZone") && !godmode)
             {
                 playerMovement.CancelJump();
                 playerMovement.KillVelocity();

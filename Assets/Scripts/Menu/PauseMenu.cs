@@ -6,13 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool isPaused = false;
-    public GameObject pauseUI;
-    public GameObject pauseButton;
-    public TextMeshProUGUI currentLevelPlaceholder;
-    public Room currentRoom;
-    public PlayerMovement playerMovement;
-    public WorldManager worldManager;
+    [SerializeField] private static bool isPaused = false;
+    [SerializeField] private GameObject pauseUI;
+    [SerializeField] private GameObject pauseButton;
+    [SerializeField] private TextMeshProUGUI currentLevelPlaceholder;
+    [SerializeField] private Room currentRoom;
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerManager playerManager;
+    [SerializeField] private WorldManager worldManager;
 
     public void Start()
     {
@@ -67,5 +68,10 @@ public class PauseMenu : MonoBehaviour
     {
         Resume();
         GameManager.Instance.SendPlayerToLastCheckpoint();
+    }
+
+    public void ToggleGodmode()
+    {
+        playerManager.godmode = !playerManager.godmode;
     }
 }
