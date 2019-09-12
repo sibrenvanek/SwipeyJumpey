@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private bool grounded = false;
 
     /**Jumping**/
-    [SerializeField] private Vector2 maxVelocity = Vector2.zero;
+    [SerializeField] private float maxVelocity = 0f;
     [SerializeField] private float speedLimiter = 20f;
     [SerializeField] private float dashTime = 0.2f;
     [SerializeField] private float maximumCancelDistance = 1f;
@@ -108,8 +108,11 @@ public class PlayerMovement : MonoBehaviour
                 speedLimiter = 1;
 
             lastMousePosition = Input.mousePosition;
-            jumpVelocity.x = Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / speedLimiter, -maxVelocity.x, maxVelocity.x);
-            jumpVelocity.y = Mathf.Clamp((baseMousePosition.y - Input.mousePosition.y) / speedLimiter, -maxVelocity.y, maxVelocity.y);
+
+            jumpVelocity.x = Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / speedLimiter, -maxVelocity, maxVelocity);
+            jumpVelocity.y = Mathf.Clamp((baseMousePosition.y - Input.mousePosition.y) / speedLimiter, -maxVelocity, maxVelocity);
+            float angle = trajectoryPrediction.CalculateAngle(jumpVelocity);
+            jumpVelocity = trajectoryPrediction.LimitJumpVelocity(jumpVelocity, angle, maxVelocity);
 
             trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, dashTime);
             facingLeft = baseMousePosition.x < Input.mousePosition.x;
