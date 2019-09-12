@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     /**General**/
     public event Action OnJump = delegate { };
     public event Action OnCanJump = delegate { };
+    
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
     private Rigidbody2D rigidbody2d = null;
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private Camera mainCamera = null;
     private bool facingLeft = false;
     private bool grounded = false;
+    private PlayerManager playerManager = null;
     private bool notifiedJump = true;
 
     /**Jumping**/
@@ -47,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerManager = GetComponent<PlayerManager>();
         mainCamera = Camera.main;
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -130,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
             jumpVelocity.x = Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / speedLimiter, -maxVelocity.x, maxVelocity.x);
             jumpVelocity.y = Mathf.Clamp((baseMousePosition.y - Input.mousePosition.y) / speedLimiter, -maxVelocity.y, maxVelocity.y);
 
-            if (grounded || slowMotionJumpAvailable)
+            if (grounded || slowMotionJumpAvailable || playerManager.GetGodMode())
             {
                 trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, dashTime);
                 facingLeft = baseMousePosition.x < Input.mousePosition.x;
@@ -157,16 +160,17 @@ public class PlayerMovement : MonoBehaviour
 
         trajectoryPrediction.RemoveIndicators();
 
-        if (grounded)
-        {
-            grounded = false;
-            Jump();
-        }
-        else if (slowMotionJumpAvailable)
+        if (slowMotionJumpAvailable)
         {
             slowMotionJumpAvailable = false;
             slowMotion.Cancel();
             Jump();
+        }
+        else if (grounded || playerManager.GetGodMode())
+        {
+            grounded = false;
+            Jump();
+            OnJump.Invoke();
         }
 
         slowMotionActivated = false;
