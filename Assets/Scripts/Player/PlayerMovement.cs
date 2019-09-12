@@ -109,9 +109,20 @@ public class PlayerMovement : MonoBehaviour
 
             lastMousePosition = Input.mousePosition;
 
-            jumpVelocity.x = Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / speedLimiter, -maxVelocity, maxVelocity);
-            jumpVelocity.y = Mathf.Clamp((baseMousePosition.y - Input.mousePosition.y) / speedLimiter, -maxVelocity, maxVelocity);
-            jumpVelocity=trajectoryPrediction.LimitJumpVelocity(jumpVelocity, maxVelocity);
+            jumpVelocity.x = (baseMousePosition.x - Input.mousePosition.x) / speedLimiter;
+            jumpVelocity.y = (baseMousePosition.y - Input.mousePosition.y) / speedLimiter;
+            float angle = trajectoryPrediction.CalculateAngle(jumpVelocity);
+            Vector2 maxVelocityVector = trajectoryPrediction.CalculateMaxVelocity(maxVelocity, angle);
+            if (angle < 90 && angle > -90)
+            {
+                jumpVelocity.x = Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / speedLimiter, -maxVelocityVector.x, maxVelocityVector.x);
+                jumpVelocity.y = Mathf.Clamp((baseMousePosition.y - Input.mousePosition.y) / speedLimiter, -maxVelocityVector.y, maxVelocityVector.y);
+            }
+            else
+            {
+                jumpVelocity.x = -Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / speedLimiter, -maxVelocityVector.x, maxVelocityVector.x);
+                jumpVelocity.y = Mathf.Clamp((baseMousePosition.y - Input.mousePosition.y) / speedLimiter, -maxVelocityVector.y, maxVelocityVector.y);
+            }
 
             trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, dashTime);
             facingLeft = baseMousePosition.x < Input.mousePosition.x;

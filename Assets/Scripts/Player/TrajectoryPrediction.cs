@@ -57,10 +57,10 @@ public class TrajectoryPrediction : MonoBehaviour
         activeIndicator = null;
     }
 
-    Vector2 CalculateMaxVelocity(float maxVelocity, float angle)
+    public Vector2 CalculateMaxVelocity(float maxVelocity, float angle)
     {
         float x, y;
-        float angleRadiant = angle * Mathf.Deg2Rad;
+        float angleRadiant = Mathf.Abs(angle * Mathf.Deg2Rad);
         x = Mathf.Cos(angleRadiant) * maxVelocity;
         y = Mathf.Sin(angleRadiant) * maxVelocity;
 
@@ -82,6 +82,11 @@ public class TrajectoryPrediction : MonoBehaviour
     public Vector2 LimitJumpVelocity(Vector2 jumpVelocity, float maxVelocity)
     {
         float angle = CalculateAngle(jumpVelocity);
+        if (angle == 45)
+        {
+            Debug.Log(angle);
+            Debug.Log(jumpVelocity);
+        }
         Vector2 maxVelocityVector = CalculateMaxVelocity(maxVelocity, angle);
         if (jumpVelocity.magnitude > maxVelocity)
         {
