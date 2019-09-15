@@ -36,3 +36,9 @@ sysinfo.txt
 *.apk
 *.unitypackage
 *.zip
+
+# Peek
+Ludiq/
+Ludiq.Generated/
+Ludiq.Generated.meta
+Ludiq.meta
