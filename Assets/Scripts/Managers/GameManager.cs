@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     private AudioSource audioSource = null;
     private float defaultPitch = 1f;
     private Coroutine displayLoadingScreen;
+    [SerializeField] private GameObject PlayerPrefab = null;
 
     /*************
      * FUNCTIONS *
@@ -42,6 +43,14 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        
+        if (player == null)
+        {
+            GameObject playerObject = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
+            player = playerObject.GetComponent<PlayerManager>();
+        }
+
+        SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
 
     // Start is called before the first frame update
@@ -98,18 +107,35 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        Debug.Log("test");
         int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-
-        displayLoadingScreen = StartCoroutine(ShowLoadingScreenBeforeNextLevel(playerObject, levelIndex));
+        displayLoadingScreen = StartCoroutine(ShowLoadingScreenBeforeNextLevel(levelIndex));
     }
 
-    public IEnumerator ShowLoadingScreenBeforeNextLevel(Scene oldScene, int levelIndex)
+    public IEnumerator ShowLoadingScreenBeforeNextLevel(int levelIndex)
     {
         SceneManager.LoadScene("LoadScene");
         yield return new WaitForSeconds(LoadSceneDuration);
         SceneManager.LoadScene(levelIndex);
-        
+    }
+
+    void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+    {
+        WorldManager worldManager = FindObjectOfType<WorldManager>();
+        if (worldManager != null)
+        {
+            CinemachineVirtualCamera Vcam = FindObjectOfType<CinemachineVirtualCamera>();
+            Vcam.Follow = player.transform;
+            SendPlayerToCheckpoint(worldManager.getInitialCheckpoint());
+            FuelUI fuelUI = FindObjectOfType<FuelUI>();
+            fuelUI.setSlowMotion(GameObject.FindGameObjectWithTag("Player").GetComponent<SlowMotion>());
+            PauseMenu pauseMenu = FindObjectOfType<PauseMenu>();
+            pauseMenu.setPlayerMovement(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>());
+            pauseMenu.setPlayerManager(player);
+        }
+    }
+
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
     }
 }
