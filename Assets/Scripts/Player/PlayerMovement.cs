@@ -9,14 +9,13 @@ public class PlayerMovement : MonoBehaviour
      *************/
 
     /**General**/
-    public event Action OnJump = delegate { };
-    public event Action OnCanJump = delegate { };
-    
+    public event Action OnJump = delegate {};
+    public event Action OnCanJump = delegate {};
+
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
     private Rigidbody2D rigidbody2d = null;
     private SpriteRenderer spriteRenderer = null;
-    private Camera mainCamera = null;
     private bool facingLeft = false;
     private bool grounded = false;
     private PlayerManager playerManager = null;
@@ -50,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         playerManager = GetComponent<PlayerManager>();
-        mainCamera = Camera.main;
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         defaultGravityScale = rigidbody2d.gravityScale;
@@ -147,9 +145,9 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButton(0) || !dragging)
             return;
 
-        Vector3 firstMousePoint = mainCamera.ScreenToWorldPoint(baseMousePosition);
+        Vector3 firstMousePoint = Camera.main.ScreenToWorldPoint(baseMousePosition);
         firstMousePoint.z = transform.position.z;
-        Vector3 lastMousePoint = mainCamera.ScreenToWorldPoint(lastMousePosition);
+        Vector3 lastMousePoint = Camera.main.ScreenToWorldPoint(lastMousePosition);
         lastMousePoint.z = transform.position.z;
 
         if (Vector2.Distance(firstMousePoint, lastMousePoint) < maximumCancelDistance)
