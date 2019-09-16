@@ -11,6 +11,8 @@ public class Fuel : MonoBehaviour
      *************/
 
     /**General**/
+    [SerializeField] private ParticleSystem[] particleSystems = null;
+    [SerializeField] private float freezeTime = 0.2f;
     [SerializeField] private float respawnTime = 2f;
     [SerializeField] private float fadeInTime = .5f;
     [SerializeField] private float forceBoost = 2f;
@@ -19,6 +21,7 @@ public class Fuel : MonoBehaviour
     private float defaultLightIntensity = 0f;
     private SpriteRenderer spriteRenderer = null;
     private new Collider2D collider = null;
+    private bool frozen = false;
 
     /*************
      * FUNCTIONS *
@@ -36,7 +39,30 @@ public class Fuel : MonoBehaviour
     public void PickUp(Rigidbody2D rigidbody)
     {
         AddForceBoost(rigidbody);
+        PlayParticleSystems();
+        StartCoroutine(FreezeFrame());
         StartCoroutine(Respawn());
+    }
+
+    private IEnumerator FreezeFrame()
+    {
+        if(!frozen)
+        {
+            float original = Time.timeScale;
+            Time.timeScale = 0;
+            frozen = true;
+            yield return new WaitForSecondsRealtime(freezeTime);
+            Time.timeScale = original;
+            frozen = false;
+        }
+    }
+
+    private void PlayParticleSystems()
+    {
+        foreach (var particleSystem in particleSystems)
+        {
+            particleSystem.Play();
+        }
     }
 
     private IEnumerator Respawn()
