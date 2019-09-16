@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private Camera mainCamera = null;
     private bool facingLeft = false;
     private bool grounded = false;
+    private PlayerManager playerManager = null;
     private bool notifiedJump = true;
 
     /**Jumping**/
@@ -48,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerManager = GetComponent<PlayerManager>();
         mainCamera = Camera.main;
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -175,16 +177,17 @@ public class PlayerMovement : MonoBehaviour
 
         trajectoryPrediction.RemoveIndicators();
 
-        if (grounded)
-        {
-            grounded = false;
-            Jump();
-        }
-        else if (slowMotionJumpAvailable)
+        if (slowMotionJumpAvailable)
         {
             slowMotionJumpAvailable = false;
             slowMotion.Cancel();
             Jump();
+        }
+        else if (grounded || playerManager.GetGodMode())
+        {
+            grounded = false;
+            Jump();
+            OnJump.Invoke();
         }
 
         slowMotionActivated = false;

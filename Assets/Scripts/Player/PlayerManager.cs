@@ -1,5 +1,6 @@
 using UnityEngine;
 using Cinemachine;
+using System;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class PlayerManager : MonoBehaviour
     private PlayerMovement playerMovement = null;
     private float defaultScale = 0f;
     private CameraManager cameraManager = null;
+    private bool godMode = false;
+
+    public event Action<bool> OnGodMode = delegate { };
+
     /*************
      * FUNCTIONS *
      *************/
@@ -54,7 +59,7 @@ public class PlayerManager : MonoBehaviour
             if (!contactPoint2D.rigidbody)
                 break;
 
-            if (contactPoint2D.rigidbody.CompareTag("DeadZone"))
+            if (contactPoint2D.rigidbody.CompareTag("DeadZone") && !godMode)
             {
                 playerMovement.CancelJump();
                 playerMovement.KillVelocity();
@@ -70,7 +75,7 @@ public class PlayerManager : MonoBehaviour
     // Handle passing through triggers
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Checkpoint") && playerMovement.IsGrounded())
+        if (other.gameObject.CompareTag("Checkpoint"))
         {
             other.gameObject.GetComponent<Checkpoint>().Check();
         }
@@ -88,13 +93,25 @@ public class PlayerManager : MonoBehaviour
             cameraManager.SetConfinerBoundingShape(other.gameObject.GetComponent<Collider2D>());
             other.GetComponent<Room>().OnEnterRoom();
         }
-        
+
     }
 
-    private void OnTriggerExit2D(Collider2D other) {
-        if(other.gameObject.layer == LayerMask.NameToLayer("Grid"))
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Grid"))
         {
             cameraManager.OnExitCollider(other.gameObject.GetComponent<Collider2D>());
         }
+    }
+
+    public void SetGodMode(bool godMode)
+    {
+        this.godMode = godMode;
+        OnGodMode.Invoke(godMode);
+    }
+
+    public bool GetGodMode()
+    {
+        return godMode;
     }
 }
