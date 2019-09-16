@@ -74867,6 +74867,11 @@ PrefabInstance:
       propertyPath: maxVelocity.y
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 1946067523713256595, guid: f8a1a67ea9e524d4e9edce007c9e2311,
+        type: 3}
+      propertyPath: maxVelocity.x
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7491689127697931921, guid: f8a1a67ea9e524d4e9edce007c9e2311,
         type: 3}
       propertyPath: m_LocalPosition.x

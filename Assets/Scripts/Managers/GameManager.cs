@@ -1,3 +1,4 @@
+using System.Collections;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -17,8 +18,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerManager player = null;
     [SerializeField] private float respawnYOffset = 0.2f;
     [SerializeField] private AudioMixer audioMixer = null;
+    [SerializeField] private int LoadSceneDuration = 0;
     private AudioSource audioSource = null;
     private float defaultPitch = 1f;
+    private Coroutine displayLoadingScreen;
 
     /*************
      * FUNCTIONS *
@@ -77,7 +80,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-
     public void ReduceAudioPitch(float minus)
     {
         float pitchChange = minus * Time.deltaTime;
@@ -96,6 +98,18 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        Debug.Log("test");
+        int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+
+        displayLoadingScreen = StartCoroutine(ShowLoadingScreenBeforeNextLevel(playerObject, levelIndex));
+    }
+
+    public IEnumerator ShowLoadingScreenBeforeNextLevel(Scene oldScene, int levelIndex)
+    {
+        SceneManager.LoadScene("LoadScene");
+        yield return new WaitForSeconds(LoadSceneDuration);
+        SceneManager.LoadScene(levelIndex);
+        
     }
 }
