@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     /**General**/
     [SerializeField] private Checkpoint lastCheckpoint = null;
+    public Checkpoint LastCheckpoint { get {return lastCheckpoint; } }
     [SerializeField] private PlayerManager player = null;
     [SerializeField] private float respawnYOffset = 0.2f;
     [SerializeField] private AudioMixer audioMixer = null;
