@@ -34,7 +34,7 @@ public class FuelUI : MonoBehaviour
         fuelImage.transform.DOScaleX(1, 0);
     }
 
-    public void setSlowMotion(SlowMotion newSlowMotion)
+    public void SetSlowMotion(SlowMotion newSlowMotion)
     {
         slowMotion = newSlowMotion;
     }

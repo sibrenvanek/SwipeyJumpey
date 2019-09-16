@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
             SendPlayerToCheckpoint(worldManager.GetInitialCheckpoint());
 
             FuelUI fuelUI = FindObjectOfType<FuelUI>();
-            fuelUI.setSlowMotion(player.GetComponent<SlowMotion>());
+            fuelUI.SetSlowMotion(player.GetComponent<SlowMotion>());
 
             PauseMenu pauseMenu = FindObjectOfType<PauseMenu>();
             pauseMenu.SetPlayerMovement(player.GetComponent<PlayerMovement>());
