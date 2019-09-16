@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    /**Singleton**/
+    public static PauseMenu Instance;
+
     [SerializeField] private static bool isPaused = false;
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject pauseButton;
@@ -14,6 +17,20 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private WorldManager worldManager;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     public void Start()
     {
