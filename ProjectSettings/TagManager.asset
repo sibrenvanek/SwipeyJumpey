@@ -10,6 +10,7 @@ TagManager:
   - Fuel
   - RoomEntrance
   - CheatText
+  - CrumblingGround
   layers:
   - Default
   - TransparentFX

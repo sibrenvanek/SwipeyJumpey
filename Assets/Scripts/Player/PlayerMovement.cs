@@ -262,7 +262,7 @@ public class PlayerMovement : MonoBehaviour
         if (!raycastHit2d)
             return false;
 
-        return ((raycastHit2d.collider.gameObject.CompareTag("SafeGround")) && rigidbody2d.velocity.y <= 0);
+        return (raycastHit2d.collider.gameObject.CompareTag("SafeGround") && rigidbody2d.velocity.y <= 0);
     }
 
     bool CheckCancelSlowmotionJump()
