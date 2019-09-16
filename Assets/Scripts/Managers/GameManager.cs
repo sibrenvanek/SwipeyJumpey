@@ -126,12 +126,15 @@ public class GameManager : MonoBehaviour
         {
             CinemachineVirtualCamera Vcam = FindObjectOfType<CinemachineVirtualCamera>();
             Vcam.Follow = player.transform;
-            SendPlayerToCheckpoint(worldManager.getInitialCheckpoint());
+
+            SendPlayerToCheckpoint(worldManager.GetInitialCheckpoint());
+
             FuelUI fuelUI = FindObjectOfType<FuelUI>();
-            fuelUI.setSlowMotion(GameObject.FindGameObjectWithTag("Player").GetComponent<SlowMotion>());
+            fuelUI.setSlowMotion(player.GetComponent<SlowMotion>());
+
             PauseMenu pauseMenu = FindObjectOfType<PauseMenu>();
-            pauseMenu.setPlayerMovement(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>());
-            pauseMenu.setPlayerManager(player);
+            pauseMenu.SetPlayerMovement(player.GetComponent<PlayerMovement>());
+            pauseMenu.SetPlayerManager(player);
         }
     }
 

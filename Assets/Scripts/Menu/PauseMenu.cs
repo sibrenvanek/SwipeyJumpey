@@ -92,12 +92,12 @@ public class PauseMenu : MonoBehaviour
         playerManager.SetGodMode(!playerManager.GetGodMode());
     }
 
-    public void setPlayerMovement(PlayerMovement newPlayerMovement)
+    public void SetPlayerMovement(PlayerMovement newPlayerMovement)
     {
         playerMovement = newPlayerMovement;
     }
 
-    public void setPlayerManager(PlayerManager newPlayerManager)
+    public void SetPlayerManager(PlayerManager newPlayerManager)
     {
         playerManager = newPlayerManager;
     }
