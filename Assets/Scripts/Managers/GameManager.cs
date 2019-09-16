@@ -1,3 +1,4 @@
+using System.Collections;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -18,8 +19,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerManager player = null;
     [SerializeField] private float respawnYOffset = 0.2f;
     [SerializeField] private AudioMixer audioMixer = null;
+    [SerializeField] private int LoadSceneDuration = 0;
     private AudioSource audioSource = null;
     private float defaultPitch = 1f;
+    private Coroutine displayLoadingScreen;
+    [SerializeField] private GameObject PlayerPrefab = null;
 
     /*************
      * FUNCTIONS *
@@ -40,6 +44,14 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        
+        if (player == null)
+        {
+            GameObject playerObject = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
+            player = playerObject.GetComponent<PlayerManager>();
+        }
+
+        SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
 
     // Start is called before the first frame update
@@ -78,7 +90,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-
     public void ReduceAudioPitch(float minus)
     {
         float pitchChange = minus * Time.deltaTime;
@@ -97,6 +108,35 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        displayLoadingScreen = StartCoroutine(ShowLoadingScreenBeforeNextLevel(levelIndex));
+    }
+
+    public IEnumerator ShowLoadingScreenBeforeNextLevel(int levelIndex)
+    {
+        SceneManager.LoadScene("LoadScene");
+        yield return new WaitForSeconds(LoadSceneDuration);
+        SceneManager.LoadScene(levelIndex);
+    }
+
+    void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+    {
+        WorldManager worldManager = FindObjectOfType<WorldManager>();
+        if (worldManager != null)
+        {
+            CinemachineVirtualCamera Vcam = FindObjectOfType<CinemachineVirtualCamera>();
+            Vcam.Follow = player.transform;
+            SendPlayerToCheckpoint(worldManager.getInitialCheckpoint());
+            FuelUI fuelUI = FindObjectOfType<FuelUI>();
+            fuelUI.setSlowMotion(GameObject.FindGameObjectWithTag("Player").GetComponent<SlowMotion>());
+            PauseMenu pauseMenu = FindObjectOfType<PauseMenu>();
+            pauseMenu.setPlayerMovement(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>());
+            pauseMenu.setPlayerManager(player);
+        }
+    }
+
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
     }
 }
