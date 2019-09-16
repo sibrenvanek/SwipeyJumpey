@@ -67,7 +67,7 @@ public class PlayerManager : MonoBehaviour
                 break;
             }
 
-            if (contactPoint2D.otherCollider.name == "Feet" && (contactPoint2D.rigidbody.CompareTag("SafeGround")))
+            if (contactPoint2D.otherCollider.name == "Feet" && contactPoint2D.rigidbody.CompareTag("SafeGround"))
                 playerMovement.KillVelocity();
         }
     }
