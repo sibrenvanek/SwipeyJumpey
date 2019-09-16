@@ -1,6 +1,6 @@
-using UnityEngine;
-using Cinemachine;
 using System;
+using Cinemachine;
+using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -12,10 +12,9 @@ public class PlayerManager : MonoBehaviour
     private Rigidbody2D rigidbody2d = null;
     private PlayerMovement playerMovement = null;
     private float defaultScale = 0f;
-    private CameraManager cameraManager = null;
     private bool godMode = false;
 
-    public event Action<bool> OnGodMode = delegate { };
+    public event Action<bool> OnGodMode = delegate {};
 
     /*************
      * FUNCTIONS *
@@ -28,8 +27,8 @@ public class PlayerManager : MonoBehaviour
     {
         playerMovement = GetComponent<PlayerMovement>();
         rigidbody2d = GetComponent<Rigidbody2D>();
-        cameraManager = Camera.main.GetComponent<CameraManager>();
         defaultScale = rigidbody2d.gravityScale;
+        DontDestroyOnLoad(gameObject);
     }
 
     /**Physics**/
@@ -75,7 +74,7 @@ public class PlayerManager : MonoBehaviour
     // Handle passing through triggers
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Checkpoint"))
+        if (other.gameObject.CompareTag("Checkpoint") && playerMovement.IsGrounded())
         {
             other.gameObject.GetComponent<Checkpoint>().Check();
         }
@@ -90,7 +89,7 @@ public class PlayerManager : MonoBehaviour
         }
         if (other.gameObject.layer == LayerMask.NameToLayer("Grid"))
         {
-            cameraManager.SetConfinerBoundingShape(other.gameObject.GetComponent<Collider2D>());
+            Camera.main.GetComponent<CameraManager>().SetConfinerBoundingShape(other.gameObject.GetComponent<Collider2D>());
             other.GetComponent<Room>().OnEnterRoom();
         }
 
@@ -100,7 +99,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Grid"))
         {
-            cameraManager.OnExitCollider(other.gameObject.GetComponent<Collider2D>());
+            Camera.main.GetComponent<CameraManager>().OnExitCollider(other.gameObject.GetComponent<Collider2D>());
         }
     }
 

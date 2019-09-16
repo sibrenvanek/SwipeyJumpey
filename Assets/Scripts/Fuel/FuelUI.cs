@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class FuelUI : MonoBehaviour
 {
@@ -10,10 +10,10 @@ public class FuelUI : MonoBehaviour
     [SerializeField] private Transform fuelBar = null;
     [SerializeField] private float secondsToEmpty = 2f;
     [SerializeField] private SlowMotion slowMotion = null;
-    private void Start() 
+    private void Start()
     {
         slowMotion.OnSlowMotionActivated += OnSlowMotionActivated;
-        slowMotion.OnSlowMotionDeActivated += OnSlowMotionDeActivated;    
+        slowMotion.OnSlowMotionDeActivated += OnSlowMotionDeActivated;
     }
 
     private void OnSlowMotionActivated()
@@ -31,6 +31,11 @@ public class FuelUI : MonoBehaviour
 
     private void ResetFuelImage()
     {
-        fuelImage.transform.DOScaleX(1,0);
+        fuelImage.transform.DOScaleX(1, 0);
+    }
+
+    public void SetSlowMotion(SlowMotion newSlowMotion)
+    {
+        slowMotion = newSlowMotion;
     }
 }

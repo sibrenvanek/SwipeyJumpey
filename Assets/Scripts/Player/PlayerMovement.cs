@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private SlowMotion slowMotion = null;
     private Rigidbody2D rigidbody2d = null;
     private SpriteRenderer spriteRenderer = null;
-    private Camera mainCamera = null;
     private bool facingLeft = false;
     private bool grounded = false;
     private PlayerManager playerManager = null;
@@ -50,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         playerManager = GetComponent<PlayerManager>();
-        mainCamera = Camera.main;
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         defaultGravityScale = rigidbody2d.gravityScale;
@@ -174,9 +172,9 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButton(0) || !dragging)
             return;
 
-        Vector3 firstMousePoint = mainCamera.ScreenToWorldPoint(baseMousePosition);
+        Vector3 firstMousePoint = Camera.main.ScreenToWorldPoint(baseMousePosition);
         firstMousePoint.z = transform.position.z;
-        Vector3 lastMousePoint = mainCamera.ScreenToWorldPoint(lastMousePosition);
+        Vector3 lastMousePoint = Camera.main.ScreenToWorldPoint(lastMousePosition);
         lastMousePoint.z = transform.position.z;
 
         if (Vector2.Distance(firstMousePoint, lastMousePoint) < maximumCancelDistance)
@@ -285,12 +283,12 @@ public class PlayerMovement : MonoBehaviour
     // Check if the player is on the ground
     public bool IsGrounded()
     {
-        RaycastHit2D raycastHit2d = Physics2D.Raycast(transform.position, Vector2.down, 1f + transform.localScale.y * 0.5f, LayerMask.GetMask("SafeGround"));
+        RaycastHit2D raycastHit2d = Physics2D.BoxCast(transform.position, new Vector2(transform.localScale.x, 0.1f), 0, Vector2.down, 1f + transform.localScale.y * 0.5f, LayerMask.GetMask("SafeGround"));
 
         if (!raycastHit2d)
             return false;
 
-        return ((raycastHit2d.collider.gameObject.CompareTag("SafeGround")) && rigidbody2d.velocity.y <= 0);
+        return (raycastHit2d.collider.gameObject.CompareTag("SafeGround") && rigidbody2d.velocity.y <= 0);
     }
 
     bool CheckCancelSlowmotionJump()

@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class WorldManager : MonoBehaviour
 {
-    public event Action<Room> OnCurrentRoomChanged = delegate{};
+    public event Action<Room> OnCurrentRoomChanged = delegate {};
     [SerializeField] private Checkpoint initialCheckpoint = null;
     [SerializeField] private Checkpoint currentRoomCheckpoint = null;
     [SerializeField] private string currentRoom;
@@ -18,7 +18,7 @@ public class WorldManager : MonoBehaviour
         currentRoomCheckpoint = roomInfo.RoomInitialCheckpoint;
         currentRoom = roomInfo.RoomName;
 
-        if(curRoom != null)
+        if (curRoom != null)
             curRoom.Open();
 
         curRoom = roomInfo;
@@ -28,18 +28,23 @@ public class WorldManager : MonoBehaviour
 
     public void ResetToRoomCheckpoint()
     {
-        if(currentRoomCheckpoint != null)
+        if (currentRoomCheckpoint != null)
             GameManager.Instance.SendPlayerToCheckpoint(currentRoomCheckpoint);
     }
 
     public void ResetToInitialCheckpoint()
     {
-        if(initialCheckpoint != null)
+        if (initialCheckpoint != null)
             GameManager.Instance.SendPlayerToCheckpoint(initialCheckpoint);
     }
 
     public void ResetWorld()
     {
         GameManager.Instance.ResetWorld();
+    }
+
+    public Checkpoint GetInitialCheckpoint()
+    {
+        return initialCheckpoint;
     }
 }
