@@ -17,8 +17,6 @@ public class Fuel : MonoBehaviour
     [SerializeField] private float fadeInTime = .5f;
     [SerializeField] private float forceBoost = 2f;
     [SerializeField] private Vector2 velocityLoss = new Vector2(2f,2f);
-    private Light2D light = null;
-    private float defaultLightIntensity = 0f;
     private SpriteRenderer spriteRenderer = null;
     private new Collider2D collider = null;
     private bool frozen = false;
@@ -31,10 +29,8 @@ public class Fuel : MonoBehaviour
 
     private void Awake() 
     {
-        light = GetComponentInChildren<Light2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();    
         collider = GetComponent<Collider2D>();
-        defaultLightIntensity = light.intensity;
     }
     public void PickUp(Rigidbody2D rigidbody)
     {
@@ -76,7 +72,6 @@ public class Fuel : MonoBehaviour
     {
         spriteRenderer.DOKill();
         spriteRenderer.DOFade(0, 0);
-        light.intensity = 0f;
         collider.enabled = false;
     }
 
@@ -84,7 +79,6 @@ public class Fuel : MonoBehaviour
     {
         collider.enabled = true;
         spriteRenderer.DOFade(1, fadeInTime);
-        light.intensity = defaultLightIntensity;
     }
 
     private void AddForceBoost(Rigidbody2D rigidbody)
