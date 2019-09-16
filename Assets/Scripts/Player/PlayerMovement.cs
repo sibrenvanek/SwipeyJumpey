@@ -9,8 +9,8 @@ public class PlayerMovement : MonoBehaviour
      *************/
 
     /**General**/
-    public event Action OnJump = delegate {};
-    public event Action OnCanJump = delegate {};
+    public event Action OnJump = delegate { };
+    public event Action OnCanJump = delegate { };
 
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
