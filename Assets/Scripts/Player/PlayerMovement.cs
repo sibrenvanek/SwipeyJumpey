@@ -133,9 +133,10 @@ public class PlayerMovement : MonoBehaviour
 
             jumpVelocity.x = (baseMousePosition.x - Input.mousePosition.x) / speedLimiter;
             jumpVelocity.y = (baseMousePosition.y - Input.mousePosition.y) / speedLimiter;
+
             float angle = trajectoryPrediction.CalculateAngle(jumpVelocity);
             Vector2 maxVelocityVector = trajectoryPrediction.CalculateMaxVelocity(maxVelocity, angle);
-            Vector2 oldJumpVelocity = new Vector2(jumpVelocity.x, jumpVelocity.y);
+            Vector2 oldJumpVelocity = new Vector2(Mathf.Clamp(jumpVelocity.x, -maxVelocity, maxVelocity), Mathf.Clamp(jumpVelocity.y, -maxVelocity, maxVelocity));
             if (angle < 90 && angle > -90)
             {
                 jumpVelocity.x = Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / speedLimiter, -maxVelocityVector.x, maxVelocityVector.x);
@@ -143,12 +144,21 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                jumpVelocity.x = -Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / speedLimiter, -maxVelocityVector.x, maxVelocityVector.x);
+                float maxXVelocity = Mathf.Abs(maxVelocityVector.x);
+                jumpVelocity.x = Mathf.Clamp((baseMousePosition.x - Input.mousePosition.x) / speedLimiter, -maxXVelocity, maxXVelocity);
                 jumpVelocity.y = Mathf.Clamp((baseMousePosition.y - Input.mousePosition.y) / speedLimiter, -maxVelocityVector.y, maxVelocityVector.y);
             }
-            if (oldJumpVelocity.magnitude != 0)
+            if (oldJumpVelocity.magnitude != 0 || Double.IsInfinity(oldJumpVelocity.magnitude))
             {
                 timeDiff = jumpVelocity.magnitude / oldJumpVelocity.magnitude;
+            }
+            else
+            {
+                timeDiff = 1;
+            }
+            if (timeDiff > 1)
+            {
+                timeDiff = 1;
             }
             if (grounded || slowMotionJumpAvailable)
             {
