@@ -16,6 +16,9 @@ public class PlayerManager : MonoBehaviour
 
     public event Action<bool> OnGodMode = delegate {};
 
+    /**Singleton**/
+    public static PlayerManager Instance;
+
     /*************
      * FUNCTIONS *
      *************/
@@ -25,10 +28,19 @@ public class PlayerManager : MonoBehaviour
     // Awake is called before the first frame update
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
         playerMovement = GetComponent<PlayerMovement>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         defaultScale = rigidbody2d.gravityScale;
-        DontDestroyOnLoad(gameObject);
     }
 
     /**Physics**/
@@ -62,6 +74,7 @@ public class PlayerManager : MonoBehaviour
             {
                 playerMovement.CancelJump();
                 playerMovement.KillVelocity();
+                GameManager.IncreaseAmountOfDeaths();   
                 GameManager.Instance.SendPlayerToLastCheckpoint();
                 break;
             }
@@ -77,6 +90,7 @@ public class PlayerManager : MonoBehaviour
         if (other.gameObject.CompareTag("Checkpoint") && playerMovement.IsGrounded())
         {
             other.gameObject.GetComponent<Checkpoint>().Check();
+            GameManager.IncreaseAmountOfCheckpointsActivated();
         }
         if (other.gameObject.CompareTag("Finish") && playerMovement.IsGrounded())
         {

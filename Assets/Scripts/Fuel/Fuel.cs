@@ -35,6 +35,7 @@ public class Fuel : MonoBehaviour
     public void PickUp(Rigidbody2D rigidbody)
     {
         AddForceBoost(rigidbody);
+        GameManager.IncreaseAmountOfFuelsGrabbed();
         PlayParticleSystems();
         StartCoroutine(FreezeFrame());
         StartCoroutine(Respawn());

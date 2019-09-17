@@ -58,9 +58,12 @@ public class PauseMenu : MonoBehaviour
 
     public void BackToMenu()
     {
+        Destroy(PlayerManager.Instance.gameObject);
+        Destroy(CanvasManager.Instance.gameObject);
         Destroy(GameManager.Instance.gameObject);
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
+        Destroy(Instance.gameObject);
     }
 
     public void ChangeLevelText(Room newRoom)
@@ -100,5 +103,15 @@ public class PauseMenu : MonoBehaviour
     public void SetPlayerManager(PlayerManager newPlayerManager)
     {
         playerManager = newPlayerManager;
+    }
+
+    public void DisablePauseMenu()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void EnablePauseMenu()
+    {
+        gameObject.SetActive(true);
     }
 }

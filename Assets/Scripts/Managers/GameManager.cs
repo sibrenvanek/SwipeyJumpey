@@ -15,15 +15,21 @@ public class GameManager : MonoBehaviour
 
     /**General**/
     [SerializeField] private Checkpoint lastCheckpoint = null;
-    public Checkpoint LastCheckpoint { get {return lastCheckpoint; } }
+    public Checkpoint LastCheckpoint { get { return lastCheckpoint; } }
+
     [SerializeField] private PlayerManager player = null;
+    [SerializeField] private CanvasManager canvas = null;
+    [SerializeField] private PauseMenu pauseMenu = null;
     [SerializeField] private float respawnYOffset = 0.2f;
     [SerializeField] private AudioMixer audioMixer = null;
     [SerializeField] private int LoadSceneDuration = 0;
     private AudioSource audioSource = null;
     private float defaultPitch = 1f;
     private Coroutine displayLoadingScreen;
+    private PlayerMovement playerMovement = null;
+    private Progression progression;
     [SerializeField] private GameObject PlayerPrefab = null;
+    [SerializeField] private GameObject CanvasPrefab = null;
 
     /*************
      * FUNCTIONS *
@@ -44,12 +50,26 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
+
         if (player == null)
         {
             GameObject playerObject = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
             player = playerObject.GetComponent<PlayerManager>();
         }
+
+        playerMovement = player.GetComponent<PlayerMovement>();
+        playerMovement.OnJump += IncreaseAmountOfJumps;
+
+        if (canvas == null)
+        {
+            GameObject canvasObject = Instantiate(CanvasPrefab, Vector3.zero, Quaternion.identity);
+            canvas = canvasObject.GetComponent<CanvasManager>();
+            canvasObject.GetComponentInChildren<FuelUI>().SetSlowMotion(player.GetComponent<SlowMotion>());
+        }
+
+        pauseMenu = FindObjectOfType<PauseMenu>();
+
+        progression = Progression.LoadProgression();
 
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
@@ -108,13 +128,17 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        progression.MarkLevelAsCompleted(SceneManager.GetActiveScene().name);
+        progression.SaveProgression();
         int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        canvas.DisableCanvas();
+        pauseMenu.DisablePauseMenu();
         displayLoadingScreen = StartCoroutine(ShowLoadingScreenBeforeNextLevel(levelIndex));
     }
 
     public IEnumerator ShowLoadingScreenBeforeNextLevel(int levelIndex)
     {
-        SceneManager.LoadScene("LoadScene");
+        SceneManager.LoadScene("Intro");
         yield return new WaitForSeconds(LoadSceneDuration);
         SceneManager.LoadScene(levelIndex);
     }
@@ -124,6 +148,20 @@ public class GameManager : MonoBehaviour
         WorldManager worldManager = FindObjectOfType<WorldManager>();
         if (worldManager != null)
         {
+            canvas.EnableCanvas();
+            pauseMenu.EnablePauseMenu();
+            progression.AddLevel(new Level
+            {
+                completed = false,
+                    worldName = worldManager.GetWorldName(),
+                    sceneName = scene.name,
+                    latestCheckpoint = new MinifiedCheckpoint
+                    {
+                        name = worldManager.GetInitialCheckpoint().name,
+                            position = worldManager.GetInitialCheckpoint().transform.position
+                    }
+            });
+            progression.SaveProgression();
             CinemachineVirtualCamera Vcam = FindObjectOfType<CinemachineVirtualCamera>();
             Vcam.Follow = player.transform;
 
@@ -132,14 +170,35 @@ public class GameManager : MonoBehaviour
             FuelUI fuelUI = FindObjectOfType<FuelUI>();
             fuelUI.SetSlowMotion(player.GetComponent<SlowMotion>());
 
-            PauseMenu pauseMenu = FindObjectOfType<PauseMenu>();
             pauseMenu.SetPlayerMovement(player.GetComponent<PlayerMovement>());
             pauseMenu.SetPlayerManager(player);
         }
     }
 
+    void IncreaseAmountOfJumps()
+    {
+        progression.IncreaseAmountOfJumps();
+    }
+
+    public static void IncreaseAmountOfDeaths()
+    {
+        Instance.progression.IncreaseAmountOfDeaths();
+    }
+
+    public static void IncreaseAmountOfFuelsGrabbed()
+    {
+        Instance.progression.IncreaseAmountOfFuelsGrabbed();
+    }
+
+    public static void IncreaseAmountOfCheckpointsActivated()
+    {
+        Instance.progression.IncreaseAmountCheckpointsActivated();
+    }
+
     void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+        playerMovement.OnJump -= IncreaseAmountOfJumps;
+        progression.SaveProgression();
     }
 }

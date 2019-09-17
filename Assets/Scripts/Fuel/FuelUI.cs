@@ -10,6 +10,7 @@ public class FuelUI : MonoBehaviour
     [SerializeField] private Transform fuelBar = null;
     [SerializeField] private float secondsToEmpty = 2f;
     [SerializeField] private SlowMotion slowMotion = null;
+
     private void Start()
     {
         slowMotion.OnSlowMotionActivated += OnSlowMotionActivated;
@@ -37,5 +38,10 @@ public class FuelUI : MonoBehaviour
     public void SetSlowMotion(SlowMotion newSlowMotion)
     {
         slowMotion = newSlowMotion;
+    }
+
+    void OnDestroy(){
+        slowMotion.OnSlowMotionActivated -= OnSlowMotionActivated;
+        slowMotion.OnSlowMotionDeActivated -= OnSlowMotionDeActivated;
     }
 }

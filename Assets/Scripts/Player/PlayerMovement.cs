@@ -195,7 +195,6 @@ public class PlayerMovement : MonoBehaviour
         {
             grounded = false;
             Jump();
-            OnJump.Invoke();
         }
 
         slowMotionActivated = false;
