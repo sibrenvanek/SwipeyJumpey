@@ -1,5 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -8,7 +6,6 @@ public class UIManager : MonoBehaviour
     [Header("SlowMotion effect")]
     [SerializeField] private float slowMotionFadeTime = 0.2f;
     [SerializeField] private CanvasGroup slowMotionGroup = null;
-
     private GameObject player = null;
     private SlowMotion playerSlowMotion = null;
 
@@ -16,7 +13,6 @@ public class UIManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
-
 
     private void Start()
     {

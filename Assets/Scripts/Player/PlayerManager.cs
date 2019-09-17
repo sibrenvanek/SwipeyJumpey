@@ -1,29 +1,15 @@
 using System;
-using Cinemachine;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    /*************
-     * VARIABLES *
-     *************/
-
-    /**General**/
     private Rigidbody2D rigidbody2d = null;
     private PlayerMovement playerMovement = null;
     private Jetpack jetpack = null;
     private float defaultScale = 0f;
     private bool godMode = false;
-    
     public event Action<bool> OnGodMode = delegate {};
-
-    /*************
-     * FUNCTIONS *
-     *************/
-
-    /**General**/
-
-    // Awake is called before the first frame update
+    
     void Awake()
     {
         jetpack = GetComponentInChildren<Jetpack>();
@@ -33,23 +19,27 @@ public class PlayerManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    /**Physics**/
-
-    // Enable the physics calculations
     public void EnablePhysics()
     {
         rigidbody2d.gravityScale = defaultScale;
     }
 
-    // Disable the physics calculations
     public void DisablePhysics()
     {
         rigidbody2d.gravityScale = 0;
     }
 
-    /**Collisions**/
+    public void SetGodMode(bool godMode)
+    {
+        this.godMode = godMode;
+        OnGodMode.Invoke(godMode);
+    }
 
-    // Handle collisions with other gameobjects
+    public bool GetGodMode()
+    {
+        return godMode;
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         ContactPoint2D[] contactPoints = new ContactPoint2D[3];
@@ -76,7 +66,6 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    // Handle passing through triggers
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Checkpoint") && playerMovement.IsGrounded())
@@ -106,16 +95,5 @@ public class PlayerManager : MonoBehaviour
         {
             Camera.main.GetComponent<CameraManager>().OnExitCollider(other.gameObject.GetComponent<Collider2D>());
         }
-    }
-
-    public void SetGodMode(bool godMode)
-    {
-        this.godMode = godMode;
-        OnGodMode.Invoke(godMode);
-    }
-
-    public bool GetGodMode()
-    {
-        return godMode;
     }
 }
