@@ -63,7 +63,6 @@ public class PlayerMovement : MonoBehaviour
 
         SetDirection();
         grounded = IsGrounded();
-
         if (CheckCancelSlowmotionJump())
         {
             CancelSlowmotionJump();
@@ -162,7 +161,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         trajectoryPrediction.RemoveIndicators();
-
         powerBarUI.ResetBar();
 
         if (slowMotionJumpAvailable)
@@ -201,7 +199,6 @@ public class PlayerMovement : MonoBehaviour
 
         dragging = false;
         trajectoryPrediction.RemoveIndicators();
-        powerBarUI.ResetBar();
     }
 
     // Make the player character jump
@@ -210,6 +207,7 @@ public class PlayerMovement : MonoBehaviour
         notifiedJump = false;
         OnJump.Invoke();
         KillVelocity();
+        powerBarUI.ResetBar();
         StartCoroutine(RemoveGravityTemporarily());
         rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
     }
