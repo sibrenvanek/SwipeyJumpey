@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 jumpVelocity = new Vector2(0, 0);
     private Vector2 baseMousePosition = new Vector2(0, 0);
     private Vector2 lastMousePosition = new Vector2(0, 0);
+    Vector2 maxVelocityVector = Vector2.zero;
     public bool slowMotionJumpAvailable { get; private set; } = false;
     public bool slowMotionActivated = false;
     private bool dragging = false;
@@ -71,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         CheckIfCanJump();
 
         if (dragging)
-            powerBarUI.DisplayForce(jumpVelocity, maxVelocity);
+            powerBarUI.DisplayForce(jumpVelocity, maxVelocityVector);
     }
 
     private void CheckIfCanJump()
@@ -137,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
             jumpVelocity.y = (baseMousePosition.y - Input.mousePosition.y) / speedLimiter;
 
             float angle = trajectoryPrediction.CalculateAngle(jumpVelocity);
-            Vector2 maxVelocityVector = trajectoryPrediction.CalculateMaxVelocity(maxVelocity, angle);
+            maxVelocityVector = trajectoryPrediction.CalculateMaxVelocity(maxVelocity, angle);
             Vector2 oldJumpVelocity = new Vector2(Mathf.Clamp(jumpVelocity.x, -maxVelocity, maxVelocity), Mathf.Clamp(jumpVelocity.y, -maxVelocity, maxVelocity));
             if (angle < 90 && angle > -90)
             {
