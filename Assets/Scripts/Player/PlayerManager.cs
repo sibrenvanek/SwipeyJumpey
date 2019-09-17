@@ -9,9 +9,9 @@ public class PlayerManager : MonoBehaviour
     private Jetpack jetpack = null;
     private float defaultScale = 0f;
     private bool godMode = false;
-    
-    public event Action<bool> OnGodMode = delegate {};
-    
+
+    public event Action<bool> OnGodMode = delegate { };
+
     void Awake()
     {
         jetpack = GetComponentInChildren<Jetpack>();
@@ -95,16 +95,5 @@ public class PlayerManager : MonoBehaviour
         {
             Camera.main.GetComponent<CameraManager>().OnExitCollider(other.gameObject.GetComponent<Collider2D>());
         }
-    }
-    
-    public void SetGodMode(bool godMode)
-    {
-        this.godMode = godMode;
-        OnGodMode.Invoke(godMode);
-    }
-
-    public bool GetGodMode()
-    {
-        return godMode;
     }
 }
