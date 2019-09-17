@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speedLimiter = 20f;
     [SerializeField] private float dashTime = 0.2f;
     [SerializeField] private float maximumCancelDistance = 1f;
+    [SerializeField] PowerBarUI powerBarUI = null;
     [SerializeField] private float timeDiff = 1f;
     private Vector2 jumpVelocity = new Vector2(0, 0);
     private Vector2 baseMousePosition = new Vector2(0, 0);
@@ -68,6 +69,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
         CheckIfCanJump();
+
+        if (dragging)
+            powerBarUI.DisplayForce(jumpVelocity, maxVelocity);
     }
 
     private void CheckIfCanJump()
@@ -184,6 +188,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         trajectoryPrediction.RemoveIndicators();
+        powerBarUI.ResetBar();
 
         if (slowMotionJumpAvailable)
         {
@@ -229,6 +234,7 @@ public class PlayerMovement : MonoBehaviour
         notifiedJump = false;
         OnJump.Invoke();
         KillVelocity();
+        powerBarUI.ResetBar();
         StartCoroutine(RemoveGravityTemporarily());
         rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
     }
