@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerDeath : MonoBehaviour
 {
-    [SerializeField] private PlayerMovement playerMovement;
-
+    private PlayerMovement playerMovement;
     private Animator animator;
 
     private void Awake()
