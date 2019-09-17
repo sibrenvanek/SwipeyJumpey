@@ -116,8 +116,8 @@ public class PlayerMovement : MonoBehaviour
             jumpVelocity.x = (baseMousePosition.x - Input.mousePosition.x) / speedLimiter;
             jumpVelocity.y = (baseMousePosition.y - Input.mousePosition.y) / speedLimiter;
 
-            float angle = trajectoryPrediction.CalculateAngle(jumpVelocity);
-            maxVelocityVector = trajectoryPrediction.CalculateMaxVelocity(maxVelocity, angle);
+            float angle = CalculateAngle(jumpVelocity);
+            maxVelocityVector = CalculateMaxVelocity(maxVelocity, angle);
             Vector2 oldJumpVelocity = new Vector2(Mathf.Clamp(jumpVelocity.x, -maxVelocity, maxVelocity), Mathf.Clamp(jumpVelocity.y, -maxVelocity, maxVelocity));
             if (angle < 90 && angle > -90)
             {
@@ -144,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (grounded || slowMotionJumpAvailable)
             {
-                trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, dashTime);
+                trajectoryPrediction.UpdateTrajectory(new Vector2(transform.position.x, transform.position.y), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, angle, dashTime);
                 facingLeft = baseMousePosition.x < Input.mousePosition.x;
             }
         }
@@ -270,5 +270,27 @@ public class PlayerMovement : MonoBehaviour
     {
         slowMotion.Cancel();
         SetSlowMotionJumpAvailable(true);
+    }
+
+    Vector2 CalculateMaxVelocity(float maxVelocity, float angle)
+    {
+        float x, y;
+        float angleRadiant = Mathf.Abs(angle * Mathf.Deg2Rad);
+        x = Mathf.Cos(angleRadiant) * maxVelocity;
+        y = Mathf.Sin(angleRadiant) * maxVelocity;
+
+        return new Vector2(x, y);
+    }
+
+    float CalculateAngle(Vector2 velocity)
+    {
+        float angle = Mathf.Rad2Deg * Mathf.Atan(velocity.y / velocity.x);
+
+        if (velocity.x < 0 && velocity.y < 0)
+            angle -= 180;
+        else if (velocity.x < 0 && velocity.y >= 0)
+            angle += 180;
+
+        return angle;
     }
 }
