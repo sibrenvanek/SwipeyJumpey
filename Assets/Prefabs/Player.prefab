@@ -117,10 +117,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trajectoryPrediction: {fileID: -2195771165354065761}
   slowMotion: {fileID: 4857256654572397243}
-  maxVelocity: {x: 20, y: 20}
+  maxVelocity: 20
   speedLimiter: 10
   dashTime: 0.2
   maximumCancelDistance: 1
+  timeDiff: 1
   slowMotionActivated: 0
 --- !u!114 &4857256654572397243
 MonoBehaviour:
