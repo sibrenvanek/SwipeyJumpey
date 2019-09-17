@@ -20,10 +20,10 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        InitliazeSlowMotionEffect();
+        InitializeSlowMotionEffect();
     }
 
-    private void InitliazeSlowMotionEffect()
+    private void InitializeSlowMotionEffect()
     {
         playerSlowMotion = player.GetComponent<SlowMotion>();
 
