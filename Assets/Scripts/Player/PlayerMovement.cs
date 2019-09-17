@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float timeDiff = 1f;
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
-
+    [SerializeField] private Jetpack jetpack = null;
     public event Action OnJump = delegate {};
     public event Action OnCanJump = delegate {};
     private Rigidbody2D rigidbody2d = null;
@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
         playerManager = GetComponent<PlayerManager>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        jetpack = GetComponentInChildren<Jetpack>();
         defaultGravityScale = rigidbody2d.gravityScale;
     }
 
@@ -48,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
         SetDirection();
         grounded = IsGrounded();
+
         if (CheckCancelSlowmotionJump())
         {
             CancelSlowmotionJump();
@@ -100,6 +102,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 baseMousePosition = Input.mousePosition;
                 dragging = true;
+            }
+
+            if((grounded || slowMotionJumpAvailable) && !jetpack.EngineCharging)
+            {
+                jetpack.Charge();
             }
 
             if (!slowMotionActivated && !grounded && slowMotionJumpAvailable)
@@ -199,12 +206,14 @@ public class PlayerMovement : MonoBehaviour
             slowMotion.Cancel();
         }
 
+        jetpack.TurnOff();
         dragging = false;
         trajectoryPrediction.RemoveIndicators();
     }
 
     private void Jump()
     {
+        jetpack.Launch();
         notifiedJump = false;
         OnJump.Invoke();
         KillVelocity();
