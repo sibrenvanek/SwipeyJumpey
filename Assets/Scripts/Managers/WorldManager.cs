@@ -43,7 +43,7 @@ public class WorldManager : MonoBehaviour
         GameManager.Instance.ResetWorld();
     }
 
-    public Checkpoint getInitialCheckpoint()
+    public Checkpoint GetInitialCheckpoint()
     {
         return initialCheckpoint;
     }
