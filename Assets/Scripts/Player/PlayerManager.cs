@@ -96,15 +96,4 @@ public class PlayerManager : MonoBehaviour
             Camera.main.GetComponent<CameraManager>().OnExitCollider(other.gameObject.GetComponent<Collider2D>());
         }
     }
-    
-    public void SetGodMode(bool godMode)
-    {
-        this.godMode = godMode;
-        OnGodMode.Invoke(godMode);
-    }
-
-    public bool GetGodMode()
-    {
-        return godMode;
-    }
 }
