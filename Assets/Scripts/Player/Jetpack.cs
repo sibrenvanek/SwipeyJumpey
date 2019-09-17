@@ -6,6 +6,7 @@ using DG.Tweening.Core;
 
 public class Jetpack : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem trailParticleSystem = null;
     [SerializeField] private Jet[] jets = null;
 
     [Header("Charging values")]
@@ -44,6 +45,7 @@ public class Jetpack : MonoBehaviour
 
     public void Launch()
     {
+        trailParticleSystem.Play();
         EngineCharging = false;
         foreach (var jet in jets)
         {
@@ -53,10 +55,12 @@ public class Jetpack : MonoBehaviour
 
     public void TurnOff()
     {
+        trailParticleSystem.Stop();
         foreach (var jet in jets)
         {
             jet.StopEngine();
         }
+
         EngineRunning = false;
         EngineCharging = false;
     }
