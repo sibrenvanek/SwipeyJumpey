@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public event Action OnCanJump = delegate {};
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
+    [SerializeField] private Jetpack jetpack = null;
     private Rigidbody2D rigidbody2d = null;
     private SpriteRenderer spriteRenderer = null;
     private bool facingLeft = false;
@@ -51,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         playerManager = GetComponent<PlayerManager>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        jetpack = GetComponentInChildren<Jetpack>();
         defaultGravityScale = rigidbody2d.gravityScale;
     }
 
@@ -62,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
         SetDirection();
         grounded = IsGrounded();
+
         if (CheckCancelSlowmotionJump())
         {
             CancelSlowmotionJump();
@@ -219,6 +222,7 @@ public class PlayerMovement : MonoBehaviour
             slowMotion.Cancel();
         }
 
+        jetpack.TurnOff();
         dragging = false;
         trajectoryPrediction.RemoveIndicators();
     }
@@ -226,6 +230,7 @@ public class PlayerMovement : MonoBehaviour
     // Make the player character jump
     private void Jump()
     {
+        jetpack.Launch();
         notifiedJump = false;
         OnJump.Invoke();
         KillVelocity();

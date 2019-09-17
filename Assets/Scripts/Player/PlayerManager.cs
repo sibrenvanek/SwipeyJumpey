@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
     private PlayerMovement playerMovement = null;
     private float defaultScale = 0f;
     private bool godMode = false;
-
+    
     public event Action<bool> OnGodMode = delegate {};
 
     /*************
