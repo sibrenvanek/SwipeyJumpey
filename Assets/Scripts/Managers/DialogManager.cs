@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviour
 {
-    [SerializeField] private Button button;
+    [SerializeField] private Button button = null;
 
     public static DialogManager Instance;
 

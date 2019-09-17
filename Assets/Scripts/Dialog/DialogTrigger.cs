@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DialogTrigger : MonoBehaviour
 {
-    [SerializeField] private Conversation conversation;
+    [SerializeField] private Conversation conversation = null;
 
     private DialogManager dialogManager;
     private bool triggered = false;
