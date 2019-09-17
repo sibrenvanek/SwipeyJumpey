@@ -2,10 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviour
 {
+    [SerializeField] private Button button;
+
     public static DialogManager Instance;
+
+    public event Action OnStartDialog = delegate { };
+    public event Action<Dialog> OnNewDialog = delegate { };
+    public event Action OnEndDialog = delegate { };
+
+    private Queue<Dialog> dialogs;
 
     private void Awake()
     {
@@ -21,15 +30,11 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    public event Action OnStartDialog = delegate { };
-    public event Action<Dialog> OnNewDialog = delegate { };
-    public event Action OnEndDialog = delegate { };
-
-    private Queue<Dialog> dialogs;
-
     private void Start()
     {
         dialogs = new Queue<Dialog>();
+
+        button.onClick.AddListener(DisplayNextDialog);
     }
 
     public void StartConversation(Conversation conversation)
@@ -55,8 +60,6 @@ public class DialogManager : MonoBehaviour
 
         Dialog dialog = dialogs.Dequeue();
         OnNewDialog.Invoke(dialog);
-
-        Debug.Log(dialog.Text);
     }
 
     private void EndDialog()

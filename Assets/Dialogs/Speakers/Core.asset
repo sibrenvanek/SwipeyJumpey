@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0cbe8fef814d9b428aca18cffa1b1b8, type: 3}
-  m_Name: Intro
+  m_Script: {fileID: 11500000, guid: 750e8f2cb2db0594fa5e6c70fbfb750c, type: 3}
+  m_Name: Core
   m_EditorClassIdentifier: 
-  dialogs:
-  - {fileID: 11400000, guid: 998c0bf11b1a02a499c8a8f30cdf59c9, type: 2}
-  - {fileID: 11400000, guid: f1831e1b164b70a4fac1727a3e94aa5d, type: 2}
+  sprite: {fileID: 7364682651488144517, guid: 37d8b1b49003243d8a4bd7cb86964370, type: 3}
+  name: Core

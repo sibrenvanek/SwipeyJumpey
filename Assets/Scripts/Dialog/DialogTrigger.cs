@@ -7,6 +7,7 @@ public class DialogTrigger : MonoBehaviour
     [SerializeField] private Conversation conversation;
 
     private DialogManager dialogManager;
+    private bool triggered = false;
 
     private void Start()
     {
@@ -17,7 +18,8 @@ public class DialogTrigger : MonoBehaviour
     {
         if (OtherIsPlayer(other))
         {
-            StartConversation();
+            if (!triggered)
+                StartConversation();
         }
     }
 
@@ -29,6 +31,7 @@ public class DialogTrigger : MonoBehaviour
 
     private void StartConversation()
     {
+        triggered = true;
         dialogManager.StartConversation(conversation);
     }
 }

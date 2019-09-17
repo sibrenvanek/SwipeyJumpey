@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0cbe8fef814d9b428aca18cffa1b1b8, type: 3}
-  m_Name: Intro
+  m_Script: {fileID: 11500000, guid: 7f215a13ac5d6ee44a9b0d89de35c0ac, type: 3}
+  m_Name: 2. Core planet
   m_EditorClassIdentifier: 
-  dialogs:
-  - {fileID: 11400000, guid: 998c0bf11b1a02a499c8a8f30cdf59c9, type: 2}
-  - {fileID: 11400000, guid: f1831e1b164b70a4fac1727a3e94aa5d, type: 2}
+  speaker: {fileID: 11400000, guid: 21dd0c2fc90e64948860905ae563d623, type: 2}
+  text: You are on an unkown red planet.
