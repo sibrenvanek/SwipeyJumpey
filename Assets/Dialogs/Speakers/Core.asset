@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 750e8f2cb2db0594fa5e6c70fbfb750c, type: 3}
   m_Name: Core
   m_EditorClassIdentifier: 
-  sprite: {fileID: 7364682651488144517, guid: 37d8b1b49003243d8a4bd7cb86964370, type: 3}
+  sprite: {fileID: 21300000, guid: 89d18faa86a67854a9c6651b1c34fb33, type: 3}
   name: Core

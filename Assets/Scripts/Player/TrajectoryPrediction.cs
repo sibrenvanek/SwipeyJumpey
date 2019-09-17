@@ -3,9 +3,11 @@ using UnityEngine;
 public class TrajectoryPrediction : MonoBehaviour
 {
     [SerializeField] private Indicator indicatorPrefab = null;
+    [SerializeField] private MouseIndicator mouseIndicatorPrefab = null;
     private Indicator activeIndicator = null;
+    private MouseIndicator activeMouseIndicator = null;
 
-    public void UpdateTrajectory(Vector2 startPosition, Vector2 startVelocity, Vector2 gravity, float angle, float time)
+    public void UpdateTrajectory(Vector2 baseMousePosition, Vector2 startVelocity, Vector2 gravity, float angle, float time)
     {
         if (startVelocity.x == 0 && startVelocity.y == 0)
             return;
@@ -28,7 +30,10 @@ public class TrajectoryPrediction : MonoBehaviour
             distance.y *= -1;
 
         if (!activeIndicator)
+        {
             activeIndicator = Instantiate(indicatorPrefab, transform.position, Quaternion.identity);
+            activeMouseIndicator = Instantiate(mouseIndicatorPrefab, baseMousePosition, Quaternion.identity);
+        }
 
         activeIndicator.transform.eulerAngles = new Vector3(0, 0, angle);
         activeIndicator.SetDistance(lengthZ / 2);
@@ -40,7 +45,9 @@ public class TrajectoryPrediction : MonoBehaviour
         if (!activeIndicator)
             return;
 
+        Destroy(activeMouseIndicator.gameObject);
         Destroy(activeIndicator.gameObject);
         activeIndicator = null;
+        activeMouseIndicator = null;
     }
 }
