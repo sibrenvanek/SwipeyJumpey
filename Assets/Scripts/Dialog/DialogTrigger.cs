@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class DialogTrigger : MonoBehaviour
 {
+    [SerializeField] private Conversation conversation;
+
+    private DialogManager dialogManager;
+
+    private void Start()
+    {
+        dialogManager = DialogManager.Instance;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (OtherIsPlayer(other))
         {
-            KillPlayerMovement(other);
+            StartConversation();
         }
     }
 
@@ -18,12 +27,8 @@ public class DialogTrigger : MonoBehaviour
         return parent != null && parent.CompareTag("Player");
     }
 
-    private void KillPlayerMovement(Collider2D other)
+    private void StartConversation()
     {
-        GameObject player = other.transform.parent.gameObject;
-        PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
-
-        playerMovement.Disable();
-        playerMovement.KillVelocity();
+        dialogManager.StartConversation(conversation);
     }
 }
