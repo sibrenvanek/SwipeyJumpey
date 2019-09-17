@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speedLimiter = 20f;
     [SerializeField] private float dashTime = 0.2f;
     [SerializeField] private float maximumCancelDistance = 1f;
+    [SerializeField] PowerBarUI powerBarUI = null;
     private Vector2 jumpVelocity = new Vector2(0, 0);
     private Vector2 baseMousePosition = new Vector2(0, 0);
     private Vector2 lastMousePosition = new Vector2(0, 0);
@@ -62,12 +63,16 @@ public class PlayerMovement : MonoBehaviour
 
         SetDirection();
         grounded = IsGrounded();
+
         if (CheckCancelSlowmotionJump())
         {
             CancelSlowmotionJump();
         }
 
         CheckIfCanJump();
+
+        if (dragging)
+            powerBarUI.DisplayForce(jumpVelocity, maxVelocity);
     }
 
     private void CheckIfCanJump()
@@ -158,6 +163,8 @@ public class PlayerMovement : MonoBehaviour
 
         trajectoryPrediction.RemoveIndicators();
 
+        powerBarUI.ResetBar();
+
         if (slowMotionJumpAvailable)
         {
             slowMotionJumpAvailable = false;
@@ -194,6 +201,7 @@ public class PlayerMovement : MonoBehaviour
 
         dragging = false;
         trajectoryPrediction.RemoveIndicators();
+        powerBarUI.ResetBar();
     }
 
     // Make the player character jump
