@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maximumCancelDistance = 1f;
     [SerializeField] PowerBarUI powerBarUI = null;
     [SerializeField] private float timeDiff = 1f;
+    
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
     [SerializeField] private Jetpack jetpack = null;
