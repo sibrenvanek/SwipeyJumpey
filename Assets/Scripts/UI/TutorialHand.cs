@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -10,7 +10,6 @@ public class TutorialHand : MonoBehaviour
 
     private PlayerMovement playerMovement;
     private SpriteRenderer spriteRenderer;
-
 
     private void Awake()
     {

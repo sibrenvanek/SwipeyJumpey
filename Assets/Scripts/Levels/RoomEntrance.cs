@@ -1,13 +1,10 @@
 using UnityEngine;
-using System.Collections;
 
-public class RoomEntrance : MonoBehaviour {
-    
+public class RoomEntrance : MonoBehaviour
+{    
     [SerializeField] private bool horizontal = true;
     [SerializeField] private bool positive = true;
-
     [SerializeField] private float offset = 2f;
-
     private Collider2D entranceCollider = null;
 
     private void Awake() 

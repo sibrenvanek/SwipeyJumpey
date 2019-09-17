@@ -6,32 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    /*************
-     * VARIABLES *
-     *************/
-
-    /**Singleton**/
     public static GameManager Instance;
 
-    /**General**/
     [SerializeField] private Checkpoint lastCheckpoint = null;
-    public Checkpoint LastCheckpoint { get {return lastCheckpoint; } }
     [SerializeField] private PlayerManager player = null;
     [SerializeField] private float respawnYOffset = 0.2f;
     [SerializeField] private AudioMixer audioMixer = null;
     [SerializeField] private int LoadSceneDuration = 0;
+    [SerializeField] private GameObject PlayerPrefab = null;
+    public Checkpoint LastCheckpoint { get { return lastCheckpoint; } }
     private AudioSource audioSource = null;
     private float defaultPitch = 1f;
-    private Coroutine displayLoadingScreen;
-    [SerializeField] private GameObject PlayerPrefab = null;
 
-    /*************
-     * FUNCTIONS *
-     *************/
-
-    /**General**/
-
-    // Awake is called before other functionality
     private void Awake()
     {
         if (Instance == null)
@@ -54,7 +40,6 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
 
-    // Start is called before the first frame update
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -62,9 +47,6 @@ public class GameManager : MonoBehaviour
         player = FindObjectOfType<PlayerManager>();
     }
 
-    /**Checkpoint**/
-
-    // Set the value for the lastCheckpoint variable
     public void SetLastCheckpoint(Checkpoint checkpoint)
     {
         if (lastCheckpoint != null)
@@ -74,7 +56,6 @@ public class GameManager : MonoBehaviour
         lastCheckpoint = checkpoint;
     }
 
-    // Set the player position equal to the last checkpoint
     public void SendPlayerToLastCheckpoint()
     {
         player.transform.position = new Vector3(lastCheckpoint.transform.position.x, lastCheckpoint.transform.position.y + respawnYOffset);
@@ -109,7 +90,6 @@ public class GameManager : MonoBehaviour
     public void LoadNextLevel()
     {
         int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        displayLoadingScreen = StartCoroutine(ShowLoadingScreenBeforeNextLevel(levelIndex));
     }
 
     public IEnumerator ShowLoadingScreenBeforeNextLevel(int levelIndex)
