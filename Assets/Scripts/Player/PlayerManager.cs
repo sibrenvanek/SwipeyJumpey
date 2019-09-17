@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerDeath))]
 public class PlayerManager : MonoBehaviour
 {
     private Rigidbody2D rigidbody2d = null;
@@ -8,8 +9,9 @@ public class PlayerManager : MonoBehaviour
     private Jetpack jetpack = null;
     private float defaultScale = 0f;
     private bool godMode = false;
-    public event Action<bool> OnGodMode = delegate {};
-    
+
+    public event Action<bool> OnGodMode = delegate { };
+
     void Awake()
     {
         jetpack = GetComponentInChildren<Jetpack>();
@@ -52,9 +54,7 @@ public class PlayerManager : MonoBehaviour
 
             if (contactPoint2D.rigidbody.CompareTag("DeadZone") && !godMode)
             {
-                playerMovement.CancelJump();
-                playerMovement.KillVelocity();
-                GameManager.Instance.SendPlayerToLastCheckpoint();
+                GetComponent<PlayerDeath>().Die();
                 break;
             }
 
