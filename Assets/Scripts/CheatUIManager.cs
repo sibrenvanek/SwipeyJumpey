@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -25,13 +25,6 @@ public class CheatUIManager : MonoBehaviour
 
     private void SetGodMode(bool isEnabled)
     {
-        if (isEnabled)
-        {
-            cheatTextObject.text = godModeText;
-        }
-        else
-        {
-            cheatTextObject.text = "";
-        }
+        cheatTextObject.text = (isEnabled) ? godModeText : "";
     }
 }

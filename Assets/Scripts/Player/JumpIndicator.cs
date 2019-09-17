@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.LWRP;
 
 [RequireComponent(typeof(PlayerMovement))]
 public class JumpIndicator : MonoBehaviour
 {
     [SerializeField] private Sprite noJumpSprite = null;
-
     private SpriteRenderer spriteRenderer;
     private Sprite defaultSprite;
     private PlayerMovement playerMovement;
@@ -16,7 +12,6 @@ public class JumpIndicator : MonoBehaviour
     {
         playerMovement = GetComponent<PlayerMovement>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
         defaultSprite = spriteRenderer.sprite;
     }
 

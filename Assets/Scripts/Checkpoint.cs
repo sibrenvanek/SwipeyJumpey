@@ -2,14 +2,10 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    private SpriteRenderer spriteRenderer = null;
     [SerializeField] private Sprite active = null;
     [SerializeField] private Sprite inActive = null;
+    private SpriteRenderer spriteRenderer = null;
     private new ParticleSystem particleSystem = null;
-
-    /*************
-     * FUNCTIONS *
-     *************/
 
     private void Awake() 
     {
@@ -17,7 +13,6 @@ public class Checkpoint : MonoBehaviour
         particleSystem = GetComponentInChildren<ParticleSystem>();
     }
 
-    // Set the lastcheckpoint variable in the gamemanager to this checkpoint
     public void Check()
     {
         if (GameManager.Instance.LastCheckpoint != this)

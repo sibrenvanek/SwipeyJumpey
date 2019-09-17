@@ -1,5 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -7,7 +5,6 @@ public class MainMenuHead : MonoBehaviour
 {
     [Header("Rotate animation")]
     [SerializeField] private float rotateTime = 1f;
-
     private RectTransform rectTransform;
 
     private void Awake()

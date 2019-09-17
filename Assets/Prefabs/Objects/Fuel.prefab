@@ -4986,7 +4986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleSystems:
   - {fileID: 634071251}
-  freezeTime: 0.075
+  freezeTime: 0.05
   respawnTime: 2
   fadeInTime: 0.5
   forceBoost: 0
