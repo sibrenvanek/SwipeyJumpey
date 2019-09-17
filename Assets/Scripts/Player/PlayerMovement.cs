@@ -121,6 +121,11 @@ public class PlayerMovement : MonoBehaviour
                 dragging = true;
             }
 
+            if((grounded || slowMotionJumpAvailable) && !jetpack.EngineCharging)
+            {
+                jetpack.Charge();
+            }
+
             if (!slowMotionActivated && !grounded && slowMotionJumpAvailable)
             {
                 slowMotion.Go();

@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     /**General**/
     private Rigidbody2D rigidbody2d = null;
     private PlayerMovement playerMovement = null;
+    private Jetpack jetpack = null;
     private float defaultScale = 0f;
     private bool godMode = false;
     
@@ -25,6 +26,7 @@ public class PlayerManager : MonoBehaviour
     // Awake is called before the first frame update
     void Awake()
     {
+        jetpack = GetComponentInChildren<Jetpack>();
         playerMovement = GetComponent<PlayerMovement>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         defaultScale = rigidbody2d.gravityScale;
@@ -67,7 +69,10 @@ public class PlayerManager : MonoBehaviour
             }
 
             if (contactPoint2D.otherCollider.name == "Feet" && contactPoint2D.rigidbody.CompareTag("SafeGround"))
+            {
                 playerMovement.KillVelocity();
+                jetpack.TurnOff();
+            }
         }
     }
 

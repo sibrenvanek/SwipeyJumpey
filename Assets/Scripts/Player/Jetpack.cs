@@ -20,6 +20,7 @@ public class Jetpack : MonoBehaviour
     [SerializeField] private bool testEngines = false;
     [SerializeField] private float testInterval = 2f;
     public bool EngineRunning { get; private set; }
+    public bool EngineCharging { get; private set; }
 
     private void OnValidate() {
         jets = GetComponentsInChildren<Jet>();    
@@ -33,6 +34,7 @@ public class Jetpack : MonoBehaviour
 
     public void Charge()
     {
+        EngineCharging = true;
         TurnOnJets();
         foreach (var jet in jets)
         {
@@ -42,6 +44,7 @@ public class Jetpack : MonoBehaviour
 
     public void Launch()
     {
+        EngineCharging = false;
         foreach (var jet in jets)
         {
             jet.Accelerate(flyingStartLifeTime, flyingStartSize);
@@ -55,6 +58,7 @@ public class Jetpack : MonoBehaviour
             jet.StopEngine();
         }
         EngineRunning = false;
+        EngineCharging = false;
     }
 
     private void TurnOnJets()
