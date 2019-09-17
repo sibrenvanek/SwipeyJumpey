@@ -982,36 +982,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df5fca8f0ab00114ca31afb6e5fd8681, type: 3}
---- !u!1 &213344786 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 585780739684234313, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-    type: 3}
-  m_PrefabInstance: {fileID: 1022194678}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &213344787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213344786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ce0287621ffb36409f8ed8b80907e21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &213344788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213344786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3548c8d120244a439e0d25cb74b51ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &226127085
 GameObject:
   m_ObjectHideFlags: 0
@@ -1268,7 +1238,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1022194678}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213344786}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 477f538b367ab744f962886b5095277e, type: 3}
@@ -2529,7 +2499,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1022194678}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213344786}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 884c9cb96f4d2f049a4b478af92c96c1, type: 3}
@@ -2541,7 +2511,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1022194678}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213344786}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3387d43b085ea304f9cb950b08f221c9, type: 3}
@@ -65496,7 +65466,7 @@ PrefabInstance:
     - target: {fileID: 1508894441572218797, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.376967
+      value: 12.642592
       objectReference: {fileID: 0}
     - target: {fileID: 1508894441572218797, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
@@ -65551,7 +65521,7 @@ PrefabInstance:
     - target: {fileID: 1508894441572218798, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
       propertyPath: orthographic size
-      value: 5.984375
+      value: 7.1171875
       objectReference: {fileID: 0}
     - target: {fileID: 378091846, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
       propertyPath: cinemachineConfiner
@@ -75045,36 +75015,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 585780739684234313, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4857256654572397243, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: playerManager
-      value: 
-      objectReference: {fileID: 242003655}
-    - target: {fileID: 1946067523713256595, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: dashSpeedReduction
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1946067523713256595, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: speedLimiter
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1946067523713256595, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: maxVelocity.y
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1946067523713256595, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: maxVelocity
-      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1946067523713256595, guid: f8a1a67ea9e524d4e9edce007c9e2311,
         type: 3}
