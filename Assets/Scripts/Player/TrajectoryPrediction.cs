@@ -1,31 +1,16 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TrajectoryPrediction : MonoBehaviour
 {
-    /*************
-     * VARIABLES *
-     *************/
-
-    /**General**/
     [SerializeField] private Indicator indicatorPrefab = null;
     private Indicator activeIndicator = null;
 
-    /*************
-     * FUNCTIONS *
-     *************/
-
-    /**Trajectory**/
-
-    // Update the current trajectory
     public void UpdateTrajectory(Vector2 startPosition, Vector2 startVelocity, Vector2 gravity, float time)
     {
         RemoveIndicators();
-
         PlotTrajectory(startPosition, startVelocity, gravity, time);
     }
 
-    // Plot the expected trajectory of the player character
     private void PlotTrajectory(Vector2 startPosition, Vector2 startVelocity, Vector2 gravity, float time)
     {
         if (startVelocity.x == 0 && startVelocity.y == 0)
@@ -47,7 +32,6 @@ public class TrajectoryPrediction : MonoBehaviour
         activeIndicator = CreateIndicator(angle, lengthZ);
     }
 
-    // Remove all of the plotted points
     public void RemoveIndicators()
     {
         if (!activeIndicator)

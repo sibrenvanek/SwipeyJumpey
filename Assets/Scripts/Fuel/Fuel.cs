@@ -1,16 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Experimental.Rendering.LWRP;
 
 public class Fuel : MonoBehaviour
 {
-    /*************
-     * VARIABLES *
-     *************/
-
-    /**General**/
     [SerializeField] private ParticleSystem[] particleSystems = null;
     [SerializeField] private float freezeTime = 0.2f;
     [SerializeField] private float respawnTime = 2f;
@@ -18,15 +12,9 @@ public class Fuel : MonoBehaviour
     [SerializeField] private float forceBoost = 2f;
     [SerializeField] private Vector2 velocityLoss = new Vector2(2f,2f);
     private Light2D light2d = null;
-    private SpriteRenderer spriteRenderer = null;
     private new Collider2D collider = null;
+    private SpriteRenderer spriteRenderer = null;
     private bool frozen = false;
-
-    /*************
-     * FUNCTIONS *
-     *************/
-
-    /**General**/
 
     private void Awake()
     {
@@ -34,6 +22,7 @@ public class Fuel : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();    
         collider = GetComponent<Collider2D>();
     }
+
     public void PickUp(Rigidbody2D rigidbody)
     {
         AddForceBoost(rigidbody);

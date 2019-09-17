@@ -4,29 +4,23 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    /*************
-     * VARIABLES *
-     *************/
-
-    /**General**/
-    public event Action OnJump = delegate {};
-    public event Action OnCanJump = delegate {};
-    [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
-    [SerializeField] private SlowMotion slowMotion = null;
-    private Rigidbody2D rigidbody2d = null;
-    private SpriteRenderer spriteRenderer = null;
-    private bool facingLeft = false;
-    private bool grounded = false;
-    private PlayerManager playerManager = null;
-    private bool notifiedJump = true;
-
-    /**Jumping**/
     [SerializeField] private float maxVelocity = 0f;
     [SerializeField] private float speedLimiter = 20f;
     [SerializeField] private float dashTime = 0.2f;
     [SerializeField] private float maximumCancelDistance = 1f;
     [SerializeField] PowerBarUI powerBarUI = null;
     [SerializeField] private float timeDiff = 1f;
+    [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
+    [SerializeField] private SlowMotion slowMotion = null;
+
+    public event Action OnJump = delegate {};
+    public event Action OnCanJump = delegate {};
+    private Rigidbody2D rigidbody2d = null;
+    private SpriteRenderer spriteRenderer = null;
+    private bool facingLeft = false;
+    private bool grounded = false;
+    private PlayerManager playerManager = null;
+    private bool notifiedJump = true;
     private Vector2 jumpVelocity = new Vector2(0, 0);
     private Vector2 baseMousePosition = new Vector2(0, 0);
     private Vector2 lastMousePosition = new Vector2(0, 0);
@@ -35,19 +29,10 @@ public class PlayerMovement : MonoBehaviour
     public bool slowMotionActivated = false;
     private bool dragging = false;
     private bool inputEnabled = true;
-
-    /**Gravity**/
     private float defaultGravityScale = 0f;
     private bool gravityTemporarilyOff = false;
     private bool gravityOff = false;
 
-    /*************
-     * FUNCTIONS *
-     *************/
-
-    /**General**/
-
-    // Start is called before the first frame update
     void Start()
     {
         playerManager = GetComponent<PlayerManager>();
@@ -56,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
         defaultGravityScale = rigidbody2d.gravityScale;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (inputEnabled)
@@ -85,13 +69,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // Set the direction the object is facing
     private void SetDirection()
     {
         spriteRenderer.flipX = facingLeft;
     }
-
-    /**Player Input**/
 
     public void Disable()
     {
@@ -103,7 +84,6 @@ public class PlayerMovement : MonoBehaviour
         inputEnabled = true;
     }
 
-    // Handle playerinput
     private void HandleInput()
     {
         if (Input.GetMouseButton(0))
@@ -112,7 +92,6 @@ public class PlayerMovement : MonoBehaviour
             HandleRelease();
     }
 
-    // Handle the player dragging on the screen
     private void HandleDrag()
     {
         if (Input.GetMouseButton(0))
@@ -171,7 +150,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // Handle the player releasing their finger from the screen
     private void HandleRelease()
     {
         if (Input.GetMouseButton(0) || !dragging)
@@ -208,15 +186,11 @@ public class PlayerMovement : MonoBehaviour
         dragging = false;
     }
 
-    //Set the value of the slowMotionJumpAvailable variable
     public void SetSlowMotionJumpAvailable(bool slowMotionJumpAvailable)
     {
         this.slowMotionJumpAvailable = slowMotionJumpAvailable;
     }
 
-    /**Jumping**/
-
-    // Cancel any current jump plans
     public void CancelJump()
     {
         if (slowMotionJumpAvailable && !grounded)
@@ -229,7 +203,6 @@ public class PlayerMovement : MonoBehaviour
         trajectoryPrediction.RemoveIndicators();
     }
 
-    // Make the player character jump
     private void Jump()
     {
         notifiedJump = false;
@@ -240,7 +213,6 @@ public class PlayerMovement : MonoBehaviour
         rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
     }
 
-    // Temporarily remove gravity
     private IEnumerator RemoveGravityTemporarily()
     {
         gravityTemporarilyOff = true;
@@ -252,14 +224,12 @@ public class PlayerMovement : MonoBehaviour
             rigidbody2d.gravityScale = defaultGravityScale;
     }
 
-    // Remove gravity
     public void RemoveGravity()
     {
         gravityOff = true;
         rigidbody2d.gravityScale = 0;
     }
 
-    // Turn gravity back on
     public void RestoreGravity()
     {
         gravityOff = false;
@@ -267,17 +237,11 @@ public class PlayerMovement : MonoBehaviour
             rigidbody2d.gravityScale = defaultGravityScale;
     }
 
-    /**Velocity**/
-
-    // Set the current velocity of the player to zero
     public void KillVelocity()
     {
         rigidbody2d.velocity = Vector3.zero;
     }
 
-    /**Collisions**/
-
-    // OnTriggerEnter is called when a collision with a trigger occurs
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Fuel"))
@@ -287,7 +251,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // Check if the player is on the ground
     public bool IsGrounded()
     {
         RaycastHit2D raycastHit2d = Physics2D.BoxCast(transform.position, new Vector2(transform.localScale.x, 0.1f), 0, Vector2.down, 1f + transform.localScale.y * 0.5f, LayerMask.GetMask("SafeGround"));
