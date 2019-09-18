@@ -3,16 +3,13 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerMovement))]
 public class JumpIndicator : MonoBehaviour
 {
-    [SerializeField] private Sprite noJumpSprite = null;
-    private SpriteRenderer spriteRenderer;
-    private Sprite defaultSprite;
+
+    [SerializeField] private Animator jetpackAnimator;
     private PlayerMovement playerMovement;
 
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        defaultSprite = spriteRenderer.sprite;
     }
 
     private void Start()
@@ -25,11 +22,11 @@ public class JumpIndicator : MonoBehaviour
 
     private void SetNoJump()
     {
-        spriteRenderer.sprite = noJumpSprite;
+        jetpackAnimator.SetBool("isEmpty", true);
     }
 
     private void SetCanJump()
     {
-        spriteRenderer.sprite = defaultSprite;
+        jetpackAnimator.SetBool("isEmpty", false);
     }
 }
