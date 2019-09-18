@@ -48,8 +48,8 @@ public class DialogUIManager : MonoBehaviour
         speakerTitle.text = dialog.Speaker.Name;
     }
 
-    public void SetDialogGroup(CanvasGroup _dialogGroup)
+    public void SetDialogGroup(CanvasGroup dialogGroup)
     {
-        dialogGroup = _dialogGroup;
+        this.dialogGroup = dialogGroup;
     }
 }

@@ -131,12 +131,20 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        displayLoadingScreen = StartCoroutine(ShowLoadingScreenBeforeNextLevel(levelIndex));
+    }
+
+    public void HandleProgression()
+    {
         progression.MarkLevelAsCompleted(SceneManager.GetActiveScene().name);
         progression.SaveProgression();
-        int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
+    }
+
+    public void DisableUI()
+    {
         canvas.DisableCanvas();
         pauseMenu.DisablePauseMenu();
-        displayLoadingScreen = StartCoroutine(ShowLoadingScreenBeforeNextLevel(levelIndex));
     }
 
     public IEnumerator ShowLoadingScreenBeforeNextLevel(int levelIndex)

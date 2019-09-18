@@ -67,8 +67,8 @@ public class DialogManager : MonoBehaviour
         OnEndDialog.Invoke();
     }
 
-    public void SetButton(Button _button)
+    public void SetButton(Button button)
     {
-        button = _button;
+        this.button = button;
     }
 }
