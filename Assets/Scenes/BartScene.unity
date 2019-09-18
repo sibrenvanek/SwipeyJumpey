@@ -65474,7 +65474,7 @@ PrefabInstance:
     - target: {fileID: 1508894441572218797, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.482436
+      value: 11.9691105
       objectReference: {fileID: 0}
     - target: {fileID: 1508894441572218797, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
@@ -65526,6 +65526,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1508894441572218798, guid: 9356ec27d444a93499cf228ff166dc7b,
+        type: 3}
+      propertyPath: orthographic size
+      value: 6.7890625
+      objectReference: {fileID: 0}
     - target: {fileID: 378091846, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
       propertyPath: cinemachineConfiner
       value: 
@@ -65534,11 +65539,6 @@ PrefabInstance:
       propertyPath: cinemachineVirtualCamera
       value: 
       objectReference: {fileID: 859533048}
-    - target: {fileID: 1508894441572218798, guid: 9356ec27d444a93499cf228ff166dc7b,
-        type: 3}
-      propertyPath: orthographic size
-      value: 6.7890625
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
 --- !u!1001 &565029952
@@ -72067,6 +72067,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 928064832866660890, guid: e96885d809f5d314aab6e2aff43c23ff,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 928064832866660890, guid: e96885d809f5d314aab6e2aff43c23ff,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e96885d809f5d314aab6e2aff43c23ff, type: 3}
 --- !u!4 &798345218 stripped
@@ -75107,6 +75117,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5416527612652756779, guid: 9942cc8f8b7491748a6b1b158a1fe6f9,
         type: 3}
+    - target: {fileID: 1863040399851755284, guid: f8a1a67ea9e524d4e9edce007c9e2311,
+        type: 3}
+      propertyPath: testEngines
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4329750280423289775, guid: f8a1a67ea9e524d4e9edce007c9e2311,
         type: 3}
       propertyPath: m_Offset.x
