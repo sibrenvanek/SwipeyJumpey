@@ -219,7 +219,6 @@ public class PlayerMovement : MonoBehaviour
         KillVelocity();
         powerBarUI.ResetBar();
         StartCoroutine(RemoveGravityTemporarily());
-        Debug.Log(jumpVelocity);
         rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
     }
 
