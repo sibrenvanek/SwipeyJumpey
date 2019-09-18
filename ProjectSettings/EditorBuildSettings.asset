@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoadScene.unity
     guid: bdbb9dbb6aca1d34b90bd7871ed97baa
+  - enabled: 1
+    path: Assets/Scenes/BartScene.unity
+    guid: 0aa2d99e427f2c2439a489468fef5b54
   m_configObjects: {}

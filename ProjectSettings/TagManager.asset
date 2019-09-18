@@ -81,6 +81,9 @@ TagManager:
   - name: Fuel
     uniqueID: 1768093043
     locked: 0
+  - name: VFX Jetpack
+    uniqueID: 2752805857
+    locked: 0
   - name: Player
     uniqueID: 505967787
     locked: 0
