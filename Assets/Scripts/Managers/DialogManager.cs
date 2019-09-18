@@ -28,12 +28,12 @@ public class DialogManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        dialogs = new Queue<Dialog>();
     }
 
     private void Start()
     {
-        dialogs = new Queue<Dialog>();
-
         InitNextButton();
     }
 

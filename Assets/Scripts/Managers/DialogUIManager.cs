@@ -42,11 +42,13 @@ public class DialogUIManager : MonoBehaviour
     private void DisplayDialog()
     {
         dialogGroup.DOFade(1, fadeTime);
+        PauseMenu.Instance.DisablePauseMenu();
     }
 
     private void HideDialog()
     {
         dialogGroup.DOFade(0, fadeTime);
+        PauseMenu.Instance.EnablePauseMenu();
     }
 
     private void SetDialog(Dialog dialog)
