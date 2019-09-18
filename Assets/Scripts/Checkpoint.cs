@@ -5,6 +5,10 @@ public class Checkpoint : MonoBehaviour
     private Animator animator = null;
     private new ParticleSystem particleSystem = null;
 
+    /*************
+     * FUNCTIONS *
+     *************/
+
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -16,6 +20,8 @@ public class Checkpoint : MonoBehaviour
         if (GameManager.Instance.LastCheckpoint != this)
         {
             particleSystem.Play();
+            GameManager.IncreaseAmountOfCheckpointsActivated();
+            GameManager.SetLastActivatedCheckpoint(this);
         }
         GameManager.Instance.SetLastCheckpoint(this);
         animator.SetBool("isCollected", true);

@@ -45,3 +45,7 @@ Ludiq/
 Ludiq.Generated/
 Ludiq.Generated.meta
 Ludiq.meta
+
+# Data
+Assets/data.json
+Assets/data.json.meta

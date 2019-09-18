@@ -10,15 +10,31 @@ public class PlayerManager : MonoBehaviour
     private float defaultScale = 0f;
     private bool godMode = false;
 
-    public event Action<bool> OnGodMode = delegate { };
+    public event Action<bool> OnGodMode = delegate {};
+
+    /**Singleton**/
+    public static PlayerManager Instance;
+
+    /*************
+     * FUNCTIONS *
+     *************/
 
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
         jetpack = GetComponentInChildren<Jetpack>();
         playerMovement = GetComponent<PlayerMovement>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         defaultScale = rigidbody2d.gravityScale;
-        DontDestroyOnLoad(gameObject);
     }
 
     public void EnablePhysics()
@@ -54,6 +70,10 @@ public class PlayerManager : MonoBehaviour
 
             if (contactPoint2D.rigidbody.CompareTag("DeadZone") && !godMode)
             {
+                playerMovement.CancelJump();
+                playerMovement.KillVelocity();
+                GameManager.IncreaseAmountOfDeaths();
+                GameManager.Instance.SendPlayerToLastCheckpoint();
                 GetComponent<PlayerDeath>().Die();
                 break;
             }
@@ -74,6 +94,8 @@ public class PlayerManager : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Finish") && playerMovement.IsGrounded())
         {
+            WorldManager worldManager = FindObjectOfType<WorldManager>();
+            GameManager.SetLastActivatedCheckpoint(worldManager.GetInitialCheckpoint());
             GameManager.Instance.LoadNextLevel();
         }
         if (other.CompareTag("RoomEntrance"))

@@ -47,4 +47,9 @@ public class DialogUIManager : MonoBehaviour
         speakerImage.sprite = dialog.Speaker.Sprite;
         speakerTitle.text = dialog.Speaker.Name;
     }
+
+    public void SetDialogGroup(CanvasGroup dialogGroup)
+    {
+        this.dialogGroup = dialogGroup;
+    }
 }
