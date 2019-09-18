@@ -303,8 +303,8 @@ public class PlayerMovement : MonoBehaviour
         return angle;
     }
 
-    public void SetPowerBarUI(PowerBarUI _powerBarUI)
+    public void SetPowerBarUI(PowerBarUI powerBarUI)
     {
-        powerBarUI = _powerBarUI;
+        this.powerBarUI = powerBarUI;
     }
 }

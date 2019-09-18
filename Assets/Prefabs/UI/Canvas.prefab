@@ -127,6 +127,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlowMotionGroup
       objectReference: {fileID: 0}
+    - target: {fileID: 5285118693303896857, guid: 0586b5d78779f40c3a5b0e471ec66d2f,
+        type: 3}
+      propertyPath: m_TagString
+      value: SlowMotionGroup
+      objectReference: {fileID: 0}
     - target: {fileID: 5285118693303896863, guid: 0586b5d78779f40c3a5b0e471ec66d2f,
         type: 3}
       propertyPath: m_LocalPosition.x

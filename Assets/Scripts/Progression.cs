@@ -34,15 +34,15 @@ public class Progression
         {
             return new Progression();
         }
-        Progression newProgression= new Progression
+        Progression newProgression = new Progression
         {
             amountOfJumps = (int)parsedData["amountOfJumps"],
-                amountOfDeaths = (int)parsedData["amountOfDeaths"],
-                amountOfCollectables = (int)parsedData["amountOfCollectables"],
-                amountOfBounces = (int)parsedData["amountOfBounces"],
-                amountOfCheckpointsActivated = (int)parsedData["amountOfCheckpointsActivated"],
-                amountOfFuelsGrabbed = (int)parsedData["amountOfFuelsGrabbed"],
-                unlockedLevels = progression.unlockedLevels
+            amountOfDeaths = (int)parsedData["amountOfDeaths"],
+            amountOfCollectables = (int)parsedData["amountOfCollectables"],
+            amountOfBounces = (int)parsedData["amountOfBounces"],
+            amountOfCheckpointsActivated = (int)parsedData["amountOfCheckpointsActivated"],
+            amountOfFuelsGrabbed = (int)parsedData["amountOfFuelsGrabbed"],
+            unlockedLevels = progression.unlockedLevels
         };
         return newProgression;
     }
@@ -81,23 +81,33 @@ public class Progression
     {
         if (unlockedLevels == null)
         {
-            unlockedLevels = new List<Level>();
-            unlockedLevels.Add(level);
+            CreateListAndAddLevel(level);
         }
         else
         {
-            bool levelExistsInList = false;
-            foreach (Level l in unlockedLevels)
+
+        }
+    }
+
+    private void CreateListAndAddLevel(Level level)
+    {
+        unlockedLevels = new List<Level>();
+        unlockedLevels.Add(level);
+    }
+
+    private void AddLevelToList(Level level)
+    {
+        bool levelExistsInList = false;
+        foreach (Level l in unlockedLevels)
+        {
+            if (level.sceneName == l.sceneName)
             {
-                if (level.sceneName == l.sceneName)
-                {
-                    levelExistsInList = true;
-                }
+                levelExistsInList = true;
             }
-            if (!levelExistsInList)
-            {
-                unlockedLevels.Add(level);
-            }
+        }
+        if (!levelExistsInList)
+        {
+            unlockedLevels.Add(level);
         }
     }
 
@@ -123,9 +133,12 @@ public class Progression
         }
     }
 
-    public Level GetLevel(string sceneName){
-        foreach(Level level in unlockedLevels){
-            if(level.sceneName==sceneName){
+    public Level GetLevel(string sceneName)
+    {
+        foreach (Level level in unlockedLevels)
+        {
+            if (level.sceneName == sceneName)
+            {
                 return level;
             }
         }

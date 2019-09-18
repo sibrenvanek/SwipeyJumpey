@@ -5,16 +5,17 @@ using UnityEngine.Experimental.Rendering.LWRP;
 
 public class Fuel : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem[] particleSystems = null;
     [SerializeField] private float freezeTime = 0.2f;
     [SerializeField] private float respawnTime = 2f;
     [SerializeField] private float fadeInTime = .5f;
     [SerializeField] private float forceBoost = 2f;
     [SerializeField] private Vector2 velocityLoss = new Vector2(2f,2f);
+    [SerializeField] private Animator pickUpAnimator = null;
     private Light2D light2d = null;
     private new Collider2D collider = null;
     private SpriteRenderer spriteRenderer = null;
     private bool frozen = false;
+
 
     private void Awake()
     {
@@ -25,9 +26,9 @@ public class Fuel : MonoBehaviour
 
     public void PickUp(Rigidbody2D rigidbody)
     {
+        pickUpAnimator.SetTrigger("PickUp");
         AddForceBoost(rigidbody);
         GameManager.IncreaseAmountOfFuelsGrabbed();
-        PlayParticleSystems();
         StartCoroutine(FreezeFrame());
         StartCoroutine(Respawn());
     }
@@ -42,14 +43,6 @@ public class Fuel : MonoBehaviour
             yield return new WaitForSecondsRealtime(freezeTime);
             Time.timeScale = original;
             frozen = false;
-        }
-    }
-
-    private void PlayParticleSystems()
-    {
-        foreach (var particleSystem in particleSystems)
-        {
-            particleSystem.Play();
         }
     }
 

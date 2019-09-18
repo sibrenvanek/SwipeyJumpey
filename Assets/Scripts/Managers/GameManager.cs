@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
             CanvasGroup[] canvasGroups = canvasObject.GetComponentsInChildren<CanvasGroup>();
             CanvasGroup slowMotionGroup;
             CanvasGroup dialogGroup;
-            if (canvasGroups[0].name == "SlowMotionGroup")
+            if (canvasGroups[0].tag == "SlowMotionGroup")
             {
                 slowMotionGroup = canvasGroups[0];
                 dialogGroup = canvasGroups[1];
@@ -131,12 +131,20 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        displayLoadingScreen = StartCoroutine(ShowLoadingScreenBeforeNextLevel(levelIndex));
+    }
+
+    public void HandleProgression()
+    {
         progression.MarkLevelAsCompleted(SceneManager.GetActiveScene().name);
         progression.SaveProgression();
-        int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
+    }
+
+    public void DisableUI()
+    {
         canvas.DisableCanvas();
         pauseMenu.DisablePauseMenu();
-        displayLoadingScreen = StartCoroutine(ShowLoadingScreenBeforeNextLevel(levelIndex));
     }
 
     public IEnumerator ShowLoadingScreenBeforeNextLevel(int levelIndex)

@@ -14530,8 +14530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a238ba661ffca484397db6cde2af275b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noJumpSprite: {fileID: 7364682651488144517, guid: 37d8b1b49003243d8a4bd7cb86964370,
-    type: 3}
+  jetpackAnimator: {fileID: 347882186}
 --- !u!114 &213344787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14618,6 +14617,7 @@ GameObject:
   - component: {fileID: 1738405037177089811}
   - component: {fileID: 1885512780755369590}
   - component: {fileID: 1863040399851755284}
+  - component: {fileID: 347882186}
   m_Layer: 0
   m_Name: Jetpack
   m_TagString: Untagged
@@ -14679,7 +14679,7 @@ SpriteRenderer:
   m_SortingLayerID: 505967787
   m_SortingLayer: 13
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8b837f784a15093438f1893bea29d8d2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 25eccfd2b1a00e049935c817964b4974, type: 3}
   m_Color: {r: 0.990566, g: 0.990566, b: 0.990566, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -14710,8 +14710,27 @@ MonoBehaviour:
   chargingStartSize: 0.5
   flyingStartLifeTime: 0.2
   flyingStartSize: 0.8
-  testEngines: 1
+  testEngines: 0
   testInterval: 0.5
+--- !u!95 &347882186
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3522601937460870942}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3d1648f5cc5305840a4da4a8f7c55d79, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3524120302390915896
 GameObject:
   m_ObjectHideFlags: 0
@@ -14830,6 +14849,6 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.35, y: 0.25}
+  m_Offset: {x: 0.05, y: 0.25}
   serializedVersion: 2
   m_Radius: 0.4
