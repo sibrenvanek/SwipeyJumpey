@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviour
     private float defaultScale = 0f;
     private bool godMode = false;
 
-    public event Action<bool> OnGodMode = delegate {};
+    public event Action<bool> OnGodMode = delegate { };
 
     /**Singleton**/
     public static PlayerManager Instance;
@@ -73,7 +73,6 @@ public class PlayerManager : MonoBehaviour
                 playerMovement.CancelJump();
                 playerMovement.KillVelocity();
                 GameManager.IncreaseAmountOfDeaths();
-                GameManager.Instance.SendPlayerToLastCheckpoint();
                 GetComponent<PlayerDeath>().Die();
                 break;
             }
