@@ -27,7 +27,15 @@ public class Progression
 
     public static Progression LoadProgression()
     {
-        string data = File.ReadAllText(path);
+        string data;
+        try
+        {
+            data = File.ReadAllText(path);
+        }
+        catch
+        {
+            data = "";
+        }
         Progression progression = JsonConvert.DeserializeObject<Progression>(data);
         dynamic parsedData = JsonConvert.DeserializeObject(data);
         if (parsedData == null)
