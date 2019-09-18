@@ -37,6 +37,9 @@ sysinfo.txt
 *.unitypackage
 *.zip
 
+#Mac OS X
+.DS_Store
+
 # Peek
 Ludiq/
 Ludiq.Generated/
