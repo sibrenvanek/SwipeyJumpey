@@ -1,5 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.LWRP;
 
@@ -74,7 +72,7 @@ public class FlickeringLight : MonoBehaviour
 
     private void SetNewFlickerSpeed()
     {
-        flickerSpeed = UnityEngine.Random.Range(minFlickerSpeed, maxFlickerSpeed);
+        flickerSpeed = Random.Range(minFlickerSpeed, maxFlickerSpeed);
     }
 
     private void IncreaseIntensity()

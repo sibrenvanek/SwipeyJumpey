@@ -1,16 +1,12 @@
 using System;
-using Cinemachine;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerDeath))]
 public class PlayerManager : MonoBehaviour
 {
-    /*************
-     * VARIABLES *
-     *************/
-
-    /**General**/
     private Rigidbody2D rigidbody2d = null;
     private PlayerMovement playerMovement = null;
+    private Jetpack jetpack = null;
     private float defaultScale = 0f;
     private bool godMode = false;
 
@@ -23,9 +19,6 @@ public class PlayerManager : MonoBehaviour
      * FUNCTIONS *
      *************/
 
-    /**General**/
-
-    // Awake is called before the first frame update
     void Awake()
     {
         if (Instance == null)
@@ -38,28 +31,33 @@ public class PlayerManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        jetpack = GetComponentInChildren<Jetpack>();
         playerMovement = GetComponent<PlayerMovement>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         defaultScale = rigidbody2d.gravityScale;
     }
 
-    /**Physics**/
-
-    // Enable the physics calculations
     public void EnablePhysics()
     {
         rigidbody2d.gravityScale = defaultScale;
     }
 
-    // Disable the physics calculations
     public void DisablePhysics()
     {
         rigidbody2d.gravityScale = 0;
     }
 
-    /**Collisions**/
+    public void SetGodMode(bool godMode)
+    {
+        this.godMode = godMode;
+        OnGodMode.Invoke(godMode);
+    }
 
-    // Handle collisions with other gameobjects
+    public bool GetGodMode()
+    {
+        return godMode;
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         ContactPoint2D[] contactPoints = new ContactPoint2D[3];
@@ -76,15 +74,18 @@ public class PlayerManager : MonoBehaviour
                 playerMovement.KillVelocity();
                 GameManager.IncreaseAmountOfDeaths();
                 GameManager.Instance.SendPlayerToLastCheckpoint();
+                GetComponent<PlayerDeath>().Die();
                 break;
             }
 
             if (contactPoint2D.otherCollider.name == "Feet" && contactPoint2D.rigidbody.CompareTag("SafeGround"))
+            {
                 playerMovement.KillVelocity();
+                jetpack.TurnOff();
+            }
         }
     }
 
-    // Handle passing through triggers
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Checkpoint") && playerMovement.IsGrounded())
@@ -116,16 +117,5 @@ public class PlayerManager : MonoBehaviour
         {
             Camera.main.GetComponent<CameraManager>().OnExitCollider(other.gameObject.GetComponent<Collider2D>());
         }
-    }
-
-    public void SetGodMode(bool godMode)
-    {
-        this.godMode = godMode;
-        OnGodMode.Invoke(godMode);
-    }
-
-    public bool GetGodMode()
-    {
-        return godMode;
     }
 }

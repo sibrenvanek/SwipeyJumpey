@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    private SpriteRenderer spriteRenderer = null;
-    [SerializeField] private Sprite active = null;
-    [SerializeField] private Sprite inActive = null;
+    private Animator animator = null;
     private new ParticleSystem particleSystem = null;
 
     /*************
@@ -13,11 +11,10 @@ public class Checkpoint : MonoBehaviour
 
     private void Awake()
     {
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        animator = GetComponentInChildren<Animator>();
         particleSystem = GetComponentInChildren<ParticleSystem>();
     }
 
-    // Set the lastcheckpoint variable in the gamemanager to this checkpoint
     public void Check()
     {
         if (GameManager.Instance.LastCheckpoint != this)
@@ -27,13 +24,13 @@ public class Checkpoint : MonoBehaviour
             GameManager.SetLastActivatedCheckpoint(this);
         }
         GameManager.Instance.SetLastCheckpoint(this);
-        spriteRenderer.sprite = active;
+        animator.SetBool("isCollected", true);
 
     }
 
     public void DeActivate()
     {
-        spriteRenderer.sprite = inActive;
+        animator.SetBool("isCollected", false);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -43,6 +40,6 @@ public class Checkpoint : MonoBehaviour
             particleSystem.Play();
         }
         GameManager.Instance.SetLastCheckpoint(this);
-        spriteRenderer.sprite = active;
+        animator.SetBool("isCollected", true);
     }
 }

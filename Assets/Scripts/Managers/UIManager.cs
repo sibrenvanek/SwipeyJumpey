@@ -8,7 +8,6 @@ public class UIManager : MonoBehaviour
     [Header("SlowMotion effect")]
     [SerializeField] private float slowMotionFadeTime = 0.2f;
     [SerializeField] private CanvasGroup slowMotionGroup = null;
-
     private GameObject player = null;
     private SlowMotion playerSlowMotion = null;
 

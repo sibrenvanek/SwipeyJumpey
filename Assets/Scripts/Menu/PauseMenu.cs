@@ -1,15 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    /**Singleton**/
     public static PauseMenu Instance;
-
-    [SerializeField] private static bool isPaused = false;
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject pauseButton;
     [SerializeField] private TextMeshProUGUI currentLevelPlaceholder;
@@ -44,7 +39,6 @@ public class PauseMenu : MonoBehaviour
         pauseUI.SetActive(false);
         playerMovement.Enable();
         Time.timeScale = 1f;
-        isPaused = false;
     }
 
     public void Pause()
@@ -53,7 +47,6 @@ public class PauseMenu : MonoBehaviour
         pauseUI.SetActive(true);
         playerMovement.Disable();
         Time.timeScale = 0f;
-        isPaused = true;
     }
 
     public void BackToMenu()

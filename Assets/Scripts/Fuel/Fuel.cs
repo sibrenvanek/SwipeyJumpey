@@ -1,37 +1,28 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Experimental.Rendering.LWRP;
 
 public class Fuel : MonoBehaviour
 {
-    /*************
-     * VARIABLES *
-     *************/
-
-    /**General**/
     [SerializeField] private ParticleSystem[] particleSystems = null;
     [SerializeField] private float freezeTime = 0.2f;
     [SerializeField] private float respawnTime = 2f;
     [SerializeField] private float fadeInTime = .5f;
     [SerializeField] private float forceBoost = 2f;
     [SerializeField] private Vector2 velocityLoss = new Vector2(2f,2f);
-    private SpriteRenderer spriteRenderer = null;
+    private Light2D light2d = null;
     private new Collider2D collider = null;
+    private SpriteRenderer spriteRenderer = null;
     private bool frozen = false;
 
-    /*************
-     * FUNCTIONS *
-     *************/
-
-    /**General**/
-
-    private void Awake() 
+    private void Awake()
     {
+        light2d = GetComponentInChildren<Light2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();    
         collider = GetComponent<Collider2D>();
     }
+
     public void PickUp(Rigidbody2D rigidbody)
     {
         AddForceBoost(rigidbody);
@@ -73,6 +64,7 @@ public class Fuel : MonoBehaviour
     {
         spriteRenderer.DOKill();
         spriteRenderer.DOFade(0, 0);
+        light2d.enabled = false;
         collider.enabled = false;
     }
 
@@ -80,6 +72,7 @@ public class Fuel : MonoBehaviour
     {
         collider.enabled = true;
         spriteRenderer.DOFade(1, fadeInTime);
+        light2d.enabled = true;
     }
 
     private void AddForceBoost(Rigidbody2D rigidbody)
