@@ -3,13 +3,13 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     [SerializeField] private Checkpoint lastCheckpoint = null;
-    public Checkpoint LastCheckpoint { get { return lastCheckpoint; } }
 
     [SerializeField] private PlayerManager player = null;
     [SerializeField] private CanvasManager canvas = null;
@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float respawnYOffset = 0.2f;
     [SerializeField] private AudioMixer audioMixer = null;
     [SerializeField] private int LoadSceneDuration = 0;
-    [SerializeField] private GameObject PlayerPrefab = null;
     public Checkpoint LastCheckpoint { get { return lastCheckpoint; } }
     private AudioSource audioSource = null;
     private float defaultPitch = 1f;
@@ -55,7 +54,25 @@ public class GameManager : MonoBehaviour
             canvas = canvasObject.GetComponent<CanvasManager>();
             canvasObject.GetComponentInChildren<FuelUI>().SetSlowMotion(player.GetComponent<SlowMotion>());
             UIManager uiManager = GameObject.FindObjectOfType<UIManager>();
-            uiManager.SetSlowMotionGroup(canvasObject.GetComponentInChildren<CanvasGroup>());
+            CanvasGroup[] canvasGroups = canvasObject.GetComponentsInChildren<CanvasGroup>();
+            CanvasGroup slowMotionGroup;
+            CanvasGroup dialogGroup;
+            if (canvasGroups[0].name == "SlowMotionGroup")
+            {
+                slowMotionGroup = canvasGroups[0];
+                dialogGroup = canvasGroups[1];
+            }
+            else
+            {
+                slowMotionGroup = canvasGroups[1];
+                dialogGroup = canvasGroups[0];
+            }
+            uiManager.SetSlowMotionGroup(slowMotionGroup);
+            DialogManager dialogManager = FindObjectOfType<DialogManager>();
+            dialogManager.SetButton(dialogGroup.GetComponentInChildren<Button>());
+            playerMovement.SetPowerBarUI(canvasObject.GetComponentInChildren<PowerBarUI>());
+            DialogUIManager dialogUIManager = FindObjectOfType<DialogUIManager>();
+            dialogUIManager.SetDialogGroup(dialogGroup);
         }
 
         pauseMenu = FindObjectOfType<PauseMenu>();

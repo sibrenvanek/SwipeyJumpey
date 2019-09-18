@@ -10,9 +10,9 @@ public class DialogManager : MonoBehaviour
 
     public static DialogManager Instance;
 
-    public event Action OnStartDialog = delegate { };
-    public event Action<Dialog> OnNewDialog = delegate { };
-    public event Action OnEndDialog = delegate { };
+    public event Action OnStartDialog = delegate {};
+    public event Action<Dialog> OnNewDialog = delegate {};
+    public event Action OnEndDialog = delegate {};
 
     private Queue<Dialog> dialogs;
 
@@ -65,5 +65,10 @@ public class DialogManager : MonoBehaviour
     private void EndDialog()
     {
         OnEndDialog.Invoke();
+    }
+
+    public void SetButton(Button _button)
+    {
+        button = _button;
     }
 }
