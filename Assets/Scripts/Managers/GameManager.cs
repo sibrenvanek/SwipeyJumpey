@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
             CanvasGroup[] canvasGroups = canvasObject.GetComponentsInChildren<CanvasGroup>();
             CanvasGroup slowMotionGroup;
             CanvasGroup dialogGroup;
-            if (canvasGroups[0].name == "SlowMotionGroup")
+            if (canvasGroups[0].tag == "SlowMotionGroup")
             {
                 slowMotionGroup = canvasGroups[0];
                 dialogGroup = canvasGroups[1];
