@@ -6,6 +6,8 @@ using DG.Tweening.Core;
 
 public class Jetpack : MonoBehaviour
 {
+    [SerializeField] private Transform launchPos = null;
+    [SerializeField] private GameObject vfxLaunchPrefab = null;
     [SerializeField] private ParticleSystem trailParticleSystem = null;
     [SerializeField] private Jet[] jets = null;
 
@@ -45,6 +47,7 @@ public class Jetpack : MonoBehaviour
 
     public void Launch()
     {
+        Instantiate(vfxLaunchPrefab, launchPos.position, Quaternion.identity);
         trailParticleSystem.Play();
         EngineCharging = false;
         foreach (var jet in jets)
