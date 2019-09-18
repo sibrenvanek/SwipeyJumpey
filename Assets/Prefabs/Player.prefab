@@ -14517,6 +14517,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicatorPrefab: {fileID: 2497441223246862094, guid: b3624a3e7c9e50f468625a830be71147,
     type: 3}
+  mouseIndicatorPrefab: {fileID: 5416527612652756779, guid: 9942cc8f8b7491748a6b1b158a1fe6f9,
+    type: 3}
 --- !u!114 &7392386661118225966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14705,7 +14707,6 @@ MonoBehaviour:
   jets:
   - {fileID: 275488287}
   - {fileID: 841840640}
-  jets: []
   chargingStartLifeTime: 0.1
   chargingStartSize: 0.5
   flyingStartLifeTime: 0.2

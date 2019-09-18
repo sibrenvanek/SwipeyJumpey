@@ -152,7 +152,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (grounded || slowMotionJumpAvailable)
             {
-                trajectoryPrediction.UpdateTrajectory(Camera.main.ScreenToWorldPoint(baseMousePosition), jumpVelocity, Physics2D.gravity * rigidbody2d.gravityScale, angle, dashTime);
+                trajectoryPrediction.UpdateTrajectory(Camera.main.ScreenToWorldPoint(baseMousePosition), jumpVelocity, angle, dashTime);
                 facingLeft = baseMousePosition.x < Input.mousePosition.x;
             }
         }
