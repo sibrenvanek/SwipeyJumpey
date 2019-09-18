@@ -7,7 +7,7 @@ public class TrajectoryPrediction : MonoBehaviour
     private Indicator activeIndicator = null;
     private MouseIndicator activeMouseIndicator = null;
 
-    public void UpdateTrajectory(Vector2 baseMousePosition, Vector2 startVelocity, Vector2 gravity, float angle, float time)
+    public void UpdateTrajectory(Vector2 baseMousePosition, Vector2 startVelocity, float angle, float time)
     {
         if (startVelocity.x == 0 && startVelocity.y == 0)
             return;
@@ -35,6 +35,7 @@ public class TrajectoryPrediction : MonoBehaviour
             activeMouseIndicator = Instantiate(mouseIndicatorPrefab, baseMousePosition, Quaternion.identity);
         }
 
+        activeIndicator.transform.position = transform.position;
         activeIndicator.transform.eulerAngles = new Vector3(0, 0, angle);
         activeIndicator.SetDistance(lengthZ / 2);
         activeIndicator.SetWidth(lengthZ);
@@ -42,12 +43,16 @@ public class TrajectoryPrediction : MonoBehaviour
 
     public void RemoveIndicators()
     {
-        if (!activeIndicator)
-            return;
+        if (activeIndicator)
+        {
+            Destroy(activeIndicator.gameObject);
+            activeIndicator = null;
+        }
 
-        Destroy(activeMouseIndicator.gameObject);
-        Destroy(activeIndicator.gameObject);
-        activeIndicator = null;
-        activeMouseIndicator = null;
+        if (activeMouseIndicator)
+        {
+            Destroy(activeMouseIndicator.gameObject);
+            activeMouseIndicator = null;
+        }
     }
 }
