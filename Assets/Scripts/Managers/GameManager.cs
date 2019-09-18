@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
             GameObject canvasObject = Instantiate(CanvasPrefab, Vector3.zero, Quaternion.identity);
             canvas = canvasObject.GetComponent<CanvasManager>();
             canvasObject.GetComponentInChildren<FuelUI>().SetSlowMotion(player.GetComponent<SlowMotion>());
+            UIManager uiManager = GameObject.FindObjectOfType<UIManager>();
+            uiManager.SetSlowMotionGroup(canvasObject.GetComponentInChildren<CanvasGroup>());
         }
 
         pauseMenu = FindObjectOfType<PauseMenu>();
@@ -165,7 +167,23 @@ public class GameManager : MonoBehaviour
             CinemachineVirtualCamera Vcam = FindObjectOfType<CinemachineVirtualCamera>();
             Vcam.Follow = player.transform;
 
-            SendPlayerToCheckpoint(worldManager.GetInitialCheckpoint());
+            Level level = progression.GetLevel(SceneManager.GetActiveScene().name);
+            if (level != null)
+            {
+                Checkpoint checkpoint = GetCheckpointFromMinified(level.latestCheckpoint);
+                if (checkpoint != null)
+                {
+                    SendPlayerToCheckpoint(checkpoint);
+                }
+                else
+                {
+                    SendPlayerToCheckpoint(worldManager.GetInitialCheckpoint());
+                }
+            }
+            else
+            {
+                SendPlayerToCheckpoint(worldManager.GetInitialCheckpoint());
+            }
 
             FuelUI fuelUI = FindObjectOfType<FuelUI>();
             fuelUI.SetSlowMotion(player.GetComponent<SlowMotion>());
@@ -193,6 +211,24 @@ public class GameManager : MonoBehaviour
     public static void IncreaseAmountOfCheckpointsActivated()
     {
         Instance.progression.IncreaseAmountCheckpointsActivated();
+    }
+
+    public static void SetLastActivatedCheckpoint(Checkpoint checkpoint)
+    {
+        Instance.progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { name = checkpoint.name, position = checkpoint.transform.position });
+    }
+
+    public static Checkpoint GetCheckpointFromMinified(MinifiedCheckpoint minCheckpoint)
+    {
+        Checkpoint[] checkpoints = FindObjectsOfType<Checkpoint>();
+        foreach (Checkpoint checkpoint in checkpoints)
+        {
+            if (checkpoint.name == minCheckpoint.name)
+            {
+                return checkpoint;
+            }
+        }
+        return null;
     }
 
     void OnDestroy()

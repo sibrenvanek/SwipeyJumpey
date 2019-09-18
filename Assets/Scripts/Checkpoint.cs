@@ -11,7 +11,7 @@ public class Checkpoint : MonoBehaviour
      * FUNCTIONS *
      *************/
 
-    private void Awake() 
+    private void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         particleSystem = GetComponentInChildren<ParticleSystem>();
@@ -23,6 +23,8 @@ public class Checkpoint : MonoBehaviour
         if (GameManager.Instance.LastCheckpoint != this)
         {
             particleSystem.Play();
+            GameManager.IncreaseAmountOfCheckpointsActivated();
+            GameManager.SetLastActivatedCheckpoint(this);
         }
         GameManager.Instance.SetLastCheckpoint(this);
         spriteRenderer.sprite = active;

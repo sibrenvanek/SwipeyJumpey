@@ -20,23 +20,31 @@ public class Progression
         File.WriteAllText(path, json);
     }
 
+    public override string ToString()
+    {
+        return string.Format("unlockedLevel: {0}\njumps: {1}\ndeaths: {2}\nfuels: {3}\ncheckpoints: {4}", unlockedLevels[0].ToString(), amountOfJumps, amountOfDeaths, amountOfFuelsGrabbed, amountOfCheckpointsActivated);
+    }
+
     public static Progression LoadProgression()
     {
-        dynamic parsedData = JsonConvert.DeserializeObject(File.ReadAllText(path));
+        string data = File.ReadAllText(path);
+        Progression progression = JsonConvert.DeserializeObject<Progression>(data);
+        dynamic parsedData = JsonConvert.DeserializeObject(data);
         if (parsedData == null)
         {
             return new Progression();
         }
-        return new Progression
+        Progression newProgression= new Progression
         {
             amountOfJumps = (int)parsedData["amountOfJumps"],
-            amountOfDeaths = (int)parsedData["amountOfDeaths"],
-            amountOfCollectables = (int)parsedData["amountOfCollectables"],
-            amountOfBounces = (int)parsedData["amountOfBounces"],
-            amountOfCheckpointsActivated = (int)parsedData["amountOfCheckpointsActivated"],
-            amountOfFuelsGrabbed = (int)parsedData["amountOfFuelsGrabbed"],
-            unlockedLevels = parsedData["unlockedLevels"] as List<Level>
+                amountOfDeaths = (int)parsedData["amountOfDeaths"],
+                amountOfCollectables = (int)parsedData["amountOfCollectables"],
+                amountOfBounces = (int)parsedData["amountOfBounces"],
+                amountOfCheckpointsActivated = (int)parsedData["amountOfCheckpointsActivated"],
+                amountOfFuelsGrabbed = (int)parsedData["amountOfFuelsGrabbed"],
+                unlockedLevels = progression.unlockedLevels
         };
+        return newProgression;
     }
 
     public void IncreaseAmountOfJumps()
@@ -74,8 +82,23 @@ public class Progression
         if (unlockedLevels == null)
         {
             unlockedLevels = new List<Level>();
+            unlockedLevels.Add(level);
         }
-        unlockedLevels.Add(level);
+        else
+        {
+            bool levelExistsInList = false;
+            foreach (Level l in unlockedLevels)
+            {
+                if (level.sceneName == l.sceneName)
+                {
+                    levelExistsInList = true;
+                }
+            }
+            if (!levelExistsInList)
+            {
+                unlockedLevels.Add(level);
+            }
+        }
     }
 
     public void MarkLevelAsCompleted(string sceneName)
@@ -87,5 +110,25 @@ public class Progression
                 level.completed = true;
             }
         }
+    }
+
+    public void SetLastActivatedCheckpoint(string sceneName, MinifiedCheckpoint checkpoint)
+    {
+        foreach (Level level in unlockedLevels)
+        {
+            if (level.sceneName == sceneName)
+            {
+                level.latestCheckpoint = checkpoint;
+            }
+        }
+    }
+
+    public Level GetLevel(string sceneName){
+        foreach(Level level in unlockedLevels){
+            if(level.sceneName==sceneName){
+                return level;
+            }
+        }
+        return null;
     }
 }

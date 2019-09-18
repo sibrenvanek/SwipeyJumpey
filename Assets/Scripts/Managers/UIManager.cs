@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,7 +16,6 @@ public class UIManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
-
 
     private void Start()
     {
@@ -41,4 +40,8 @@ public class UIManager : MonoBehaviour
         slowMotionGroup.DOFade(0, slowMotionFadeTime);
     }
 
+    public void SetSlowMotionGroup(CanvasGroup _slowMotionGroup)
+    {
+        slowMotionGroup = _slowMotionGroup;
+    }
 }

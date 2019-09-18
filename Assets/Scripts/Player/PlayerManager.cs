@@ -74,7 +74,7 @@ public class PlayerManager : MonoBehaviour
             {
                 playerMovement.CancelJump();
                 playerMovement.KillVelocity();
-                GameManager.IncreaseAmountOfDeaths();   
+                GameManager.IncreaseAmountOfDeaths();
                 GameManager.Instance.SendPlayerToLastCheckpoint();
                 break;
             }
@@ -90,10 +90,11 @@ public class PlayerManager : MonoBehaviour
         if (other.gameObject.CompareTag("Checkpoint") && playerMovement.IsGrounded())
         {
             other.gameObject.GetComponent<Checkpoint>().Check();
-            GameManager.IncreaseAmountOfCheckpointsActivated();
         }
         if (other.gameObject.CompareTag("Finish") && playerMovement.IsGrounded())
         {
+            WorldManager worldManager = FindObjectOfType<WorldManager>();
+            GameManager.SetLastActivatedCheckpoint(worldManager.GetInitialCheckpoint());
             GameManager.Instance.LoadNextLevel();
         }
         if (other.CompareTag("RoomEntrance"))
