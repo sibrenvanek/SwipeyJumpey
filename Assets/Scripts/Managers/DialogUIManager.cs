@@ -7,14 +7,13 @@ using UnityEngine.UI;
 
 public class DialogUIManager : MonoBehaviour
 {
-    [Header("UI Elements")]
-    [SerializeField] private CanvasGroup dialogGroup = null;
-    [SerializeField] private TextMeshProUGUI dialogText = null;
-    [SerializeField] private TextMeshProUGUI speakerTitle = null;
-    [SerializeField] private Image speakerImage = null;
-
     [Header("Animation")]
     [SerializeField] private float fadeTime = 1f;
+
+    private CanvasGroup dialogGroup = null;
+    private TextMeshProUGUI dialogText = null;
+    private TextMeshProUGUI speakerTitle = null;
+    private Image speakerImage = null;
 
     private DialogManager dialogManager;
 
@@ -22,12 +21,22 @@ public class DialogUIManager : MonoBehaviour
     {
         dialogManager = DialogManager.Instance;
 
+        InitUIElements();
+
         dialogManager.OnStartDialog += DisplayDialog;
         dialogManager.OnEndDialog += HideDialog;
 
         dialogManager.OnNewDialog += SetDialog;
 
         dialogGroup.alpha = 0;
+    }
+
+    private void InitUIElements()
+    {
+        dialogGroup = GameObject.FindGameObjectWithTag("DialogGroup").GetComponent<CanvasGroup>();
+        dialogText = GameObject.FindGameObjectWithTag("DialogText").GetComponent<TextMeshProUGUI>();
+        speakerTitle = GameObject.FindGameObjectWithTag("SpeakerTitle").GetComponent<TextMeshProUGUI>();
+        speakerImage = GameObject.FindGameObjectWithTag("SpeakerImage").GetComponent<Image>();
     }
 
     private void DisplayDialog()
