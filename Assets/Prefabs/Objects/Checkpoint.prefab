@@ -4728,7 +4728,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1065636357
-  m_SortingLayer: 13
+  m_SortingLayer: 14
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
@@ -4765,6 +4765,7 @@ GameObject:
   - component: {fileID: 870701888281216974}
   - component: {fileID: 3107256958101875598}
   - component: {fileID: 1237001785257964816}
+  - component: {fileID: 3822761234046178492}
   m_Layer: 2
   m_Name: Checkpoint
   m_TagString: Checkpoint
@@ -4825,8 +4826,7 @@ SpriteRenderer:
   m_SortingLayerID: 1768093043
   m_SortingLayer: 11
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3448120935943364757, guid: 915591c74d137ac4cbdebb92b803693b,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 454963340ffadd848a7c940dd3f64347, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4869,7 +4869,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.5}
+    oldSize: {x: 8, y: 8}
     newSize: {x: 1, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -4878,3 +4878,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4, y: 0.25066805}
   m_EdgeRadius: 0
+--- !u!95 &3822761234046178492
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870701888281216979}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 86b21f1dfee60c34ca4efd767568e101, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
