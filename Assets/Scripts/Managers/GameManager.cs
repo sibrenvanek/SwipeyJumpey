@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        Input.multiTouchEnabled = false;
+
         if (player == null)
         {
             GameObject playerObject = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
