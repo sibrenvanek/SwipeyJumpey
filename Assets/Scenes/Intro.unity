@@ -137,16 +137,6 @@ PrefabInstance:
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 8652501105716578788, guid: 0a247f70021c3aa44a0a81d0a34f5f15,
-        type: 3}
-      propertyPath: m_Follow
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8652501105716578788, guid: 0a247f70021c3aa44a0a81d0a34f5f15,
-        type: 3}
-      propertyPath: m_Lens.OrthographicSize
-      value: 10.375
-      objectReference: {fileID: 0}
     - target: {fileID: 8652501105716578787, guid: 0a247f70021c3aa44a0a81d0a34f5f15,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -201,6 +191,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652501105716578788, guid: 0a247f70021c3aa44a0a81d0a34f5f15,
+        type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652501105716578788, guid: 0a247f70021c3aa44a0a81d0a34f5f15,
+        type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 10.375
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a247f70021c3aa44a0a81d0a34f5f15, type: 3}
@@ -1058,7 +1058,7 @@ PrefabInstance:
     - target: {fileID: 1508894441572218798, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
       propertyPath: orthographic size
-      value: 11.96875
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1508894441572218798, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}

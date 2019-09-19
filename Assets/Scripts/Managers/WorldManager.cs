@@ -37,4 +37,8 @@ public class WorldManager : MonoBehaviour
     {
         return initialCheckpoint;
     }
+    
+    public string GetWorldName(){
+        return worldName;
+    }
 }

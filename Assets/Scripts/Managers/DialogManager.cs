@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviour
 {
-    [SerializeField] private Button button = null;
+    private Button button;
 
     public static DialogManager Instance;
 
@@ -28,12 +28,18 @@ public class DialogManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        dialogs = new Queue<Dialog>();
     }
 
     private void Start()
     {
-        dialogs = new Queue<Dialog>();
+        InitNextButton();
+    }
 
+    private void InitNextButton()
+    {
+        button = GameObject.FindGameObjectWithTag("NextDialogButton").GetComponent<Button>();
         button.onClick.AddListener(DisplayNextDialog);
     }
 
@@ -65,5 +71,10 @@ public class DialogManager : MonoBehaviour
     private void EndDialog()
     {
         OnEndDialog.Invoke();
+    }
+
+    public void SetButton(Button button)
+    {
+        this.button = button;
     }
 }
