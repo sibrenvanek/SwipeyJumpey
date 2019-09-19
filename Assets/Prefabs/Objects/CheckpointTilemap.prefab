@@ -4728,7 +4728,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1065636357
-  m_SortingLayer: 13
+  m_SortingLayer: 14
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
@@ -4971,7 +4971,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5012,9 +5012,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e78dff98afbb1e4cacc0633cf2a7bbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: {fileID: 3301549609868922437, guid: 915591c74d137ac4cbdebb92b803693b, type: 3}
-  inActive: {fileID: -3448120935943364757, guid: 915591c74d137ac4cbdebb92b803693b,
-    type: 3}
 --- !u!50 &1625306760978046142
 Rigidbody2D:
   serializedVersion: 4
