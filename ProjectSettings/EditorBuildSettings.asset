@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/World-1-Level-1.unity
     guid: fc95502af9a1f4f8fa5ec66c915f9022
   - enabled: 1
-    path: Assets/Scenes/FirstLevelScene.unity
+    path: Assets/Scenes/World-1-Level-3.unity
     guid: 12e543172b00144529dce5606eef4dd8
   - enabled: 1
     path: Assets/Scenes/ThankYouForPlaying.unity

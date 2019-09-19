@@ -17,6 +17,7 @@ TagManager:
   - SpeakerTitle
   - SpeakerImage
   - NextDialogButton
+  - FillArea
   layers:
   - Default
   - TransparentFX
