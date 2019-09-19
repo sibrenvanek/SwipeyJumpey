@@ -65430,12 +65430,12 @@ PrefabInstance:
     - target: {fileID: 1508894441572218797, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.709999
+      value: 11.74155
       objectReference: {fileID: 0}
     - target: {fileID: 1508894441572218797, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -13.989064
+      value: 0.2683499
       objectReference: {fileID: 0}
     - target: {fileID: 1508894441572218797, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
@@ -65493,7 +65493,7 @@ PrefabInstance:
     - target: {fileID: 1508894441572218798, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
       propertyPath: orthographic size
-      value: 6.789063
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 518979296, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
       propertyPath: camera
@@ -74597,11 +74597,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4857256654572397243, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: playerManager
-      value: 
-      objectReference: {fileID: 242003655}
     - target: {fileID: 1946067523713256595, guid: f8a1a67ea9e524d4e9edce007c9e2311,
         type: 3}
       propertyPath: dashSpeedReduction
@@ -74622,6 +74617,11 @@ PrefabInstance:
       propertyPath: maxVelocity
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 4857256654572397243, guid: f8a1a67ea9e524d4e9edce007c9e2311,
+        type: 3}
+      propertyPath: playerManager
+      value: 
+      objectReference: {fileID: 242003655}
     - target: {fileID: 7491689127697931921, guid: f8a1a67ea9e524d4e9edce007c9e2311,
         type: 3}
       propertyPath: m_LocalPosition.x

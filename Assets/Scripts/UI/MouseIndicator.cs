@@ -33,4 +33,9 @@ public class MouseIndicator : MonoBehaviour
         cancelActive = false;
         spriteRenderer.color = defaultColor;
     }
+
+    public void SetCancelDistance(float distance)
+    {
+        Component.FindObjectOfType<CircleCollider2D>().radius = distance / 2;
+    }
 }
