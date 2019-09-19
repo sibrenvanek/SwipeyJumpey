@@ -99,8 +99,8 @@ public class PlayerManager : MonoBehaviour
         }
         if (other.CompareTag("RoomEntrance"))
         {
-            other.GetComponent<RoomEntrance>().Enter(transform);
             playerMovement.KillVelocity();
+            other.GetComponent<RoomEntrance>().Enter(transform);
         }
         if (other.gameObject.layer == LayerMask.NameToLayer("Grid"))
         {
