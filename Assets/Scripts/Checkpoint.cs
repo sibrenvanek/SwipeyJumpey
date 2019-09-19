@@ -5,10 +5,6 @@ public class Checkpoint : MonoBehaviour
     private Animator animator = null;
     private new ParticleSystem particleSystem = null;
 
-    /*************
-     * FUNCTIONS *
-     *************/
-
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
