@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour
             CinemachineVirtualCamera Vcam = FindObjectOfType<CinemachineVirtualCamera>();
             Vcam.Follow = player.transform;
 
-            Level level = progression.GetLevel(SceneManager.GetActiveScene().name);
+            /* Level level = progression.GetLevel(SceneManager.GetActiveScene().name);
             if (level != null)
             {
                 Checkpoint checkpoint = GetCheckpointFromMinified(level.latestCheckpoint);
@@ -194,7 +194,8 @@ public class GameManager : MonoBehaviour
             else
             {
                 SendPlayerToCheckpoint(worldManager.GetInitialCheckpoint());
-            }
+            }*/
+            SendPlayerToCheckpoint(worldManager.GetInitialCheckpoint());
 
             FuelUI fuelUI = FindObjectOfType<FuelUI>();
             fuelUI.SetSlowMotion(player.GetComponent<SlowMotion>());
