@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -20,6 +20,7 @@ public class Jetpack : MonoBehaviour
     [Header("Flying values")]
     [SerializeField] private float flyingStartLifeTime = .2f;
     [SerializeField] private float flyingStartSize = .8f;
+    [SerializeField] private float maximumAdditionToSize = 0.7f;
 
     [Header("Engine tests")]
     [SerializeField] private bool testEngines = false;
@@ -49,11 +50,22 @@ public class Jetpack : MonoBehaviour
 
     public void Launch()
     {
-        trailParticleSystem.Play();
         EngineCharging = false;
         foreach (var jet in jets)
         {
             jet.Accelerate(flyingStartLifeTime, flyingStartSize);
+        }
+        ActivateLaunchEffects();
+    }
+
+    public void Launch(Vector2 velocity, Vector2 maximumForce)
+    {
+        float addition = (maximumAdditionToSize / maximumForce.magnitude) * velocity.magnitude;
+        
+        EngineCharging = false;
+        foreach (var jet in jets)
+        {
+            jet.Accelerate(flyingStartLifeTime, flyingStartSize + addition);
         }
         ActivateLaunchEffects();
     }
