@@ -7,7 +7,7 @@ public class TrajectoryPrediction : MonoBehaviour
     private Indicator activeIndicator = null;
     private MouseIndicator activeMouseIndicator = null;
 
-    public void UpdateTrajectory(Vector2 baseMousePosition, Vector2 startVelocity, float angle, float time)
+    public void UpdateTrajectory(Vector2 baseMousePosition, Vector2 startVelocity, float angle, float time, float cancelSize)
     {
         if (startVelocity.x == 0 && startVelocity.y == 0)
             return;
@@ -33,6 +33,7 @@ public class TrajectoryPrediction : MonoBehaviour
         {
             activeIndicator = Instantiate(indicatorPrefab, transform.position, Quaternion.identity);
             activeMouseIndicator = Instantiate(mouseIndicatorPrefab, baseMousePosition, Quaternion.identity);
+            activeMouseIndicator.SetCancelDistance(cancelSize);
         }
 
         activeIndicator.transform.position = transform.position;

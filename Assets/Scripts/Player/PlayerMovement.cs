@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maximumCancelDistance = 1f;
     [SerializeField] PowerBarUI powerBarUI = null;
     [SerializeField] private float timeDiff = 1f;
-    
+
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
     [SerializeField] private Jetpack jetpack = null;
@@ -105,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
                 dragging = true;
             }
 
-            if((grounded || slowMotionJumpAvailable) && !jetpack.EngineCharging)
+            if ((grounded || slowMotionJumpAvailable) && !jetpack.EngineCharging)
             {
                 jetpack.Charge();
             }
@@ -152,7 +152,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (grounded || slowMotionJumpAvailable)
             {
-                trajectoryPrediction.UpdateTrajectory(Camera.main.ScreenToWorldPoint(baseMousePosition), jumpVelocity, angle, dashTime);
+                trajectoryPrediction.UpdateTrajectory(Camera.main.ScreenToWorldPoint(baseMousePosition), jumpVelocity, angle, dashTime, maximumCancelDistance);
                 facingLeft = baseMousePosition.x < Input.mousePosition.x;
             }
         }
@@ -187,7 +187,6 @@ public class PlayerMovement : MonoBehaviour
         {
             grounded = false;
             Jump();
-            OnJump.Invoke();
         }
 
         slowMotionActivated = false;
@@ -281,7 +280,7 @@ public class PlayerMovement : MonoBehaviour
         slowMotion.Cancel();
         SetSlowMotionJumpAvailable(true);
     }
-    
+
     Vector2 CalculateMaxVelocity(float maxVelocity, float angle)
     {
         float x, y;
@@ -302,5 +301,10 @@ public class PlayerMovement : MonoBehaviour
             angle += 180;
 
         return angle;
+    }
+
+    public void SetPowerBarUI(PowerBarUI powerBarUI)
+    {
+        this.powerBarUI = powerBarUI;
     }
 }

@@ -11,6 +11,12 @@ TagManager:
   - RoomEntrance
   - CheatText
   - CrumblingGround
+  - SlowMotionGroup
+  - DialogGroup
+  - DialogText
+  - SpeakerTitle
+  - SpeakerImage
+  - NextDialogButton
   layers:
   - Default
   - TransparentFX
