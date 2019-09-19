@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 750e8f2cb2db0594fa5e6c70fbfb750c, type: 3}
-  m_Name: Player
+  m_Script: {fileID: 11500000, guid: 7f215a13ac5d6ee44a9b0d89de35c0ac, type: 3}
+  m_Name: 3. Player who
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: e744d5371b8cf8745a95f609db540371, type: 3}
-  name: RUD
+  speaker: {fileID: 11400000, guid: 57d65257496af6e4696090b07f5edfe1, type: 2}
+  text: 'Who are you!? '
