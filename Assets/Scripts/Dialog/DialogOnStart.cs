@@ -10,6 +10,13 @@ public class DialogOnStart : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(StartConversation());
+    }
+
+    private IEnumerator StartConversation()
+    {
+        yield return new WaitForSeconds(0.25f);
+
         dialogManager = DialogManager.Instance;
         dialogManager.StartConversation(conversation);
     }

@@ -45,6 +45,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseButton.SetActive(false);
         pauseUI.SetActive(true);
+        playerMovement.CancelJump();
         playerMovement.Disable();
         Time.timeScale = 0f;
     }

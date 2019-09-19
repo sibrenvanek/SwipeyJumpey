@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: e744d5371b8cf8745a95f609db540371, type: 3}
-  name: Player
+  name: RUD

@@ -206,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
             slowMotion.Cancel();
         }
 
+        powerBarUI.ResetBar();
         jetpack.TurnOff();
         dragging = false;
         trajectoryPrediction.RemoveIndicators();
@@ -213,7 +214,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        jetpack.Launch();
+        jetpack.Launch(jumpVelocity, maxVelocityVector);
         notifiedJump = false;
         OnJump.Invoke();
         KillVelocity();
@@ -229,6 +230,7 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashTime * timeDiff);
         timeDiff = 1f;
         gravityTemporarilyOff = false;
+        jetpack.TurnOff();
         if (!gravityOff)
             rigidbody2d.gravityScale = defaultGravityScale;
     }

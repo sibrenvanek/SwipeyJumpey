@@ -57,7 +57,7 @@ public class Fuel : MonoBehaviour
     {
         spriteRenderer.DOKill();
         spriteRenderer.DOFade(0, 0);
-        light2d.enabled = false;
+        //light2d.enabled = false;
         collider.enabled = false;
     }
 
@@ -65,7 +65,7 @@ public class Fuel : MonoBehaviour
     {
         collider.enabled = true;
         spriteRenderer.DOFade(1, fadeInTime);
-        light2d.enabled = true;
+        //light2d.enabled = true;
     }
 
     private void AddForceBoost(Rigidbody2D rigidbody)

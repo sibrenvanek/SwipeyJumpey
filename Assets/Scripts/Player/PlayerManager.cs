@@ -91,16 +91,11 @@ public class PlayerManager : MonoBehaviour
         {
             other.gameObject.GetComponent<Checkpoint>().Check();
         }
-        if (other.gameObject.CompareTag("Finish") && playerMovement.IsGrounded())
-        {
-            WorldManager worldManager = FindObjectOfType<WorldManager>();
-            GameManager.Instance.SetLastActivatedCheckpoint(worldManager.GetInitialCheckpoint());
-            GameManager.Instance.LoadNextLevel();
-        }
+
         if (other.CompareTag("RoomEntrance"))
         {
-            other.GetComponent<RoomEntrance>().Enter(transform);
             playerMovement.KillVelocity();
+            other.GetComponent<RoomEntrance>().Enter(transform);
         }
         if (other.gameObject.layer == LayerMask.NameToLayer("Grid"))
         {
