@@ -12,7 +12,7 @@ public class Progression
     public int amountOfFuelsGrabbed { get; private set; } = 0;
     public int amountOfBounces { get; private set; } = 0;
     public int amountOfCheckpointsActivated { get; private set; } = 0;
-    private static string path = Application.dataPath + "/data.json";
+    private static string path = Application.dataPath + "/data/data.json";
 
     public void SaveProgression()
     {
@@ -34,14 +34,10 @@ public class Progression
         }
         catch
         {
-            data = "";
+            return new Progression();
         }
         Progression progression = JsonConvert.DeserializeObject<Progression>(data);
         dynamic parsedData = JsonConvert.DeserializeObject(data);
-        if (parsedData == null)
-        {
-            return new Progression();
-        }
         Progression newProgression = new Progression
         {
             amountOfJumps = (int)parsedData["amountOfJumps"],
@@ -93,7 +89,7 @@ public class Progression
         }
         else
         {
-
+            AddLevelToList(level);
         }
     }
 

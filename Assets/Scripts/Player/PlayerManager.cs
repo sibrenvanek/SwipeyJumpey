@@ -72,7 +72,7 @@ public class PlayerManager : MonoBehaviour
             {
                 playerMovement.CancelJump();
                 playerMovement.KillVelocity();
-                GameManager.IncreaseAmountOfDeaths();
+                GameManager.Instance.IncreaseAmountOfDeaths();
                 GetComponent<PlayerDeath>().Die();
                 break;
             }
@@ -91,6 +91,7 @@ public class PlayerManager : MonoBehaviour
         {
             other.gameObject.GetComponent<Checkpoint>().Check();
         }
+
         if (other.CompareTag("RoomEntrance"))
         {
             other.GetComponent<RoomEntrance>().Enter(transform);
