@@ -206,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
             slowMotion.Cancel();
         }
 
+        powerBarUI.ResetBar();
         jetpack.TurnOff();
         dragging = false;
         trajectoryPrediction.RemoveIndicators();
