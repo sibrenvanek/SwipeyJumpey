@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f215a13ac5d6ee44a9b0d89de35c0ac, type: 3}
   m_Name: 2. Core planet
   m_EditorClassIdentifier: 
-  speaker: {fileID: 11400000, guid: 21dd0c2fc90e64948860905ae563d623, type: 2}
-  text: You are on an unkown red planet.
+  speaker: {fileID: 11400000, guid: b16554f01b6484a37811256623f5fd46, type: 2}
+  text: It seems we crashed on a weird corrupted planet.

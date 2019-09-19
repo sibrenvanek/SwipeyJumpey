@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f215a13ac5d6ee44a9b0d89de35c0ac, type: 3}
-  m_Name: 1. Player confused
+  m_Name: 4. I am Core
   m_EditorClassIdentifier: 
-  speaker: {fileID: 11400000, guid: 57d65257496af6e4696090b07f5edfe1, type: 2}
-  text: Where am I? I can not remember how I came here.
+  speaker: {fileID: 11400000, guid: 21dd0c2fc90e64948860905ae563d623, type: 2}
+  text: "I am your core\u2026 wow you really do not remember me do you? It seems the
+    crash has erased your memory. "
