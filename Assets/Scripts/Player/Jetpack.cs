@@ -9,6 +9,7 @@ public class Jetpack : MonoBehaviour
     [SerializeField] private Transform launchPos = null;
     [SerializeField] private GameObject vfxLaunchPrefab = null;
     private GameObject launchInstance = null;
+    private Animator launchAnimator = null;
     [SerializeField] private ParticleSystem trailParticleSystem = null;
     [SerializeField] private Jet[] jets = null;
 
@@ -80,15 +81,15 @@ public class Jetpack : MonoBehaviour
 
     private void ActivateLaunchEffects()
     {
-        
         if(launchInstance == null)
         {
             launchInstance = Instantiate(vfxLaunchPrefab, launchPos.position, Quaternion.identity);
+            launchAnimator = launchInstance.GetComponent<Animator>();
         }
         else
         {
             launchInstance.transform.position = launchPos.position;
-            launchInstance.GetComponent<Animator>().SetTrigger("Launch");
+            launchAnimator.SetTrigger("Launch");
         }
     }
     
