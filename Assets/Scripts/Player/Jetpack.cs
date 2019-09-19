@@ -8,6 +8,7 @@ public class Jetpack : MonoBehaviour
 {
     [SerializeField] private Transform launchPos = null;
     [SerializeField] private GameObject vfxLaunchPrefab = null;
+    private GameObject launchInstance = null;
     [SerializeField] private ParticleSystem trailParticleSystem = null;
     [SerializeField] private Jet[] jets = null;
 
@@ -47,13 +48,13 @@ public class Jetpack : MonoBehaviour
 
     public void Launch()
     {
-        Instantiate(vfxLaunchPrefab, launchPos.position, Quaternion.identity);
         trailParticleSystem.Play();
         EngineCharging = false;
         foreach (var jet in jets)
         {
             jet.Accelerate(flyingStartLifeTime, flyingStartSize);
         }
+        ActivateLaunchEffects();
     }
 
     public void TurnOff()
@@ -75,6 +76,20 @@ public class Jetpack : MonoBehaviour
             jet.StartEngine();
         }
         EngineRunning = true;
+    }
+
+    private void ActivateLaunchEffects()
+    {
+        
+        if(launchInstance == null)
+        {
+            launchInstance = Instantiate(vfxLaunchPrefab, launchPos.position, Quaternion.identity);
+        }
+        else
+        {
+            launchInstance.transform.position = launchPos.position;
+            launchInstance.GetComponent<Animator>().SetTrigger("Launch");
+        }
     }
     
     private IEnumerator TestEngines(bool charge = false)
