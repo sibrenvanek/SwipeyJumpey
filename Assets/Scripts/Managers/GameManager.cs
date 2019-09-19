@@ -207,27 +207,27 @@ public class GameManager : MonoBehaviour
         progression.IncreaseAmountOfJumps();
     }
 
-    public static void IncreaseAmountOfDeaths()
+    public void IncreaseAmountOfDeaths()
     {
-        Instance.progression.IncreaseAmountOfDeaths();
+        progression.IncreaseAmountOfDeaths();
     }
 
-    public static void IncreaseAmountOfFuelsGrabbed()
+    public void IncreaseAmountOfFuelsGrabbed()
     {
-        Instance.progression.IncreaseAmountOfFuelsGrabbed();
+        progression.IncreaseAmountOfFuelsGrabbed();
     }
 
-    public static void IncreaseAmountOfCheckpointsActivated()
+    public void IncreaseAmountOfCheckpointsActivated()
     {
-        Instance.progression.IncreaseAmountCheckpointsActivated();
+        progression.IncreaseAmountCheckpointsActivated();
     }
 
-    public static void SetLastActivatedCheckpoint(Checkpoint checkpoint)
+    public void SetLastActivatedCheckpoint(Checkpoint checkpoint)
     {
-        Instance.progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { name = checkpoint.name, position = checkpoint.transform.position });
+        progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { name = checkpoint.name, position = checkpoint.transform.position });
     }
 
-    public static Checkpoint GetCheckpointFromMinified(MinifiedCheckpoint minCheckpoint)
+    public Checkpoint GetCheckpointFromMinified(MinifiedCheckpoint minCheckpoint)
     {
         Checkpoint[] checkpoints = FindObjectsOfType<Checkpoint>();
         foreach (Checkpoint checkpoint in checkpoints)

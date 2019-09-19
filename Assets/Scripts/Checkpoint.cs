@@ -20,8 +20,8 @@ public class Checkpoint : MonoBehaviour
         if (GameManager.Instance.LastCheckpoint != this)
         {
             particleSystem.Play();
-            GameManager.IncreaseAmountOfCheckpointsActivated();
-            GameManager.SetLastActivatedCheckpoint(this);
+            GameManager.Instance.IncreaseAmountOfCheckpointsActivated();
+            GameManager.Instance.SetLastActivatedCheckpoint(this);
         }
         GameManager.Instance.SetLastCheckpoint(this);
         animator.SetBool("isCollected", true);

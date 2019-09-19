@@ -12,7 +12,7 @@ public class Progression
     public int amountOfFuelsGrabbed { get; private set; } = 0;
     public int amountOfBounces { get; private set; } = 0;
     public int amountOfCheckpointsActivated { get; private set; } = 0;
-    private static string path = Application.dataPath + "/data.json";
+    private static string path = Application.dataPath + "/data/data.json";
 
     public void SaveProgression()
     {
@@ -93,7 +93,7 @@ public class Progression
         }
         else
         {
-
+            AddLevelToList(level);
         }
     }
 
