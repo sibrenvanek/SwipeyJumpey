@@ -34,14 +34,10 @@ public class Progression
         }
         catch
         {
-            data = "";
+            return new Progression();
         }
         Progression progression = JsonConvert.DeserializeObject<Progression>(data);
         dynamic parsedData = JsonConvert.DeserializeObject(data);
-        if (parsedData == null)
-        {
-            return new Progression();
-        }
         Progression newProgression = new Progression
         {
             amountOfJumps = (int)parsedData["amountOfJumps"],
