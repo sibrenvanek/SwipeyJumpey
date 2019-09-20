@@ -5,6 +5,9 @@ public class Checkpoint : MonoBehaviour
     private Animator animator = null;
     private new ParticleSystem particleSystem = null;
 
+    [SerializeField]private Transform checkpointTransform = null;
+    public Transform CheckpointTransform { get {return checkpointTransform; } private set{checkpointTransform = value;} }
+
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
