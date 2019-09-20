@@ -23,6 +23,7 @@ public class ConversationWaiter : MonoBehaviour
 
     private void KillPlayerMovement()
     {
+        playerMovement.CancelJump();
         playerMovement.KillVelocity();
         playerMovement.Disable();
     }
