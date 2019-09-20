@@ -16,6 +16,12 @@ public class Checkpoint : MonoBehaviour
 
     public void Check()
     {
+        if (!playerMovement)
+            return;
+
+        if (!playerMovement.IsGrounded())
+            return;
+            
         if (GameManager.Instance.LastCheckpoint != this)
         {
             particleSystem.Play();
