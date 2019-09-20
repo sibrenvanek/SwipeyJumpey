@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField] private Checkpoint lastCheckpoint = null;
-
     [SerializeField] private PlayerManager player = null;
     [SerializeField] private CanvasManager canvas = null;
     [SerializeField] private PauseMenu pauseMenu = null;
@@ -20,6 +19,7 @@ public class GameManager : MonoBehaviour
     public Checkpoint LastCheckpoint { get { return lastCheckpoint; } }
     private AudioSource audioSource = null;
     private float defaultPitch = 1f;
+    [SerializeField] private float timeBeforeLoadingScene = 1f;
     private Coroutine displayLoadingScreen;
     private PlayerMovement playerMovement = null;
     private Progression progression;
@@ -136,7 +136,8 @@ public class GameManager : MonoBehaviour
         int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
         //displayLoadingScreen = StartCoroutine(ShowLoadingScreenBeforeNextLevel(levelIndex));
 
-        StartCoroutine(LoadLevelAfterSeconds(levelIndex, 1f));
+        FindObjectOfType<DarthFader>().FadeGameOut(timeBeforeLoadingScene);
+        StartCoroutine(LoadLevelAfterSeconds(levelIndex, timeBeforeLoadingScene));
     }
 
     private IEnumerator LoadLevelAfterSeconds(int levelIndex, float seconds)
@@ -169,6 +170,8 @@ public class GameManager : MonoBehaviour
         WorldManager worldManager = FindObjectOfType<WorldManager>();
         if (worldManager != null)
         {
+            
+            FindObjectOfType<DarthFader>().FadeGameIn(timeBeforeLoadingScene);
             canvas.EnableCanvas();
             pauseMenu.EnablePauseMenu();
             
@@ -250,5 +253,9 @@ public class GameManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    private void OnDestroy() {
+        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
     }
 }
