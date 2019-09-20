@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
 
         pauseMenu = FindObjectOfType<PauseMenu>();
 
-        progression = Progression.LoadProgression();
+        //progression = Progression.LoadProgression();
         
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
             canvas.EnableCanvas();
             pauseMenu.EnablePauseMenu();
             
-            progression.AddLevel(new Level
+            /*progression.AddLevel(new Level
             {
                 completed = false,
                     worldName = worldManager.GetWorldName(),
@@ -186,7 +186,7 @@ public class GameManager : MonoBehaviour
                             position = worldManager.GetInitialCheckpoint().transform.position
                     }
             });
-            progression.SaveProgression();
+            progression.SaveProgression();*/
             CinemachineVirtualCamera Vcam = FindObjectOfType<CinemachineVirtualCamera>();
             Vcam.Follow = player.transform;
 
@@ -219,27 +219,27 @@ public class GameManager : MonoBehaviour
 
     void IncreaseAmountOfJumps()
     {
-        progression.IncreaseAmountOfJumps();
+        //progression.IncreaseAmountOfJumps();
     }
 
     public void IncreaseAmountOfDeaths()
     {
-        progression.IncreaseAmountOfDeaths();
+        //progression.IncreaseAmountOfDeaths();
     }
 
     public void IncreaseAmountOfFuelsGrabbed()
     {
-        progression.IncreaseAmountOfFuelsGrabbed();
+        //progression.IncreaseAmountOfFuelsGrabbed();
     }
 
     public void IncreaseAmountOfCheckpointsActivated()
     {
-        progression.IncreaseAmountCheckpointsActivated();
+        //progression.IncreaseAmountCheckpointsActivated();
     }
 
     public void SetLastActivatedCheckpoint(Checkpoint checkpoint)
     {
-        progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { name = checkpoint.name, position = checkpoint.CheckpointTransform.position });
+        //progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { name = checkpoint.name, position = checkpoint.CheckpointTransform.position });
     }
 
     public Checkpoint GetCheckpointFromMinified(MinifiedCheckpoint minCheckpoint)
