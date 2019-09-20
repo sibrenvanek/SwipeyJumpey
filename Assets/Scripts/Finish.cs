@@ -13,6 +13,7 @@ public class Finish : MonoBehaviour
             return;
 
         WorldManager worldManager = FindObjectOfType<WorldManager>();
+        GetComponentInChildren<ParticleSystem>().Play();
         GameManager.Instance.SetLastActivatedCheckpoint(worldManager.GetInitialCheckpoint());
         GameManager.Instance.LoadNextLevel();
     }

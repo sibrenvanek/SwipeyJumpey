@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         pauseMenu = FindObjectOfType<PauseMenu>();
 
         progression = Progression.LoadProgression();
-
+        
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
 
@@ -102,12 +102,12 @@ public class GameManager : MonoBehaviour
 
     public void SendPlayerToLastCheckpoint()
     {
-        player.transform.position = new Vector3(lastCheckpoint.transform.position.x, lastCheckpoint.transform.position.y + respawnYOffset);
+        player.transform.position = new Vector3(lastCheckpoint.CheckpointTransform.position.x, lastCheckpoint.CheckpointTransform.position.y + respawnYOffset);
     }
 
     public void SendPlayerToCheckpoint(Checkpoint checkpoint)
     {
-        player.transform.position = new Vector3(checkpoint.transform.position.x, checkpoint.transform.position.y + respawnYOffset);
+        player.transform.position = new Vector3(checkpoint.CheckpointTransform.position.x, checkpoint.CheckpointTransform.position.y + respawnYOffset);
     }
 
     public void ResetWorld()
@@ -134,7 +134,15 @@ public class GameManager : MonoBehaviour
     public void LoadNextLevel()
     {
         int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        displayLoadingScreen = StartCoroutine(ShowLoadingScreenBeforeNextLevel(levelIndex));
+        //displayLoadingScreen = StartCoroutine(ShowLoadingScreenBeforeNextLevel(levelIndex));
+
+        StartCoroutine(LoadLevelAfterSeconds(levelIndex, 1f));
+    }
+
+    private IEnumerator LoadLevelAfterSeconds(int levelIndex, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene(levelIndex);
     }
 
     public void HandleProgression()
@@ -163,6 +171,7 @@ public class GameManager : MonoBehaviour
         {
             canvas.EnableCanvas();
             pauseMenu.EnablePauseMenu();
+            
             progression.AddLevel(new Level
             {
                 completed = false,
@@ -227,7 +236,7 @@ public class GameManager : MonoBehaviour
 
     public void SetLastActivatedCheckpoint(Checkpoint checkpoint)
     {
-        progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { name = checkpoint.name, position = checkpoint.transform.position });
+        progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { name = checkpoint.name, position = checkpoint.CheckpointTransform.position });
     }
 
     public Checkpoint GetCheckpointFromMinified(MinifiedCheckpoint minCheckpoint)
@@ -241,12 +250,5 @@ public class GameManager : MonoBehaviour
             }
         }
         return null;
-    }
-
-    void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
-        playerMovement.OnJump -= IncreaseAmountOfJumps;
-        progression.SaveProgression();
     }
 }

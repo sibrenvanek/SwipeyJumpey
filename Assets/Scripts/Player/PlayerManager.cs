@@ -86,11 +86,6 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Checkpoint") && playerMovement.IsGrounded())
-        {
-            other.gameObject.GetComponent<Checkpoint>().Check();
-        }
-
         if (other.CompareTag("RoomEntrance"))
         {
             playerMovement.KillVelocity();

@@ -4,6 +4,10 @@ public class Checkpoint : MonoBehaviour
 {
     private Animator animator = null;
     private new ParticleSystem particleSystem = null;
+    private PlayerMovement playerMovement = null;
+
+    [SerializeField]private Transform checkpointTransform = null;
+    public Transform CheckpointTransform { get {return checkpointTransform; } private set{checkpointTransform = value;} }
 
     private void Awake()
     {
@@ -13,6 +17,12 @@ public class Checkpoint : MonoBehaviour
 
     public void Check()
     {
+        if (!playerMovement)
+            return;
+
+        if (!playerMovement.IsGrounded())
+            return;
+            
         if (GameManager.Instance.LastCheckpoint != this)
         {
             particleSystem.Play();
@@ -31,19 +41,7 @@ public class Checkpoint : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
-
-        if (!playerMovement)
-            return;
-
-        if (!playerMovement.IsGrounded())
-            return;
-
-        if (GameManager.Instance.LastCheckpoint != this)
-        {
-            particleSystem.Play();
-        }
-        GameManager.Instance.SetLastCheckpoint(this);
-        animator.SetBool("isCollected", true);
+        playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
+        Check();
     }
 }
