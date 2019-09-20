@@ -5,13 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
-    //Temporary fix for loading the first intro
-
-    public void LoadNextLevel()
+    [SerializeField] private float timeBeforeLoadingScene = 1f;
+    public void FadeOut()
     {
-        if(GameManager.Instance == null)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
+        FindObjectOfType<DarthFader>().FadeGameOut(timeBeforeLoadingScene);
+    }
+
+    public void FinishIntro()
+    {
+        FadeOut();
+        StartCoroutine(LoadNextLevel());
+    }
+
+    public IEnumerator LoadNextLevel()
+    {
+        yield return new WaitForSeconds(timeBeforeLoadingScene);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

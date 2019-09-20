@@ -991,7 +991,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 4.5833335
-    functionName: LoadNextLevel
+    functionName: FinishIntro
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

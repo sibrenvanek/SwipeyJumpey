@@ -267,7 +267,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsGrounded()
     {
-        RaycastHit2D raycastHit2d = Physics2D.BoxCast(transform.position, new Vector2(transform.localScale.x, 0.1f), 0, Vector2.down, 1f + transform.localScale.y * 0.5f, LayerMask.GetMask("SafeGround"));
+        RaycastHit2D raycastHit2d = Physics2D.BoxCast(transform.position, new Vector2(transform.localScale.x * 0.7f, 0.1f), 0, Vector2.down, 1f + transform.localScale.y * 0.5f, LayerMask.GetMask("SafeGround"));
 
         if (!raycastHit2d)
             return false;
