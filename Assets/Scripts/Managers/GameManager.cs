@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         pauseMenu = FindObjectOfType<PauseMenu>();
 
         progression = Progression.LoadProgression();
-        //print(progression.ToString());
+        
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
 
