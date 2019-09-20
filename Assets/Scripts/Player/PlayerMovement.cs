@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private float defaultGravityScale = 0f;
     private bool gravityTemporarilyOff = false;
     private bool gravityOff = false;
+    private SpriteRenderer jetpackSpriteRenderer = null;
 
     void Start()
     {
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         jetpack = GetComponentInChildren<Jetpack>();
+        jetpackSpriteRenderer = jetpack.GetComponent<SpriteRenderer>();
         defaultGravityScale = rigidbody2d.gravityScale;
     }
 
@@ -75,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
     private void SetDirection()
     {
         spriteRenderer.flipX = facingLeft;
+        jetpackSpriteRenderer.flipX = facingLeft;
     }
 
     public void Disable()

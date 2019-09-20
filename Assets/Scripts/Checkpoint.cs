@@ -31,6 +31,14 @@ public class Checkpoint : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
+
+        if (!playerMovement)
+            return;
+
+        if (!playerMovement.IsGrounded())
+            return;
+
         if (GameManager.Instance.LastCheckpoint != this)
         {
             particleSystem.Play();
