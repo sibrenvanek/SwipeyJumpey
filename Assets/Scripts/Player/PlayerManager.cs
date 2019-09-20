@@ -80,7 +80,6 @@ public class PlayerManager : MonoBehaviour
             if (contactPoint2D.otherCollider.name == "Feet" && contactPoint2D.rigidbody.CompareTag("SafeGround"))
             {
                 playerMovement.KillVelocity();
-                jetpack.TurnOff();
             }
         }
     }
