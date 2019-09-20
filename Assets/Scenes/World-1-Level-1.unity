@@ -191,7 +191,7 @@ PrefabInstance:
         type: 3}
       propertyPath: initialCheckpoint
       value: 
-      objectReference: {fileID: 204058978}
+      objectReference: {fileID: 682802146}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22776877471eb594aa906a39984e0a8f, type: 3}
 --- !u!1001 &75513291
@@ -839,18 +839,6 @@ TilemapCollider2D:
     type: 3}
   m_PrefabInstance: {fileID: 75513291}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &204058978 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1625306760978046143, guid: e213be43719e8a944bd4cb5c57b8bb9e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1581108383}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e78dff98afbb1e4cacc0633cf2a7bbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &242003655 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6132433486888057015, guid: f8a1a67ea9e524d4e9edce007c9e2311,
@@ -35836,6 +35824,18 @@ TilemapCollider2D:
     type: 3}
   m_PrefabInstance: {fileID: 682802143}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &682802146 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1625306760978046143, guid: e213be43719e8a944bd4cb5c57b8bb9e,
+    type: 3}
+  m_PrefabInstance: {fileID: 682802143}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e78dff98afbb1e4cacc0633cf2a7bbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &687720179
 PrefabInstance:
   m_ObjectHideFlags: 0
