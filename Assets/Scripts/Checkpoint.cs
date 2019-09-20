@@ -31,11 +31,6 @@ public class Checkpoint : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (GameManager.Instance.LastCheckpoint != this)
-        {
-            particleSystem.Play();
-        }
-        GameManager.Instance.SetLastCheckpoint(this);
-        animator.SetBool("isCollected", true);
+        Check();
     }
 }
