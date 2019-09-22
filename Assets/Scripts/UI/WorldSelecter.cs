@@ -51,7 +51,7 @@ public class WorldSelecter : MonoBehaviour
 
     private void SlideRight()
     {
-        activeWorldIndex = (activeWorldIndex < worldSprites.Length) ? activeWorldIndex + 1 : activeWorldIndex;
+        activeWorldIndex = (activeWorldIndex < worldSprites.Length - 1) ? activeWorldIndex + 1 : activeWorldIndex;
         UpdatePreviews();
     }
 
@@ -64,7 +64,7 @@ public class WorldSelecter : MonoBehaviour
         {
             worldPreviewOne.gameObject.SetActive(true);
             worldPreviewOne.SetSprite(worldSprites[activeWorldIndex - 1]);
-            worldPreviewOne.sceneIndex = sceneIndexes[activeWorldIndex - 1];
+            worldPreviewOne.SetSceneIndex(sceneIndexes[activeWorldIndex - 1]);
         }
 
         if (activeWorldIndex >= sceneIndexes.Length - 1)
@@ -75,10 +75,10 @@ public class WorldSelecter : MonoBehaviour
         {
             worldPreviewThree.gameObject.SetActive(true);
             worldPreviewThree.SetSprite(worldSprites[activeWorldIndex + 1]);
-            worldPreviewThree.sceneIndex = sceneIndexes[activeWorldIndex + 1];
+            worldPreviewThree.SetSceneIndex(sceneIndexes[activeWorldIndex + 1]);
         }
 
         worldPreviewTwo.SetSprite(worldSprites[activeWorldIndex]);
-        worldPreviewTwo.sceneIndex = sceneIndexes[activeWorldIndex];
+        worldPreviewTwo.SetSceneIndex(sceneIndexes[activeWorldIndex]);
     }
 }
