@@ -15,7 +15,8 @@ public class WorldSelecter : MonoBehaviour
     {
         if (worldSprites.Length != sceneIndexes.Length)
             Debug.LogError("worldsprites length != sceneindexes length");
-        
+
+        worldPreviewTwo.SetActivated();
         UpdatePreviews();
     }
 

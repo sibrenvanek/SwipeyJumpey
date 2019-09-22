@@ -25,7 +25,7 @@ public class WorldPreview : MonoBehaviour
         spriteRenderer.sprite = sprite;
     }
 
-    public void SetActive()
+    public void SetActivated()
     {
         transform.localScale = activeSize;
     }

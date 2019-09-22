@@ -12,7 +12,7 @@ public class LevelSelecter : MonoBehaviour
     void Start()
     {
         worldPreviews = GetComponentsInChildren<WorldPreview>();
-        worldPreviews[activeWorldIndex].SetActive();
+        worldPreviews[activeWorldIndex].SetActivated();
     }
 
     private void Update()
@@ -43,13 +43,13 @@ public class LevelSelecter : MonoBehaviour
     {
         worldPreviews[activeWorldIndex].SetInActive();
         activeWorldIndex = (activeWorldIndex > 0) ? activeWorldIndex - 1 : activeWorldIndex;
-        worldPreviews[activeWorldIndex].SetActive();
+        worldPreviews[activeWorldIndex].SetActivated();
     }
 
     private void SlideRight()
     {
         worldPreviews[activeWorldIndex].SetInActive();
         activeWorldIndex = (activeWorldIndex < worldPreviews.Length - 1) ? activeWorldIndex + 1 : activeWorldIndex;
-        worldPreviews[activeWorldIndex].SetActive();
+        worldPreviews[activeWorldIndex].SetActivated();
     }
 }
