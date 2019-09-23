@@ -79,8 +79,8 @@ public class GameManager : MonoBehaviour
 
         pauseMenu = FindObjectOfType<PauseMenu>();
 
-        //progression = Progression.LoadProgression();
-        
+        progression = Progression.LoadProgression();
+
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
 
@@ -134,7 +134,6 @@ public class GameManager : MonoBehaviour
     public void LoadNextLevel()
     {
         int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        //displayLoadingScreen = StartCoroutine(ShowLoadingScreenBeforeNextLevel(levelIndex));
 
         FindObjectOfType<DarthFader>().FadeGameOut(timeBeforeLoadingScene);
         StartCoroutine(LoadLevelAfterSeconds(levelIndex, timeBeforeLoadingScene));
@@ -158,24 +157,17 @@ public class GameManager : MonoBehaviour
         pauseMenu.DisablePauseMenu();
     }
 
-    public IEnumerator ShowLoadingScreenBeforeNextLevel(int levelIndex)
-    {
-        SceneManager.LoadScene("Intro");
-        yield return new WaitForSeconds(LoadSceneDuration);
-        SceneManager.LoadScene(levelIndex);
-    }
-
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
         WorldManager worldManager = FindObjectOfType<WorldManager>();
         if (worldManager != null)
         {
-            
+
             FindObjectOfType<DarthFader>().FadeGameIn(timeBeforeLoadingScene);
             canvas.EnableCanvas();
             pauseMenu.EnablePauseMenu();
-            
-            /*progression.AddLevel(new Level
+
+            progression.AddLevel(new Level
             {
                 completed = false,
                     worldName = worldManager.GetWorldName(),
@@ -186,7 +178,7 @@ public class GameManager : MonoBehaviour
                             position = worldManager.GetInitialCheckpoint().transform.position
                     }
             });
-            progression.SaveProgression();*/
+            progression.SaveProgression();
             CinemachineVirtualCamera Vcam = FindObjectOfType<CinemachineVirtualCamera>();
             Vcam.Follow = player.transform;
 
@@ -219,27 +211,27 @@ public class GameManager : MonoBehaviour
 
     void IncreaseAmountOfJumps()
     {
-        //progression.IncreaseAmountOfJumps();
+        progression.IncreaseAmountOfJumps();
     }
 
     public void IncreaseAmountOfDeaths()
     {
-        //progression.IncreaseAmountOfDeaths();
+        progression.IncreaseAmountOfDeaths();
     }
 
     public void IncreaseAmountOfFuelsGrabbed()
     {
-        //progression.IncreaseAmountOfFuelsGrabbed();
+        progression.IncreaseAmountOfFuelsGrabbed();
     }
 
     public void IncreaseAmountOfCheckpointsActivated()
     {
-        //progression.IncreaseAmountCheckpointsActivated();
+        progression.IncreaseAmountCheckpointsActivated();
     }
 
     public void SetLastActivatedCheckpoint(Checkpoint checkpoint)
     {
-        //progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { name = checkpoint.name, position = checkpoint.CheckpointTransform.position });
+        progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { name = checkpoint.name, position = checkpoint.CheckpointTransform.position });
     }
 
     public Checkpoint GetCheckpointFromMinified(MinifiedCheckpoint minCheckpoint)
@@ -255,7 +247,8 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
-    private void OnDestroy() {
+    private void OnDestroy()
+    {
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
     }
 }
