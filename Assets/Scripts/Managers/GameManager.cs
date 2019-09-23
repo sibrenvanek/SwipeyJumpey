@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     private Progression progression;
     [SerializeField] private GameObject PlayerPrefab = null;
     [SerializeField] private GameObject CanvasPrefab = null;
+    [SerializeField] private bool UseProgression = true;
 
     private void Awake()
     {
@@ -134,6 +135,7 @@ public class GameManager : MonoBehaviour
     public void LoadNextLevel()
     {
         int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        HandleProgression();
 
         FindObjectOfType<DarthFader>().FadeGameOut(timeBeforeLoadingScene);
         StartCoroutine(LoadLevelAfterSeconds(levelIndex, timeBeforeLoadingScene));
@@ -162,7 +164,6 @@ public class GameManager : MonoBehaviour
         WorldManager worldManager = FindObjectOfType<WorldManager>();
         if (worldManager != null)
         {
-
             FindObjectOfType<DarthFader>().FadeGameIn(timeBeforeLoadingScene);
             canvas.EnableCanvas();
             pauseMenu.EnablePauseMenu();
@@ -181,25 +182,33 @@ public class GameManager : MonoBehaviour
             progression.SaveProgression();
             CinemachineVirtualCamera Vcam = FindObjectOfType<CinemachineVirtualCamera>();
             Vcam.Follow = player.transform;
-
-            /* Level level = progression.GetLevel(SceneManager.GetActiveScene().name);
-            if (level != null)
+            Checkpoint checkpoint;
+            if (UseProgression)
             {
-                Checkpoint checkpoint = GetCheckpointFromMinified(level.latestCheckpoint);
-                if (checkpoint != null)
+                Level level = progression.GetLevel(SceneManager.GetActiveScene().name);
+                if (level != null)
                 {
-                    SendPlayerToCheckpoint(checkpoint);
+                    checkpoint = GetCheckpointFromMinified(level.latestCheckpoint);
+                    if (checkpoint == null)
+                    {
+                        checkpoint = worldManager.GetInitialCheckpoint();
+                    }
                 }
                 else
                 {
-                    SendPlayerToCheckpoint(worldManager.GetInitialCheckpoint());
+                    checkpoint = worldManager.GetInitialCheckpoint();
                 }
             }
             else
             {
-                SendPlayerToCheckpoint(worldManager.GetInitialCheckpoint());
-            }*/
-            SendPlayerToCheckpoint(worldManager.GetInitialCheckpoint());
+                checkpoint = worldManager.GetInitialCheckpoint();
+            }
+
+            if (checkpoint != worldManager.GetInitialCheckpoint())
+            {
+                FindObjectOfType<DialogOnStart>().BlockDialog();
+            }
+            SendPlayerToCheckpoint(checkpoint);
 
             FuelUI fuelUI = FindObjectOfType<FuelUI>();
             fuelUI.SetSlowMotion(player.GetComponent<SlowMotion>());
@@ -211,27 +220,32 @@ public class GameManager : MonoBehaviour
 
     void IncreaseAmountOfJumps()
     {
-        progression.IncreaseAmountOfJumps();
+        progression.IncreaseAmountOfJumps(SceneManager.GetActiveScene().name);
     }
 
     public void IncreaseAmountOfDeaths()
     {
-        progression.IncreaseAmountOfDeaths();
+        progression.IncreaseAmountOfDeaths(SceneManager.GetActiveScene().name);
     }
 
     public void IncreaseAmountOfFuelsGrabbed()
     {
-        progression.IncreaseAmountOfFuelsGrabbed();
+        progression.IncreaseAmountOfFuelsGrabbed(SceneManager.GetActiveScene().name);
     }
 
     public void IncreaseAmountOfCheckpointsActivated()
     {
-        progression.IncreaseAmountCheckpointsActivated();
+        progression.IncreaseAmountCheckpointsActivated(SceneManager.GetActiveScene().name);
     }
 
     public void SetLastActivatedCheckpoint(Checkpoint checkpoint)
     {
         progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { name = checkpoint.name, position = checkpoint.CheckpointTransform.position });
+    }
+
+    public void ResetLevels()
+    {
+        progression.ResetLevels();
     }
 
     public Checkpoint GetCheckpointFromMinified(MinifiedCheckpoint minCheckpoint)
@@ -250,5 +264,7 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+        if (progression != null)
+            progression.SaveProgression();
     }
 }

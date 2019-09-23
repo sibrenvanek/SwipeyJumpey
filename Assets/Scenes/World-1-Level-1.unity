@@ -71810,6 +71810,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 585780739684234313, guid: f8a1a67ea9e524d4e9edce007c9e2311,
         type: 3}
+    - target: {fileID: 7124536436694307264, guid: 83e35bc0104909b48a73fb1703d19f62,
+        type: 3}
+      propertyPath: UseProgression
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2898707142907956490, guid: 83e35bc0104909b48a73fb1703d19f62,
         type: 3}
       propertyPath: BypassEffects
