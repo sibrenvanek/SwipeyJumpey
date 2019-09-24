@@ -83,4 +83,16 @@ public class WorldSelecter : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
+
+    public void Left()
+    {
+        activeWorldIndex = (activeWorldIndex < worldSprites.Length - 1) ? activeWorldIndex + 1 : activeWorldIndex;
+        UpdatePreviews();
+    }
+
+    public void Right()
+    {
+        activeWorldIndex = (activeWorldIndex > 0) ? activeWorldIndex - 1 : activeWorldIndex;
+        UpdatePreviews();
+    }
 }

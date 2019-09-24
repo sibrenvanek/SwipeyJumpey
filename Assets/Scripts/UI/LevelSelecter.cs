@@ -56,4 +56,18 @@ public class LevelSelecter : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
     }
+
+    public void Left()
+    {
+        levelPreviews[activePreviewIndex].SetInActive();
+        activePreviewIndex = (activePreviewIndex < levelPreviews.Length - 1) ? activePreviewIndex + 1 : activePreviewIndex;
+        levelPreviews[activePreviewIndex].SetActivated();
+    }
+
+    public void Right()
+    {
+        levelPreviews[activePreviewIndex].SetInActive();
+        activePreviewIndex = (activePreviewIndex > 0) ? activePreviewIndex - 1 : activePreviewIndex;
+        levelPreviews[activePreviewIndex].SetActivated();
+    }
 }
