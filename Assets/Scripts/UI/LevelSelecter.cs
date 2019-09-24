@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelSelecter : MonoBehaviour
 {
@@ -44,5 +45,15 @@ public class LevelSelecter : MonoBehaviour
             activePreviewIndex = (activePreviewIndex > 0) ? activePreviewIndex - 1 : activePreviewIndex;
 
         levelPreviews[activePreviewIndex].SetActivated();
+    }
+
+    public void GoTo()
+    {
+        SceneManager.LoadScene(levelPreviews[activePreviewIndex].GetSceneIndex());
+    }
+
+    public void Return()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
     }
 }

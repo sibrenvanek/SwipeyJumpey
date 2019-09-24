@@ -1,5 +1,5 @@
 using UnityEngine;
-using System;
+using UnityEngine.SceneManagement;
 
 public class WorldSelecter : MonoBehaviour
 {
@@ -72,5 +72,15 @@ public class WorldSelecter : MonoBehaviour
 
         worldPreviewTwo.SetSprite(worldSprites[activeWorldIndex]);
         worldPreviewTwo.SetSceneIndex(sceneIndexes[activeWorldIndex]);
+    }
+
+    public void GoTo()
+    {
+        SceneManager.LoadScene(sceneIndexes[activeWorldIndex]);
+    }
+
+    public void Return()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 }
