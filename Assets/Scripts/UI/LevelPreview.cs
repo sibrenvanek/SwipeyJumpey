@@ -19,6 +19,11 @@ public class LevelPreview : MonoBehaviour
         this.sceneIndex = sceneIndex;
     }
 
+    public int GetSceneIndex()
+    {
+        return sceneIndex;
+    }
+
     public void SetSprite(Sprite sprite)
     {
         spriteRenderer.sprite = sprite;
