@@ -11,12 +11,7 @@ public class Level
     public int amountOfFuelsGrabbed = 0;
     public int amountOfCheckpointsActivated = 0;
     public int amountOfBounces = 0;
-
     public bool completed;
-    public override string ToString()
-    {
-        return string.Format("sceneName: {0}\nworldName: {1}\nlatestCheckpoint: {2}\ncompleted: {3}\njumps: {4}", sceneName, worldName, latestCheckpoint.ToString(), completed, amountOfJumps);
-    }
 }
 
 public class MinifiedCheckpoint
