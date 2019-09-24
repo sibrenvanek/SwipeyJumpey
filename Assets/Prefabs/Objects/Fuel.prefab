@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3a8d13e21f54ed4a8853f6b754590ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  freezeTime: 0.05
+  freezeTime: 0.1
   respawnTime: 2
   fadeInTime: 0.5
   forceBoost: 0
