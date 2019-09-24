@@ -1,4 +1,4 @@
-﻿
+
 // Usage: In the inspector, punch in your desired settings and then 
 // enter PLAY mode to apply.
 
@@ -13,12 +13,10 @@ public class DSPixelPerfectCamera : MonoBehaviour
 	public int   PixelsPerUnit 		{ get { return pixelsPerUnit; } }
 	public int   VertUnitsOnScreen 	{ get { return verticalUnitsOnScreen; } }
 
-	[SerializeField]
-	private int pixelsPerUnit = 16;
-	[SerializeField]
-	private int verticalUnitsOnScreen = 4;
-	private float finalUnitSize;
-	[SerializeField]private new CinemachineVirtualCamera camera;
+	[SerializeField] private int pixelsPerUnit = 16;
+	[SerializeField] private int verticalUnitsOnScreen = 4;
+    [SerializeField] private new CinemachineVirtualCamera camera = null;
+    private float finalUnitSize;
 
 	void Awake()
 	{

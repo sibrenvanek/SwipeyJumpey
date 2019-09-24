@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public static PauseMenu Instance;
-    [SerializeField] private GameObject pauseUI;
-    [SerializeField] private GameObject pauseButton;
-    [SerializeField] private TextMeshProUGUI currentLevelPlaceholder;
-    [SerializeField] private Room currentRoom;
-    [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private PlayerManager playerManager;
-    [SerializeField] private WorldManager worldManager;
+    [SerializeField] private GameObject pauseUI = null;
+    [SerializeField] private GameObject pauseButton = null;
+    [SerializeField] private TextMeshProUGUI currentLevelPlaceholder = null;
+    [SerializeField] private Room currentRoom = null;
+    [SerializeField] private PlayerMovement playerMovement = null;
+    [SerializeField] private PlayerManager playerManager = null;
+    [SerializeField] private WorldManager worldManager = null;
 
     private void Awake()
     {
