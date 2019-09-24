@@ -72,7 +72,7 @@ public class PlayerManager : MonoBehaviour
             {
                 playerMovement.CancelJump();
                 playerMovement.KillVelocity();
-                GameManager.Instance.IncreaseAmountOfDeaths();
+                ProgressionManager.Instance.IncreaseAmountOfDeaths();
                 GetComponent<PlayerDeath>().Die();
                 break;
             }

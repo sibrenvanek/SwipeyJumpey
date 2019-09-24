@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float timeBeforeLoadingScene = 1f;
     private Coroutine displayLoadingScreen;
     private PlayerMovement playerMovement = null;
-    private Progression progression;
     [SerializeField] private GameObject PlayerPrefab = null;
     [SerializeField] private GameObject CanvasPrefab = null;
     [SerializeField] private bool UseProgression = true;
@@ -49,7 +48,7 @@ public class GameManager : MonoBehaviour
         }
 
         playerMovement = player.GetComponent<PlayerMovement>();
-        playerMovement.OnJump += IncreaseAmountOfJumps;
+        playerMovement.OnJump += ProgressionManager.Instance.IncreaseAmountOfJumps;
 
         if (canvas == null)
         {
@@ -79,8 +78,6 @@ public class GameManager : MonoBehaviour
         }
 
         pauseMenu = FindObjectOfType<PauseMenu>();
-
-        progression = Progression.LoadProgression();
 
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
@@ -135,7 +132,7 @@ public class GameManager : MonoBehaviour
     public void LoadNextLevel()
     {
         int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        HandleProgression();
+        ProgressionManager.Instance.HandleProgression();
 
         FindObjectOfType<DarthFader>().FadeGameOut(timeBeforeLoadingScene);
         StartCoroutine(LoadLevelAfterSeconds(levelIndex, timeBeforeLoadingScene));
@@ -145,12 +142,6 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         SceneManager.LoadScene(levelIndex);
-    }
-
-    public void HandleProgression()
-    {
-        progression.MarkLevelAsCompleted(SceneManager.GetActiveScene().name);
-        progression.SaveProgression();
     }
 
     public void DisableUI()
@@ -168,7 +159,7 @@ public class GameManager : MonoBehaviour
             canvas.EnableCanvas();
             pauseMenu.EnablePauseMenu();
 
-            progression.AddLevel(new Level
+            ProgressionManager.Instance.AddLevel(new Level
             {
                 completed = false,
                     worldName = worldManager.GetWorldName(),
@@ -179,16 +170,16 @@ public class GameManager : MonoBehaviour
                             position = worldManager.GetInitialCheckpoint().transform.position
                     }
             });
-            progression.SaveProgression();
+            ProgressionManager.Instance.SaveProgression();
             CinemachineVirtualCamera Vcam = FindObjectOfType<CinemachineVirtualCamera>();
             Vcam.Follow = player.transform;
             Checkpoint checkpoint;
             if (UseProgression)
             {
-                Level level = progression.GetLevel(SceneManager.GetActiveScene().name);
+                Level level = ProgressionManager.Instance.GetLevel(SceneManager.GetActiveScene().name);
                 if (level != null)
                 {
-                    checkpoint = GetCheckpointFromMinified(level.latestCheckpoint);
+                    checkpoint = ProgressionManager.GetCheckpointFromMinified(level.latestCheckpoint);
                     if (checkpoint == null)
                     {
                         checkpoint = worldManager.GetInitialCheckpoint();
@@ -206,7 +197,9 @@ public class GameManager : MonoBehaviour
 
             if (checkpoint != worldManager.GetInitialCheckpoint())
             {
-                FindObjectOfType<DialogOnStart>().BlockDialog();
+                DialogOnStart dialog = FindObjectOfType<DialogOnStart>();
+                if (dialog != null)
+                    dialog.BlockDialog();
             }
             SendPlayerToCheckpoint(checkpoint);
 
@@ -218,53 +211,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void IncreaseAmountOfJumps()
-    {
-        progression.IncreaseAmountOfJumps(SceneManager.GetActiveScene().name);
-    }
-
-    public void IncreaseAmountOfDeaths()
-    {
-        progression.IncreaseAmountOfDeaths(SceneManager.GetActiveScene().name);
-    }
-
-    public void IncreaseAmountOfFuelsGrabbed()
-    {
-        progression.IncreaseAmountOfFuelsGrabbed(SceneManager.GetActiveScene().name);
-    }
-
-    public void IncreaseAmountOfCheckpointsActivated()
-    {
-        progression.IncreaseAmountCheckpointsActivated(SceneManager.GetActiveScene().name);
-    }
-
-    public void SetLastActivatedCheckpoint(Checkpoint checkpoint)
-    {
-        progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { name = checkpoint.name, position = checkpoint.CheckpointTransform.position });
-    }
-
-    public void ResetLevels()
-    {
-        progression.ResetLevels();
-    }
-
-    public Checkpoint GetCheckpointFromMinified(MinifiedCheckpoint minCheckpoint)
-    {
-        Checkpoint[] checkpoints = FindObjectsOfType<Checkpoint>();
-        foreach (Checkpoint checkpoint in checkpoints)
-        {
-            if (checkpoint.name == minCheckpoint.name)
-            {
-                return checkpoint;
-            }
-        }
-        return null;
-    }
-
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
-        if (progression != null)
-            progression.SaveProgression();
+        ProgressionManager.Instance.SaveProgression();
     }
 }

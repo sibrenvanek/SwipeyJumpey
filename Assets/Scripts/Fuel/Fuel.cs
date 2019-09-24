@@ -28,7 +28,7 @@ public class Fuel : MonoBehaviour
     {
         pickUpAnimator.SetTrigger("PickUp");
         AddForceBoost(rigidbody);
-        GameManager.Instance.IncreaseAmountOfFuelsGrabbed();
+        ProgressionManager.Instance.IncreaseAmountOfFuelsGrabbed();
         StartCoroutine(FreezeFrame());
         StartCoroutine(Respawn());
     }

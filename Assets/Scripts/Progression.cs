@@ -135,4 +135,16 @@ public class Progression
             level.completed = false;
         }
     }
+
+    public Level GetFirstUnfinishedLevel()
+    {
+        foreach (Level level in unlockedLevels)
+        {
+            if (level.completed == false)
+            {
+                return level;
+            }
+        }
+        return null;
+    }
 }
