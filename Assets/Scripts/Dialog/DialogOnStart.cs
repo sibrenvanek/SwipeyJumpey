@@ -7,6 +7,7 @@ public class DialogOnStart : MonoBehaviour
     [SerializeField] private Conversation conversation = null;
 
     private DialogManager dialogManager;
+    private bool dialogBlocked = false;
 
     private void Start()
     {
@@ -16,8 +17,15 @@ public class DialogOnStart : MonoBehaviour
     private IEnumerator StartConversation()
     {
         yield return new WaitForSeconds(0.25f);
+        if (!dialogBlocked)
+        {
+            dialogManager = DialogManager.Instance;
+            dialogManager.StartConversation(conversation);
+        }
+    }
 
-        dialogManager = DialogManager.Instance;
-        dialogManager.StartConversation(conversation);
+    public void BlockDialog()
+    {
+        dialogBlocked = true;
     }
 }

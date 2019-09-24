@@ -5,11 +5,13 @@ public class Level
     public string sceneName;
     public string worldName;
     public MinifiedCheckpoint latestCheckpoint;
+    public int amountOfJumps = 0;
+    public int amountOfDeaths = 0;
+    public int amountOfCollectables = 0;
+    public int amountOfFuelsGrabbed = 0;
+    public int amountOfCheckpointsActivated = 0;
+    public int amountOfBounces = 0;
     public bool completed;
-    public override string ToString()
-    {
-        return string.Format("  sceneName: {0}\n  worldName: {1}\n  latestCheckpoint: {2}\n  completed: {3}", sceneName, worldName, latestCheckpoint.ToString(), completed);
-    }
 }
 
 public class MinifiedCheckpoint
