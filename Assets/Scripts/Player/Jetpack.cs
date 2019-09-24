@@ -73,16 +73,11 @@ public class Jetpack : MonoBehaviour
 
     public void TurnOff()
     {
-        if (trailParticleSystem != null)
-        {
-            trailParticleSystem.Stop();
-        }
+        trailParticleSystem.Stop();
+
         foreach (var jet in jets)
         {
-            if (jet != null)
-            {
-                jet.StopEngine();
-            }
+            jet.StopEngine();
         }
 
         EngineRunning = false;

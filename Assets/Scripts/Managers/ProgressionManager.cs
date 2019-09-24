@@ -94,7 +94,7 @@ public class ProgressionManager : MonoBehaviour
         {
             if (firstUnfinishedLevel.sceneName.EndsWith("Level-1"))
             {
-                return "Intro";
+                return "WorldSelectScene";
             }
             else
             {
@@ -103,7 +103,7 @@ public class ProgressionManager : MonoBehaviour
         }
         else
         {
-            return "Intro";
+            return "WorldSelectScene";
         }
     }
 }
