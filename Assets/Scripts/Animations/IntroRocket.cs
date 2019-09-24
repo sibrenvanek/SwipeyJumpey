@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class IntroRocket : MonoBehaviour
 {
-    [SerializeField] private GameObject onEngine;
-    [SerializeField] private GameObject offEngine;
-    [SerializeField] private GameObject explosion;
+    [SerializeField] private GameObject onEngine = null;
+    [SerializeField] private GameObject offEngine = null;
+    [SerializeField] private GameObject explosion = null;
 
     public void TurnOnEngine()
     {

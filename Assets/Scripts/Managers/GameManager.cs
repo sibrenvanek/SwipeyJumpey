@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PauseMenu pauseMenu = null;
     [SerializeField] private float respawnYOffset = 0.2f;
     [SerializeField] private AudioMixer audioMixer = null;
-    [SerializeField] private int LoadSceneDuration = 0;
     public Checkpoint LastCheckpoint { get { return lastCheckpoint; } }
     private AudioSource audioSource = null;
     private float defaultPitch = 1f;
