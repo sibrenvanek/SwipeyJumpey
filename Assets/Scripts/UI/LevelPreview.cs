@@ -1,15 +1,17 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WorldPreview : MonoBehaviour
+public class LevelPreview : MonoBehaviour
 {
     [SerializeField] private int sceneIndex = 0;
+    [SerializeField] private Vector2 activeSize, inactiveSize = Vector2.one;
     private SpriteRenderer spriteRenderer = null;
-    public bool active { private get; set; }
+    private bool active = false;
 
-    void Awake()
+    void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        transform.localScale = inactiveSize;
     }
 
     public void SetSceneIndex(int sceneIndex)
@@ -20,6 +22,18 @@ public class WorldPreview : MonoBehaviour
     public void SetSprite(Sprite sprite)
     {
         spriteRenderer.sprite = sprite;
+    }
+
+    public void SetActivated()
+    {
+        active = true;
+        transform.localScale = activeSize;
+    }
+
+    public void SetInActive()
+    {
+        active = false;
+        transform.localScale = inactiveSize;
     }
 
     private void OnMouseDown()

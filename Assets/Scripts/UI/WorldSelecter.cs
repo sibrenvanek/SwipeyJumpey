@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WorldSelecter : MonoBehaviour
@@ -7,8 +5,9 @@ public class WorldSelecter : MonoBehaviour
     [SerializeField] private Sprite[] worldSprites;
     [SerializeField] private int[] sceneIndexes;
     [SerializeField] private WorldPreview worldPreviewOne, worldPreviewTwo, worldPreviewThree;
-    private int activeWorldIndex = 0;
     private Vector2 baseMousePosition = Vector2.zero;
+    private Vector2 releaseMousePosition = Vector2.zero;
+    private int activeWorldIndex = 0;
     private bool dragging = false;
 
     void Start()
@@ -16,7 +15,7 @@ public class WorldSelecter : MonoBehaviour
         if (worldSprites.Length != sceneIndexes.Length)
             Debug.LogError("worldsprites length != sceneindexes length");
 
-        worldPreviewTwo.SetActivated();
+        worldPreviewTwo.active = true;
         UpdatePreviews();
     }
 
@@ -35,24 +34,18 @@ public class WorldSelecter : MonoBehaviour
         else if (!Input.GetMouseButton(0) && dragging)
         {
             dragging = false;
-            Vector2 releasePosition = Input.mousePosition;
-
-            if (releasePosition.x < baseMousePosition.x)
-                SlideLeft();
-            else
-                SlideRight();
+            releaseMousePosition = Input.mousePosition;
+            Slide();
         }
     }
 
-    private void SlideLeft()
+    private void Slide()
     {
-        activeWorldIndex = (activeWorldIndex > 0) ? activeWorldIndex - 1 : activeWorldIndex;
-        UpdatePreviews();
-    }
+        if (releaseMousePosition.x < baseMousePosition.x)
+            activeWorldIndex = (activeWorldIndex > 0) ? activeWorldIndex - 1 : activeWorldIndex;
+        else
+            activeWorldIndex = (activeWorldIndex < worldSprites.Length - 1) ? activeWorldIndex + 1 : activeWorldIndex;
 
-    private void SlideRight()
-    {
-        activeWorldIndex = (activeWorldIndex < worldSprites.Length - 1) ? activeWorldIndex + 1 : activeWorldIndex;
         UpdatePreviews();
     }
 

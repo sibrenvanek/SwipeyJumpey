@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelSelecter : MonoBehaviour
 {
-    private WorldPreview[] worldPreviews;
-    private int activeWorldIndex = 0;
+    private LevelPreview[] levelPreviews;
+    private int activePreviewIndex = 0;
     private Vector2 baseMousePosition = Vector2.zero;
+    private Vector2 releaseMousePosition = Vector2.zero;
     private bool dragging = false;
 
     void Start()
     {
-        worldPreviews = GetComponentsInChildren<WorldPreview>();
-        worldPreviews[activeWorldIndex].SetActivated();
+        levelPreviews = GetComponentsInChildren<LevelPreview>();
+        levelPreviews[activePreviewIndex].SetActivated();
     }
 
     private void Update()
@@ -30,26 +29,20 @@ public class LevelSelecter : MonoBehaviour
         else if (!Input.GetMouseButton(0) && dragging)
         {
             dragging = false;
-            Vector2 releasePosition = Input.mousePosition;
-
-            if (releasePosition.x < baseMousePosition.x)
-                SlideLeft();
-            else
-                SlideRight();
+            releaseMousePosition = Input.mousePosition;
+            Slide();
         }
     }
 
-    private void SlideLeft()
+    private void Slide()
     {
-        worldPreviews[activeWorldIndex].SetInActive();
-        activeWorldIndex = (activeWorldIndex > 0) ? activeWorldIndex - 1 : activeWorldIndex;
-        worldPreviews[activeWorldIndex].SetActivated();
-    }
+        levelPreviews[activePreviewIndex].SetInActive();
 
-    private void SlideRight()
-    {
-        worldPreviews[activeWorldIndex].SetInActive();
-        activeWorldIndex = (activeWorldIndex < worldPreviews.Length - 1) ? activeWorldIndex + 1 : activeWorldIndex;
-        worldPreviews[activeWorldIndex].SetActivated();
+        if (releaseMousePosition.x < baseMousePosition.x)
+            activePreviewIndex = (activePreviewIndex < levelPreviews.Length - 1) ? activePreviewIndex + 1 : activePreviewIndex;
+        else
+            activePreviewIndex = (activePreviewIndex > 0) ? activePreviewIndex - 1 : activePreviewIndex;
+
+        levelPreviews[activePreviewIndex].SetActivated();
     }
 }
