@@ -31,7 +31,13 @@ public class PowerBarUI : MonoBehaviour
     public void ResetBar()
     {
         displaying = false;
-        background.SetActive(false);
-        bar.SetActive(false);
+        if (background != null)
+        {
+            background.SetActive(false);
+        }
+        if (bar != null)
+        {
+            bar.SetActive(false);
+        }
     }
 }

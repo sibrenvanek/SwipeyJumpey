@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
 using DG.Tweening.Core;
+using UnityEngine;
 
 public class Jetpack : MonoBehaviour
 {
@@ -28,15 +28,16 @@ public class Jetpack : MonoBehaviour
     public bool EngineRunning { get; private set; }
     public bool EngineCharging { get; private set; }
 
-    private void OnValidate() {
-        jets = GetComponentsInChildren<Jet>();    
+    private void OnValidate()
+    {
+        jets = GetComponentsInChildren<Jet>();
     }
 
-    private void Start() {
-        if(testEngines)
+    private void Start()
+    {
+        if (testEngines)
             StartCoroutine(TestEngines());
     }
-
 
     public void Charge()
     {
@@ -61,7 +62,7 @@ public class Jetpack : MonoBehaviour
     public void Launch(Vector2 velocity, Vector2 maximumForce)
     {
         float addition = (maximumAdditionToSize / maximumForce.magnitude) * velocity.magnitude;
-        
+
         EngineCharging = false;
         foreach (var jet in jets)
         {
@@ -72,10 +73,16 @@ public class Jetpack : MonoBehaviour
 
     public void TurnOff()
     {
-        trailParticleSystem.Stop();
+        if (trailParticleSystem != null)
+        {
+            trailParticleSystem.Stop();
+        }
         foreach (var jet in jets)
         {
-            jet.StopEngine();
+            if (jet != null)
+            {
+                jet.StopEngine();
+            }
         }
 
         EngineRunning = false;
@@ -93,7 +100,7 @@ public class Jetpack : MonoBehaviour
 
     private void ActivateLaunchEffects()
     {
-        if(launchInstance == null)
+        if (launchInstance == null)
         {
             launchInstance = Instantiate(vfxLaunchPrefab, launchPos.position, Quaternion.identity);
             launchAnimator = launchInstance.GetComponent<Animator>();
@@ -104,13 +111,15 @@ public class Jetpack : MonoBehaviour
             launchAnimator.SetTrigger("Launch");
         }
     }
-    
+
     private IEnumerator TestEngines(bool charge = false)
     {
-        if(charge)
+        if (charge)
         {
             Charge();
-        }else{
+        }
+        else
+        {
             Launch();
         }
 
