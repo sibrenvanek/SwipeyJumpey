@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4142422687106185869}
   - component: {fileID: 5741224422916013053}
   - component: {fileID: 1719493191}
+  - component: {fileID: 1144823937222906897}
   m_Layer: 0
   m_Name: LevelPreview
   m_TagString: Untagged
@@ -67,8 +68,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1768093043
+  m_SortingLayer: 11
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4bc373b90e302a8419d497cd7f63805a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -96,3 +97,19 @@ MonoBehaviour:
   sceneIndex: 0
   activeSize: {x: 2, y: 2}
   inactiveSize: {x: 1, y: 1}
+--- !u!58 &1144823937222906897
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9154461309640357319}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

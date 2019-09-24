@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 350204411371960968}
   - component: {fileID: 8217968999717583864}
   - component: {fileID: 7716761817302292488}
+  - component: {fileID: 2708175942035922523}
   m_Layer: 0
   m_Name: WorldPreview
   m_TagString: Untagged
@@ -93,3 +94,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d5c52b68df5834b955fc1225ed7237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneIndex: 0
+--- !u!58 &2708175942035922523
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4804167060920317378}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

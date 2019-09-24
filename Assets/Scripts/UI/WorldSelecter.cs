@@ -1,10 +1,11 @@
 using UnityEngine;
+using System;
 
 public class WorldSelecter : MonoBehaviour
 {
     [SerializeField] private Sprite[] worldSprites;
     [SerializeField] private int[] sceneIndexes;
-    [SerializeField] private WorldPreview worldPreviewOne, worldPreviewTwo, worldPreviewThree;
+    [SerializeField] private WorldPreview worldPreviewOne, worldPreviewTwo, worldPreviewThree = null;
     private Vector2 baseMousePosition = Vector2.zero;
     private Vector2 releaseMousePosition = Vector2.zero;
     private int activeWorldIndex = 0;
@@ -12,9 +13,6 @@ public class WorldSelecter : MonoBehaviour
 
     void Start()
     {
-        if (worldSprites.Length != sceneIndexes.Length)
-            Debug.LogError("worldsprites length != sceneindexes length");
-
         worldPreviewTwo.active = true;
         UpdatePreviews();
     }
@@ -61,7 +59,7 @@ public class WorldSelecter : MonoBehaviour
             worldPreviewOne.SetSceneIndex(sceneIndexes[activeWorldIndex - 1]);
         }
 
-        if (activeWorldIndex >= sceneIndexes.Length - 1)
+        if (activeWorldIndex >= worldSprites.Length - 1)
         {
             worldPreviewThree.gameObject.SetActive(false);
         }
