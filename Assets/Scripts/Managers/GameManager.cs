@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     private PlayerMovement playerMovement = null;
     [SerializeField] private GameObject PlayerPrefab = null;
     [SerializeField] private GameObject CanvasPrefab = null;
+    [SerializeField] private GameObject ProgressionManagerPrefab = null;
     [SerializeField] private bool UseProgression = true;
 
     private void Awake()
@@ -39,6 +40,11 @@ public class GameManager : MonoBehaviour
         }
 
         Input.multiTouchEnabled = false;
+
+        if (ProgressionManager.Instance == null)
+        {
+            Instantiate(ProgressionManagerPrefab, Vector3.zero, Quaternion.identity);
+        }
 
         if (player == null)
         {
