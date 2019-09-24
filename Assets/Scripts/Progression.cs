@@ -6,7 +6,6 @@ using UnityEngine;
 public class Progression
 {
     public List<Level> unlockedLevels { get; private set; } = new List<Level>();
-    public int currentLevelIndex { get; private set; } = 0;
     private static readonly string path = Application.persistentDataPath + "/data.json";
 
     public void SaveProgression()

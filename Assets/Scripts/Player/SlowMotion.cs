@@ -10,7 +10,6 @@ public class SlowMotion : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement = null;
     [SerializeField] private float slowSpeed = .9f;
     [SerializeField] private float slowMotionDuration = 2f;
-    [SerializeField] private float minVelocityInPercent = 10f;
     [SerializeField] private float pitchReduction = 0.1f;
     [SerializeField] private float totalPitchReduction = 0.5f;
     public bool doingSlowmotion { get; private set; } = false;

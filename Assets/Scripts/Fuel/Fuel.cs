@@ -14,8 +14,6 @@ public class Fuel : MonoBehaviour
     private Light2D light2d = null;
     private new Collider2D collider = null;
     private SpriteRenderer spriteRenderer = null;
-    private bool frozen = false;
-
 
     private void Awake()
     {
@@ -29,22 +27,10 @@ public class Fuel : MonoBehaviour
         pickUpAnimator.SetTrigger("PickUp");
         AddForceBoost(rigidbody);
         ProgressionManager.Instance.IncreaseAmountOfFuelsGrabbed();
-        StartCoroutine(FreezeFrame());
+        FreezeManager.Instance.Freeze(freezeTime);
         StartCoroutine(Respawn());
     }
 
-    private IEnumerator FreezeFrame()
-    {
-        if(!frozen)
-        {
-            float original = Time.timeScale;
-            Time.timeScale = 0;
-            frozen = true;
-            yield return new WaitForSecondsRealtime(freezeTime);
-            Time.timeScale = original;
-            frozen = false;
-        }
-    }
 
     private IEnumerator Respawn()
     {
@@ -57,7 +43,6 @@ public class Fuel : MonoBehaviour
     {
         spriteRenderer.DOKill();
         spriteRenderer.DOFade(0, 0);
-        //light2d.enabled = false;
         collider.enabled = false;
     }
 
@@ -65,7 +50,6 @@ public class Fuel : MonoBehaviour
     {
         collider.enabled = true;
         spriteRenderer.DOFade(1, fadeInTime);
-        //light2d.enabled = true;
     }
 
     private void AddForceBoost(Rigidbody2D rigidbody)
