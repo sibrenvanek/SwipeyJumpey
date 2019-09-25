@@ -45,9 +45,9 @@ public class LevelSelecter : MonoBehaviour
         levelPreviews[activePreviewIndex].SetInActive();
 
         if (releaseMousePosition.x < baseMousePosition.x)
-            activePreviewIndex = (activePreviewIndex < levelPreviews.Length - 1) ? activePreviewIndex + 1 : activePreviewIndex;
-        else
             activePreviewIndex = (activePreviewIndex > 0) ? activePreviewIndex - 1 : activePreviewIndex;
+        else
+            activePreviewIndex = (activePreviewIndex < levelPreviews.Length - 1) ? activePreviewIndex + 1 : activePreviewIndex;
 
         levelPreviews[activePreviewIndex].SetActivated();
     }
