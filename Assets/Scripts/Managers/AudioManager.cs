@@ -11,7 +11,6 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer = null;
     private float defaultPitch = 1f;
     private AudioSource audioSource = null;
-    private bool playingMenu = false;
 
     private void Awake()
     {
@@ -25,20 +24,16 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-    }
 
-    void Start()
-    {
         audioSource = GetComponent<AudioSource>();
         defaultPitch = audioSource.pitch;
     }
 
     public void StartMenuTrack()
     {
-        if (playingMenu)
+        if (audioSource.clip == menuTrack)
             return;
 
-        playingMenu = true;
         audioSource.Stop();
         audioSource.clip = menuTrack;
         audioSource.Play();
@@ -46,10 +41,9 @@ public class AudioManager : MonoBehaviour
 
     public void StartIngameTrack()
     {
-        if (!playingMenu)
+        if (audioSource.clip == ingameTrack)
             return;
 
-        playingMenu = false;
         audioSource.Stop();
         audioSource.clip = ingameTrack;
         audioSource.Play();
