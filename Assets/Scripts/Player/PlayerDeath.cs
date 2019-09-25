@@ -6,6 +6,7 @@ public class PlayerDeath : MonoBehaviour
 {
     private PlayerMovement playerMovement;
     private Animator animator;
+    [SerializeField] private Jetpack jetpack = null;
 
     private void Awake()
     {
@@ -19,11 +20,28 @@ public class PlayerDeath : MonoBehaviour
         playerMovement.KillVelocity();
         playerMovement.CancelJump();
         playerMovement.RemoveGravity();
+        playerMovement.Disable();
     }
 
     public void DoneWithDying()
     {
+        StartCoroutine(WaitAndRespawn(.5f, .5f));
+        jetpack.Explode();
+    }
+
+    
+    private IEnumerator WaitAndRespawn(float waitTime = 0f, float time = 1f)
+    {
+        DarthFader fader = FindObjectOfType<DarthFader>();
+
+        fader.FadeGameOut(time);
+
+        yield return new WaitForSeconds(waitTime);
+
         GameManager.Instance.SendPlayerToLastCheckpoint();
         playerMovement.RestoreGravity();
+        playerMovement.Enable();
+        fader.FadeGameInInSeconds(.5f, time);
     }
+
 }
