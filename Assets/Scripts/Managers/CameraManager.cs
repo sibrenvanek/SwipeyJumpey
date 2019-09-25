@@ -19,6 +19,7 @@ public class CameraManager : MonoBehaviour
 
     public void SetConfinerBoundingShape(Collider2D collider)
     {
+        cinemachineConfiner.InvalidatePathCache();
         StartCoroutine(TriggerConfinerDamping());
         if(currentCollider != null) 
             previousCollider = currentCollider;

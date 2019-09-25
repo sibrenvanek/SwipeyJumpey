@@ -192,6 +192,11 @@ PrefabInstance:
       propertyPath: initialCheckpoint
       value: 
       objectReference: {fileID: 682802146}
+    - target: {fileID: 3290357203872685999, guid: 22776877471eb594aa906a39984e0a8f,
+        type: 3}
+      propertyPath: currentRoomCheckpoint
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22776877471eb594aa906a39984e0a8f, type: 3}
 --- !u!1001 &75513291
@@ -65123,11 +65128,9 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: -25, y: -22}
-      - {x: 36, y: -23}
-      - {x: 36, y: 20}
+      - {x: 36, y: -22}
       - {x: 36, y: 20}
       - {x: -25, y: 20}
-      - {x: -25, y: -3}
 --- !u!1001 &1914698461
 PrefabInstance:
   m_ObjectHideFlags: 0
