@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject CanvasPrefab = null;
     [SerializeField] private GameObject ProgressionManagerPrefab = null;
     [SerializeField] private GameObject FreezeManagerPrefab = null;
+    [SerializeField] private GameObject AudioManagerPrefab = null;
     [SerializeField] private bool UseProgression = true;
 
     private void Awake()
@@ -53,6 +54,11 @@ public class GameManager : MonoBehaviour
         {
             GameObject playerObject = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
             player = playerObject.GetComponent<PlayerManager>();
+        }
+
+        if (AudioManager.Instance == null)
+        {
+            Instantiate(AudioManagerPrefab, Vector3.zero, Quaternion.identity);
         }
 
         playerMovement = player.GetComponent<PlayerMovement>();
