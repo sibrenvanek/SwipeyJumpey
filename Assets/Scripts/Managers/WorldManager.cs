@@ -5,7 +5,7 @@ public class WorldManager : MonoBehaviour
 {
     [SerializeField] private Checkpoint initialCheckpoint = null;
     [SerializeField] private Checkpoint currentRoomCheckpoint = null;
-    [SerializeField] private string worldName;
+    [SerializeField] private string worldName = null;
     public event Action<Room> OnCurrentRoomChanged = delegate { };
     private Room curRoom = null;
 

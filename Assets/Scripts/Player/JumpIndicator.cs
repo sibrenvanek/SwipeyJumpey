@@ -4,7 +4,7 @@ using UnityEngine;
 public class JumpIndicator : MonoBehaviour
 {
 
-    [SerializeField] private Animator jetpackAnimator;
+    [SerializeField] private Animator jetpackAnimator = null;
     private PlayerMovement playerMovement;
 
     private void Awake()

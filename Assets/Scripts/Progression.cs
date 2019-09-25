@@ -5,24 +5,13 @@ using UnityEngine;
 
 public class Progression
 {
-    public int amountOfJumps { get; private set; } = 0;
-    public int amountOfDeaths { get; private set; } = 0;
     public List<Level> unlockedLevels { get; private set; } = new List<Level>();
-    public int amountOfCollectables { get; private set; } = 0;
-    public int amountOfFuelsGrabbed { get; private set; } = 0;
-    public int amountOfBounces { get; private set; } = 0;
-    public int amountOfCheckpointsActivated { get; private set; } = 0;
-    private static string path = Application.dataPath + "/../data/data.json";
+    private static readonly string path = Application.persistentDataPath + "/data.json";
 
     public void SaveProgression()
     {
         string json = JsonConvert.SerializeObject(this);
         File.WriteAllText(path, json);
-    }
-
-    public override string ToString()
-    {
-        return string.Format("unlockedLevel: {0}\njumps: {1}\ndeaths: {2}\nfuels: {3}\ncheckpoints: {4}", unlockedLevels[0].ToString(), amountOfJumps, amountOfDeaths, amountOfFuelsGrabbed, amountOfCheckpointsActivated);
     }
 
     public static Progression LoadProgression()
@@ -37,48 +26,37 @@ public class Progression
             return new Progression();
         }
         Progression progression = JsonConvert.DeserializeObject<Progression>(data);
-        dynamic parsedData = JsonConvert.DeserializeObject(data);
-        Progression newProgression = new Progression
-        {
-            amountOfJumps = (int)parsedData["amountOfJumps"],
-            amountOfDeaths = (int)parsedData["amountOfDeaths"],
-            amountOfCollectables = (int)parsedData["amountOfCollectables"],
-            amountOfBounces = (int)parsedData["amountOfBounces"],
-            amountOfCheckpointsActivated = (int)parsedData["amountOfCheckpointsActivated"],
-            amountOfFuelsGrabbed = (int)parsedData["amountOfFuelsGrabbed"],
-            unlockedLevels = progression.unlockedLevels
-        };
-        return newProgression;
+        return progression;
     }
 
-    public void IncreaseAmountOfJumps()
+    public void IncreaseAmountOfJumps(string sceneName)
     {
-        amountOfJumps++;
+        GetLevel(sceneName).amountOfJumps++;
     }
 
-    public void IncreaseAmountOfDeaths()
+    public void IncreaseAmountOfDeaths(string sceneName)
     {
-        amountOfDeaths++;
+        GetLevel(sceneName).amountOfDeaths++;
     }
 
-    public void IncreaseAmountOfCollectables()
+    public void IncreaseAmountOfCollectables(string sceneName)
     {
-        amountOfCollectables++;
+        GetLevel(sceneName).amountOfCollectables++;
     }
 
-    public void IncreaseAmountOfFuelsGrabbed()
+    public void IncreaseAmountOfFuelsGrabbed(string sceneName)
     {
-        amountOfFuelsGrabbed++;
+        GetLevel(sceneName).amountOfFuelsGrabbed++;
     }
 
-    public void IncreaseAmountOfBounces()
+    public void IncreaseAmountOfBounces(string sceneName)
     {
-        amountOfBounces++;
+        GetLevel(sceneName).amountOfBounces++;
     }
 
-    public void IncreaseAmountCheckpointsActivated()
+    public void IncreaseAmountCheckpointsActivated(string sceneName)
     {
-        amountOfCheckpointsActivated++;
+        GetLevel(sceneName).amountOfCheckpointsActivated++;
     }
 
     public void AddLevel(Level level)
@@ -142,6 +120,26 @@ public class Progression
         foreach (Level level in unlockedLevels)
         {
             if (level.sceneName == sceneName)
+            {
+                return level;
+            }
+        }
+        return null;
+    }
+
+    public void ResetLevels()
+    {
+        foreach (Level level in unlockedLevels)
+        {
+            level.completed = false;
+        }
+    }
+
+    public Level GetFirstUnfinishedLevel()
+    {
+        foreach (Level level in unlockedLevels)
+        {
+            if (level.completed == false)
             {
                 return level;
             }

@@ -253,7 +253,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void KillVelocity()
     {
-        rigidbody2d.velocity = Vector3.zero;
+        if (rigidbody2d != null)
+        {
+            rigidbody2d.velocity = Vector3.zero;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

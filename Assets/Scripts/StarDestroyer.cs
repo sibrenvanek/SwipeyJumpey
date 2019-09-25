@@ -6,11 +6,13 @@ public class StarDestroyer : MonoBehaviour
 {
     void Start()
     {
+        ProgressionManager.Instance.ResetLevels();
         Destroy(FindObjectOfType<PauseMenu>().gameObject);
         Destroy(FindObjectOfType<PlayerManager>().gameObject);
         Destroy(FindObjectOfType<GameManager>().gameObject);
         Destroy(FindObjectOfType<CanvasManager>().gameObject);
         Destroy(FindObjectOfType<DialogManager>().gameObject);
+        Destroy(FindObjectOfType<ProgressionManager>().gameObject);
     }
 
     /*

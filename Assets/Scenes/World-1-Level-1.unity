@@ -35039,12 +35039,12 @@ PrefabInstance:
     - target: {fileID: 1508894441572218797, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.1
+      value: 62.895363
       objectReference: {fileID: 0}
     - target: {fileID: 1508894441572218797, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.09
+      value: -2.089999
       objectReference: {fileID: 0}
     - target: {fileID: 1508894441572218797, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
@@ -35096,16 +35096,16 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 6.7890625
       objectReference: {fileID: 0}
+    - target: {fileID: 518979296, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 859533048}
     - target: {fileID: 378091846, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1582681653}
     - target: {fileID: 378091846, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
       propertyPath: cinemachineVirtualCamera
-      value: 
-      objectReference: {fileID: 859533048}
-    - target: {fileID: 518979296, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
-      propertyPath: camera
       value: 
       objectReference: {fileID: 859533048}
     m_RemovedComponents: []
@@ -71810,6 +71810,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 585780739684234313, guid: f8a1a67ea9e524d4e9edce007c9e2311,
         type: 3}
+    - target: {fileID: 7124536436694307264, guid: 83e35bc0104909b48a73fb1703d19f62,
+        type: 3}
+      propertyPath: UseProgression
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2898707142907956490, guid: 83e35bc0104909b48a73fb1703d19f62,
         type: 3}
       propertyPath: BypassEffects

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,11 +6,8 @@ using UnityEngine;
 public class Dialog : ScriptableObject
 {
 
-    [SerializeField]
-    private DialogSpeaker speaker;
+    [SerializeField] private DialogSpeaker speaker = null;
+    [SerializeField, TextArea(3, 10)] private string text = null;
     public DialogSpeaker Speaker => speaker;
-
-    [SerializeField, TextArea(3, 10)]
-    private string text;
     public string Text => text;
 }

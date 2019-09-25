@@ -15,16 +15,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PauseMenu pauseMenu = null;
     [SerializeField] private float respawnYOffset = 0.2f;
     [SerializeField] private AudioMixer audioMixer = null;
-    [SerializeField] private int LoadSceneDuration = 0;
     public Checkpoint LastCheckpoint { get { return lastCheckpoint; } }
     private AudioSource audioSource = null;
     private float defaultPitch = 1f;
     [SerializeField] private float timeBeforeLoadingScene = 1f;
     private Coroutine displayLoadingScreen;
     private PlayerMovement playerMovement = null;
-    private Progression progression;
     [SerializeField] private GameObject PlayerPrefab = null;
     [SerializeField] private GameObject CanvasPrefab = null;
+    [SerializeField] private GameObject ProgressionManagerPrefab = null;
+    [SerializeField] private GameObject FreezeManagerPrefab = null;
+    [SerializeField] private bool UseProgression = true;
 
     private void Awake()
     {
@@ -41,6 +42,16 @@ public class GameManager : MonoBehaviour
 
         Input.multiTouchEnabled = false;
 
+        if (ProgressionManager.Instance == null)
+        {
+            Instantiate(ProgressionManagerPrefab, Vector3.zero, Quaternion.identity);
+        }
+
+        if (FreezeManager.Instance == null)
+        {
+            Instantiate(FreezeManagerPrefab, Vector3.zero, Quaternion.identity);
+        }
+
         if (player == null)
         {
             GameObject playerObject = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
@@ -48,7 +59,7 @@ public class GameManager : MonoBehaviour
         }
 
         playerMovement = player.GetComponent<PlayerMovement>();
-        playerMovement.OnJump += IncreaseAmountOfJumps;
+        playerMovement.OnJump += ProgressionManager.Instance.IncreaseAmountOfJumps;
 
         if (canvas == null)
         {
@@ -79,8 +90,6 @@ public class GameManager : MonoBehaviour
 
         pauseMenu = FindObjectOfType<PauseMenu>();
 
-        //progression = Progression.LoadProgression();
-        
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
 
@@ -134,7 +143,7 @@ public class GameManager : MonoBehaviour
     public void LoadNextLevel()
     {
         int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        //displayLoadingScreen = StartCoroutine(ShowLoadingScreenBeforeNextLevel(levelIndex));
+        ProgressionManager.Instance.HandleProgression();
 
         FindObjectOfType<DarthFader>().FadeGameOut(timeBeforeLoadingScene);
         StartCoroutine(LoadLevelAfterSeconds(levelIndex, timeBeforeLoadingScene));
@@ -146,23 +155,10 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(levelIndex);
     }
 
-    public void HandleProgression()
-    {
-        progression.MarkLevelAsCompleted(SceneManager.GetActiveScene().name);
-        progression.SaveProgression();
-    }
-
     public void DisableUI()
     {
         canvas.DisableCanvas();
         pauseMenu.DisablePauseMenu();
-    }
-
-    public IEnumerator ShowLoadingScreenBeforeNextLevel(int levelIndex)
-    {
-        SceneManager.LoadScene("Intro");
-        yield return new WaitForSeconds(LoadSceneDuration);
-        SceneManager.LoadScene(levelIndex);
     }
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
@@ -170,12 +166,11 @@ public class GameManager : MonoBehaviour
         WorldManager worldManager = FindObjectOfType<WorldManager>();
         if (worldManager != null)
         {
-            
             FindObjectOfType<DarthFader>().FadeGameIn(timeBeforeLoadingScene);
             canvas.EnableCanvas();
             pauseMenu.EnablePauseMenu();
-            
-            /*progression.AddLevel(new Level
+
+            ProgressionManager.Instance.AddLevel(new Level
             {
                 completed = false,
                     worldName = worldManager.GetWorldName(),
@@ -186,28 +181,38 @@ public class GameManager : MonoBehaviour
                             position = worldManager.GetInitialCheckpoint().transform.position
                     }
             });
-            progression.SaveProgression();*/
+            ProgressionManager.Instance.SaveProgression();
             CinemachineVirtualCamera Vcam = FindObjectOfType<CinemachineVirtualCamera>();
             Vcam.Follow = player.transform;
-
-            /* Level level = progression.GetLevel(SceneManager.GetActiveScene().name);
-            if (level != null)
+            Checkpoint checkpoint;
+            if (UseProgression)
             {
-                Checkpoint checkpoint = GetCheckpointFromMinified(level.latestCheckpoint);
-                if (checkpoint != null)
+                Level level = ProgressionManager.Instance.GetLevel(SceneManager.GetActiveScene().name);
+                if (level != null)
                 {
-                    SendPlayerToCheckpoint(checkpoint);
+                    checkpoint = ProgressionManager.GetCheckpointFromMinified(level.latestCheckpoint);
+                    if (checkpoint == null)
+                    {
+                        checkpoint = worldManager.GetInitialCheckpoint();
+                    }
                 }
                 else
                 {
-                    SendPlayerToCheckpoint(worldManager.GetInitialCheckpoint());
+                    checkpoint = worldManager.GetInitialCheckpoint();
                 }
             }
             else
             {
-                SendPlayerToCheckpoint(worldManager.GetInitialCheckpoint());
-            }*/
-            SendPlayerToCheckpoint(worldManager.GetInitialCheckpoint());
+                checkpoint = worldManager.GetInitialCheckpoint();
+            }
+
+            if (checkpoint != worldManager.GetInitialCheckpoint())
+            {
+                DialogOnStart dialog = FindObjectOfType<DialogOnStart>();
+                if (dialog != null)
+                    dialog.BlockDialog();
+            }
+            SendPlayerToCheckpoint(checkpoint);
 
             FuelUI fuelUI = FindObjectOfType<FuelUI>();
             fuelUI.SetSlowMotion(player.GetComponent<SlowMotion>());
@@ -217,45 +222,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void IncreaseAmountOfJumps()
+    private void OnDestroy()
     {
-        //progression.IncreaseAmountOfJumps();
-    }
-
-    public void IncreaseAmountOfDeaths()
-    {
-        //progression.IncreaseAmountOfDeaths();
-    }
-
-    public void IncreaseAmountOfFuelsGrabbed()
-    {
-        //progression.IncreaseAmountOfFuelsGrabbed();
-    }
-
-    public void IncreaseAmountOfCheckpointsActivated()
-    {
-        //progression.IncreaseAmountCheckpointsActivated();
-    }
-
-    public void SetLastActivatedCheckpoint(Checkpoint checkpoint)
-    {
-        //progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { name = checkpoint.name, position = checkpoint.CheckpointTransform.position });
-    }
-
-    public Checkpoint GetCheckpointFromMinified(MinifiedCheckpoint minCheckpoint)
-    {
-        Checkpoint[] checkpoints = FindObjectsOfType<Checkpoint>();
-        foreach (Checkpoint checkpoint in checkpoints)
-        {
-            if (checkpoint.name == minCheckpoint.name)
-            {
-                return checkpoint;
-            }
-        }
-        return null;
-    }
-
-    private void OnDestroy() {
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+        ProgressionManager.Instance.SaveProgression();
     }
 }
