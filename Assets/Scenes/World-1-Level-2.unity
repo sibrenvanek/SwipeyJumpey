@@ -337,6 +337,11 @@ PrefabInstance:
       propertyPath: initialCheckpoint
       value: 
       objectReference: {fileID: 1202350871}
+    - target: {fileID: 3290357203872685999, guid: 22776877471eb594aa906a39984e0a8f,
+        type: 3}
+      propertyPath: currentRoomCheckpoint
+      value: 
+      objectReference: {fileID: 1202350871}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22776877471eb594aa906a39984e0a8f, type: 3}
 --- !u!1001 &101145840
@@ -63129,7 +63134,7 @@ PrefabInstance:
     - target: {fileID: 7836860192840318281, guid: c99649814eb2bf245b612d57b9ed580c,
         type: 3}
       propertyPath: m_Name
-      value: LevelCollider
+      value: Level-2-Sequence-4
       objectReference: {fileID: 0}
     - target: {fileID: 7836860192840318287, guid: c99649814eb2bf245b612d57b9ed580c,
         type: 3}

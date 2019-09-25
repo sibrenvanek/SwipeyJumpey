@@ -192,6 +192,11 @@ PrefabInstance:
       propertyPath: initialCheckpoint
       value: 
       objectReference: {fileID: 682802146}
+    - target: {fileID: 3290357203872685999, guid: 22776877471eb594aa906a39984e0a8f,
+        type: 3}
+      propertyPath: currentRoomCheckpoint
+      value: 
+      objectReference: {fileID: 682802146}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22776877471eb594aa906a39984e0a8f, type: 3}
 --- !u!1001 &75513291
@@ -35096,16 +35101,16 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 6.7890625
       objectReference: {fileID: 0}
-    - target: {fileID: 518979296, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
-      propertyPath: camera
-      value: 
-      objectReference: {fileID: 859533048}
     - target: {fileID: 378091846, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1582681653}
     - target: {fileID: 378091846, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
       propertyPath: cinemachineVirtualCamera
+      value: 
+      objectReference: {fileID: 859533048}
+    - target: {fileID: 518979296, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
+      propertyPath: camera
       value: 
       objectReference: {fileID: 859533048}
     m_RemovedComponents: []
