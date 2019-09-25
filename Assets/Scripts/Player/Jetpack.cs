@@ -10,6 +10,7 @@ public class Jetpack : MonoBehaviour
     [SerializeField] private GameObject vfxLaunchPrefab = null;
     private GameObject launchInstance = null;
     private Animator launchAnimator = null;
+    private Animator animator = null;
     [SerializeField] private ParticleSystem trailParticleSystem = null;
     [SerializeField] private Jet[] jets = null;
 
@@ -33,10 +34,20 @@ public class Jetpack : MonoBehaviour
         jets = GetComponentsInChildren<Jet>();
     }
 
+    private void Awake() 
+    {
+        animator = GetComponent<Animator>();    
+    }
+
     private void Start()
     {
         if (testEngines)
             StartCoroutine(TestEngines());
+    }
+
+    public void Explode()
+    {
+        animator.SetTrigger("Explode");
     }
 
     public void Charge()

@@ -14,13 +14,28 @@ public class DarthFader : MonoBehaviour
 
     public void FadeGameIn(float time = 1f)
     {
+        image.DOKill();
         image.DOFade(0, time);
+    }
+
+    public void FadeGameInInSeconds(float waitTime = 0f, float time = 1f)
+    {
+        StartCoroutine(WaitAndFadeIn(waitTime, time));
+    }
+
+    private IEnumerator WaitAndFadeIn(float waitTime = 0f, float time = 1f)
+    {
+        yield return new WaitForSeconds(waitTime);
+        FadeGameIn(time);
     }
 
     public void FadeGameOut(float time = 1f)
     {
+        image.DOKill();
         image.DOFade(1, time);
     }
+
+
 
 
     /*
