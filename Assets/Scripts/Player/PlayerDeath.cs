@@ -1,9 +1,13 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerDeath : MonoBehaviour
 {
+
+    public event Action OnDeath = delegate { };
+
     private PlayerMovement playerMovement;
     private Animator animator;
 
@@ -15,6 +19,7 @@ public class PlayerDeath : MonoBehaviour
 
     public void Die()
     {
+        OnDeath.Invoke();
         animator.SetTrigger("Die");
         playerMovement.KillVelocity();
         playerMovement.CancelJump();
