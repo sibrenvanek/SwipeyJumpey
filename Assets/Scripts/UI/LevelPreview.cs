@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class LevelPreview : MonoBehaviour
 {
     [SerializeField] private int sceneIndex = 0;
-    [SerializeField] private Vector2 activeSize, inactiveSize = Vector2.one;
+    [SerializeField] private Vector2 activeSize = Vector2.one, inactiveSize = Vector2.one;
     private SpriteRenderer spriteRenderer = null;
     private bool active = false;
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class LevelSelecter : MonoBehaviour
@@ -22,7 +23,7 @@ public class LevelSelecter : MonoBehaviour
 
     private void HandleInput()
     {
-        if (Input.GetMouseButton(0) && !dragging)
+        if (Input.GetMouseButton(0) && !dragging && !EventSystem.current.IsPointerOverGameObject())
         {
             dragging = true;
             baseMousePosition = Input.mousePosition;
@@ -60,14 +61,14 @@ public class LevelSelecter : MonoBehaviour
     public void Left()
     {
         levelPreviews[activePreviewIndex].SetInActive();
-        activePreviewIndex = (activePreviewIndex < levelPreviews.Length - 1) ? activePreviewIndex + 1 : activePreviewIndex;
+        activePreviewIndex = (activePreviewIndex > 0) ? activePreviewIndex - 1 : activePreviewIndex;
         levelPreviews[activePreviewIndex].SetActivated();
     }
 
     public void Right()
     {
         levelPreviews[activePreviewIndex].SetInActive();
-        activePreviewIndex = (activePreviewIndex > 0) ? activePreviewIndex - 1 : activePreviewIndex;
+        activePreviewIndex = (activePreviewIndex < levelPreviews.Length - 1) ? activePreviewIndex + 1 : activePreviewIndex;
         levelPreviews[activePreviewIndex].SetActivated();
     }
 }
