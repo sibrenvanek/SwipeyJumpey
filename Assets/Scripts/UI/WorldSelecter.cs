@@ -1,21 +1,28 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using System;
 
 public class WorldSelecter : MonoBehaviour
 {
-    [SerializeField] private Sprite[] worldSprites = null;
-    [SerializeField] private int[] sceneIndexes = null;
-    [SerializeField] private WorldPreview worldPreviewOne = null, worldPreviewTwo = null, worldPreviewThree = null;
+    [Header("Points")]
+    [SerializeField] private GameObject selectedPoint = null;
+    [SerializeField] private GameObject previousPoint = null;
+    [SerializeField] private GameObject nextPoint = null;
+
+    [Header("Available worlds")]
+    [SerializeField] private WorldPreview[] worlds = null;
+
+    public event Action<WorldPreview> OnWorldChanged = delegate { };
+    private int activeWorldIndex = 0;
+
+    private bool dragging = false;
     private Vector2 baseMousePosition = Vector2.zero;
     private Vector2 releaseMousePosition = Vector2.zero;
-    private int activeWorldIndex = 0;
-    private bool dragging = false;
 
-    void Start()
+    private void Start()
     {
-        worldPreviewTwo.active = true;
-        UpdatePreviews();
+        WorldChanged(0);
     }
 
     private void Update()
@@ -41,59 +48,55 @@ public class WorldSelecter : MonoBehaviour
     private void Slide()
     {
         if (releaseMousePosition.x < baseMousePosition.x)
-            activeWorldIndex = (activeWorldIndex < worldSprites.Length - 1) ? activeWorldIndex + 1 : activeWorldIndex;
+            Left();
         else
-            activeWorldIndex = (activeWorldIndex > 0) ? activeWorldIndex - 1 : activeWorldIndex;
-
-        UpdatePreviews();
-    }
-
-    private void UpdatePreviews()
-    {
-        if (activeWorldIndex <= 0) {
-            worldPreviewOne.gameObject.SetActive(false);
-        }
-        else
-        {
-            worldPreviewOne.gameObject.SetActive(true);
-            worldPreviewOne.SetSprite(worldSprites[activeWorldIndex - 1]);
-            worldPreviewOne.SetSceneIndex(sceneIndexes[activeWorldIndex - 1]);
-        }
-
-        if (activeWorldIndex >= worldSprites.Length - 1)
-        {
-            worldPreviewThree.gameObject.SetActive(false);
-        }
-        else
-        {
-            worldPreviewThree.gameObject.SetActive(true);
-            worldPreviewThree.SetSprite(worldSprites[activeWorldIndex + 1]);
-            worldPreviewThree.SetSceneIndex(sceneIndexes[activeWorldIndex + 1]);
-        }
-
-        worldPreviewTwo.SetSprite(worldSprites[activeWorldIndex]);
-        worldPreviewTwo.SetSceneIndex(sceneIndexes[activeWorldIndex]);
-    }
-
-    public void GoTo()
-    {
-        SceneManager.LoadScene(sceneIndexes[activeWorldIndex]);
-    }
-
-    public void Return()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            Right();
     }
 
     public void Left()
     {
-        activeWorldIndex = (activeWorldIndex > 0) ? activeWorldIndex - 1 : activeWorldIndex;
-        UpdatePreviews();
+        int newIndex = (activeWorldIndex > 0) ? activeWorldIndex - 1 : activeWorldIndex;
+
+        if (newIndex != activeWorldIndex)
+            WorldChanged(newIndex);
     }
 
     public void Right()
     {
-        activeWorldIndex = (activeWorldIndex < worldSprites.Length - 1) ? activeWorldIndex + 1 : activeWorldIndex;
-        UpdatePreviews();
+        int newIndex = (activeWorldIndex < worlds.Length - 1) ? activeWorldIndex + 1 : activeWorldIndex;
+
+        if (newIndex != activeWorldIndex)
+            WorldChanged(newIndex);
+    }
+
+    private void WorldChanged(int newActiveIndex)
+    {
+        for (int i = 0; i < worlds.Length; i++)
+        {
+            WorldPreview world = worlds[i];
+
+            if (i == newActiveIndex)
+            {
+                world.gameObject.SetActive(true);
+                world.transform.position = selectedPoint.transform.position;
+            }
+            else if (i == newActiveIndex - 1)
+            {
+                world.gameObject.SetActive(true);
+                world.transform.position = previousPoint.transform.position;
+            }
+            else if (i == newActiveIndex + 1)
+            {
+                world.gameObject.SetActive(true);
+                world.transform.position = nextPoint.transform.position;
+            }
+            else
+            {
+                world.gameObject.SetActive(false);
+            }
+        }
+
+        activeWorldIndex = newActiveIndex;
+        OnWorldChanged.Invoke(worlds[activeWorldIndex]);
     }
 }
