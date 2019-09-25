@@ -48,7 +48,6 @@ MonoBehaviour:
   canvas: {fileID: 0}
   pauseMenu: {fileID: 0}
   respawnYOffset: 0.2
-  audioMixer: {fileID: 24100000, guid: 090acfd6e6ac38e4a9f5a83ef8549fcb, type: 2}
   timeBeforeLoadingScene: 1
   PlayerPrefab: {fileID: 585780739684234313, guid: f8a1a67ea9e524d4e9edce007c9e2311,
     type: 3}
@@ -57,5 +56,7 @@ MonoBehaviour:
   ProgressionManagerPrefab: {fileID: 7171864747170570080, guid: c813851c12dbeca4fa1aac3bf44c4796,
     type: 3}
   FreezeManagerPrefab: {fileID: 815306244748701820, guid: 97dae775e64f53b4fa673b0e2cb8a96a,
+    type: 3}
+  AudioManagerPrefab: {fileID: 8247206127766019628, guid: 124fc5846d5a2f74aa1a03434587bf63,
     type: 3}
   UseProgression: 1

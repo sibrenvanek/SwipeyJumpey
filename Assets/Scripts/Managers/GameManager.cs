@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
         if (AudioManager.Instance == null)
         {
             Instantiate(AudioManagerPrefab, Vector3.zero, Quaternion.identity);
+            AudioManager.Instance.StartIngameTrack();
         }
 
         playerMovement = player.GetComponent<PlayerMovement>();
