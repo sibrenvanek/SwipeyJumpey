@@ -7,9 +7,11 @@ public class LevelPreview : MonoBehaviour
     [SerializeField] private Vector2 activeSize = Vector2.one, inactiveSize = Vector2.one;
     private SpriteRenderer spriteRenderer = null;
     private bool active = false;
+    private LevelSelecter levelSelecter = null;
 
     void Start()
     {
+        levelSelecter = GetComponentInParent<LevelSelecter>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         transform.localScale = inactiveSize;
     }
@@ -45,5 +47,7 @@ public class LevelPreview : MonoBehaviour
     {
         if (active)
             SceneManager.LoadScene(sceneIndex);
+        else
+            levelSelecter.SetActiveIndexByScene(sceneIndex);
     }
 }

@@ -1,15 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
-    /*************
-     * VARIABLES *
-     *************/
-
-    /**Singleton**/
     public static CanvasManager Instance;
+    [SerializeField] private GameObject nextButton = null;
 
     private void Awake()
     {
@@ -33,5 +29,15 @@ public class CanvasManager : MonoBehaviour
     public void EnableCanvas()
     {
         gameObject.SetActive(true);
+    }
+
+    public void DisableNextButton()
+    {
+        nextButton.SetActive(false);
+    }
+
+    public void EnableNextButton()
+    {
+        nextButton.SetActive(true);
     }
 }
