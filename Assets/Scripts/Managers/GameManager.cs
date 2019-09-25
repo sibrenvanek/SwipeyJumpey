@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject ProgressionManagerPrefab = null;
     [SerializeField] private GameObject FreezeManagerPrefab = null;
     [SerializeField] private GameObject AudioManagerPrefab = null;
-    [SerializeField] private bool UseProgression = true;
 
     private void Awake()
     {
@@ -172,7 +171,7 @@ public class GameManager : MonoBehaviour
             CinemachineVirtualCamera Vcam = FindObjectOfType<CinemachineVirtualCamera>();
             Vcam.Follow = player.transform;
             Checkpoint checkpoint;
-            if (UseProgression)
+            if (ProgressionManager.Instance.UseProgression)
             {
                 Level level = ProgressionManager.Instance.GetLevel(SceneManager.GetActiveScene().name);
                 if (level != null)

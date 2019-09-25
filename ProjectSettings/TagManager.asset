@@ -18,6 +18,7 @@ TagManager:
   - SpeakerImage
   - NextDialogButton
   - FillArea
+  - PlayText
   layers:
   - Default
   - TransparentFX
