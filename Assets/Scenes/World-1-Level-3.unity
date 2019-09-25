@@ -532,7 +532,7 @@ PrefabInstance:
     - target: {fileID: 5561776107103152662, guid: 81b2bccfb47cbe047a7b648037735149,
         type: 3}
       propertyPath: offset
-      value: 0.05
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81b2bccfb47cbe047a7b648037735149, type: 3}
@@ -66587,16 +66587,16 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 7.5
       objectReference: {fileID: 0}
-    - target: {fileID: 518979296, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
-      propertyPath: camera
-      value: 
-      objectReference: {fileID: 859533048}
     - target: {fileID: 378091846, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1582681653}
     - target: {fileID: 378091846, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
       propertyPath: cinemachineVirtualCamera
+      value: 
+      objectReference: {fileID: 859533048}
+    - target: {fileID: 518979296, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
+      propertyPath: camera
       value: 
       objectReference: {fileID: 859533048}
     m_RemovedComponents: []
