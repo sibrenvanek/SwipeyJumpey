@@ -62,14 +62,14 @@ public class SlowMotion : MonoBehaviour
     private void SlowTime()
     {
         playerRigidbody.velocity *= slowSpeed;
-        GameManager.Instance.ReduceAudioPitch(pitchReduction);
+        AudioManager.Instance.ReduceAudioPitch(pitchReduction);
     }
 
     private void ResetTime()
     {
         if (doingSlowmotion)
         {
-            GameManager.Instance.ResetAudioPitch();
+            AudioManager.Instance.ResetAudioPitch();
             OnSlowMotionDeActivated.Invoke();
             doingSlowmotion = false;
             playerMovement.CancelJump();
