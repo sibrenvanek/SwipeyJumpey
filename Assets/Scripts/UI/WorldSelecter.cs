@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class WorldSelecter : MonoBehaviour
 {
-    [SerializeField] private Sprite[] worldSprites;
-    [SerializeField] private int[] sceneIndexes;
-    [SerializeField] private WorldPreview worldPreviewOne, worldPreviewTwo, worldPreviewThree = null;
+    [SerializeField] private Sprite[] worldSprites = null;
+    [SerializeField] private int[] sceneIndexes = null;
+    [SerializeField] private WorldPreview worldPreviewOne = null, worldPreviewTwo = null, worldPreviewThree = null;
     private Vector2 baseMousePosition = Vector2.zero;
     private Vector2 releaseMousePosition = Vector2.zero;
     private int activeWorldIndex = 0;
@@ -24,7 +25,7 @@ public class WorldSelecter : MonoBehaviour
 
     private void HandleInput()
     {
-        if (Input.GetMouseButton(0) && !dragging)
+        if (Input.GetMouseButton(0) && !dragging && !EventSystem.current.IsPointerOverGameObject())
         {
             dragging = true;
             baseMousePosition = Input.mousePosition;
@@ -40,9 +41,9 @@ public class WorldSelecter : MonoBehaviour
     private void Slide()
     {
         if (releaseMousePosition.x < baseMousePosition.x)
-            activeWorldIndex = (activeWorldIndex > 0) ? activeWorldIndex - 1 : activeWorldIndex;
-        else
             activeWorldIndex = (activeWorldIndex < worldSprites.Length - 1) ? activeWorldIndex + 1 : activeWorldIndex;
+        else
+            activeWorldIndex = (activeWorldIndex > 0) ? activeWorldIndex - 1 : activeWorldIndex;
 
         UpdatePreviews();
     }
@@ -86,13 +87,13 @@ public class WorldSelecter : MonoBehaviour
 
     public void Left()
     {
-        activeWorldIndex = (activeWorldIndex < worldSprites.Length - 1) ? activeWorldIndex + 1 : activeWorldIndex;
+        activeWorldIndex = (activeWorldIndex > 0) ? activeWorldIndex - 1 : activeWorldIndex;
         UpdatePreviews();
     }
 
     public void Right()
     {
-        activeWorldIndex = (activeWorldIndex > 0) ? activeWorldIndex - 1 : activeWorldIndex;
+        activeWorldIndex = (activeWorldIndex < worldSprites.Length - 1) ? activeWorldIndex + 1 : activeWorldIndex;
         UpdatePreviews();
     }
 }
