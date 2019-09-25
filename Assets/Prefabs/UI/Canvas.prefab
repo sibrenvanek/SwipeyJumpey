@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d74891ec3e9d34bae8ba0c2229f281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogGroup: {fileID: 8289812168550059925}
 --- !u!1 &8289812168550059925
 GameObject:
   m_ObjectHideFlags: 0

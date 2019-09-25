@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,6 +45,7 @@ public class DialogManager : MonoBehaviour
 
     public void StartConversation(Conversation conversation)
     {
+        CanvasManager.Instance.EnableNextButton();
         OnStartDialog.Invoke();
         dialogs.Clear();
 
@@ -61,6 +62,7 @@ public class DialogManager : MonoBehaviour
         if (dialogs.Count == 0)
         {
             EndDialog();
+            CanvasManager.Instance.DisableNextButton();
             return;
         }
 
