@@ -5,7 +5,6 @@ public class ProgressionManager : MonoBehaviour
 {
     public static ProgressionManager Instance;
     private Progression progression;
-    [SerializeField] public bool UseProgression = true;
 
     private void Awake()
     {
@@ -67,11 +66,6 @@ public class ProgressionManager : MonoBehaviour
     public Level GetLevel(string sceneName)
     {
         return progression.GetLevel(sceneName);
-    }
-
-    public Level GetLatestLevel()
-    {
-        return progression.GetFirstUnfinishedLevel();
     }
 
     public static Checkpoint GetCheckpointFromMinified(MinifiedCheckpoint minCheckpoint)
