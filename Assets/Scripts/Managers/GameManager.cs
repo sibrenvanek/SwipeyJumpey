@@ -14,10 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CanvasManager canvas = null;
     [SerializeField] private PauseMenu pauseMenu = null;
     [SerializeField] private float respawnYOffset = 0.2f;
-    [SerializeField] private AudioMixer audioMixer = null;
     public Checkpoint LastCheckpoint { get { return lastCheckpoint; } }
-    private AudioSource audioSource = null;
-    private float defaultPitch = 1f;
     [SerializeField] private float timeBeforeLoadingScene = 1f;
     private Coroutine displayLoadingScreen;
     private PlayerMovement playerMovement = null;
@@ -95,8 +92,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        defaultPitch = audioSource.pitch;
+        AudioManager.Instance.StartIngameTrack();
         player = FindObjectOfType<PlayerManager>();
     }
 
@@ -122,22 +118,6 @@ public class GameManager : MonoBehaviour
     public void ResetWorld()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void ReduceAudioPitch(float minus)
-    {
-        float pitchChange = minus * Time.deltaTime;
-
-        float audioMixerPitch = audioMixer.GetFloat("mixerPitch", out audioMixerPitch) ? audioMixerPitch : 0f;
-
-        audioMixer.SetFloat("mixerPitch", audioMixerPitch + pitchChange);
-        audioSource.pitch -= pitchChange;
-    }
-
-    public void ResetAudioPitch()
-    {
-        audioMixer.SetFloat("mixerPitch", 1f);
-        audioSource.pitch = defaultPitch;
     }
 
     public void LoadNextLevel()
