@@ -360,11 +360,6 @@ PrefabInstance:
       propertyPath: initialCheckpoint
       value: 
       objectReference: {fileID: 1909786155}
-    - target: {fileID: 3290357203872685999, guid: 22776877471eb594aa906a39984e0a8f,
-        type: 3}
-      propertyPath: currentRoomCheckpoint
-      value: 
-      objectReference: {fileID: 1909786155}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22776877471eb594aa906a39984e0a8f, type: 3}
 --- !u!1 &65615361
