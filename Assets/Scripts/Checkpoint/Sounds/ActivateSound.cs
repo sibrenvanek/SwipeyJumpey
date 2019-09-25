@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathSound : MonoBehaviour
+public class ActivateSound : MonoBehaviour
 {
-    [SerializeField] private PlayerDeath playerDeath = null;
+    [SerializeField] private Checkpoint checkpoint = null;
     private AudioSource audioSource;
- 
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -14,7 +14,7 @@ public class DeathSound : MonoBehaviour
 
     private void Start()
     {
-        playerDeath.OnDeath += PlaySound;
+        checkpoint.OnActivate += PlaySound;
     }
 
     private void PlaySound()

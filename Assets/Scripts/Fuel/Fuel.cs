@@ -1,29 +1,30 @@
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.Experimental.Rendering.LWRP;
+using System;
 
 public class Fuel : MonoBehaviour
 {
+    public event Action OnPickUp = delegate { };
+
     [SerializeField] private float freezeTime = 0.2f;
     [SerializeField] private float respawnTime = 2f;
     [SerializeField] private float fadeInTime = .5f;
     [SerializeField] private float forceBoost = 2f;
     [SerializeField] private Vector2 velocityLoss = new Vector2(2f,2f);
     [SerializeField] private Animator pickUpAnimator = null;
-    private Light2D light2d = null;
     private new Collider2D collider = null;
     private SpriteRenderer spriteRenderer = null;
 
     private void Awake()
     {
-        light2d = GetComponentInChildren<Light2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();    
         collider = GetComponent<Collider2D>();
     }
 
     public void PickUp(Rigidbody2D rigidbody)
     {
+        OnPickUp.Invoke();
         pickUpAnimator.SetTrigger("PickUp");
         AddForceBoost(rigidbody);
         ProgressionManager.Instance.IncreaseAmountOfFuelsGrabbed();

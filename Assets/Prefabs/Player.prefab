@@ -14828,6 +14828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 994ff773e62d71a4a854b7a9fc82bffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerDeath: {fileID: 213344788}
 --- !u!1 &3522601937460870942
 GameObject:
   m_ObjectHideFlags: 0
@@ -15279,3 +15280,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f05448b4c1ee4541b7aa66e1eee5437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMovement: {fileID: 1946067523713256595}

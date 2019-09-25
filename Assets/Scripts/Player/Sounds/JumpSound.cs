@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class JumpSound : MonoBehaviour
 {
-    private PlayerMovement playerMovement;
+    [SerializeField] private PlayerMovement playerMovement = null;
     private AudioSource audioSource;
 
     private void Awake()
     {
-        playerMovement = transform.root.GetComponent<PlayerMovement>();
         audioSource = GetComponent<AudioSource>();
     }
 

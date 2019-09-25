@@ -1,7 +1,10 @@
 using UnityEngine;
+using System;
 
 public class Checkpoint : MonoBehaviour
 {
+    public event Action OnActivate = delegate { };
+
     private Animator animator = null;
     private new ParticleSystem particleSystem = null;
     private PlayerMovement playerMovement = null;
@@ -19,6 +22,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (GameManager.Instance.LastCheckpoint != this)
         {
+            OnActivate.Invoke();
             particleSystem.Play();
             ProgressionManager.Instance.IncreaseAmountOfCheckpointsActivated();
             ProgressionManager.Instance.SetLastActivatedCheckpoint(this);
