@@ -85,25 +85,4 @@ public class ProgressionManager : MonoBehaviour
     {
         progression.SaveProgression();
     }
-
-    public string GetNextSceneBuildIndex()
-    {
-        Level firstUnfinishedLevel = progression.GetFirstUnfinishedLevel();
-
-        if (firstUnfinishedLevel != null)
-        {
-            if (firstUnfinishedLevel.sceneName.EndsWith("Level-1"))
-            {
-                return "WorldSelectScene";
-            }
-            else
-            {
-                return firstUnfinishedLevel.sceneName;
-            }
-        }
-        else
-        {
-            return "WorldSelectScene";
-        }
-    }
 }
