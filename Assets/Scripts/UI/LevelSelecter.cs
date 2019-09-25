@@ -32,6 +32,10 @@ public class LevelSelecter : MonoBehaviour
         {
             dragging = false;
             releaseMousePosition = Input.mousePosition;
+
+            if (Mathf.Abs(releaseMousePosition.x - baseMousePosition.x) < 2)
+                return;
+
             Slide();
         }
     }
@@ -70,5 +74,18 @@ public class LevelSelecter : MonoBehaviour
         levelPreviews[activePreviewIndex].SetInActive();
         activePreviewIndex = (activePreviewIndex < levelPreviews.Length - 1) ? activePreviewIndex + 1 : activePreviewIndex;
         levelPreviews[activePreviewIndex].SetActivated();
+    }
+
+    public void SetActiveIndexByScene(int sceneIndex)
+    {
+        for (int i = 0; i < levelPreviews.Length; i++)
+        {
+            if (levelPreviews[i].GetSceneIndex() == sceneIndex)
+            {
+                levelPreviews[activePreviewIndex].SetInActive();
+                activePreviewIndex = i;
+                levelPreviews[activePreviewIndex].SetActivated();
+            }
+        }
     }
 }
