@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 7133113872506449274}
   - component: {fileID: 7133113872506449275}
   - component: {fileID: 7133113872506449277}
+  - component: {fileID: 1670723197506091318}
   m_Layer: 12
   m_Name: InstantBooster
   m_TagString: Untagged
@@ -187,7 +188,7 @@ SpriteRenderer:
   m_SortingLayerID: 1768093043
   m_SortingLayer: 11
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 99ed532009bbf3448867551351126d7e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ba8f453d7de72bb41943dc966a4c6189, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -231,3 +232,22 @@ MonoBehaviour:
   rotationSpeed: 0
   respawnTime: 1
   circlingEnergy: {fileID: 6170732048530800537}
+--- !u!95 &1670723197506091318
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7133113872506449273}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 20f1e6f57b367944e9fe3e29c5a7f6b0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
