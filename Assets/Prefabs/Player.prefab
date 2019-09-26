@@ -14414,6 +14414,7 @@ MonoBehaviour:
   trajectoryPrediction: {fileID: -2195771165354065761}
   slowMotion: {fileID: 4857256654572397243}
   jetpack: {fileID: 0}
+  hopVelocity: {x: 2, y: 2}
   slowMotionActivated: 0
 --- !u!114 &4857256654572397243
 MonoBehaviour:
