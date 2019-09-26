@@ -39,7 +39,6 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("check");
         playerMovement = collider.transform.root.GetComponent<PlayerMovement>();
 
         Check();
