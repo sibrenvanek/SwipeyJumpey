@@ -37,9 +37,10 @@ public class Checkpoint : MonoBehaviour
         animator.SetBool("isCollected", false);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        playerMovement = collision.transform.root.GetComponent<PlayerMovement>();
+        Debug.Log("check");
+        playerMovement = collider.transform.root.GetComponent<PlayerMovement>();
 
         Check();
     }
