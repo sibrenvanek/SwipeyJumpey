@@ -10,6 +10,7 @@ public class Jetpack : MonoBehaviour
     [SerializeField] private GameObject vfxLaunchPrefab = null;
     private GameObject launchInstance = null;
     private Animator launchAnimator = null;
+    private BoxCollider2D launchBoxColider = null;
     private Animator animator = null;
     [SerializeField] private ParticleSystem trailParticleSystem = null;
     [SerializeField] private Jet[] jets = null;
@@ -34,9 +35,9 @@ public class Jetpack : MonoBehaviour
         jets = GetComponentsInChildren<Jet>();
     }
 
-    private void Awake() 
+    private void Awake()
     {
-        animator = GetComponent<Animator>();    
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -110,11 +111,15 @@ public class Jetpack : MonoBehaviour
         {
             launchInstance = Instantiate(vfxLaunchPrefab, launchPos.position, Quaternion.identity);
             launchAnimator = launchInstance.GetComponent<Animator>();
+            launchBoxColider = launchInstance.GetComponent<BoxCollider2D>();
         }
         else
         {
             launchInstance.transform.position = launchPos.position;
             launchAnimator.SetTrigger("Launch");
+
+            launchBoxColider.enabled = false;
+            launchBoxColider.enabled = true;
         }
     }
 
