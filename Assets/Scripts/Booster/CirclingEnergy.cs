@@ -23,9 +23,9 @@ public class CirclingEnergy : MonoBehaviour
 
     public void StartCircling()
     {
-        spriteRenderer.enabled = true;
         if(animator != null)
         {
+            spriteRenderer.enabled = true;
             active = true;
             StartCoroutine(Circle());
         }
