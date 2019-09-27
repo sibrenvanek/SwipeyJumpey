@@ -91,4 +91,9 @@ public class ProgressionManager : MonoBehaviour
     {
         progression.SaveProgression();
     }
+
+    public void DeleteProgression()
+    {
+        progression.DeleteProgression();
+    }
 }

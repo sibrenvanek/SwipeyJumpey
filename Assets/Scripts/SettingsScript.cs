@@ -3,11 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SettingsScript : MonoBehaviour
 {
+    public static string MUSICPREF = "musicPref";
+    public static string SOUNDEFFECTSPREF = "soundEffectPref";
     [SerializeField] private GameObject settingsPanel = null;
     [SerializeField] private GameObject deleteProgressionPopUp = null;
+    [SerializeField] private Toggle toggleMusic = null;
+    [SerializeField] private Toggle toggleSoundEffects = null;
+    [SerializeField] private Toggle toggleFont = null;
+
+    public void Awake()
+    {
+        toggleFont.isOn = PlayerPrefs.GetInt(FontManager.DYSLEXICPREF) != 0;
+
+        if (PlayerPrefs.HasKey(MUSICPREF))
+        {
+            toggleMusic.isOn = PlayerPrefs.GetInt(MUSICPREF) != 0;
+        }
+        else
+        {
+            PlayerPrefs.SetInt(MUSICPREF, 1);
+        }
+
+        if (PlayerPrefs.HasKey(SOUNDEFFECTSPREF))
+        {
+            toggleSoundEffects.isOn = PlayerPrefs.GetInt(SOUNDEFFECTSPREF) != 0;
+        }
+        else
+        {
+            PlayerPrefs.SetInt(SOUNDEFFECTSPREF, 1);
+        }
+    }
 
     public void BackToMenu()
     {
@@ -23,7 +52,9 @@ public class SettingsScript : MonoBehaviour
 
     public void DeleteProgression()
     {
-        //ProgressionManager.Instance.DeleteProgression();
+        ProgressionManager.Instance.DeleteProgression();
+        settingsPanel.SetActive(true);
+        deleteProgressionPopUp.SetActive(false);
     }
 
     public void CancelDeleteProgression()
@@ -34,11 +65,11 @@ public class SettingsScript : MonoBehaviour
 
     public void ToggleMusic()
     {
-        //ProgressionManager.Instance.ToggleMusic();
+        PlayerPrefs.SetInt(MUSICPREF, toggleMusic.isOn ? 1 : 0);
     }
 
     public void ToggleSoundEffects()
     {
-        //ProgressionManager.Instance.ToggleSoundEffects();
+        PlayerPrefs.SetInt(SOUNDEFFECTSPREF, toggleSoundEffects.isOn ? 1 : 0);
     }
 }

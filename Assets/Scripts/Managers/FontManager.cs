@@ -5,7 +5,7 @@ using TMPro;
 
 public class FontManager : MonoBehaviour
 {
-    private string DYSLEXICPREF = "dyslecticFont";
+    public static string DYSLEXICPREF = "dyslecticFont";
 
     [SerializeField] private TMP_FontAsset defaultFont = null;
     [SerializeField] private TMP_FontAsset dyslexicFont = null;

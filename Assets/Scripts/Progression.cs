@@ -146,4 +146,10 @@ public class Progression
         }
         return null;
     }
+
+    public void DeleteProgression()
+    {
+        unlockedLevels = new List<Level>();
+        SaveProgression();
+    }
 }
