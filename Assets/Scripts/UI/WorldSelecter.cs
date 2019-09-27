@@ -1,7 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using System;
 
 public class WorldSelecter : MonoBehaviour
 {
@@ -13,7 +13,7 @@ public class WorldSelecter : MonoBehaviour
     [Header("Available worlds")]
     [SerializeField] private WorldPreview[] worlds = null;
 
-    public event Action<WorldPreview> OnWorldChanged = delegate { };
+    public event Action<WorldPreview> OnWorldChanged = delegate {};
     private int activeWorldIndex = 0;
 
     private bool dragging = false;
@@ -26,24 +26,7 @@ public class WorldSelecter : MonoBehaviour
     }
 
     private void Update()
-    {
-        HandleInput();
-    }
-
-    private void HandleInput()
-    {
-        if (Input.GetMouseButton(0) && !dragging && !EventSystem.current.IsPointerOverGameObject())
-        {
-            dragging = true;
-            baseMousePosition = Input.mousePosition;
-        }
-        else if (!Input.GetMouseButton(0) && dragging)
-        {
-            dragging = false;
-            releaseMousePosition = Input.mousePosition;
-            Slide();
-        }
-    }
+    {}
 
     private void Slide()
     {
