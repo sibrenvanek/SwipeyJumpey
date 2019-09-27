@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
     [SerializeField] private Jetpack jetpack = null;
+    [SerializeField] private Vector2 hopVelocity = Vector2.zero;
     public event Action OnJump = delegate {};
     public event Action OnCanJump = delegate {};
     private Rigidbody2D rigidbody2d = null;
@@ -34,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
     private bool gravityTemporarilyOff = false;
     private bool gravityOff = false;
     private SpriteRenderer jetpackSpriteRenderer = null;
+    private bool hopping = false;
+    private bool hopAvailable = false;
 
     void Start()
     {
@@ -60,13 +63,12 @@ public class PlayerMovement : MonoBehaviour
 
         CheckIfCanJump();
 
-        if (dragging)
+        if (dragging && !hopping)
             powerBarUI.DisplayForce(jumpVelocity, maxVelocityVector);
     }
 
     private void CheckIfCanJump()
     {
-
         if ((slowMotionJumpAvailable || grounded) && !notifiedJump)
         {
             OnCanJump.Invoke();
@@ -104,6 +106,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!dragging)
             {
+                StartCoroutine(TapCoroutine());
                 baseMousePosition = Input.mousePosition;
                 dragging = true;
             }
@@ -111,6 +114,18 @@ public class PlayerMovement : MonoBehaviour
             if ((grounded || slowMotionJumpAvailable) && !jetpack.EngineCharging)
             {
                 jetpack.Charge();
+            }
+
+            lastMousePosition = Input.mousePosition;
+
+            if (ShouldJumpCancel())
+            {
+                return;
+            }
+            else if (hopping)
+            {
+                StopCoroutine(TapCoroutine());
+                hopping = false;
             }
 
             if (!slowMotionActivated && !grounded && slowMotionJumpAvailable)
@@ -121,8 +136,6 @@ public class PlayerMovement : MonoBehaviour
 
             if (speedLimiter <= 0)
                 speedLimiter = 1;
-
-            lastMousePosition = Input.mousePosition;
 
             jumpVelocity.x = (baseMousePosition.x - Input.mousePosition.x) / speedLimiter;
             jumpVelocity.y = (baseMousePosition.y - Input.mousePosition.y) / speedLimiter;
@@ -161,6 +174,22 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private IEnumerator TapCoroutine()
+    {
+        hopping = true;
+        yield return new WaitForSecondsRealtime(0.1f);
+        hopping = false;
+    }
+
+    private bool ShouldJumpCancel()
+    {
+        Vector3 firstMousePoint = Camera.main.ScreenToWorldPoint(baseMousePosition);
+        firstMousePoint.z = transform.position.z;
+        Vector3 lastMousePoint = Camera.main.ScreenToWorldPoint(lastMousePosition);
+        lastMousePoint.z = transform.position.z;
+        return Vector2.Distance(firstMousePoint, lastMousePoint) < maximumCancelDistance;
+    }
+
     private void HandleRelease()
     {
         if (Input.GetMouseButton(0) || !dragging)
@@ -171,10 +200,19 @@ public class PlayerMovement : MonoBehaviour
         Vector3 lastMousePoint = Camera.main.ScreenToWorldPoint(lastMousePosition);
         lastMousePoint.z = transform.position.z;
 
-        if (Vector2.Distance(firstMousePoint, lastMousePoint) < maximumCancelDistance)
+        if (ShouldJumpCancel())
         {
-            CancelJump();
-            return;
+            if (hopping && IsGrounded())
+            {
+                jumpVelocity = new Vector2(((lastMousePoint.x < transform.position.x) ? -1 : 1) * hopVelocity.x, hopVelocity.y);
+                Hop();
+                return;
+            }
+            else
+            {
+                CancelJump();
+                return;
+            }
         }
 
         trajectoryPrediction.RemoveIndicators();
@@ -188,7 +226,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (grounded || playerManager.GetGodMode())
         {
-            grounded = false;
             Jump();
         }
 
@@ -215,13 +252,25 @@ public class PlayerMovement : MonoBehaviour
         trajectoryPrediction.RemoveIndicators();
     }
 
+    private void Hop()
+    {
+        grounded = false;
+        KillVelocity();
+        StartCoroutine(RemoveGravityTemporarily());
+        rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
+        dragging = false;
+    }
+
     private void Jump()
     {
+        grounded = false;
         jetpack.Launch(jumpVelocity, maxVelocityVector);
         notifiedJump = false;
         OnJump.Invoke();
         KillVelocity();
         powerBarUI.ResetBar();
+        dragging = false;
+        trajectoryPrediction.RemoveIndicators();
         StartCoroutine(RemoveGravityTemporarily());
         rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
     }
