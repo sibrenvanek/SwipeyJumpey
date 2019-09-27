@@ -14,7 +14,7 @@ public abstract class Booster : MonoBehaviour
     [SerializeField] private float force = 2f;
     [SerializeField, Range(-200f,200f)] private int rotationSpeed = 0;
 
-    protected void Awake() 
+    protected virtual void Awake() 
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         collider = GetComponent<Collider2D>();
