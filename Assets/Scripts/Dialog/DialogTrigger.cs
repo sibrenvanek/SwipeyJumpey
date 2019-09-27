@@ -25,8 +25,15 @@ public class DialogTrigger : MonoBehaviour
 
     private bool OtherIsPlayer(Collider2D other)
     {
-        GameObject parent = other.transform.parent.gameObject;
-        return parent != null && parent.CompareTag("Player");
+        if (other.transform.parent != null)
+        {
+            GameObject parent = other.transform.parent.gameObject;
+            return parent != null && parent.CompareTag("Player");
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private void StartConversation()
