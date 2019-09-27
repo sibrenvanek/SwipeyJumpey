@@ -7,7 +7,6 @@ public class Checkpoint : MonoBehaviour
 
     private Animator animator = null;
     private new ParticleSystem particleSystem = null;
-    private PlayerMovement playerMovement = null;
 
     [SerializeField] private Transform checkpointTransform = null;
     public Transform CheckpointTransform { get { return checkpointTransform; } private set { checkpointTransform = value; } }
@@ -39,8 +38,6 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        playerMovement = collider.transform.root.GetComponent<PlayerMovement>();
-
         Check();
     }
 }

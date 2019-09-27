@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3490300300953290797}
   - component: {fileID: 2218770171380052980}
   - component: {fileID: 4147395757531896109}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: VFX_JetpackLaunch
   m_TagString: JetpackLaunch
   m_Icon: {fileID: 0}
