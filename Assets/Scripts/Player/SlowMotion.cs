@@ -1,6 +1,9 @@
+using DG.Tweening;
+using DG.Tweening.Core;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SlowMotion : MonoBehaviour
 {
@@ -12,13 +15,22 @@ public class SlowMotion : MonoBehaviour
     [SerializeField] private float slowMotionDuration = 2f;
     [SerializeField] private float pitchReduction = 0.1f;
     [SerializeField] private float totalPitchReduction = 0.5f;
+    [SerializeField] private GameObject radialFill = null;
+    [SerializeField] private Image fill = null;
     public bool doingSlowmotion { get; private set; } = false;
     private Coroutine curCoroutine = null;
+    public DOSetter<float> FillSetter { get; private set; }
+    public DOGetter<float> FillGetter { get; private set; }
 
     private void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerMovement = GetComponent<PlayerMovement>();
+    }
+
+    private void Start()
+    {
+        SetUpDOGettersAndSetters();
     }
 
     private void FixedUpdate()
@@ -48,6 +60,10 @@ public class SlowMotion : MonoBehaviour
         OnSlowMotionActivated.Invoke();
         playerMovement.RemoveGravity();
 
+        fill.fillAmount = 1f;
+        radialFill.SetActive(true);
+        DOTween.To(FillGetter, FillSetter, 0f, slowMotionDuration);
+
         pitchReduction = totalPitchReduction / slowMotionDuration;
         doingSlowmotion = true;
 
@@ -69,6 +85,7 @@ public class SlowMotion : MonoBehaviour
     {
         if (doingSlowmotion)
         {
+            radialFill.SetActive(false);
             AudioManager.Instance.ResetAudioPitch();
             OnSlowMotionDeActivated.Invoke();
             doingSlowmotion = false;
@@ -77,4 +94,14 @@ public class SlowMotion : MonoBehaviour
         }
     }
 
+    private void SetUpDOGettersAndSetters()
+    {
+        FillGetter = new DOGetter<float>(() => {
+            return fill.fillAmount;
+        });
+
+        FillSetter = new DOSetter<float>((fill) => {
+            this.fill.fillAmount = fill;
+        });
+    }
 }
