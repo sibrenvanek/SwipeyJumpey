@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultFont: {fileID: 11400000, guid: fc5d5d54ed58f3e4e931d81915bd155e, type: 2}
-  dyslecticFont: {fileID: 11400000, guid: c629f1d295e3b4e6da81e0c15e15f5e2, type: 2}
+  dyslexicFont: {fileID: 11400000, guid: c629f1d295e3b4e6da81e0c15e15f5e2, type: 2}

@@ -5,13 +5,13 @@ using TMPro;
 
 public class FontManager : MonoBehaviour
 {
-    private string DYSLECTICPREF = "dyslecticFont";
+    private string DYSLEXICPREF = "dyslecticFont";
 
     [SerializeField] private TMP_FontAsset defaultFont = null;
-    [SerializeField] private TMP_FontAsset dyslecticFont = null;
+    [SerializeField] private TMP_FontAsset dyslexicFont = null;
 
-    private bool dyslecticFontEnabled = false;
-    private bool dyslectifFontSet = false;
+    private bool dyslexicFontEnabled = false;
+    private bool dyslexicfFontSet = false;
 
     private void Start()
     {
@@ -25,47 +25,47 @@ public class FontManager : MonoBehaviour
 
     private void CheckForFontChange()
     {
-        dyslecticFontEnabled = PlayerPrefs.GetInt(DYSLECTICPREF) == 1;
+        dyslexicFontEnabled = PlayerPrefs.GetInt(DYSLEXICPREF) == 1;
 
-        if (dyslecticFontEnabled && !dyslectifFontSet)
-            SetDystlecticFont();
+        if (dyslexicFontEnabled && !dyslexicfFontSet)
+            SetDystlexicFont();
 
-        if (!dyslecticFontEnabled && dyslectifFontSet)
+        if (!dyslexicFontEnabled && dyslexicfFontSet)
             SetDefaultFont();
     }
 
-    private void SetDystlecticFont()
+    private void SetDystlexicFont()
     {
-        SetFont(dyslecticFont);
-        dyslectifFontSet = true;
+        SetFont(dyslexicFont);
+        dyslexicfFontSet = true;
     }
 
     private void SetDefaultFont()
     {
         SetFont(defaultFont);
-        dyslectifFontSet = false;
+        dyslexicfFontSet = false;
     }
 
     private void SetFont(TMP_FontAsset font)
     {
-        var textComponents = Component.FindObjectsOfType<TextMeshProUGUI>();
+        TextMeshProUGUI[] textComponents = FindObjectsOfType<TextMeshProUGUI>();
         foreach (TextMeshProUGUI component in textComponents)
             component.font = font;
     }
 
-    public void ToggleDyslecticFont()
+    public void ToggleDyslexicFont()
     {
-        if (PlayerPrefs.HasKey(DYSLECTICPREF))
+        if (PlayerPrefs.HasKey(DYSLEXICPREF))
         {
-            int value = PlayerPrefs.GetInt(DYSLECTICPREF) == 0 ? 1 : 0;
-            PlayerPrefs.SetInt(DYSLECTICPREF, value);
+            int value = PlayerPrefs.GetInt(DYSLEXICPREF) == 0 ? 1 : 0;
+            PlayerPrefs.SetInt(DYSLEXICPREF, value);
 
-            dyslecticFontEnabled = value == 1;
+            dyslexicFontEnabled = value == 1;
         }
         else
         {
-            PlayerPrefs.SetInt(DYSLECTICPREF, 1);
-            dyslecticFontEnabled = true;
+            PlayerPrefs.SetInt(DYSLEXICPREF, 1);
+            dyslexicFontEnabled = true;
         }
     }
 }
