@@ -36,7 +36,7 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         pauseButton.SetActive(true);
-        pauseUI.SetActive(false);
+        pauseUI.transform.localScale = new Vector3(0, 0, 0);
         playerMovement.Enable();
         Time.timeScale = 1f;
     }
@@ -44,7 +44,7 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         pauseButton.SetActive(false);
-        pauseUI.SetActive(true);
+        pauseUI.transform.localScale = new Vector3(1, 1, 1);
         playerMovement.CancelJump();
         playerMovement.Disable();
         Time.timeScale = 0f;

@@ -14,7 +14,6 @@ public class MainMenu : MonoBehaviour
             playScene = latestLevel.sceneName;
 
             playButton.GetComponentInChildren<TextMeshProUGUI>().text = "Continue";
-            playButton.GetComponentInChildren<RectTransform>().sizeDelta = new Vector2(370, playButton.GetComponentInChildren<RectTransform>().sizeDelta.y);
             GameObject.FindGameObjectWithTag("PlayText").GetComponentInChildren<RectTransform>().sizeDelta = new Vector2(270, GameObject.FindGameObjectWithTag("PlayText").GetComponentInChildren<RectTransform>().sizeDelta.y);
         }
     }
