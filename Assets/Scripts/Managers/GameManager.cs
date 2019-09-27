@@ -68,7 +68,6 @@ public class GameManager : MonoBehaviour
         {
             GameObject canvasObject = Instantiate(CanvasPrefab, Vector3.zero, Quaternion.identity);
             canvas = canvasObject.GetComponent<CanvasManager>();
-            canvasObject.GetComponentInChildren<FuelUI>().SetSlowMotion(player.GetComponent<SlowMotion>());
             UIManager uiManager = GameObject.FindObjectOfType<UIManager>();
             CanvasGroup[] canvasGroups = canvasObject.GetComponentsInChildren<CanvasGroup>();
             CanvasGroup slowMotionGroup;
@@ -199,9 +198,6 @@ public class GameManager : MonoBehaviour
                     dialog.BlockDialog();
             }
             SendPlayerToCheckpoint(checkpoint);
-
-            FuelUI fuelUI = FindObjectOfType<FuelUI>();
-            fuelUI.SetSlowMotion(player.GetComponent<SlowMotion>());
 
             pauseMenu.SetPlayerMovement(player.GetComponent<PlayerMovement>());
             pauseMenu.SetPlayerManager(player);
