@@ -12,7 +12,6 @@ public abstract class Booster : MonoBehaviour
     [Header("Base options")]
     [SerializeField] private Animator animator = null;
     [SerializeField] private float force = 2f;
-    [SerializeField, Range(-200f,200f)] private int rotationSpeed = 0;
 
     protected virtual void Awake() 
     {
@@ -20,17 +19,14 @@ public abstract class Booster : MonoBehaviour
         collider = GetComponent<Collider2D>();
     }
 
-    protected virtual void FixedUpdate()
-    {
-        if (rotationSpeed != 0)
-            transform.Rotate(0, 0, rotationSpeed * Time.fixedDeltaTime);
-    }
-
     protected abstract void Activate(GameObject player);
 
-    protected void Boost(Rigidbody2D rigidbody)
+    protected void Boost(Rigidbody2D rigidbody, Transform root = null)
     {
-        rigidbody.AddForce(transform.up * force, ForceMode2D.Impulse);
+        if(root == null)
+            root = transform;
+            
+        rigidbody.AddForce(root.up * force, ForceMode2D.Impulse);
         //BoostAnimation();
     }
 
