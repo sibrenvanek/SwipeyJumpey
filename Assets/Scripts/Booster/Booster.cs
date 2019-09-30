@@ -32,15 +32,11 @@ public abstract class Booster : MonoBehaviour
 
     protected virtual void Disable()
     {
-        spriteRenderer.DOKill();
-        spriteRenderer.DOFade(0,0);
         collider.enabled = false;
     }
 
     protected virtual void Enable()
     {
-        spriteRenderer.DOKill();
-        spriteRenderer.DOFade(1, 0.1f);
         collider.enabled = true;
     }
 
