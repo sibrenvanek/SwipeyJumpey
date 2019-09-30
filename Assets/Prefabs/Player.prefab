@@ -4728,7 +4728,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1542161439
-  m_SortingLayer: 12
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
@@ -9482,7 +9482,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1542161439
-  m_SortingLayer: 12
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
@@ -14348,7 +14348,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1542161439
-  m_SortingLayer: 12
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
@@ -14468,7 +14468,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 505967787
-  m_SortingLayer: 13
+  m_SortingLayer: 11
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: bb297eefad200d24e86b0767c463fda9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -14509,7 +14509,6 @@ MonoBehaviour:
   speedLimiter: 10
   dashTime: 0.2
   maximumCancelDistance: 0.25
-  powerBarUI: {fileID: 0}
   timeDiff: 1
   trajectoryPrediction: {fileID: -2195771165354065761}
   slowMotion: {fileID: 4857256654572397243}
@@ -14534,6 +14533,8 @@ MonoBehaviour:
   slowMotionDuration: 2
   pitchReduction: 1
   totalPitchReduction: 0.5
+  radialFill: {fileID: 0}
+  fill: {fileID: 0}
 --- !u!50 &7929468682730686913
 Rigidbody2D:
   serializedVersion: 4
@@ -14616,6 +14617,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicatorPrefab: {fileID: 2497441223246862094, guid: b3624a3e7c9e50f468625a830be71147,
+    type: 3}
+  indicatorFillPrefab: {fileID: 8865266787234637510, guid: ad690abf4d5817248a52dd46ded7f21e,
     type: 3}
   mouseIndicatorPrefab: {fileID: 5416527612652756779, guid: 9942cc8f8b7491748a6b1b158a1fe6f9,
     type: 3}
@@ -15003,7 +15006,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 505967787
-  m_SortingLayer: 13
+  m_SortingLayer: 11
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 25eccfd2b1a00e049935c817964b4974, type: 3}
   m_Color: {r: 0.990566, g: 0.990566, b: 0.990566, a: 1}

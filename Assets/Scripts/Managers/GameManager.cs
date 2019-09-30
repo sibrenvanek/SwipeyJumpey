@@ -85,7 +85,6 @@ public class GameManager : MonoBehaviour
             uiManager.SetSlowMotionGroup(slowMotionGroup);
             DialogManager dialogManager = FindObjectOfType<DialogManager>();
             dialogManager.SetButton(dialogGroup.GetComponentInChildren<Button>());
-            playerMovement.SetPowerBarUI(canvasObject.GetComponentInChildren<PowerBarUI>());
             DialogUIManager dialogUIManager = FindObjectOfType<DialogUIManager>();
             dialogUIManager.SetDialogGroup(dialogGroup);
         }

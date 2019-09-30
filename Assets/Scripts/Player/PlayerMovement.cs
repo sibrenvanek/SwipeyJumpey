@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speedLimiter = 20f;
     [SerializeField] private float dashTime = 0.2f;
     [SerializeField] private float maximumCancelDistance = 1f;
-    [SerializeField] PowerBarUI powerBarUI = null;
     [SerializeField] private float timeDiff = 1f;
 
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
@@ -62,9 +61,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         CheckIfCanJump();
-
-        if (dragging && !hopping)
-            powerBarUI.DisplayForce(jumpVelocity, maxVelocityVector);
     }
 
     private void CheckIfCanJump()
@@ -168,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (grounded || slowMotionJumpAvailable)
             {
-                trajectoryPrediction.UpdateTrajectory(Camera.main.ScreenToWorldPoint(baseMousePosition), jumpVelocity, angle, dashTime, maximumCancelDistance);
+                trajectoryPrediction.UpdateTrajectory(Camera.main.ScreenToWorldPoint(baseMousePosition), jumpVelocity, angle, dashTime, maximumCancelDistance, maxVelocityVector);
                 facingLeft = baseMousePosition.x < Input.mousePosition.x;
             }
         }
@@ -216,7 +212,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         trajectoryPrediction.RemoveIndicators();
-        powerBarUI.ResetBar();
 
         if (slowMotionJumpAvailable)
         {
@@ -246,7 +241,6 @@ public class PlayerMovement : MonoBehaviour
             slowMotion.Cancel();
         }
 
-        powerBarUI.ResetBar();
         jetpack.TurnOff();
         dragging = false;
         trajectoryPrediction.RemoveIndicators();
@@ -268,7 +262,6 @@ public class PlayerMovement : MonoBehaviour
         notifiedJump = false;
         OnJump.Invoke();
         KillVelocity();
-        powerBarUI.ResetBar();
         dragging = false;
         trajectoryPrediction.RemoveIndicators();
         StartCoroutine(RemoveGravityTemporarily());
@@ -358,10 +351,5 @@ public class PlayerMovement : MonoBehaviour
             angle += 180;
 
         return angle;
-    }
-
-    public void SetPowerBarUI(PowerBarUI powerBarUI)
-    {
-        this.powerBarUI = powerBarUI;
     }
 }
