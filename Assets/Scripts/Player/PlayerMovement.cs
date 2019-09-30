@@ -303,7 +303,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Fuel"))
+        if (collision.CompareTag("Fuel") && !slowMotionJumpAvailable)
         {
             slowMotionJumpAvailable = true;
             collision.GetComponent<Fuel>().PickUp(rigidbody2d);
