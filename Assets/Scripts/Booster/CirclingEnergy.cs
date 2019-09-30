@@ -27,12 +27,18 @@ public class CirclingEnergy : MonoBehaviour
         {
             spriteRenderer.enabled = true;
             active = true;
+            SetRandomRotation();
             StartCoroutine(Circle());
         }
         else
         {
             Debug.LogWarning("Cannot start circling because animator is null.");
         }
+    }
+
+    public void SetRandomRotation()
+    {
+        transform.eulerAngles = new Vector3(transform.rotation.x, transform.rotation.y, Random.Range(0,359));
     }
 
     private IEnumerator Circle()

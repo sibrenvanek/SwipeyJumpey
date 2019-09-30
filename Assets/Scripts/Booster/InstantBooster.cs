@@ -5,11 +5,14 @@ public class InstantBooster : Booster
 {
     [Header("Instant booster options")]
     [SerializeField] private float respawnTime = 1f;
-    [SerializeField] private CirclingEnergy circlingEnergy = null;
+    [SerializeField] private CirclingEnergy[] circlingEnergies = null;
 
     protected override void Awake() {
         base.Awake();
-        circlingEnergy.StartCircling();
+        foreach (var energy in circlingEnergies)
+        {
+            energy.StartCircling();
+        }
     }
 
     protected override void Activate(GameObject player)
@@ -23,10 +26,19 @@ public class InstantBooster : Booster
 
     private IEnumerator DisableAndRespawn()
     {
-        circlingEnergy.StopCircling();
+        foreach (var energy in circlingEnergies)
+        {
+            energy.StopCircling();
+        }
         Disable();
         yield return new WaitForSeconds(respawnTime);
         Enable();
-        circlingEnergy.StartCircling();
+        
+        foreach (var energy in circlingEnergies)
+        {
+            energy.StartCircling();
+        }
     }
+
+
 }
