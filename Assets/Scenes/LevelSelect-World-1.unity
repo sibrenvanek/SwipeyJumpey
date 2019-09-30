@@ -2046,6 +2046,10 @@ PrefabInstance:
       propertyPath: sceneIndex
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1719493191, guid: 236a2f5c31bed314081b3f30ce2f17dc, type: 3}
+      propertyPath: levelName
+      value: Return Of The Sith
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6248616453700573197, guid: 236a2f5c31bed314081b3f30ce2f17dc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 236a2f5c31bed314081b3f30ce2f17dc, type: 3}
@@ -2324,6 +2328,10 @@ PrefabInstance:
       propertyPath: sceneIndex
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1719493191, guid: 236a2f5c31bed314081b3f30ce2f17dc, type: 3}
+      propertyPath: levelName
+      value: A New Emperor
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 236a2f5c31bed314081b3f30ce2f17dc, type: 3}
 --- !u!4 &1719493189 stripped
@@ -2482,6 +2490,10 @@ PrefabInstance:
     - target: {fileID: 1719493191, guid: 236a2f5c31bed314081b3f30ce2f17dc, type: 3}
       propertyPath: sceneIndex
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719493191, guid: 236a2f5c31bed314081b3f30ce2f17dc, type: 3}
+      propertyPath: levelName
+      value: The Rebellion Strikes Back
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 236a2f5c31bed314081b3f30ce2f17dc, type: 3}

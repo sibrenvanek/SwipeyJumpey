@@ -44,11 +44,13 @@ public class LevelSelecter : MonoBehaviour
 
     private void Slide()
     {
-        int newIndex = 0;
+        int newIndex;
+
         if (releaseMousePosition.x < baseMousePosition.x)
             newIndex = (activePreviewIndex > 0) ? activePreviewIndex - 1 : activePreviewIndex;
         else
             newIndex = (activePreviewIndex < levelPreviews.Length - 1) ? activePreviewIndex + 1 : activePreviewIndex;
+
         SetActiveIndex(newIndex);
     }
 
@@ -57,8 +59,7 @@ public class LevelSelecter : MonoBehaviour
         levelPreviews[activePreviewIndex].SetInActive();
         activePreviewIndex = index;
         levelPreviews[activePreviewIndex].SetActivated();
-        string pathToScene = SceneUtility.GetScenePathByBuildIndex(levelPreviews[activePreviewIndex].GetSceneIndex());
-        levelNameDisplay.text = System.IO.Path.GetFileNameWithoutExtension(pathToScene);
+        levelNameDisplay.text = levelPreviews[activePreviewIndex].GetName();
     }
 
     public void GoTo()
