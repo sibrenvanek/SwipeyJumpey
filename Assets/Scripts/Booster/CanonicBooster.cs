@@ -8,6 +8,14 @@ public class CanonicBooster : Booster
     public bool HoldingPlayer { get { return holdingPlayer; } private set { holdingPlayer = value; } }
     private PlayerMovement playerMovement = null;
     private PlayerManager playerManager = null;
+    private CanonicBoosterAnimation canonicBoosterAnimation = null;
+
+    protected override void Awake() 
+    {
+        base.Awake();
+
+        canonicBoosterAnimation = GetComponent<CanonicBoosterAnimation>();    
+    }
 
     private void Update()
     {
@@ -17,12 +25,13 @@ public class CanonicBooster : Booster
             Boost(playerMovement.GetComponent<Rigidbody2D>(), transform.GetChild(0));
 
             EnablePlayerMovement();
+
+            canonicBoosterAnimation.ToggleCharging();
         }
     }
 
     private void FixedUpdate()
     {
-
         if (holdingPlayer)
         {
             playerMovement.transform.position = Vector2.Lerp(playerMovement.transform.position, transform.position, dragSpeed * Time.fixedDeltaTime);
@@ -40,6 +49,7 @@ public class CanonicBooster : Booster
         DisablePlayerMovement();
 
         holdingPlayer = true;
+        canonicBoosterAnimation.ToggleCharging();
     }
 
     private void DisablePlayerMovement()

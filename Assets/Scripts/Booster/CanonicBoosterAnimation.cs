@@ -8,7 +8,7 @@ public class CanonicBoosterAnimation : MonoBehaviour {
         animator = GetComponent<Animator>();
     }
 
-    private void Update() 
+    public void ToggleCharging()
     {
         animator.SetBool("Charging", canonicBooster.HoldingPlayer);
     }
