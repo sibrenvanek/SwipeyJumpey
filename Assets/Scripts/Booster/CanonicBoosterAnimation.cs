@@ -12,4 +12,9 @@ public class CanonicBoosterAnimation : MonoBehaviour {
     {
         animator.SetBool("Charging", canonicBooster.HoldingPlayer);
     }
+
+    public void Launch()
+    {
+        animator.SetTrigger("Launch");
+    }
 }

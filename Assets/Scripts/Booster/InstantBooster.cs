@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class InstantBooster : Booster
 {
@@ -40,5 +41,17 @@ public class InstantBooster : Booster
         }
     }
 
+    protected override void Enable()
+    {
+        spriteRenderer.DOKill();
+        spriteRenderer.DOFade(1, 0.1f);
+        base.Enable();
+    }
 
+    protected override void Disable()
+    {
+        spriteRenderer.DOKill();
+        spriteRenderer.DOFade(0,0);
+        base.Disable();
+    }
 }
