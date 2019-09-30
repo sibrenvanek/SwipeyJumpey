@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelSelecter : MonoBehaviour
 {
+    [SerializeField] private Text levelNameDisplay = null;
     private LevelPreview[] levelPreviews;
     private int activePreviewIndex = 0;
     private Vector2 baseMousePosition = Vector2.zero;
@@ -13,7 +15,7 @@ public class LevelSelecter : MonoBehaviour
     void Start()
     {
         levelPreviews = GetComponentsInChildren<LevelPreview>();
-        levelPreviews[activePreviewIndex].SetActivated();
+        SetActiveIndex(activePreviewIndex);
     }
 
     private void Update()
@@ -42,14 +44,22 @@ public class LevelSelecter : MonoBehaviour
 
     private void Slide()
     {
-        levelPreviews[activePreviewIndex].SetInActive();
+        int newIndex;
 
         if (releaseMousePosition.x < baseMousePosition.x)
-            activePreviewIndex = (activePreviewIndex > 0) ? activePreviewIndex - 1 : activePreviewIndex;
+            newIndex = (activePreviewIndex > 0) ? activePreviewIndex - 1 : activePreviewIndex;
         else
-            activePreviewIndex = (activePreviewIndex < levelPreviews.Length - 1) ? activePreviewIndex + 1 : activePreviewIndex;
+            newIndex = (activePreviewIndex < levelPreviews.Length - 1) ? activePreviewIndex + 1 : activePreviewIndex;
 
+        SetActiveIndex(newIndex);
+    }
+
+    private void SetActiveIndex (int index)
+    {
+        levelPreviews[activePreviewIndex].SetInActive();
+        activePreviewIndex = index;
         levelPreviews[activePreviewIndex].SetActivated();
+        levelNameDisplay.text = levelPreviews[activePreviewIndex].GetName();
     }
 
     public void GoTo()
@@ -64,16 +74,14 @@ public class LevelSelecter : MonoBehaviour
 
     public void Left()
     {
-        levelPreviews[activePreviewIndex].SetInActive();
-        activePreviewIndex = (activePreviewIndex > 0) ? activePreviewIndex - 1 : activePreviewIndex;
-        levelPreviews[activePreviewIndex].SetActivated();
+        int newIndex = (activePreviewIndex > 0) ? activePreviewIndex - 1 : activePreviewIndex;
+        SetActiveIndex(newIndex);
     }
 
     public void Right()
     {
-        levelPreviews[activePreviewIndex].SetInActive();
-        activePreviewIndex = (activePreviewIndex < levelPreviews.Length - 1) ? activePreviewIndex + 1 : activePreviewIndex;
-        levelPreviews[activePreviewIndex].SetActivated();
+        int newIndex = (activePreviewIndex < levelPreviews.Length - 1) ? activePreviewIndex + 1 : activePreviewIndex;
+        SetActiveIndex(newIndex);
     }
 
     public void SetActiveIndexByScene(int sceneIndex)
@@ -82,9 +90,7 @@ public class LevelSelecter : MonoBehaviour
         {
             if (levelPreviews[i].GetSceneIndex() == sceneIndex)
             {
-                levelPreviews[activePreviewIndex].SetInActive();
-                activePreviewIndex = i;
-                levelPreviews[activePreviewIndex].SetActivated();
+                SetActiveIndex(i);
             }
         }
     }

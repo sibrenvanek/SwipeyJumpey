@@ -5,6 +5,7 @@ public class LevelPreview : MonoBehaviour
 {
     [SerializeField] private int sceneIndex = 0;
     [SerializeField] private Vector2 activeSize = Vector2.one, inactiveSize = Vector2.one;
+    [SerializeField] private string levelName = "";
     private SpriteRenderer spriteRenderer = null;
     private bool active = false;
     private LevelSelecter levelSelecter = null;
@@ -24,6 +25,11 @@ public class LevelPreview : MonoBehaviour
     public int GetSceneIndex()
     {
         return sceneIndex;
+    }
+
+    public string GetName()
+    {
+        return levelName;
     }
 
     public void SetSprite(Sprite sprite)
