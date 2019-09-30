@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -47,6 +48,21 @@ public class ProgressionManager : MonoBehaviour
     public void IncreaseAmountOfCheckpointsActivated()
     {
         progression.IncreaseAmountCheckpointsActivated(SceneManager.GetActiveScene().name);
+    }
+
+    public void IncreaseAmountOfMainCollectables(MainCollectable collectable)
+    {
+        progression.IncreaseAmountOfMainCollectables(SceneManager.GetActiveScene().name, collectable);
+    }
+
+    public List<MainCollectable> GetMainCollectables()
+    {
+        return progression.GetMainCollectables(SceneManager.GetActiveScene().name);
+    }
+
+    public void IncreaseAmountOfSideCollectables()
+    {
+        progression.IncreaseAmountOfSideCollectables(SceneManager.GetActiveScene().name);
     }
 
     public void SetLastActivatedCheckpoint(Checkpoint checkpoint)
