@@ -41,10 +41,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4037816051623723420}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6407b70c25dddf34f80b5dc5172a0172, type: 3}
+  m_Script: {fileID: 11500000, guid: f8b2c6ad553f45b419a97a134c1155b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   indicatorSprite: {fileID: 6462507836883670858}
+  green: {r: 0.3882353, g: 0.78039217, b: 0.3019608, a: 0.78431374}
+  orange: {r: 0.96862745, g: 0.4627451, b: 0.13333334, a: 0.78431374}
+  red: {r: 0.89411765, g: 0.23137255, b: 0.26666668, a: 0.78431374}
+  maxDistance: 2
 --- !u!1 &6462507836883670857
 GameObject:
   m_ObjectHideFlags: 0
