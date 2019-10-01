@@ -1,24 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MainCollectable : Collectable
 {
     [SerializeField] private int id = 0;
     private bool hasBeenCollectedBefore = false;
-
-    public override void Start()
-    {
-        List<MinifiedMainCollectable> mainCollectables = ProgressionManager.Instance.GetMainCollectables();
-        foreach (MinifiedMainCollectable collectable in mainCollectables)
-        {
-            if (collectable.id == this.id)
-            {
-                hasBeenCollectedBefore = true;
-                gameObject.SetActive(false);
-            }
-        }
-    }
 
     public override void Collect()
     {
@@ -29,7 +17,7 @@ public class MainCollectable : Collectable
         gameObject.SetActive(false);
     }
 
-    private MinifiedMainCollectable ConvertToMainCollectable()
+    public MinifiedMainCollectable ConvertToMainCollectable()
     {
         return new MinifiedMainCollectable
         {
@@ -37,5 +25,11 @@ public class MainCollectable : Collectable
                 name = this.name,
                 position = this.transform.position
         };
+    }
+
+    public override void TurnOff()
+    {
+        hasBeenCollectedBefore = true;
+        gameObject.SetActive(false);
     }
 }

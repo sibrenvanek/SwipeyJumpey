@@ -22,4 +22,9 @@ public abstract class Collectable : MonoBehaviour
             Collect();
         }
     }
+
+    public virtual void TurnOff()
+    {
+        gameObject.SetActive(false);
+    }
 }

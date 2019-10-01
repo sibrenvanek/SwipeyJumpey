@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WorldManager : MonoBehaviour
@@ -6,8 +7,22 @@ public class WorldManager : MonoBehaviour
     [SerializeField] private Checkpoint initialCheckpoint = null;
     [SerializeField] private Checkpoint currentRoomCheckpoint = null;
     [SerializeField] private string worldName = null;
-    public event Action<Room> OnCurrentRoomChanged = delegate { };
+    public event Action<Room> OnCurrentRoomChanged = delegate {};
     private Room curRoom = null;
+    private List<MainCollectable> mainCollectables = new List<MainCollectable>();
+
+    void Start()
+    {
+        mainCollectables = new List<MainCollectable>(FindObjectsOfType<MainCollectable>());
+        List<MinifiedMainCollectable> collectables = ProgressionManager.Instance.GetMainCollectables();
+        foreach (MainCollectable mainCollectable in mainCollectables)
+        {
+            if (collectables.Contains(mainCollectable.ConvertToMainCollectable()))
+            {
+                mainCollectable.TurnOff();
+            }
+        }
+    }
 
     public void SetCurrentRoom(Room roomInfo)
     {
@@ -37,8 +52,9 @@ public class WorldManager : MonoBehaviour
     {
         return initialCheckpoint;
     }
-    
-    public string GetWorldName(){
+
+    public string GetWorldName()
+    {
         return worldName;
     }
 }
