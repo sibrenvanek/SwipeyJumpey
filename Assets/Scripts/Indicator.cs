@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class Indicator : MonoBehaviour
+public abstract class Indicator : MonoBehaviour
 {
-    [SerializeField] private Transform indicatorSprite = null;
+    [SerializeField] internal Transform indicatorSprite = null;
 
     public void OnDestroy()
     {
         Destroy(indicatorSprite.gameObject);
     }
 
-    public void SetDistance(float distance)
+    public virtual void SetDistance(float distance)
     {
         indicatorSprite.localPosition = new Vector3(distance, 0, 0);
     }
