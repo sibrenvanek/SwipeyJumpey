@@ -5,31 +5,37 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 58c79f7326864e14281ebaa75ae4acec
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/WorldSelectScene.unity
     guid: c450eed6db88a25418f5ee86b0288b1e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Intro.unity
     guid: 62d60e9bf95dc6c4eb55ea1d00985965
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LevelSelect-World-1.unity
     guid: a7b6373f289d71544b91545c99dcc5d2
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Old Levels/Old-World-1-Level-1.unity
     guid: fc95502af9a1f4f8fa5ec66c915f9022
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Old Levels/Old-World-1-Level-2.unity
     guid: e4299115b31524593932ca79bce72a43
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Old Levels/Old-World-1-Level-3.unity
     guid: 12e543172b00144529dce5606eef4dd8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ThankYouForPlaying.unity
     guid: 03986ea5e97b347c0a2aa2985955a3da
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SettingsScene.unity
     guid: 3b1b2d478949ae849810db596c005427
+  - enabled: 1
+    path: Assets/Scenes/World-1-Level-6.unity
+    guid: 84ea89195db5345489c16a0caf016b9a
+  - enabled: 0
+    path: Assets/Scenes/World-1-Level-4.unity
+    guid: 85472b1e3df9f4fc9bdc101c860f01c6
   m_configObjects: {}
