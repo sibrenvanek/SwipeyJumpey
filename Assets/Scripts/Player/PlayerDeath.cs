@@ -37,16 +37,14 @@ public class PlayerDeath : MonoBehaviour
     
     private IEnumerator WaitAndRespawn(float waitTime = 0f, float time = 1f)
     {
-        DarthFader fader = FindObjectOfType<DarthFader>();
-
-        fader.FadeGameOut(time);
+        DarthFader.Instance.FadeGameOut(time);
 
         yield return new WaitForSeconds(waitTime);
 
         GameManager.Instance.SendPlayerToLastCheckpoint();
         playerMovement.RestoreGravity();
         playerMovement.Enable();
-        fader.FadeGameInInSeconds(.5f, time);
+        DarthFader.Instance.FadeGameInInSeconds(.5f, time);
     }
 
 }
