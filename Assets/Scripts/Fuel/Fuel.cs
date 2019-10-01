@@ -3,15 +3,13 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 
-public class Fuel : MonoBehaviour
+public abstract class Fuel : MonoBehaviour
 {
     public event Action OnPickUp = delegate { };
 
     [SerializeField] private float freezeTime = 0.2f;
     [SerializeField] private float respawnTime = 2f;
     [SerializeField] private float fadeInTime = .5f;
-    [SerializeField] private float forceBoost = 2f;
-    [SerializeField] private Vector2 velocityLoss = new Vector2(2f,2f);
     [SerializeField] private Animator pickUpAnimator = null;
     private new Collider2D collider = null;
     private SpriteRenderer spriteRenderer = null;
@@ -53,9 +51,5 @@ public class Fuel : MonoBehaviour
         spriteRenderer.DOFade(1, fadeInTime);
     }
 
-    private void AddForceBoost(Rigidbody2D rigidbody)
-    {
-        rigidbody.velocity = new Vector2(rigidbody.velocity.x / velocityLoss.x, rigidbody.velocity.y / velocityLoss.y);
-        rigidbody.AddForce(Vector2.up * forceBoost, ForceMode2D.Impulse);
-    }
+    public virtual void AddForceBoost(Rigidbody2D rigidbody) {}
 }
