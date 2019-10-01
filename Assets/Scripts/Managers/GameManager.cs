@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject ProgressionManagerPrefab = null;
     [SerializeField] private GameObject FreezeManagerPrefab = null;
     [SerializeField] private GameObject AudioManagerPrefab = null;
+    [SerializeField] private GameObject LevelManagerPrefab = null;
 
     private void Awake()
     {
@@ -47,6 +48,11 @@ public class GameManager : MonoBehaviour
         if (FreezeManager.Instance == null)
         {
             Instantiate(FreezeManagerPrefab, Vector3.zero, Quaternion.identity);
+        }
+
+        if (LevelManager.Instance == null)
+        {
+            Instantiate(LevelManagerPrefab, Vector3.zero, Quaternion.identity);
         }
 
         if (player == null)
@@ -122,21 +128,6 @@ public class GameManager : MonoBehaviour
     public void ResetWorld()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void LoadNextLevel()
-    {
-        int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        ProgressionManager.Instance.HandleProgression();
-
-        FindObjectOfType<DarthFader>().FadeGameOut(timeBeforeLoadingScene);
-        StartCoroutine(LoadLevelAfterSeconds(levelIndex, timeBeforeLoadingScene));
-    }
-
-    private IEnumerator LoadLevelAfterSeconds(int levelIndex, float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        SceneManager.LoadScene(levelIndex);
     }
 
     public void DisableUI()

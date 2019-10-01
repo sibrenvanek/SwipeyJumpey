@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
     private bool gravityOff = false;
     private SpriteRenderer jetpackSpriteRenderer = null;
     private bool hopping = false;
-    private bool hopAvailable = false;
 
     void Start()
     {

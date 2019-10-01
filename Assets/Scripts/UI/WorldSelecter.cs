@@ -16,7 +16,6 @@ public class WorldSelecter : MonoBehaviour
     public event Action<WorldPreview> OnWorldChanged = delegate {};
     private int activeWorldIndex = 0;
 
-    private bool dragging = false;
     private Vector2 baseMousePosition = Vector2.zero;
     private Vector2 releaseMousePosition = Vector2.zero;
 
