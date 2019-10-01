@@ -1,12 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 public class DarthFader : MonoBehaviour
 {
     private Image image = null;
+    public event Action OnFaded = delegate { };
+    private Coroutine activeWaitTillFadedCoroutine = null;
 
     private void Awake() {
         image = GetComponent<Image>();
@@ -14,8 +16,12 @@ public class DarthFader : MonoBehaviour
 
     public void FadeGameIn(float time = 1f)
     {
+        if (activeWaitTillFadedCoroutine != null)
+            StopCoroutine(activeWaitTillFadedCoroutine);
+
         image.DOKill();
         image.DOFade(0, time);
+        activeWaitTillFadedCoroutine = StartCoroutine(WaitTillFaded(time));
     }
 
     public void FadeGameInInSeconds(float waitTime = 0f, float time = 1f)
@@ -35,8 +41,12 @@ public class DarthFader : MonoBehaviour
         image.DOFade(1, time);
     }
 
-
-
+    private IEnumerator WaitTillFaded(float waitTime = 0f)
+    {
+        yield return new WaitForSeconds(waitTime);
+        activeWaitTillFadedCoroutine = null;
+        OnFaded();
+    }
 
     /*
     |:::::::::::::;;::::::::::::::::::|
