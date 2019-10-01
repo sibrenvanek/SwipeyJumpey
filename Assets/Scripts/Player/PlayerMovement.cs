@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         if (jetpackPickup)
         {
             jetpackPickup.OnJetpackPickup += OnJetpackPickup;
-            jumpDisabled = true;
+            DisableJump();
         }
     }
 
@@ -114,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
                 dragging = true;
             }
 
-            if ((grounded || slowMotionJumpAvailable) && !jetpack.EngineCharging)
+            if ((grounded || slowMotionJumpAvailable) && !jetpack.EngineCharging && jetpack.enabled)
             {
                 jetpack.Charge();
             }
@@ -254,7 +254,8 @@ public class PlayerMovement : MonoBehaviour
             slowMotion.Cancel();
         }
 
-        jetpack.TurnOff();
+        if (jetpack.enabled)
+            jetpack.TurnOff();
         dragging = false;
         trajectoryPrediction.RemoveIndicators();
     }
@@ -271,7 +272,8 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         grounded = false;
-        jetpack.Launch(jumpVelocity, maxVelocityVector);
+        if (jetpack.enabled)
+            jetpack.Launch(jumpVelocity, maxVelocityVector);
         notifiedJump = false;
         OnJump.Invoke();
         KillVelocity();
@@ -288,7 +290,9 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashTime * timeDiff);
         timeDiff = 1f;
         gravityTemporarilyOff = false;
+
         jetpack.TurnOff();
+
         if (!gravityOff)
             rigidbody2d.gravityScale = defaultGravityScale;
     }
@@ -366,8 +370,15 @@ public class PlayerMovement : MonoBehaviour
         return angle;
     }
 
+    public void DisableJump()
+    {
+        jumpDisabled = true;
+        jetpack.gameObject.SetActive(false);
+    }
+
     public void OnJetpackPickup()
     {
         jumpDisabled = false;
+        jetpack.gameObject.SetActive(true);
     }
 }
