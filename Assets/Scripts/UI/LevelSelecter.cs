@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using TMPro;
 
 public class LevelSelecter : MonoBehaviour
 {
-    [SerializeField] private Text levelNameDisplay = null;
+    [SerializeField] private TextMeshProUGUI levelNameDisplay = null;
     private LevelPreview[] levelPreviews;
     private int activePreviewIndex = 0;
     private Vector2 baseMousePosition = Vector2.zero;
