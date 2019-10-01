@@ -59,4 +59,5 @@ MonoBehaviour:
     type: 3}
   AudioManagerPrefab: {fileID: 8247206127766019628, guid: 124fc5846d5a2f74aa1a03434587bf63,
     type: 3}
-  UseProgression: 1
+  LevelManagerPrefab: {fileID: 3168220543228124179, guid: 874cf7c807312a944a183ea19d216778,
+    type: 3}

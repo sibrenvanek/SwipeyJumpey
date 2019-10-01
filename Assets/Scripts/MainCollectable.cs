@@ -27,9 +27,21 @@ public class MainCollectable : Collectable
         };
     }
 
+    public void SetCollected()
+    {
+        hasBeenCollectedBefore = true;
+        var renderer = this.GetComponent<SpriteRenderer>();
+        renderer.color = new Color(1, 1, 1, 0.2f);
+    }
+
     public override void TurnOff()
     {
         hasBeenCollectedBefore = true;
         gameObject.SetActive(false);
+    }
+
+    public int GetId()
+    {
+        return id;
     }
 }
