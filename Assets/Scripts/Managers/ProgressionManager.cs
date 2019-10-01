@@ -50,12 +50,12 @@ public class ProgressionManager : MonoBehaviour
         progression.IncreaseAmountCheckpointsActivated(SceneManager.GetActiveScene().name);
     }
 
-    public void IncreaseAmountOfMainCollectables(MainCollectable collectable)
+    public void IncreaseAmountOfMainCollectables(MinifiedMainCollectable collectable)
     {
         progression.IncreaseAmountOfMainCollectables(SceneManager.GetActiveScene().name, collectable);
     }
 
-    public List<MainCollectable> GetMainCollectables()
+    public List<MinifiedMainCollectable> GetMainCollectables()
     {
         return progression.GetMainCollectables(SceneManager.GetActiveScene().name);
     }

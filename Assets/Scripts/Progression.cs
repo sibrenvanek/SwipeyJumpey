@@ -39,7 +39,7 @@ public class Progression
         GetLevel(sceneName).amountOfDeaths++;
     }
 
-    public void IncreaseAmountOfMainCollectables(string sceneName, MainCollectable collectable)
+    public void IncreaseAmountOfMainCollectables(string sceneName, MinifiedMainCollectable collectable)
     {
         Level level = GetLevel(sceneName);
         level.amountOfMainCollectables++;
@@ -134,7 +134,7 @@ public class Progression
         return null;
     }
 
-    public List<MainCollectable> GetMainCollectables(string sceneName)
+    public List<MinifiedMainCollectable> GetMainCollectables(string sceneName)
     {
         return GetLevel(sceneName).mainCollectables;
     }

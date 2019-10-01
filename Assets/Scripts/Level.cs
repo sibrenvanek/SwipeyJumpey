@@ -9,7 +9,7 @@ public class Level
     public int amountOfJumps = 0;
     public int amountOfDeaths = 0;
     public int amountOfMainCollectables = 0;
-    public List<MainCollectable> mainCollectables = new List<MainCollectable>();
+    public List<MinifiedMainCollectable> mainCollectables = new List<MinifiedMainCollectable>();
     public int amountOfSideCollectables = 0;
     public int amountOfFuelsGrabbed = 0;
     public int amountOfCheckpointsActivated = 0;
@@ -27,8 +27,9 @@ public class MinifiedCheckpoint
     }
 }
 
-public class MainCollectable
+public class MinifiedMainCollectable
 {
+    public int id;
     public string name;
     public Vector3 position;
 }

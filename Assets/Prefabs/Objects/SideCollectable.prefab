@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6106579706142641183}
   - component: {fileID: 3803448266884968459}
   m_Layer: 0
-  m_Name: collectable
+  m_Name: SideCollectable
   m_TagString: Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,10 +92,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8012346265923536184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4d569f9fa718244f9165982f6fe91ef, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f8d87379a8e1e044ad54817ab20752f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMainCollectable: 0
 --- !u!58 &6106579706142641183
 CircleCollider2D:
   m_ObjectHideFlags: 0
