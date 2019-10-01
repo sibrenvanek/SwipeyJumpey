@@ -7,6 +7,6 @@ public class Finish : MonoBehaviour
         WorldManager worldManager = FindObjectOfType<WorldManager>();
         GetComponentInChildren<ParticleSystem>().Play();
         ProgressionManager.Instance.SetLastActivatedCheckpoint(worldManager.GetInitialCheckpoint());
-        GameManager.Instance.LoadNextLevel();
+        LevelManager.Instance.LoadNextLevel();
     }
 }

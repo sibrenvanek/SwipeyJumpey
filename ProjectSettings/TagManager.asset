@@ -20,6 +20,7 @@ TagManager:
   - FillArea
   - PlayText
   - JetpackLaunch
+  - Collectable
   layers:
   - Default
   - TransparentFX

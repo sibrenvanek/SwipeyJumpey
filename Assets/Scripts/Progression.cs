@@ -39,9 +39,16 @@ public class Progression
         GetLevel(sceneName).amountOfDeaths++;
     }
 
-    public void IncreaseAmountOfCollectables(string sceneName)
+    public void IncreaseAmountOfMainCollectables(string sceneName, MinifiedMainCollectable collectable)
     {
-        GetLevel(sceneName).amountOfCollectables++;
+        Level level = GetLevel(sceneName);
+        level.amountOfMainCollectables++;
+        level.mainCollectables.Add(collectable);
+    }
+
+    public void IncreaseAmountOfSideCollectables(string sceneName)
+    {
+        GetLevel(sceneName).amountOfSideCollectables++;
     }
 
     public void IncreaseAmountOfFuelsGrabbed(string sceneName)
@@ -125,6 +132,11 @@ public class Progression
             }
         }
         return null;
+    }
+
+    public List<MinifiedMainCollectable> GetMainCollectables(string sceneName)
+    {
+        return GetLevel(sceneName).mainCollectables;
     }
 
     public void ResetLevels()

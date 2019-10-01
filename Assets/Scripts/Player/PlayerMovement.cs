@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
     private bool gravityOff = false;
     private SpriteRenderer jetpackSpriteRenderer = null;
     private bool hopping = false;
-    private bool hopAvailable = false;
     private bool jumpDisabled = false;
 
     void Start()
@@ -316,7 +315,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Fuel"))
+        if (collision.CompareTag("Fuel") && !slowMotionJumpAvailable)
         {
             slowMotionJumpAvailable = true;
             collision.GetComponent<Fuel>().PickUp(rigidbody2d);
