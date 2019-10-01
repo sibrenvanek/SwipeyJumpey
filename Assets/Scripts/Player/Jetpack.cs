@@ -42,17 +42,26 @@ public class Jetpack : MonoBehaviour
 
     private void Start()
     {
-        if (testEngines)
+        if (!isActiveAndEnabled)
+            return;
+
+        if (testEngines && isActiveAndEnabled)
             StartCoroutine(TestEngines());
     }
 
     public void Explode()
     {
+        if (!isActiveAndEnabled)
+            return;
+
         animator.SetTrigger("Explode");
     }
 
     public void Charge()
     {
+        if (!isActiveAndEnabled)
+            return;
+
         EngineCharging = true;
         TurnOnJets();
         foreach (var jet in jets)
@@ -63,6 +72,9 @@ public class Jetpack : MonoBehaviour
 
     public void Launch()
     {
+        if (!isActiveAndEnabled)
+            return;
+
         EngineCharging = false;
         foreach (var jet in jets)
         {
@@ -73,6 +85,9 @@ public class Jetpack : MonoBehaviour
 
     public void Launch(Vector2 velocity, Vector2 maximumForce)
     {
+        if (!isActiveAndEnabled)
+            return;
+
         float addition = (maximumAdditionToSize / maximumForce.magnitude) * velocity.magnitude;
 
         EngineCharging = false;
@@ -85,6 +100,9 @@ public class Jetpack : MonoBehaviour
 
     public void TurnOff()
     {
+        if (!isActiveAndEnabled)
+            return;
+
         trailParticleSystem.Stop();
 
         foreach (var jet in jets)
@@ -98,6 +116,9 @@ public class Jetpack : MonoBehaviour
 
     private void TurnOnJets()
     {
+        if (!isActiveAndEnabled)
+            return;
+
         foreach (var jet in jets)
         {
             jet.StartEngine();
@@ -107,6 +128,9 @@ public class Jetpack : MonoBehaviour
 
     private void ActivateLaunchEffects()
     {
+        if (!isActiveAndEnabled)
+            return;
+
         if (launchInstance == null)
         {
             launchInstance = Instantiate(vfxLaunchPrefab, launchPos.position, Quaternion.identity);
@@ -125,6 +149,9 @@ public class Jetpack : MonoBehaviour
 
     private IEnumerator TestEngines(bool charge = false)
     {
+        if (isActiveAndEnabled)
+            yield break;
+
         if (charge)
         {
             Charge();
