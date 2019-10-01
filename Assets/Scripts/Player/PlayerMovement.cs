@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer jetpackSpriteRenderer = null;
     private bool hopping = false;
     private bool hopAvailable = false;
+    private bool jumpDisabled = false;
 
     void Start()
     {
@@ -45,6 +46,12 @@ public class PlayerMovement : MonoBehaviour
         jetpack = GetComponentInChildren<Jetpack>();
         jetpackSpriteRenderer = jetpack.GetComponent<SpriteRenderer>();
         defaultGravityScale = rigidbody2d.gravityScale;
+        JetpackPickup jetpackPickup = FindObjectOfType<JetpackPickup>();
+        if (jetpackPickup)
+        {
+            jetpackPickup.OnJetpackPickup += OnJetpackPickup;
+            jumpDisabled = true;
+        }
     }
 
     void Update()
@@ -124,6 +131,9 @@ public class PlayerMovement : MonoBehaviour
                 hopping = false;
             }
 
+            if (jumpDisabled)
+                return;
+
             if (!slowMotionActivated && !grounded && slowMotionJumpAvailable)
             {
                 slowMotion.Go();
@@ -191,6 +201,9 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButton(0) || !dragging)
             return;
 
+        slowMotionActivated = false;
+        dragging = false;
+
         Vector3 firstMousePoint = Camera.main.ScreenToWorldPoint(baseMousePosition);
         firstMousePoint.z = transform.position.z;
         Vector3 lastMousePoint = Camera.main.ScreenToWorldPoint(lastMousePosition);
@@ -211,6 +224,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if (jumpDisabled)
+            return;
+
         trajectoryPrediction.RemoveIndicators();
 
         if (slowMotionJumpAvailable)
@@ -223,9 +239,6 @@ public class PlayerMovement : MonoBehaviour
         {
             Jump();
         }
-
-        slowMotionActivated = false;
-        dragging = false;
     }
 
     public void SetSlowMotionJumpAvailable(bool slowMotionJumpAvailable)
@@ -351,5 +364,10 @@ public class PlayerMovement : MonoBehaviour
             angle += 180;
 
         return angle;
+    }
+
+    public void OnJetpackPickup()
+    {
+        jumpDisabled = false;
     }
 }
