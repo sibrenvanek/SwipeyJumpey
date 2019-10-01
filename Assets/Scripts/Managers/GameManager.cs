@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PauseMenu pauseMenu = null;
     [SerializeField] private float respawnYOffset = 0.2f;
     public Checkpoint LastCheckpoint { get { return lastCheckpoint; } }
-    [SerializeField] private float timeBeforeLoadingScene = 1f;
     private Coroutine displayLoadingScreen;
     private PlayerMovement playerMovement = null;
     [SerializeField] private GameObject PlayerPrefab = null;
@@ -127,7 +126,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetWorld()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        LevelManager.Instance.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void DisableUI()
@@ -141,7 +140,6 @@ public class GameManager : MonoBehaviour
         WorldManager worldManager = FindObjectOfType<WorldManager>();
         if (worldManager != null)
         {
-            FindObjectOfType<DarthFader>().FadeGameIn(timeBeforeLoadingScene);
             canvas.EnableCanvas();
             pauseMenu.EnablePauseMenu();
 

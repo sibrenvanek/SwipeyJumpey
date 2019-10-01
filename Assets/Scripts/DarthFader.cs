@@ -6,12 +6,25 @@ using System;
 
 public class DarthFader : MonoBehaviour
 {
+    public static DarthFader Instance = null;
+
     private Image image = null;
-    public event Action OnFaded = delegate { };
     private Coroutine activeWaitTillFadedCoroutine = null;
 
-    private void Awake() {
-        image = GetComponent<Image>();
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        image = GetComponentInChildren<Image>();
     }
 
     public void FadeGameIn(float time = 1f)
@@ -45,7 +58,6 @@ public class DarthFader : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         activeWaitTillFadedCoroutine = null;
-        OnFaded();
     }
 
     /*
