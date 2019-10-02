@@ -25,7 +25,6 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        DarthFader.Instance.gameObject.SetActive(false);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -40,14 +39,12 @@ public class LevelManager : MonoBehaviour
 
     public void LoadScene(int levelIndex)
     {
-        DarthFader.Instance.gameObject.SetActive(true);
         DarthFader.Instance.FadeGameOut(fadeTime);
         StartCoroutine(LoadLevelAfterSeconds(levelIndex, fadeTime));
     }
 
     public void LoadNextScene()
     {
-        DarthFader.Instance.gameObject.SetActive(true);
         int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
 
         DarthFader.Instance.FadeGameOut(fadeTime);

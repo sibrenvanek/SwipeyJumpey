@@ -60,5 +60,5 @@ MonoBehaviour:
     type: 3}
   LevelManagerPrefab: {fileID: 3168220543228124179, guid: 874cf7c807312a944a183ea19d216778,
     type: 3}
-  DarthFaderPrefab: {fileID: 1891229103067293447, guid: 53a4ab15973af91478b66c502f81b634,
+  DarthFaderPrefab: {fileID: 7938555358014253889, guid: 880f60637ded21a4287bd5a77bc16533,
     type: 3}
