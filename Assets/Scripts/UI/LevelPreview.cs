@@ -51,9 +51,7 @@ public class LevelPreview : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (active)
-            SceneManager.LoadScene(sceneIndex);
-        else
+        if (!active)
             levelSelecter.SetActiveIndexByScene(sceneIndex);
     }
 }
