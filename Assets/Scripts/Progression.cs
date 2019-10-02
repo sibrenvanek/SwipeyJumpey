@@ -22,10 +22,9 @@ public class Progression
     {
         if (ProgressionManager.CheckAndForcePermission(Permission.ExternalStorageRead))
         {
-            string data;
             if (System.IO.File.Exists(path))
             {
-                data = File.ReadAllText(path);
+                string data = File.ReadAllText(path);
                 Progression progression = JsonConvert.DeserializeObject<Progression>(data);
                 return progression;
             }
