@@ -59,7 +59,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &7938555358014253900
 MonoBehaviour:
@@ -123,11 +123,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fader
-      objectReference: {fileID: 0}
-    - target: {fileID: 1891229103067293447, guid: 53a4ab15973af91478b66c502f81b634,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5540990363866218921, guid: 53a4ab15973af91478b66c502f81b634,
         type: 3}
@@ -254,8 +249,12 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7763391424317661307, guid: 53a4ab15973af91478b66c502f81b634, type: 3}
+    - target: {fileID: 3243541899428524538, guid: 53a4ab15973af91478b66c502f81b634,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53a4ab15973af91478b66c502f81b634, type: 3}
 --- !u!224 &2508196481600295218 stripped
 RectTransform:
