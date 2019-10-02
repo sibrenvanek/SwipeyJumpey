@@ -13,13 +13,16 @@ public class DarthFader : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("WOW");
         if (Instance == null)
         {
+            Debug.Log("AYAYA");
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
         {
+            Debug.Log("HEY");
             Destroy(gameObject);
             return;
         }
