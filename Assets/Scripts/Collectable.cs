@@ -4,15 +4,10 @@ using UnityEngine;
 
 public abstract class Collectable : MonoBehaviour
 {
-
-    public virtual void Start()
-    {
-
-    }
-
     public virtual void Collect()
     {
         ProgressionManager.Instance.IncreaseAmountOfSideCollectables();
+        TurnOff();
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
