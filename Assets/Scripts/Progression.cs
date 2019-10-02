@@ -23,11 +23,11 @@ public class Progression
         if (ProgressionManager.CheckAndForcePermission(Permission.ExternalStorageRead))
         {
             string data;
-            try
+            if (System.IO.File.Exists(path))
             {
                 data = File.ReadAllText(path);
             }
-            catch
+            else
             {
                 return new Progression();
             }
