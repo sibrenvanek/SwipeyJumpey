@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        Application.targetFrameRate = 60;
+
         Input.multiTouchEnabled = false;
 
         if (ProgressionManager.Instance == null)
