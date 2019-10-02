@@ -7,6 +7,7 @@ public class InstantBooster : Booster
     [Header("Instant booster options")]
     [SerializeField] private float respawnTime = 1f;
     [SerializeField] private CirclingEnergy[] circlingEnergies = null;
+    [SerializeField] private Animator launchAnimator = null;
 
     protected override void Awake() {
         base.Awake();
@@ -20,7 +21,7 @@ public class InstantBooster : Booster
     {
         PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
         playerMovement.KillVelocity();
-        
+        launchAnimator.SetTrigger("Launch");
         Boost(player.GetComponent<Rigidbody2D>());
         StartCoroutine(DisableAndRespawn());
     }
@@ -31,6 +32,7 @@ public class InstantBooster : Booster
         {
             energy.StopCircling();
         }
+        
         Disable();
         yield return new WaitForSeconds(respawnTime);
         Enable();
