@@ -154,14 +154,15 @@ public class GameManager : MonoBehaviour
             ProgressionManager.Instance.AddLevel(new Level
             {
                 completed = false,
-                    worldName = worldManager.GetWorldName(),
-                    sceneName = scene.name,
-                    buildIndex = scene.buildIndex,
-                    latestCheckpoint = new MinifiedCheckpoint
-                    {
-                        name = worldManager.GetInitialCheckpoint().name,
-                            position = worldManager.GetInitialCheckpoint().transform.position
-                    }
+                worldName = worldManager.GetWorldName(),
+                sceneName = scene.name,
+                buildIndex = scene.buildIndex,
+                latestCheckpoint = new MinifiedCheckpoint
+                {
+                    id = worldManager.GetInitialCheckpoint().GetId(),
+                    name = worldManager.GetInitialCheckpoint().name,
+                    position = worldManager.GetInitialCheckpoint().transform.position
+                }
             });
             ProgressionManager.Instance.SaveProgression();
             CinemachineVirtualCamera Vcam = FindObjectOfType<CinemachineVirtualCamera>();
