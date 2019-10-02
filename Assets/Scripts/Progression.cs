@@ -175,7 +175,7 @@ public class Progression
 
     public bool CheckIfLevelExists(int sceneIndex)
     {
-        Level level = unlockedLevels.Find(level => level.buildIndex == sceneIndex);
+        Level level = unlockedLevels.Find(unlockedLevel => unlockedLevel.buildIndex == sceneIndex);
         if (level != null)
             return true;
         return false;
