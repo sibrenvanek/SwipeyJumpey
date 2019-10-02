@@ -70,7 +70,7 @@ public class ProgressionManager : MonoBehaviour
 
     public void SetLastActivatedCheckpoint(Checkpoint checkpoint)
     {
-        progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { name = checkpoint.name, position = checkpoint.CheckpointTransform.position });
+        progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { id = checkpoint.GetId(), name = checkpoint.name, position = checkpoint.CheckpointTransform.position });
     }
 
     public void ResetLevels()
