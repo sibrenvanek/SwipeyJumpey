@@ -43,8 +43,6 @@ public class PlayerDeath : MonoBehaviour
 
         GameManager.Instance.SendPlayerToLastCheckpoint();
         playerMovement.RestoreGravity();
-        playerMovement.Enable();
         DarthFader.Instance.FadeGameInInSeconds(.5f, time);
     }
-
 }
