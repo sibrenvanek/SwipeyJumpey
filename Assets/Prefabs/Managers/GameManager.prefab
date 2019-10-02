@@ -48,7 +48,6 @@ MonoBehaviour:
   canvas: {fileID: 0}
   pauseMenu: {fileID: 0}
   respawnYOffset: 0.2
-  timeBeforeLoadingScene: 1
   PlayerPrefab: {fileID: 585780739684234313, guid: f8a1a67ea9e524d4e9edce007c9e2311,
     type: 3}
   CanvasPrefab: {fileID: 2997232390869025276, guid: cdbc8ea5fe269f246aff94bef2ffc293,
@@ -60,4 +59,6 @@ MonoBehaviour:
   AudioManagerPrefab: {fileID: 8247206127766019628, guid: 124fc5846d5a2f74aa1a03434587bf63,
     type: 3}
   LevelManagerPrefab: {fileID: 3168220543228124179, guid: 874cf7c807312a944a183ea19d216778,
+    type: 3}
+  DarthFaderPrefab: {fileID: 1891229103067293447, guid: 53a4ab15973af91478b66c502f81b634,
     type: 3}
