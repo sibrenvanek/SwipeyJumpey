@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.SceneManagement;
@@ -86,6 +87,16 @@ public class ProgressionManager : MonoBehaviour
         return progression.GetLevel(sceneName);
     }
 
+    public Level GetLevel(int sceneIndex)
+    {
+        return progression.GetLevel(GetSceneNameFromIndex(sceneIndex));
+    }
+
+    public static string GetSceneNameFromIndex(int sceneIndex)
+    {
+        return Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(sceneIndex));
+    }
+
     public Level GetLatestLevel()
     {
         return progression.GetFirstUnfinishedLevel();
@@ -121,5 +132,15 @@ public class ProgressionManager : MonoBehaviour
     public void DeleteProgression()
     {
         progression.DeleteProgression();
+    }
+
+    public List<Level> GetUnlockedLevels()
+    {
+        return progression.GetUnlockedLevels();
+    }
+
+    public bool CheckIfLevelExists(int sceneIndex)
+    {
+        return progression.CheckIfLevelExists(sceneIndex);
     }
 }

@@ -9,7 +9,6 @@ public class LevelSelecter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelNameDisplay = null;
     [SerializeField] private TextMeshProUGUI amountOfCollectablesDisplay = null;
     [SerializeField] private TextMeshProUGUI amountOfDeathsDisplay = null;
-    [SerializeField] private Scene[] scenes;
     private LevelPreview[] levelPreviews;
     private int activePreviewIndex = 0;
 
@@ -17,6 +16,8 @@ public class LevelSelecter : MonoBehaviour
     {
         levelPreviews = GetComponentsInChildren<LevelPreview>();
         SetActiveIndex(activePreviewIndex);
+        SetStats();
+        CheckUnlockedLevels();
     }
 
     private void SetActiveIndex(int index)
@@ -38,14 +39,7 @@ public class LevelSelecter : MonoBehaviour
 
     private void SetStats()
     {
-        int sceneNumber = SceneManager.sceneCountInBuildSettings;
-        string[] arrayOfNames;
-        arrayOfNames = new string[sceneNumber];
-        for (int index = 0; index < sceneNumber; index++)
-        {
-            arrayOfNames[index] = Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(index));
-        }
-        Level selectedLevel = ProgressionManager.Instance.GetLevel(arrayOfNames[levelPreviews[activePreviewIndex].GetSceneIndex()]);
+        Level selectedLevel = ProgressionManager.Instance.GetLevel(levelPreviews[activePreviewIndex].GetSceneIndex());
         amountOfCollectablesDisplay.text = selectedLevel.amountOfMainCollectables.ToString();
         amountOfDeathsDisplay.text = selectedLevel.amountOfDeaths.ToString();
     }
@@ -63,13 +57,19 @@ public class LevelSelecter : MonoBehaviour
     public void Left()
     {
         int newIndex = (activePreviewIndex > 0) ? activePreviewIndex - 1 : activePreviewIndex;
-        SetActiveIndex(newIndex);
+        if (levelPreviews[newIndex].GetUnlocked())
+        {
+            SetActiveIndex(newIndex);
+        }
     }
 
     public void Right()
     {
         int newIndex = (activePreviewIndex < levelPreviews.Length - 1) ? activePreviewIndex + 1 : activePreviewIndex;
-        SetActiveIndex(newIndex);
+        if (levelPreviews[newIndex].GetUnlocked())
+        {
+            SetActiveIndex(newIndex);
+        }
     }
 
     public void SetActiveIndexByScene(int sceneIndex)
@@ -80,6 +80,23 @@ public class LevelSelecter : MonoBehaviour
             {
                 SetActiveIndex(i);
             }
+        }
+    }
+
+    private void CheckUnlockedLevels()
+    {
+        int unlockedLevelsCount = ProgressionManager.Instance.GetUnlockedLevels().Count;
+        if (unlockedLevelsCount <= 0)
+        {
+            ProgressionManager.Instance.AddLevel(new Level
+            {
+                buildIndex = levelPreviews[0].GetSceneIndex(),
+                sceneName = ProgressionManager.GetSceneNameFromIndex(levelPreviews[0].GetSceneIndex())
+            });
+        }
+        foreach (LevelPreview levelPreview in levelPreviews)
+        {
+            levelPreview.SetUnlocked(ProgressionManager.Instance.CheckIfLevelExists(levelPreview.GetSceneIndex()));
         }
     }
 }
