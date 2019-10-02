@@ -21,11 +21,19 @@ public class LevelSelecter : MonoBehaviour
 
     private void SetActiveIndex(int index)
     {
+        bool updateStats = true;
         levelPreviews[activePreviewIndex].SetInActive();
+        if (activePreviewIndex == index)
+        {
+            updateStats = false;
+        }
         activePreviewIndex = index;
         levelPreviews[activePreviewIndex].SetActivated();
         levelNameDisplay.text = levelPreviews[activePreviewIndex].GetName();
-        SetStats();
+        if (updateStats)
+        {
+            SetStats();
+        }
     }
 
     private void SetStats()
