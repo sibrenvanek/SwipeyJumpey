@@ -1,11 +1,15 @@
+using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class LevelSelecter : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI levelNameDisplay = null;
+    [SerializeField] private TextMeshProUGUI amountOfCollectablesDisplay = null;
+    [SerializeField] private TextMeshProUGUI amountOfDeathsDisplay = null;
+    [SerializeField] private Scene[] scenes;
     private LevelPreview[] levelPreviews;
     private int activePreviewIndex = 0;
 
@@ -15,12 +19,27 @@ public class LevelSelecter : MonoBehaviour
         SetActiveIndex(activePreviewIndex);
     }
 
-    private void SetActiveIndex (int index)
+    private void SetActiveIndex(int index)
     {
         levelPreviews[activePreviewIndex].SetInActive();
         activePreviewIndex = index;
         levelPreviews[activePreviewIndex].SetActivated();
         levelNameDisplay.text = levelPreviews[activePreviewIndex].GetName();
+        SetStats();
+    }
+
+    private void SetStats()
+    {
+        int sceneNumber = SceneManager.sceneCountInBuildSettings;
+        string[] arrayOfNames;
+        arrayOfNames = new string[sceneNumber];
+        for (int index = 0; index < sceneNumber; index++)
+        {
+            arrayOfNames[index] = Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(index));
+        }
+        Level selectedLevel = ProgressionManager.Instance.GetLevel(arrayOfNames[levelPreviews[activePreviewIndex].GetSceneIndex()]);
+        amountOfCollectablesDisplay.text = selectedLevel.amountOfMainCollectables.ToString();
+        amountOfDeathsDisplay.text = selectedLevel.amountOfDeaths.ToString();
     }
 
     public void GoTo()
