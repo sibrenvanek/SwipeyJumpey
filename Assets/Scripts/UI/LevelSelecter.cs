@@ -91,7 +91,7 @@ public class LevelSelecter : MonoBehaviour
             ProgressionManager.Instance.AddLevel(new Level
             {
                 buildIndex = levelPreviews[0].GetSceneIndex(),
-                    sceneName = ProgressionManager.GetSceneNameFromIndex(levelPreviews[0].GetSceneIndex())
+                sceneName = ProgressionManager.GetSceneNameFromIndex(levelPreviews[0].GetSceneIndex())
             });
         }
         foreach (LevelPreview levelPreview in levelPreviews)

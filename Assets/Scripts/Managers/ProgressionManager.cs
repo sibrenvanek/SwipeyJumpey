@@ -94,14 +94,7 @@ public class ProgressionManager : MonoBehaviour
 
     public static string GetSceneNameFromIndex(int sceneIndex)
     {
-        int sceneNumber = SceneManager.sceneCountInBuildSettings;
-        string[] arrayOfNames;
-        arrayOfNames = new string[sceneNumber];
-        for (int index = 0; index < sceneNumber; index++)
-        {
-            arrayOfNames[index] = Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(index));
-        }
-        return arrayOfNames[sceneIndex];
+        return Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(sceneIndex));
     }
 
     public Level GetLatestLevel()

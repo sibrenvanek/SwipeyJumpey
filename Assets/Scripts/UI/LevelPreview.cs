@@ -6,6 +6,8 @@ public class LevelPreview : MonoBehaviour
     [SerializeField] private int sceneIndex = 0;
     [SerializeField] private Vector2 activeSize = Vector2.one, inactiveSize = Vector2.one;
     [SerializeField] private string levelName = "";
+    [SerializeField] private Color enabledColor = new Color(1f, 1f, 1f);
+    [SerializeField] private Color disabledColor = new Color(0.8f, 0.8f, 0.8f);
     private SpriteRenderer spriteRenderer = null;
     private bool active = false;
     private bool unlocked = false;
@@ -55,11 +57,11 @@ public class LevelPreview : MonoBehaviour
         unlocked = value;
         if (value)
         {
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
+            gameObject.GetComponent<SpriteRenderer>().color = enabledColor;
         }
         else
         {
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.8f, 0.8f);
+            gameObject.GetComponent<SpriteRenderer>().color = disabledColor;
         }
     }
 
