@@ -8,6 +8,7 @@ public class LevelPreview : MonoBehaviour
     [SerializeField] private string levelName = "";
     private SpriteRenderer spriteRenderer = null;
     private bool active = false;
+    private bool unlocked = false;
     private LevelSelecter levelSelecter = null;
 
     void Start()
@@ -49,9 +50,29 @@ public class LevelPreview : MonoBehaviour
         transform.localScale = inactiveSize;
     }
 
+    public void SetUnlocked(bool value)
+    {
+        unlocked = value;
+        if (value)
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.8f, 0.8f);
+        }
+    }
+
+    public bool GetUnlocked()
+    {
+        return unlocked;
+    }
+
     private void OnMouseDown()
     {
-        if (!active)
+        if (unlocked && !active)
+        {
             levelSelecter.SetActiveIndexByScene(sceneIndex);
+        }
     }
 }
