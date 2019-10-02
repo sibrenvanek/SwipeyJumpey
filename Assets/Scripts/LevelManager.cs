@@ -25,7 +25,6 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        DarthFader.Instance.gameObject.SetActive(false);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
