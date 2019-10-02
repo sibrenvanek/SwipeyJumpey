@@ -39,10 +39,6 @@ public class DarthFader : MonoBehaviour
 
     public void FadeGameInInSeconds(float waitTime = 0f, float time = 1f)
     {
-        if (!gameObject.active)
-        {
-            gameObject.SetActive(true);
-        }
         StartCoroutine(WaitAndFadeIn(waitTime, time));
     }
 

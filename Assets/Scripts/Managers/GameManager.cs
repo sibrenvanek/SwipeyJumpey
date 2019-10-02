@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject FreezeManagerPrefab = null;
     [SerializeField] private GameObject AudioManagerPrefab = null;
     [SerializeField] private GameObject LevelManagerPrefab = null;
-    [SerializeField] private GameObject DarthFaderPrefab = null;
 
     private void Awake()
     {
@@ -53,11 +52,6 @@ public class GameManager : MonoBehaviour
         if (LevelManager.Instance == null)
         {
             Instantiate(LevelManagerPrefab, Vector3.zero, Quaternion.identity);
-        }
-
-        if (DarthFader.Instance == null)
-        {
-            Instantiate(DarthFaderPrefab, Vector3.zero, Quaternion.identity);
         }
 
         if (player == null)
