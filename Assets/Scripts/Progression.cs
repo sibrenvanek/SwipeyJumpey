@@ -26,13 +26,9 @@ public class Progression
             if (System.IO.File.Exists(path))
             {
                 data = File.ReadAllText(path);
+                Progression progression = JsonConvert.DeserializeObject<Progression>(data);
+                return progression;
             }
-            else
-            {
-                return new Progression();
-            }
-            Progression progression = JsonConvert.DeserializeObject<Progression>(data);
-            return progression;
         }
         return new Progression();
     }
