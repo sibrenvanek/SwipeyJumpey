@@ -4,10 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private string playScene = "World-1-Level-1";
+    private string playScene = "World-1-Level-4";
     [SerializeField] private GameObject playButton = null;
-    private void Awake()
+
+    private void Start()
     {
+        AudioManager.Instance.StartMenuTrack();
+
         Level latestLevel = ProgressionManager.Instance.GetLatestLevel();
         if (latestLevel != null)
         {
@@ -18,15 +21,10 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        AudioManager.Instance.StartMenuTrack();
-    }
-
     public void PlayGame()
     {
         ProgressionManager.Instance.UseProgression = true;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(playScene);
     }
 
     public void SelectLevel()

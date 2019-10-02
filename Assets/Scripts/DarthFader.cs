@@ -1,8 +1,8 @@
+using System;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
-using System;
 
 public class DarthFader : MonoBehaviour
 {
@@ -39,6 +39,10 @@ public class DarthFader : MonoBehaviour
 
     public void FadeGameInInSeconds(float waitTime = 0f, float time = 1f)
     {
+        if (!gameObject.active)
+        {
+            gameObject.SetActive(true);
+        }
         StartCoroutine(WaitAndFadeIn(waitTime, time));
     }
 

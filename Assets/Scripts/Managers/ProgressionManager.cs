@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.SceneManagement;
 
 public class ProgressionManager : MonoBehaviour
@@ -101,6 +102,18 @@ public class ProgressionManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    /// <summary>check if the given permission is granted
+    /// <para>permission: the permission to check(from the constants of Android.Permission)</para>
+    /// </summary>
+    public static bool CheckAndForcePermission(string permission)
+    {
+        while (!Permission.HasUserAuthorizedPermission(permission))
+        {
+            Permission.RequestUserPermission(permission);
+        }
+        return true;
     }
 
     public void SaveProgression()
