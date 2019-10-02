@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -69,7 +70,7 @@ public class ProgressionManager : MonoBehaviour
 
     public void SetLastActivatedCheckpoint(Checkpoint checkpoint)
     {
-        progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { name = checkpoint.name, position = checkpoint.CheckpointTransform.position });
+        progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { id = checkpoint.GetId(), name = checkpoint.name, position = checkpoint.CheckpointTransform.position });
     }
 
     public void ResetLevels()
@@ -105,14 +106,7 @@ public class ProgressionManager : MonoBehaviour
     public static Checkpoint GetCheckpointFromMinified(MinifiedCheckpoint minCheckpoint)
     {
         Checkpoint[] checkpoints = FindObjectsOfType<Checkpoint>();
-        foreach (Checkpoint checkpoint in checkpoints)
-        {
-            if (checkpoint.name == minCheckpoint.name)
-            {
-                return checkpoint;
-            }
-        }
-        return null;
+        return Array.Find(checkpoints, checkpoint => checkpoint.GetId() == minCheckpoint.id);
     }
 
     public static bool CheckAndForcePermission(string permission)
