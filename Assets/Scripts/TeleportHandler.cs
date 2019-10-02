@@ -15,13 +15,13 @@ public class TeleportHandler : MonoBehaviour
     void Start()
     {
         player = FindObjectOfType<PlayerMovement>();
-        teleporterOne.OnTeleporting += delegate { teleportOne(); };
-        teleporterTwo.OnTeleporting += delegate { teleportTwo(); };
-        teleporterOne.OnTriggerExit += delegate { leftTeleporterOne(); };
-        teleporterTwo.OnTriggerExit += delegate { leftTeleporterTwo(); };
+        teleporterOne.OnTeleporting += delegate { TeleportOne(); };
+        teleporterTwo.OnTeleporting += delegate { TeleportTwo(); };
+        teleporterOne.OnTriggerExit += delegate { LeftTeleporterOne(); };
+        teleporterTwo.OnTriggerExit += delegate { LeftTeleporterTwo(); };
     }
 
-    private void teleportOne()
+    private void TeleportOne()
     {
         if (onOne || onTwo)
             return;
@@ -39,7 +39,7 @@ public class TeleportHandler : MonoBehaviour
         player.gameObject.transform.position = teleporterTwo.transform.position;
     }
 
-    private void teleportTwo()
+    private void TeleportTwo()
     {
         if (onOne || onTwo)
             return;
@@ -56,12 +56,12 @@ public class TeleportHandler : MonoBehaviour
         player.gameObject.transform.position = teleporterOne.transform.position;
     }
 
-    private void leftTeleporterOne()
+    private void LeftTeleporterOne()
     {
         onOne = false;
     }
 
-    private void leftTeleporterTwo()
+    private void LeftTeleporterTwo()
     {
         onTwo = false;
     }
