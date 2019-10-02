@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WorldManager : MonoBehaviour
@@ -9,17 +10,16 @@ public class WorldManager : MonoBehaviour
     [SerializeField] private string worldName = null;
     public event Action<Room> OnCurrentRoomChanged = delegate {};
     private Room curRoom = null;
-    private List<MainCollectable> mainCollectables = new List<MainCollectable>();
 
     void Start()
     {
-        mainCollectables = new List<MainCollectable>(FindObjectsOfType<MainCollectable>());
+        MainCollectable[] mainCollectables = FindObjectsOfType<MainCollectable>();
         List<MinifiedMainCollectable> collectables = ProgressionManager.Instance.GetMainCollectables();
         foreach (MainCollectable mainCollectable in mainCollectables)
         {
-            if (collectables.Contains(mainCollectable.ConvertToMainCollectable()))
+            if (collectables.Exists(collectable => collectable.id == mainCollectable.GetId()))
             {
-                mainCollectable.TurnOff();
+                mainCollectable.SetCollected();
             }
         }
     }
