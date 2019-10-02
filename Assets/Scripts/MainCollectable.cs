@@ -6,6 +6,7 @@ using UnityEngine;
 public class MainCollectable : Collectable
 {
     [SerializeField] private int id = 0;
+    [SerializeField] private float opacity = 0.2f;
     private bool hasBeenCollectedBefore = false;
 
     public override void Collect()
@@ -27,9 +28,21 @@ public class MainCollectable : Collectable
         };
     }
 
+    public void SetCollected()
+    {
+        hasBeenCollectedBefore = true;
+        var renderer = this.GetComponent<SpriteRenderer>();
+        renderer.color = new Color(1, 1, 1, opacity);
+    }
+
     public override void TurnOff()
     {
         hasBeenCollectedBefore = true;
         gameObject.SetActive(false);
+    }
+
+    public int GetId()
+    {
+        return id;
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class Level
 {
     public string sceneName;
+    public int buildIndex;
     public string worldName;
     public MinifiedCheckpoint latestCheckpoint;
     public int amountOfJumps = 0;
@@ -19,6 +20,7 @@ public class Level
 
 public class MinifiedCheckpoint
 {
+    public int id;
     public string name;
     public Vector3 position;
     public override string ToString()

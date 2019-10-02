@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PauseMenu pauseMenu = null;
     [SerializeField] private float respawnYOffset = 0.2f;
     public Checkpoint LastCheckpoint { get { return lastCheckpoint; } }
-    [SerializeField] private float timeBeforeLoadingScene = 1f;
     private Coroutine displayLoadingScreen;
     private PlayerMovement playerMovement = null;
     [SerializeField] private GameObject PlayerPrefab = null;
@@ -24,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject FreezeManagerPrefab = null;
     [SerializeField] private GameObject AudioManagerPrefab = null;
     [SerializeField] private GameObject LevelManagerPrefab = null;
+    [SerializeField] private GameObject DarthFaderPrefab = null;
 
     private void Awake()
     {
@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        Application.targetFrameRate = 60;
 
         Input.multiTouchEnabled = false;
 
@@ -53,6 +55,11 @@ public class GameManager : MonoBehaviour
         if (LevelManager.Instance == null)
         {
             Instantiate(LevelManagerPrefab, Vector3.zero, Quaternion.identity);
+        }
+
+        if (DarthFader.Instance == null)
+        {
+            Instantiate(DarthFaderPrefab, Vector3.zero, Quaternion.identity);
         }
 
         if (player == null)
@@ -127,7 +134,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetWorld()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        LevelManager.Instance.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void DisableUI()
@@ -141,20 +148,21 @@ public class GameManager : MonoBehaviour
         WorldManager worldManager = FindObjectOfType<WorldManager>();
         if (worldManager != null)
         {
-            FindObjectOfType<DarthFader>().FadeGameIn(timeBeforeLoadingScene);
             canvas.EnableCanvas();
             pauseMenu.EnablePauseMenu();
 
             ProgressionManager.Instance.AddLevel(new Level
             {
                 completed = false,
-                    worldName = worldManager.GetWorldName(),
-                    sceneName = scene.name,
-                    latestCheckpoint = new MinifiedCheckpoint
-                    {
-                        name = worldManager.GetInitialCheckpoint().name,
-                            position = worldManager.GetInitialCheckpoint().transform.position
-                    }
+                worldName = worldManager.GetWorldName(),
+                sceneName = scene.name,
+                buildIndex = scene.buildIndex,
+                latestCheckpoint = new MinifiedCheckpoint
+                {
+                    id = worldManager.GetInitialCheckpoint().GetId(),
+                    name = worldManager.GetInitialCheckpoint().name,
+                    position = worldManager.GetInitialCheckpoint().transform.position
+                }
             });
             ProgressionManager.Instance.SaveProgression();
             CinemachineVirtualCamera Vcam = FindObjectOfType<CinemachineVirtualCamera>();

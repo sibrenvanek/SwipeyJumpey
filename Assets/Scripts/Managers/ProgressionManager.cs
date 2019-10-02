@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.SceneManagement;
 
 public class ProgressionManager : MonoBehaviour
@@ -67,7 +70,7 @@ public class ProgressionManager : MonoBehaviour
 
     public void SetLastActivatedCheckpoint(Checkpoint checkpoint)
     {
-        progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { name = checkpoint.name, position = checkpoint.CheckpointTransform.position });
+        progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { id = checkpoint.GetId(), name = checkpoint.name, position = checkpoint.CheckpointTransform.position });
     }
 
     public void ResetLevels()
@@ -85,6 +88,16 @@ public class ProgressionManager : MonoBehaviour
         return progression.GetLevel(sceneName);
     }
 
+    public Level GetLevel(int sceneIndex)
+    {
+        return progression.GetLevel(GetSceneNameFromIndex(sceneIndex));
+    }
+
+    public static string GetSceneNameFromIndex(int sceneIndex)
+    {
+        return Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(sceneIndex));
+    }
+
     public Level GetLatestLevel()
     {
         return progression.GetFirstUnfinishedLevel();
@@ -93,14 +106,16 @@ public class ProgressionManager : MonoBehaviour
     public static Checkpoint GetCheckpointFromMinified(MinifiedCheckpoint minCheckpoint)
     {
         Checkpoint[] checkpoints = FindObjectsOfType<Checkpoint>();
-        foreach (Checkpoint checkpoint in checkpoints)
+        return Array.Find(checkpoints, checkpoint => checkpoint.GetId() == minCheckpoint.id);
+    }
+
+    public static bool CheckAndForcePermission(string permission)
+    {
+        while (!Permission.HasUserAuthorizedPermission(permission))
         {
-            if (checkpoint.name == minCheckpoint.name)
-            {
-                return checkpoint;
-            }
+            Permission.RequestUserPermission(permission);
         }
-        return null;
+        return true;
     }
 
     public void SaveProgression()
@@ -111,5 +126,15 @@ public class ProgressionManager : MonoBehaviour
     public void DeleteProgression()
     {
         progression.DeleteProgression();
+    }
+
+    public List<Level> GetUnlockedLevels()
+    {
+        return progression.GetUnlockedLevels();
+    }
+
+    public bool CheckIfLevelExists(int sceneIndex)
+    {
+        return progression.CheckIfLevelExists(sceneIndex);
     }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class Progression
 {
@@ -10,23 +11,25 @@ public class Progression
 
     public void SaveProgression()
     {
-        string json = JsonConvert.SerializeObject(this);
-        File.WriteAllText(path, json);
+        if (ProgressionManager.CheckAndForcePermission(Permission.ExternalStorageWrite))
+        {
+            string json = JsonConvert.SerializeObject(this);
+            File.WriteAllText(path, json);
+        }
     }
 
     public static Progression LoadProgression()
     {
-        string data;
-        try
+        if (ProgressionManager.CheckAndForcePermission(Permission.ExternalStorageRead))
         {
-            data = File.ReadAllText(path);
+            if (System.IO.File.Exists(path))
+            {
+                string data = File.ReadAllText(path);
+                Progression progression = JsonConvert.DeserializeObject<Progression>(data);
+                return progression;
+            }
         }
-        catch
-        {
-            return new Progression();
-        }
-        Progression progression = JsonConvert.DeserializeObject<Progression>(data);
-        return progression;
+        return new Progression();
     }
 
     public void IncreaseAmountOfJumps(string sceneName)
@@ -163,5 +166,18 @@ public class Progression
     {
         unlockedLevels = new List<Level>();
         SaveProgression();
+    }
+
+    public List<Level> GetUnlockedLevels()
+    {
+        return unlockedLevels;
+    }
+
+    public bool CheckIfLevelExists(int sceneIndex)
+    {
+        Level level = unlockedLevels.Find(unlockedLevel => unlockedLevel.buildIndex == sceneIndex);
+        if (level != null)
+            return true;
+        return false;
     }
 }

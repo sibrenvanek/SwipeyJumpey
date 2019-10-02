@@ -7,8 +7,6 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance;
 
     [SerializeField] private float fadeTime = 1f;
-    private DarthFader darthFader = null;
-    private int levelLoadingScene = 0;
 
     private void Awake()
     {
@@ -27,33 +25,29 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        darthFader = FindObjectOfType<DarthFader>();
-        darthFader.gameObject.SetActive(false);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        //FadeIn();
+        FadeIn();
     }
 
     public void FadeIn()
     {
-        darthFader.FadeGameIn(fadeTime);
+        DarthFader.Instance.FadeGameIn(fadeTime);
     }
 
-    public void LoadNextLevel(int levelIndex)
+    public void LoadScene(int levelIndex)
     {
-        darthFader.gameObject.SetActive(true);
-        darthFader.FadeGameOut(fadeTime);
+        DarthFader.Instance.FadeGameOut(fadeTime);
         StartCoroutine(LoadLevelAfterSeconds(levelIndex, fadeTime));
     }
 
-    public void LoadNextLevel()
+    public void LoadNextScene()
     {
-        darthFader.gameObject.SetActive(true);
         int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
 
-        darthFader.FadeGameOut(fadeTime);
+        DarthFader.Instance.FadeGameOut(fadeTime);
         StartCoroutine(LoadLevelAfterSeconds(levelIndex, fadeTime));
     }
 

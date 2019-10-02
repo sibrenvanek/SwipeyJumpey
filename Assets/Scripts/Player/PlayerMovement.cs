@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private bool gravityOff = false;
     private SpriteRenderer jetpackSpriteRenderer = null;
     private bool hopping = false;
+    private bool jumpDisabled = false;
 
     void Start()
     {
@@ -44,6 +45,12 @@ public class PlayerMovement : MonoBehaviour
         jetpack = GetComponentInChildren<Jetpack>();
         jetpackSpriteRenderer = jetpack.GetComponent<SpriteRenderer>();
         defaultGravityScale = rigidbody2d.gravityScale;
+        JetpackPickup jetpackPickup = FindObjectOfType<JetpackPickup>();
+        if (jetpackPickup)
+        {
+            jetpackPickup.OnJetpackPickup += OnJetpackPickup;
+            DisableJump();
+        }
     }
 
     void Update()
@@ -106,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
                 dragging = true;
             }
 
-            if ((grounded || slowMotionJumpAvailable) && !jetpack.EngineCharging)
+            if ((grounded || slowMotionJumpAvailable) && !jetpack.EngineCharging && jetpack.enabled)
             {
                 jetpack.Charge();
             }
@@ -122,6 +129,9 @@ public class PlayerMovement : MonoBehaviour
                 StopCoroutine(TapCoroutine());
                 hopping = false;
             }
+
+            if (jumpDisabled)
+                return;
 
             if (!slowMotionActivated && !grounded && slowMotionJumpAvailable)
             {
@@ -190,6 +200,9 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButton(0) || !dragging)
             return;
 
+        slowMotionActivated = false;
+        dragging = false;
+
         Vector3 firstMousePoint = Camera.main.ScreenToWorldPoint(baseMousePosition);
         firstMousePoint.z = transform.position.z;
         Vector3 lastMousePoint = Camera.main.ScreenToWorldPoint(lastMousePosition);
@@ -210,6 +223,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if (jumpDisabled)
+            return;
+
         trajectoryPrediction.RemoveIndicators();
 
         if (slowMotionJumpAvailable)
@@ -222,9 +238,6 @@ public class PlayerMovement : MonoBehaviour
         {
             Jump();
         }
-
-        slowMotionActivated = false;
-        dragging = false;
     }
 
     public void SetSlowMotionJumpAvailable(bool slowMotionJumpAvailable)
@@ -240,13 +253,15 @@ public class PlayerMovement : MonoBehaviour
             slowMotion.Cancel();
         }
 
-        jetpack.TurnOff();
+        if (jetpack.enabled)
+            jetpack.TurnOff();
         dragging = false;
         trajectoryPrediction.RemoveIndicators();
     }
 
     private void Hop()
     {
+        facingLeft = jumpVelocity.x < 0;
         grounded = false;
         KillVelocity();
         StartCoroutine(RemoveGravityTemporarily());
@@ -257,7 +272,8 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         grounded = false;
-        jetpack.Launch(jumpVelocity, maxVelocityVector);
+        if (jetpack.enabled)
+            jetpack.Launch(jumpVelocity, maxVelocityVector);
         notifiedJump = false;
         OnJump.Invoke();
         KillVelocity();
@@ -274,7 +290,9 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashTime * timeDiff);
         timeDiff = 1f;
         gravityTemporarilyOff = false;
+
         jetpack.TurnOff();
+
         if (!gravityOff)
             rigidbody2d.gravityScale = defaultGravityScale;
     }
@@ -350,5 +368,17 @@ public class PlayerMovement : MonoBehaviour
             angle += 180;
 
         return angle;
+    }
+
+    public void DisableJump()
+    {
+        jumpDisabled = true;
+        jetpack.gameObject.SetActive(false);
+    }
+
+    public void OnJetpackPickup()
+    {
+        jumpDisabled = false;
+        jetpack.gameObject.SetActive(true);
     }
 }

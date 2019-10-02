@@ -4,10 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private string playScene = "World-1-Level-1";
+    private string playScene = "World-1-Level-4";
     [SerializeField] private GameObject playButton = null;
-    private void Awake()
+
+    private void Start()
     {
+        AudioManager.Instance.StartMenuTrack();
+
         Level latestLevel = ProgressionManager.Instance.GetLatestLevel();
         if (latestLevel != null)
         {
@@ -16,11 +19,6 @@ public class MainMenu : MonoBehaviour
             playButton.GetComponentInChildren<TextMeshProUGUI>().text = "Continue";
             GameObject.FindGameObjectWithTag("PlayText").GetComponentInChildren<RectTransform>().sizeDelta = new Vector2(270, GameObject.FindGameObjectWithTag("PlayText").GetComponentInChildren<RectTransform>().sizeDelta.y);
         }
-    }
-
-    private void Start()
-    {
-        AudioManager.Instance.StartMenuTrack();
     }
 
     public void PlayGame()
