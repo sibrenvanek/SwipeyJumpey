@@ -156,6 +156,7 @@ public class GameManager : MonoBehaviour
                 completed = false,
                     worldName = worldManager.GetWorldName(),
                     sceneName = scene.name,
+                    buildIndex = scene.buildIndex,
                     latestCheckpoint = new MinifiedCheckpoint
                     {
                         name = worldManager.GetInitialCheckpoint().name,

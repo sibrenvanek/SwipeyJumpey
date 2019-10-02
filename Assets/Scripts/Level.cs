@@ -4,6 +4,7 @@ using UnityEngine;
 public class Level
 {
     public string sceneName;
+    public int buildIndex;
     public string worldName;
     public MinifiedCheckpoint latestCheckpoint;
     public int amountOfJumps = 0;

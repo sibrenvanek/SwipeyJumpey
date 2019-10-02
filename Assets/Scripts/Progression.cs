@@ -167,4 +167,17 @@ public class Progression
         unlockedLevels = new List<Level>();
         SaveProgression();
     }
+
+    public List<Level> GetUnlockedLevels()
+    {
+        return unlockedLevels;
+    }
+
+    public bool CheckIfLevelExists(int sceneIndex)
+    {
+        Level level = unlockedLevels.Find(unlockedLevel => unlockedLevel.buildIndex == sceneIndex);
+        if (level != null)
+            return true;
+        return false;
+    }
 }

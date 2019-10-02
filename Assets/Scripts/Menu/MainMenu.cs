@@ -30,7 +30,7 @@ public class MainMenu : MonoBehaviour
     public void SelectLevel()
     {
         ProgressionManager.Instance.UseProgression = false;
-        LevelManager.Instance.LoadScene(1);
+        SceneManager.LoadScene(1);
     }
 
     public void ExitGame()

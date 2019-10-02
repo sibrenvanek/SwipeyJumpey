@@ -261,6 +261,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Hop()
     {
+        facingLeft = jumpVelocity.x < 0;
         grounded = false;
         KillVelocity();
         StartCoroutine(RemoveGravityTemporarily());
