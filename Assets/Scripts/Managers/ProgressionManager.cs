@@ -104,9 +104,6 @@ public class ProgressionManager : MonoBehaviour
         return null;
     }
 
-    /// <summary>check if the given permission is granted
-    /// <para>permission: the permission to check(from the constants of Android.Permission)</para>
-    /// </summary>
     public static bool CheckAndForcePermission(string permission)
     {
         while (!Permission.HasUserAuthorizedPermission(permission))
