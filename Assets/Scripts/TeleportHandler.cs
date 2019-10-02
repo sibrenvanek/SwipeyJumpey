@@ -9,7 +9,6 @@ public class TeleportHandler : MonoBehaviour
     [SerializeField] private Teleporter teleporterTwo = null;
     [SerializeField] private bool reverseY = false;
     [SerializeField] private bool reverseX = false;
-    [SerializeField] private bool swapXY = false;
     private bool onOne = false;
     private bool onTwo = false;
 
@@ -36,9 +35,6 @@ public class TeleportHandler : MonoBehaviour
 
         if (reverseX)
             playerRigidbody.velocity += new Vector2(0, playerRigidbody.velocity.x * -2);
-
-        if (swapXY)
-            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.y, playerRigidbody.velocity.x);
 
         player.gameObject.transform.position = teleporterTwo.transform.position;
     }
