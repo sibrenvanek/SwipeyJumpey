@@ -9,16 +9,17 @@ public class TeleportHandler : MonoBehaviour
     [SerializeField] private Teleporter teleporterTwo = null;
     [SerializeField] private bool reverseY = false;
     [SerializeField] private bool reverseX = false;
+    [SerializeField] private bool swapXY = false;
     private bool onOne = false;
     private bool onTwo = false;
 
     void Start()
     {
         player = FindObjectOfType<PlayerMovement>();
-        teleporterOne.OnTeleporting += delegate { TeleportOne(); };
-        teleporterTwo.OnTeleporting += delegate { TeleportTwo(); };
-        teleporterOne.OnTriggerExit += delegate { LeftTeleporterOne(); };
-        teleporterTwo.OnTriggerExit += delegate { LeftTeleporterTwo(); };
+        teleporterOne.OnTeleporting += TeleportOne;
+        teleporterTwo.OnTeleporting += TeleportTwo;
+        teleporterOne.OnTriggerExit += LeftTeleporterOne;
+        teleporterTwo.OnTriggerExit += LeftTeleporterTwo;
     }
 
     private void TeleportOne()
@@ -35,6 +36,9 @@ public class TeleportHandler : MonoBehaviour
 
         if (reverseX)
             playerRigidbody.velocity += new Vector2(0, playerRigidbody.velocity.x * -2);
+
+        if (swapXY)
+            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.y, playerRigidbody.velocity.x);
 
         player.gameObject.transform.position = teleporterTwo.transform.position;
     }
