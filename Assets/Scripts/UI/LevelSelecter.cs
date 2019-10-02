@@ -8,50 +8,11 @@ public class LevelSelecter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelNameDisplay = null;
     private LevelPreview[] levelPreviews;
     private int activePreviewIndex = 0;
-    private Vector2 baseMousePosition = Vector2.zero;
-    private Vector2 releaseMousePosition = Vector2.zero;
-    private bool dragging = false;
 
     void Start()
     {
         levelPreviews = GetComponentsInChildren<LevelPreview>();
         SetActiveIndex(activePreviewIndex);
-    }
-
-    private void Update()
-    {
-        HandleInput();
-    }
-
-    private void HandleInput()
-    {
-        if (Input.GetMouseButton(0) && !dragging && !EventSystem.current.IsPointerOverGameObject())
-        {
-            dragging = true;
-            baseMousePosition = Input.mousePosition;
-        }
-        else if (!Input.GetMouseButton(0) && dragging)
-        {
-            dragging = false;
-            releaseMousePosition = Input.mousePosition;
-
-            if (Mathf.Abs(releaseMousePosition.x - baseMousePosition.x) < 2)
-                return;
-
-            Slide();
-        }
-    }
-
-    private void Slide()
-    {
-        int newIndex;
-
-        if (releaseMousePosition.x < baseMousePosition.x)
-            newIndex = (activePreviewIndex > 0) ? activePreviewIndex - 1 : activePreviewIndex;
-        else
-            newIndex = (activePreviewIndex < levelPreviews.Length - 1) ? activePreviewIndex + 1 : activePreviewIndex;
-
-        SetActiveIndex(newIndex);
     }
 
     private void SetActiveIndex (int index)
