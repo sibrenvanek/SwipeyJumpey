@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class IntroRocket : MonoBehaviour
 {
@@ -22,5 +23,10 @@ public class IntroRocket : MonoBehaviour
     public void Explosion()
     {
         explosion.SetActive(true);
+    }
+
+    public void FinishIntro()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
