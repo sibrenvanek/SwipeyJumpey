@@ -8,6 +8,7 @@ public class Progression
 {
     public List<Level> unlockedLevels { get; private set; } = new List<Level>();
     public bool pickedUpJetpack { get; private set; } = false;
+    public int ID = 0;
     private static readonly string path = Application.persistentDataPath + "/data.json";
 
     public void SaveProgression()
@@ -23,18 +24,24 @@ public class Progression
     {
         if (ProgressionManager.CheckAndForcePermission(Permission.ExternalStorageRead))
         {
-            if (System.IO.File.Exists(path))
+            if (File.Exists(path))
             {
                 string data = File.ReadAllText(path);
                 if (data != "")
                 {
                     Progression progression = JsonConvert.DeserializeObject<Progression>(data);
-                    //progression.SetPickedUpJetpack(ExtractPickedUpJetpack(data));
+                    progression.SetPickedUpJetpack(ExtractPickedUpJetpack(data));
                     return progression;
                 }
             }
+            else
+            {
+                return new Progression();
+            }
         }
-        return new Progression();
+
+        Debug.LogError("No permission");
+        return null;
     }
 
     public void IncreaseAmountOfJumps(string sceneName)
@@ -191,16 +198,17 @@ public class Progression
         return false;
     }
 
-    //public void SetPickedUpJetpack(bool value)
-    //{
-    //    pickedUpJetpack = value;
-    //}
+    public void SetPickedUpJetpack(bool value)
+    {
+        pickedUpJetpack = value;
+    }
 
-    //public static bool ExtractPickedUpJetpack(string data)
-    //{
-    //    string extractedData = data.Substring(data.IndexOf("pickedUpJetpack"));
-    //    extractedData = extractedData.Remove(extractedData.IndexOf('}'));
-    //    extractedData = extractedData.Substring(extractedData.IndexOf(':') + 1);
-    //    return extractedData == "true";
-    //}
+    public static bool ExtractPickedUpJetpack(string data)
+    {
+        int jetpackDataIndex = data.IndexOf("pickedUpJetpack");
+        string extractedData = data.Substring(jetpackDataIndex);
+        extractedData = extractedData.Remove(extractedData.IndexOf('}'));
+        extractedData = extractedData.Substring(extractedData.IndexOf(':') + 1);
+        return extractedData == "true";
+    }
 }

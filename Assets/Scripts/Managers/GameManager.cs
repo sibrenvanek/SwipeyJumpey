@@ -1,7 +1,5 @@
-using System.Collections;
 using Cinemachine;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
