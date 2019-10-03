@@ -387,7 +387,6 @@ public class PlayerMovement : MonoBehaviour
     {
         jumpDisabled = false;
         jetpack.gameObject.SetActive(true);
-        Debug.Log("check");
         ProgressionManager.Instance.SetPickedUpJetpack(true);
     }
 }
