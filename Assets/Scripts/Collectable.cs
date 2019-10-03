@@ -4,6 +4,13 @@ using UnityEngine;
 
 public abstract class Collectable : MonoBehaviour
 {
+    protected new Collider2D collider = null;
+
+    protected virtual void Awake() 
+    {
+        collider = GetComponent<Collider2D>();    
+    }
+
     public virtual void Collect()
     {
         ProgressionManager.Instance.IncreaseAmountOfSideCollectables();
