@@ -93,6 +93,11 @@ public class ProgressionManager : MonoBehaviour
         return progression.GetLevel(GetSceneNameFromIndex(sceneIndex));
     }
 
+    public void ResetLevel(Level level)
+    {
+        progression.ResetLevel(level);
+    }
+
     public static string GetSceneNameFromIndex(int sceneIndex)
     {
         return Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(sceneIndex));
@@ -138,13 +143,13 @@ public class ProgressionManager : MonoBehaviour
         return progression.CheckIfLevelExists(sceneIndex);
     }
 
-    public bool GetPickedUpJetpack()
-    {
-        return progression.pickedUpJetpack;
-    }
+    //public bool GetPickedUpJetpack()
+    //{
+    //    return progression.pickedUpJetpack;
+    //}
 
-    public void SetPickedUpJetpack(bool value)
-    {
-        progression.SetPickedUpJetpack(value);
-    }
+    //public void SetPickedUpJetpack(bool value)
+    //{
+    //    progression.SetPickedUpJetpack(value);
+    //}
 }
