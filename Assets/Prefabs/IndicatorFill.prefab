@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicatorSprite: {fileID: 6462507836883670858}
-  green: {r: 0.3882353, g: 0.78039217, b: 0.3019608, a: 0.78431374}
-  orange: {r: 0.96862745, g: 0.4627451, b: 0.13333334, a: 0.78431374}
-  red: {r: 0.89411765, g: 0.23137255, b: 0.26666668, a: 0.78431374}
+  green: {r: 0, g: 1, b: 0, a: 0.78431374}
+  orange: {r: 1, g: 0.39436617, b: 0, a: 0.78431374}
+  red: {r: 1, g: 0, b: 0, a: 0.78431374}
   maxDistance: 2
 --- !u!1 &6462507836883670857
 GameObject:
