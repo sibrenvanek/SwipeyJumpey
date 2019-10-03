@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 462738648240029228}
   - component: {fileID: 6106579706142641183}
   - component: {fileID: 3803448266884968459}
+  - component: {fileID: 4228159094120351495}
   m_Layer: 0
   m_Name: MainCollectable
   m_TagString: Collectable
@@ -96,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  opacity: 0.2
 --- !u!58 &6106579706142641183
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -133,3 +135,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &4228159094120351495
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8012346265923536184}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c37d5090bf3413442b04c1c556931747, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
