@@ -16,8 +16,8 @@ public class LevelSelecter : MonoBehaviour
     {
         levelPreviews = GetComponentsInChildren<LevelPreview>();
         SetActiveIndex(activePreviewIndex);
-        SetStats();
         CheckUnlockedLevels();
+        SetStats();
     }
 
     private void SetActiveIndex(int index)

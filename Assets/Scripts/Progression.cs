@@ -7,6 +7,7 @@ using UnityEngine.Android;
 public class Progression
 {
     public List<Level> unlockedLevels { get; private set; } = new List<Level>();
+    public bool pickedUpJetpack { get; private set; } = false;
     private static readonly string path = Application.persistentDataPath + "/data.json";
 
     public void SaveProgression()
@@ -25,8 +26,12 @@ public class Progression
             if (System.IO.File.Exists(path))
             {
                 string data = File.ReadAllText(path);
-                Progression progression = JsonConvert.DeserializeObject<Progression>(data);
-                return progression;
+                if (data != "")
+                {
+                    Progression progression = JsonConvert.DeserializeObject<Progression>(data);
+                    progression.SetPickedUpJetpack(ExtractPickedUpJetpack(data));
+                    return progression;
+                }
             }
         }
         return new Progression();
@@ -165,6 +170,7 @@ public class Progression
     public void DeleteProgression()
     {
         unlockedLevels = new List<Level>();
+        pickedUpJetpack = false;
         SaveProgression();
     }
 
@@ -179,5 +185,18 @@ public class Progression
         if (level != null)
             return true;
         return false;
+    }
+
+    public void SetPickedUpJetpack(bool value)
+    {
+        pickedUpJetpack = value;
+    }
+
+    public static bool ExtractPickedUpJetpack(string data)
+    {
+        string extractedData = data.Substring(data.IndexOf("pickedUpJetpack"));
+        extractedData = extractedData.Remove(extractedData.IndexOf('}'));
+        extractedData = extractedData.Substring(extractedData.IndexOf(':') + 1);
+        return extractedData == "true";
     }
 }
