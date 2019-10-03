@@ -64,6 +64,9 @@ TagManager:
   - name: Background filter
     uniqueID: 1582022499
     locked: 0
+  - name: Cave
+    uniqueID: 3203279117
+    locked: 0
   - name: Background 2
     uniqueID: 2124708771
     locked: 0
