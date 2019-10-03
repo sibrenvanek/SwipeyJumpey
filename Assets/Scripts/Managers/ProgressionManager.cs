@@ -143,13 +143,13 @@ public class ProgressionManager : MonoBehaviour
         return progression.CheckIfLevelExists(sceneIndex);
     }
 
-    public bool GetPickedUpJetpack()
-    {
-        return progression.pickedUpJetpack;
-    }
+    //public bool GetPickedUpJetpack()
+    //{
+    //    return progression.pickedUpJetpack;
+    //}
 
-    public void SetPickedUpJetpack(bool value)
-    {
-        progression.SetPickedUpJetpack(value);
-    }
+    //public void SetPickedUpJetpack(bool value)
+    //{
+    //    progression.SetPickedUpJetpack(value);
+    //}
 }
