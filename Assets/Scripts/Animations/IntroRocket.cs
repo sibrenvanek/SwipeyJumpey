@@ -27,6 +27,6 @@ public class IntroRocket : MonoBehaviour
 
     public void FinishIntro()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        LevelManager.Instance.LoadNextScene(false);
     }
 }

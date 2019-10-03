@@ -29,7 +29,7 @@ public class Progression
                 if (data != "")
                 {
                     Progression progression = JsonConvert.DeserializeObject<Progression>(data);
-                    progression.SetPickedUpJetpack(ExtractPickedUpJetpack(data));
+                    //progression.SetPickedUpJetpack(ExtractPickedUpJetpack(data));
                     return progression;
                 }
             }
@@ -154,6 +154,10 @@ public class Progression
             level.completed = false;
         }
     }
+    public void ResetLevel(Level level)
+    {
+        level.completed = false;
+    }
 
     public Level GetFirstUnfinishedLevel()
     {
@@ -187,16 +191,16 @@ public class Progression
         return false;
     }
 
-    public void SetPickedUpJetpack(bool value)
-    {
-        pickedUpJetpack = value;
-    }
+    //public void SetPickedUpJetpack(bool value)
+    //{
+    //    pickedUpJetpack = value;
+    //}
 
-    public static bool ExtractPickedUpJetpack(string data)
-    {
-        string extractedData = data.Substring(data.IndexOf("pickedUpJetpack"));
-        extractedData = extractedData.Remove(extractedData.IndexOf('}'));
-        extractedData = extractedData.Substring(extractedData.IndexOf(':') + 1);
-        return extractedData == "true";
-    }
+    //public static bool ExtractPickedUpJetpack(string data)
+    //{
+    //    string extractedData = data.Substring(data.IndexOf("pickedUpJetpack"));
+    //    extractedData = extractedData.Remove(extractedData.IndexOf('}'));
+    //    extractedData = extractedData.Substring(extractedData.IndexOf(':') + 1);
+    //    return extractedData == "true";
+    //}
 }

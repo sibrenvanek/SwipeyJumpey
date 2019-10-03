@@ -46,7 +46,15 @@ public class LevelSelecter : MonoBehaviour
 
     public void GoTo()
     {
-        LevelManager.Instance.LoadScene(levelPreviews[activePreviewIndex].GetSceneIndex());
+        int sceneIndex = levelPreviews[activePreviewIndex].GetSceneIndex();
+        Level level = ProgressionManager.Instance.GetLevel(sceneIndex);
+
+        if (level != null)
+        {
+            ProgressionManager.Instance.ResetLevel(level);
+        }
+
+        LevelManager.Instance.LoadScene(sceneIndex);
     }
 
     public void Return()
