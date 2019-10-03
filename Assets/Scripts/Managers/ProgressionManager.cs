@@ -93,6 +93,11 @@ public class ProgressionManager : MonoBehaviour
         return progression.GetLevel(GetSceneNameFromIndex(sceneIndex));
     }
 
+    public void ResetLevel(Level level)
+    {
+        progression.ResetLevel(level);
+    }
+
     public static string GetSceneNameFromIndex(int sceneIndex)
     {
         return Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(sceneIndex));

@@ -154,6 +154,10 @@ public class Progression
             level.completed = false;
         }
     }
+    public void ResetLevel(Level level)
+    {
+        level.completed = false;
+    }
 
     public Level GetFirstUnfinishedLevel()
     {
