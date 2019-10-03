@@ -48,15 +48,15 @@ public class PlayerMovement : MonoBehaviour
         JetpackPickup jetpackPickup = FindObjectOfType<JetpackPickup>();
         if (jetpackPickup)
         {
-            //if (!ProgressionManager.Instance.GetPickedUpJetpack())
-            //{
+            if (!ProgressionManager.Instance.GetPickedUpJetpack())
+            {
                 jetpackPickup.OnJetpackPickup += OnJetpackPickup;
                 DisableJump();
-            //}
-            //else
-            //{
-            //    jetpackPickup.gameObject.SetActive(false);
-            //}
+            }
+            else
+            {
+                jetpackPickup.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -387,6 +387,6 @@ public class PlayerMovement : MonoBehaviour
     {
         jumpDisabled = false;
         jetpack.gameObject.SetActive(true);
-        //ProgressionManager.Instance.SetPickedUpJetpack(true);
+        ProgressionManager.Instance.SetPickedUpJetpack(true);
     }
 }

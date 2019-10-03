@@ -30,7 +30,6 @@ public class Progression
                 if (data != "")
                 {
                     Progression progression = JsonConvert.DeserializeObject<Progression>(data);
-                    progression.SetPickedUpJetpack(ExtractPickedUpJetpack(data));
                     return progression;
                 }
             }
@@ -201,14 +200,5 @@ public class Progression
     public void SetPickedUpJetpack(bool value)
     {
         pickedUpJetpack = value;
-    }
-
-    public static bool ExtractPickedUpJetpack(string data)
-    {
-        int jetpackDataIndex = data.IndexOf("pickedUpJetpack");
-        string extractedData = data.Substring(jetpackDataIndex);
-        extractedData = extractedData.Remove(extractedData.IndexOf('}'));
-        extractedData = extractedData.Substring(extractedData.IndexOf(':') + 1);
-        return extractedData == "true";
     }
 }
