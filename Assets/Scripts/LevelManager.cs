@@ -43,11 +43,11 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(LoadLevelAfterSeconds(levelIndex, fadeTime));
     }
 
-    public void LoadNextScene()
+    public void LoadNextScene(bool loadingIndicator = true)
     {
         int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
 
-        DarthFader.Instance.FadeGameOut(fadeTime, true);
+        DarthFader.Instance.FadeGameOut(fadeTime, loadingIndicator);
         StartCoroutine(LoadLevelAfterSeconds(levelIndex, fadeTime));
     }
 
