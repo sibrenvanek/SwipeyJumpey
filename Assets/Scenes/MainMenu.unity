@@ -624,6 +624,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc8c8e3bad1bdeb47a44c9adf7261112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstSceneIndex: 4
+  settingsSceneIndex: 9
   playButton: {fileID: 1872042830}
 --- !u!1 &1031190503
 GameObject:

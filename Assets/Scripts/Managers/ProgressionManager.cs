@@ -9,7 +9,7 @@ public class ProgressionManager : MonoBehaviour
 {
     public static ProgressionManager Instance;
     private Progression progression;
-    private readonly int ID = 1;
+    private readonly int ID = 2;
 
     [SerializeField] public bool UseProgression = true;
 
@@ -107,6 +107,14 @@ public class ProgressionManager : MonoBehaviour
         progression.ResetLevel(level);
     }
 
+    public void SetLatestLevel(Level level)
+    {
+        if (level != null)
+        {
+            progression.latestLevel = level;
+        }
+    }
+
     public static string GetSceneNameFromIndex(int sceneIndex)
     {
         return Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(sceneIndex));
@@ -114,7 +122,7 @@ public class ProgressionManager : MonoBehaviour
 
     public Level GetLatestLevel()
     {
-        return progression.GetFirstUnfinishedLevel();
+        return progression.latestLevel;
     }
 
     public static Checkpoint GetCheckpointFromMinified(MinifiedCheckpoint minCheckpoint)
