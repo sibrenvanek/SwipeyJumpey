@@ -9,6 +9,7 @@ public class Progression
     public List<Level> unlockedLevels { get; private set; } = new List<Level>();
     public bool pickedUpJetpack { get; private set; } = false;
     public int ID = 0;
+    public Level latestLevel = null;
     private static readonly string path = Application.persistentDataPath + "/data.json";
 
     public void SaveProgression()

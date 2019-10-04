@@ -1,10 +1,10 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private string playScene = "World-1-Level-4";
+    [SerializeField] private int firstSceneIndex = 0;
+    [SerializeField] private int settingsSceneIndex = 0;
     [SerializeField] private GameObject playButton = null;
 
     private void Start()
@@ -12,9 +12,11 @@ public class MainMenu : MonoBehaviour
         AudioManager.Instance.StartMenuTrack();
 
         Level latestLevel = ProgressionManager.Instance.GetLatestLevel();
+
         if (latestLevel != null)
         {
-            playScene = latestLevel.sceneName;
+            Debug.Log("THERE IS A LATEST LEVEL");
+            firstSceneIndex = latestLevel.buildIndex;
 
             playButton.GetComponentInChildren<TextMeshProUGUI>().text = "Continue";
             GameObject.FindGameObjectWithTag("PlayText").GetComponentInChildren<RectTransform>().sizeDelta = new Vector2(270, GameObject.FindGameObjectWithTag("PlayText").GetComponentInChildren<RectTransform>().sizeDelta.y);
@@ -24,13 +26,13 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         ProgressionManager.Instance.UseProgression = true;
-        SceneManager.LoadScene(playScene);
+        LevelManager.Instance.LoadScene(firstSceneIndex, true);
     }
 
     public void SelectLevel()
     {
         ProgressionManager.Instance.UseProgression = false;
-        SceneManager.LoadScene(1);
+        LevelManager.Instance.LoadScene(1, false);
     }
 
     public void ExitGame()
@@ -40,6 +42,6 @@ public class MainMenu : MonoBehaviour
 
     public void OpenSettings()
     {
-        SceneManager.LoadScene("SettingsScene");
+        LevelManager.Instance.LoadScene(settingsSceneIndex, false, false, false);
     }
 }

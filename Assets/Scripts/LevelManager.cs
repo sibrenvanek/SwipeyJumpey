@@ -37,38 +37,57 @@ public class LevelManager : MonoBehaviour
         DarthFader.Instance.FadeGameIn(fadeTime);
     }
 
-    public void LoadScene(int sceneIndex, bool loadingIndicator = true, bool resetLevel = false)
+    public void LoadScene(int sceneIndex, bool loadingIndicator = true, bool resetLevel = false, bool fade = true)
     {
-        if (resetLevel)
-        {
-            Level level = ProgressionManager.Instance.GetLevel(sceneIndex);
+        Level level = ProgressionManager.Instance.GetLevel(sceneIndex);
 
-            if (level != null)
+        if (level != null)
+        {
+            if (resetLevel)
             {
                 ProgressionManager.Instance.ResetLevel(level);
             }
+
+            Debug.Log("SETTING LATEST LEVEL");
+            ProgressionManager.Instance.SetLatestLevel(level);
         }
 
-        DarthFader.Instance.FadeGameOut(fadeTime, loadingIndicator);
-        StartCoroutine(LoadLevelAfterSeconds(sceneIndex, fadeTime));
+        if (fade)
+        {
+            DarthFader.Instance.FadeGameOut(fadeTime, loadingIndicator);
+            StartCoroutine(LoadLevelAfterSeconds(sceneIndex, fadeTime));
+            return;
+        }
+
+        StartCoroutine(LoadLevelAfterSeconds(sceneIndex, 0));
     }
 
-    public void LoadNextScene(bool loadingIndicator = true, bool resetLevel = false)
+    public void LoadNextScene(bool loadingIndicator = true, bool resetLevel = false, bool fade = true)
     {
         int sceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
 
+        Level level = ProgressionManager.Instance.GetLevel(sceneIndex);
+
         if (resetLevel)
         {
-            Level level = ProgressionManager.Instance.GetLevel(sceneIndex);
 
             if (level != null)
             {
                 ProgressionManager.Instance.ResetLevel(level);
             }
+
+            Debug.Log("SETTING LATEST LEVEL");
+            ProgressionManager.Instance.SetLatestLevel(level);
         }
 
-        DarthFader.Instance.FadeGameOut(fadeTime, loadingIndicator);
-        StartCoroutine(LoadLevelAfterSeconds(sceneIndex, fadeTime));
+        if (fade)
+        {
+            DarthFader.Instance.FadeGameOut(fadeTime, loadingIndicator);
+            StartCoroutine(LoadLevelAfterSeconds(sceneIndex, fadeTime));
+            return;
+        }
+
+        StartCoroutine(LoadLevelAfterSeconds(sceneIndex, 0));
     }
 
     private IEnumerator LoadLevelAfterSeconds(int levelIndex, float seconds)
