@@ -8,6 +8,7 @@ public class LevelPreview : MonoBehaviour
     [SerializeField] private string levelName = "";
     [SerializeField] private Color enabledColor = new Color(1f, 1f, 1f);
     [SerializeField] private Color disabledColor = new Color(0.8f, 0.8f, 0.8f);
+    [SerializeField] private int amountCollectables = 0;
     private SpriteRenderer spriteRenderer = null;
     private bool active = false;
     private bool unlocked = false;
@@ -18,6 +19,11 @@ public class LevelPreview : MonoBehaviour
         levelSelecter = GetComponentInParent<LevelSelecter>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         transform.localScale = inactiveSize;
+    }
+
+    public int GetAmountCollectables()
+    {
+        return amountCollectables;
     }
 
     public void SetSceneIndex(int sceneIndex)

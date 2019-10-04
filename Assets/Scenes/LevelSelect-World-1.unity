@@ -2429,6 +2429,8 @@ PrefabInstance:
       value: Return Of The Sith
       objectReference: {fileID: 0}
     - target: {fileID: 1719493191, guid: 236a2f5c31bed314081b3f30ce2f17dc, type: 3}
+      propertyPath: amountCollectables
+      value: 220069
       propertyPath: disabledColor.r
       value: 0.6981132
       objectReference: {fileID: 0}
@@ -2811,6 +2813,75 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1709815146
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7171864747170570080, guid: c813851c12dbeca4fa1aac3bf44c4796,
+        type: 3}
+      propertyPath: m_Name
+      value: ProgressionManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149196664703080208, guid: c813851c12dbeca4fa1aac3bf44c4796,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.3606669
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149196664703080208, guid: c813851c12dbeca4fa1aac3bf44c4796,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.92028016
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149196664703080208, guid: c813851c12dbeca4fa1aac3bf44c4796,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -103.63906
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149196664703080208, guid: c813851c12dbeca4fa1aac3bf44c4796,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149196664703080208, guid: c813851c12dbeca4fa1aac3bf44c4796,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149196664703080208, guid: c813851c12dbeca4fa1aac3bf44c4796,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149196664703080208, guid: c813851c12dbeca4fa1aac3bf44c4796,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149196664703080208, guid: c813851c12dbeca4fa1aac3bf44c4796,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149196664703080208, guid: c813851c12dbeca4fa1aac3bf44c4796,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149196664703080208, guid: c813851c12dbeca4fa1aac3bf44c4796,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5149196664703080208, guid: c813851c12dbeca4fa1aac3bf44c4796,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c813851c12dbeca4fa1aac3bf44c4796, type: 3}
 --- !u!1001 &1719493188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2886,7 +2957,9 @@ PrefabInstance:
       propertyPath: levelName
       value: A New Emperor
       objectReference: {fileID: 0}
-    - target: {fileID: 1719493191, guid: 236a2f5c31bed314081b3f30ce2f17dc, type: 3}
+    - target: {fileID: 1719493191, guid: 236a2f5c31bed314081b3f30ce2f17dc, type: 3}\
+      propertyPath: amountCollectables
+      value: 10
       propertyPath: disabledColor.r
       value: 0.6981132
       objectReference: {fileID: 0}
@@ -3220,6 +3293,8 @@ PrefabInstance:
       value: The Rebellion Strikes Back
       objectReference: {fileID: 0}
     - target: {fileID: 1719493191, guid: 236a2f5c31bed314081b3f30ce2f17dc, type: 3}
+      propertyPath: amountCollectables
+      value: 666
       propertyPath: disabledColor.r
       value: 0.6981132
       objectReference: {fileID: 0}
