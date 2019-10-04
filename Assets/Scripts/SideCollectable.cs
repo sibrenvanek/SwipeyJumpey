@@ -4,5 +4,9 @@ using UnityEngine;
 
 public class SideCollectable : Collectable
 {
-    
+    public override void Collect()
+    {
+        base.Collect();
+        ProgressionManager.Instance.IncreaseAmountOfSideCollectables();
+    }
 }

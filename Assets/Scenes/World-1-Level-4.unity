@@ -12364,7 +12364,7 @@ PrefabInstance:
     - target: {fileID: 1508894441572218797, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.741551
+      value: 9.408217
       objectReference: {fileID: 0}
     - target: {fileID: 1508894441572218797, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
@@ -19708,31 +19708,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 585780739684234313, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1946067523713256595, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: dashSpeedReduction
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1946067523713256595, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: speedLimiter
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1946067523713256595, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: maxVelocity.y
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1946067523713256595, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: maxVelocity
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 7491689127697931921, guid: f8a1a67ea9e524d4e9edce007c9e2311,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19787,21 +19762,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4857256654572397243, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: playerManager
-      value: 
-      objectReference: {fileID: 242003655}
-    - target: {fileID: 2570160019322664879, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: -2195771165354065761, guid: f8a1a67ea9e524d4e9edce007c9e2311,
-        type: 3}
-      propertyPath: indicatorsPrefab
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8a1a67ea9e524d4e9edce007c9e2311, type: 3}
