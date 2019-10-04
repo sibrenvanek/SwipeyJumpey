@@ -37,18 +37,38 @@ public class LevelManager : MonoBehaviour
         DarthFader.Instance.FadeGameIn(fadeTime);
     }
 
-    public void LoadScene(int levelIndex)
+    public void LoadScene(int sceneIndex, bool loadingIndicator = true, bool resetLevel = false)
     {
-        DarthFader.Instance.FadeGameOut(fadeTime, true);
-        StartCoroutine(LoadLevelAfterSeconds(levelIndex, fadeTime));
-    }
+        if (resetLevel)
+        {
+            Level level = ProgressionManager.Instance.GetLevel(sceneIndex);
 
-    public void LoadNextScene(bool loadingIndicator = true)
-    {
-        int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            if (level != null)
+            {
+                ProgressionManager.Instance.ResetLevel(level);
+            }
+        }
 
         DarthFader.Instance.FadeGameOut(fadeTime, loadingIndicator);
-        StartCoroutine(LoadLevelAfterSeconds(levelIndex, fadeTime));
+        StartCoroutine(LoadLevelAfterSeconds(sceneIndex, fadeTime));
+    }
+
+    public void LoadNextScene(bool loadingIndicator = true, bool resetLevel = false)
+    {
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+
+        if (resetLevel)
+        {
+            Level level = ProgressionManager.Instance.GetLevel(sceneIndex);
+
+            if (level != null)
+            {
+                ProgressionManager.Instance.ResetLevel(level);
+            }
+        }
+
+        DarthFader.Instance.FadeGameOut(fadeTime, loadingIndicator);
+        StartCoroutine(LoadLevelAfterSeconds(sceneIndex, fadeTime));
     }
 
     private IEnumerator LoadLevelAfterSeconds(int levelIndex, float seconds)

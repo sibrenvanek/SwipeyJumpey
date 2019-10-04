@@ -119,6 +119,9 @@ public class ProgressionManager : MonoBehaviour
 
     public static Checkpoint GetCheckpointFromMinified(MinifiedCheckpoint minCheckpoint)
     {
+        if (minCheckpoint == null)
+            return null;
+
         Checkpoint[] checkpoints = FindObjectsOfType<Checkpoint>();
         return Array.Find(checkpoints, checkpoint => checkpoint.GetId() == minCheckpoint.id);
     }

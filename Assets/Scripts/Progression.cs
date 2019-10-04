@@ -157,11 +157,13 @@ public class Progression
     {
         foreach (Level level in unlockedLevels)
         {
+            level.latestCheckpoint = null;
             level.completed = false;
         }
     }
     public void ResetLevel(Level level)
     {
+        level.latestCheckpoint = null;
         level.completed = false;
     }
 
