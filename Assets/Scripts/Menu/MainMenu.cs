@@ -15,7 +15,6 @@ public class MainMenu : MonoBehaviour
 
         if (latestLevel != null)
         {
-            Debug.Log("THERE IS A LATEST LEVEL");
             firstSceneIndex = latestLevel.buildIndex;
 
             playButton.GetComponentInChildren<TextMeshProUGUI>().text = "Continue";

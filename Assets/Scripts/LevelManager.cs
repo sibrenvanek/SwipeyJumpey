@@ -48,7 +48,6 @@ public class LevelManager : MonoBehaviour
                 ProgressionManager.Instance.ResetLevel(level);
             }
 
-            Debug.Log("SETTING LATEST LEVEL");
             ProgressionManager.Instance.SetLatestLevel(level);
         }
 
@@ -76,7 +75,6 @@ public class LevelManager : MonoBehaviour
                 ProgressionManager.Instance.ResetLevel(level);
             }
 
-            Debug.Log("SETTING LATEST LEVEL");
             ProgressionManager.Instance.SetLatestLevel(level);
         }
 
