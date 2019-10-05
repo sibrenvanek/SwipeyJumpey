@@ -47,9 +47,11 @@ public class LevelSelecter : MonoBehaviour
     private void SetStats()
     {
         Level selectedLevel = ProgressionManager.Instance.GetLevel(levelPreviews[activePreviewIndex].GetSceneIndex());
+        selectedLevel.totalAmountOfMainCollectables = levelPreviews[activePreviewIndex].GetAmountOfMainCollectables();
+        selectedLevel.totalAmountOfSideCollectables = levelPreviews[activePreviewIndex].GetAmountOfSideCollectables();
         amountOfCollectablesDisplay.text = selectedLevel.amountOfMainCollectables.ToString();
         if (selectedLevel.completed)
-            amountOfCollectablesDisplay.text += "/" + levelPreviews[activePreviewIndex].GetAmountCollectables();
+            amountOfCollectablesDisplay.text += "/" + levelPreviews[activePreviewIndex].GetAmountOfMainCollectables();
         amountOfDeathsDisplay.text = selectedLevel.amountOfDeaths.ToString();
     }
 
