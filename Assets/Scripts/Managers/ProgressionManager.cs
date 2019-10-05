@@ -10,6 +10,7 @@ public class ProgressionManager : MonoBehaviour
     public static ProgressionManager Instance;
     private Progression progression;
     private readonly int ID = 2;
+    private Checkpoint lastCheckpoint = null;
 
     [SerializeField] public bool UseProgression = true;
 
@@ -79,7 +80,13 @@ public class ProgressionManager : MonoBehaviour
 
     public void SetLastActivatedCheckpoint(Checkpoint checkpoint)
     {
+        lastCheckpoint = checkpoint;
         progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { id = checkpoint.GetId(), name = checkpoint.name, position = checkpoint.CheckpointTransform.position });
+    }
+
+    public Checkpoint GetLastActivatedCheckpoint()
+    {
+        return lastCheckpoint;
     }
 
     public void ResetLevels()

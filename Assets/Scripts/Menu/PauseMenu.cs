@@ -70,14 +70,15 @@ public class PauseMenu : MonoBehaviour
 
     public void ResetLevel()
     {
-        Resume();
         worldManager.ResetToRoomCheckpoint();
+        Resume();
     }
 
     public void ResetWorld()
     {
         Resume();
-        worldManager.ResetToInitialCheckpoint();
+        int activeSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        LevelManager.Instance.LoadScene(activeSceneIndex, true, true, true);
     }
 
     public void ResetCheckpoint()
