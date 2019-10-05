@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class WorldSelecter : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class WorldSelecter : MonoBehaviour
     [Header("Available worlds")]
     [SerializeField] private WorldPreview[] worlds = null;
 
+    [SerializeField] private Image leftButton = null;
+    [SerializeField] private Image rightButton = null;
+    [SerializeField] private Color disabledColor = Color.grey;
+    private Color enabledColor = Color.white;
+
     public event Action<WorldPreview> OnWorldChanged = delegate {};
     private int activeWorldIndex = 0;
 
@@ -22,6 +28,8 @@ public class WorldSelecter : MonoBehaviour
     private void Start()
     {
         WorldChanged(0);
+        enabledColor = leftButton.color;
+        leftButton.color = disabledColor;
     }
 
     private void Update()
@@ -41,6 +49,15 @@ public class WorldSelecter : MonoBehaviour
 
         if (newIndex != activeWorldIndex)
             WorldChanged(newIndex);
+
+        if (newIndex == 0)
+        {
+            leftButton.color = disabledColor;
+        }
+        else
+        {
+            rightButton.color = enabledColor;
+        }
     }
 
     public void Right()
@@ -49,6 +66,15 @@ public class WorldSelecter : MonoBehaviour
 
         if (newIndex != activeWorldIndex)
             WorldChanged(newIndex);
+
+        if (newIndex >= worlds.Length - 1)
+        {
+            rightButton.color = disabledColor;
+        }
+        else
+        {
+            leftButton.color = enabledColor;
+        }
     }
 
     private void WorldChanged(int newActiveIndex)

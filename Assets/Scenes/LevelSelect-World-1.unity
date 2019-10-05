@@ -740,7 +740,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 0.09411765, g: 0.078431375, b: 0.14509805, a: 0}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.3372549}
@@ -791,7 +791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1171,6 +1171,9 @@ MonoBehaviour:
   levelNameDisplay: {fileID: 630817096}
   amountOfCollectablesDisplay: {fileID: 2037320462}
   amountOfDeathsDisplay: {fileID: 1791712971}
+  leftButton: {fileID: 382672648}
+  rightButton: {fileID: 847179482}
+  disabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &623610288
 GameObject:
   m_ObjectHideFlags: 0
@@ -2165,7 +2168,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 0.09411765, g: 0.078431375, b: 0.14509805, a: 0}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.3372549}
@@ -2216,7 +2219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
