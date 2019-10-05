@@ -10,10 +10,11 @@ public class WorldManager : MonoBehaviour
     [SerializeField] private string worldName = null;
     public event Action<Room> OnCurrentRoomChanged = delegate {};
     private Room curRoom = null;
+    private MainCollectable[] mainCollectables = null;
 
     void Start()
     {
-        MainCollectable[] mainCollectables = FindObjectsOfType<MainCollectable>();
+        mainCollectables = FindObjectsOfType<MainCollectable>();
         List<MinifiedMainCollectable> collectables = ProgressionManager.Instance.GetMainCollectables();
         foreach (MainCollectable mainCollectable in mainCollectables)
         {
@@ -34,18 +35,6 @@ public class WorldManager : MonoBehaviour
         curRoom = roomInfo;
         curRoom.Close();
         OnCurrentRoomChanged(roomInfo);
-    }
-
-    public void ResetToRoomCheckpoint()
-    {
-        if (currentRoomCheckpoint != null)
-            GameManager.Instance.SendPlayerToCheckpoint(currentRoomCheckpoint);
-    }
-
-    public void ResetToInitialCheckpoint()
-    {
-        if (initialCheckpoint != null)
-            GameManager.Instance.SendPlayerToCheckpoint(initialCheckpoint);
     }
 
     public Checkpoint GetInitialCheckpoint()
