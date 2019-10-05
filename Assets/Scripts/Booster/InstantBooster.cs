@@ -19,8 +19,6 @@ public class InstantBooster : Booster
 
     protected override void Activate(GameObject player)
     {
-        PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
-        playerMovement.KillVelocity();
         launchAnimator.SetTrigger("Launch");
         Boost(player.GetComponent<Rigidbody2D>());
         StartCoroutine(DisableAndRespawn());
