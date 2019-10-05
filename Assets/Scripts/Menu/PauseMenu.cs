@@ -68,12 +68,6 @@ public class PauseMenu : MonoBehaviour
         currentLevelPlaceholder.text = currentRoom.RoomName;
     }
 
-    public void ResetLevel()
-    {
-        worldManager.ResetToRoomCheckpoint();
-        Resume();
-    }
-
     public void ResetWorld()
     {
         Resume();

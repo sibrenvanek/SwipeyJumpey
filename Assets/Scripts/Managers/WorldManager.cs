@@ -37,15 +37,6 @@ public class WorldManager : MonoBehaviour
         OnCurrentRoomChanged(roomInfo);
     }
 
-    public void ResetToRoomCheckpoint()
-    {
-        Checkpoint lastCheckpoint = ProgressionManager.Instance.GetLastActivatedCheckpoint();
-        if (lastCheckpoint != null)
-            GameManager.Instance.SendPlayerToCheckpoint(lastCheckpoint);
-        else
-            Debug.Log("AW");
-    }
-
     public Checkpoint GetInitialCheckpoint()
     {
         return initialCheckpoint;
