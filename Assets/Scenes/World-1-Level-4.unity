@@ -15301,7 +15301,7 @@ PrefabInstance:
     - target: {fileID: 1508894441572218797, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.32
+      value: 8.58322
       objectReference: {fileID: 0}
     - target: {fileID: 1508894441572218797, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
@@ -23335,10 +23335,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 11.318996, y: 20.877323}
-      - {x: -19.010305, y: 21.052618}
-      - {x: -18.769976, y: 4.9488306}
-      - {x: 11.580193, y: 4.981996}
+    - - {x: 13, y: 20}
+      - {x: -20, y: 20}
+      - {x: -19.9, y: 5}
+      - {x: 13, y: 5}
 --- !u!4 &1115087593
 Transform:
   m_ObjectHideFlags: 0
@@ -25195,7 +25195,7 @@ PrefabInstance:
     - target: {fileID: 6112299020132056913, guid: 8f9d542c946aa4ebf928d2bd573d9d59,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6112299020132056913, guid: 8f9d542c946aa4ebf928d2bd573d9d59,
         type: 3}
@@ -25443,10 +25443,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 11.839935, y: 23.357466}
-      - {x: -19.460243, y: 23.39517}
+    - - {x: 12.885826, y: 18.951632}
+      - {x: -19.52997, y: 18.862968}
       - {x: -20, y: 4}
-      - {x: 12, y: 4}
+      - {x: 12.836716, y: 4.069727}
 --- !u!4 &1537718064
 Transform:
   m_ObjectHideFlags: 0
@@ -31274,7 +31274,7 @@ PrefabInstance:
     - target: {fileID: 7124536436694307267, guid: 83e35bc0104909b48a73fb1703d19f62,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7124536436694307267, guid: 83e35bc0104909b48a73fb1703d19f62,
         type: 3}
