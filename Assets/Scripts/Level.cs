@@ -16,6 +16,8 @@ public class Level
     public int amountOfCheckpointsActivated = 0;
     public int amountOfBounces = 0;
     public bool completed;
+    public int totalAmountOfMainCollectables = 0;
+    public int totalAmountOfSideCollectables = 0;
 }
 
 public class MinifiedCheckpoint

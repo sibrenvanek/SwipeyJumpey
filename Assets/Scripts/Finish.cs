@@ -1,12 +1,21 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Finish : MonoBehaviour
 {
+    [SerializeField] FinishScreen finishScreen = null;
+    private bool finished = false;
+
     private void OnTriggerEnter2D(Collider2D collider)
     {
         WorldManager worldManager = FindObjectOfType<WorldManager>();
-        GetComponentInChildren<ParticleSystem>().Play();
         ProgressionManager.Instance.SetLastActivatedCheckpoint(worldManager.GetInitialCheckpoint());
-        LevelManager.Instance.LoadNextScene(true, true);
+        PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
+        playerMovement.Disable();
+        GetComponentInChildren<ParticleSystem>().Play();
+        Level level = ProgressionManager.Instance.GetLevel(SceneManager.GetActiveScene().name);
+        finishScreen.SetMainCollectables(level.amountOfMainCollectables + "/" + level.totalAmountOfMainCollectables);
+        finishScreen.SetSideCollectables(level.amountOfSideCollectables + "/" + level.totalAmountOfSideCollectables);
+        finishScreen.gameObject.SetActive(true);
     }
 }
