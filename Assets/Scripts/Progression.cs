@@ -7,6 +7,9 @@ using UnityEngine.Android;
 public class Progression
 {
     public List<Level> unlockedLevels { get; private set; } = new List<Level>();
+    public bool pickedUpJetpack { get; private set; } = false;
+    public int ID = 0;
+    public Level latestLevel = null;
     private static readonly string path = Application.persistentDataPath + "/data.json";
 
     public void SaveProgression()
@@ -22,14 +25,23 @@ public class Progression
     {
         if (ProgressionManager.CheckAndForcePermission(Permission.ExternalStorageRead))
         {
-            if (System.IO.File.Exists(path))
+            if (File.Exists(path))
             {
                 string data = File.ReadAllText(path);
-                Progression progression = JsonConvert.DeserializeObject<Progression>(data);
-                return progression;
+                if (data != "")
+                {
+                    Progression progression = JsonConvert.DeserializeObject<Progression>(data);
+                    return progression;
+                }
+            }
+            else
+            {
+                return new Progression();
             }
         }
-        return new Progression();
+
+        Debug.LogError("No permission");
+        return null;
     }
 
     public void IncreaseAmountOfJumps(string sceneName)
@@ -146,8 +158,14 @@ public class Progression
     {
         foreach (Level level in unlockedLevels)
         {
+            level.latestCheckpoint = null;
             level.completed = false;
         }
+    }
+    public void ResetLevel(Level level)
+    {
+        level.latestCheckpoint = null;
+        level.completed = false;
     }
 
     public Level GetFirstUnfinishedLevel()
@@ -165,6 +183,7 @@ public class Progression
     public void DeleteProgression()
     {
         unlockedLevels = new List<Level>();
+        pickedUpJetpack = false;
         SaveProgression();
     }
 
@@ -179,5 +198,10 @@ public class Progression
         if (level != null)
             return true;
         return false;
+    }
+
+    public void SetPickedUpJetpack(bool value)
+    {
+        pickedUpJetpack = value;
     }
 }

@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class TrajectoryPrediction : MonoBehaviour
 {
-    [SerializeField] private Indicator indicatorPrefab = null;
-    [SerializeField] private Indicator indicatorFillPrefab = null;
+    [SerializeField] private GameObject indicatorsPrefab = null;
     [SerializeField] private MouseIndicator mouseIndicatorPrefab = null;
     private Indicator activeIndicatorFill = null;
     private MouseIndicator activeMouseIndicator = null;
     private Indicator activeIndicator = null;
+    private GameObject activeIndicators = null;
 
     public void UpdateTrajectory(Vector2 baseMousePosition, Vector2 startVelocity, float angle, float time, float cancelSize, Vector2 maxVelocity)
     {
@@ -45,35 +45,37 @@ public class TrajectoryPrediction : MonoBehaviour
 
         if (!activeIndicator)
         {
-            activeIndicator = Instantiate(indicatorPrefab, transform.position, Quaternion.identity);
-            activeIndicatorFill = Instantiate(indicatorFillPrefab, transform.position, Quaternion.identity);
+            activeIndicators = Instantiate(indicatorsPrefab, transform.position, Quaternion.identity);
+            activeIndicator = activeIndicators.GetComponentInChildren<MaxIndicator>();
+            activeIndicatorFill = activeIndicators.GetComponentInChildren<FillIndicator>();
             activeMouseIndicator = Instantiate(mouseIndicatorPrefab, baseMousePosition, Quaternion.identity);
             activeMouseIndicator.SetCancelDistance(cancelSize);
         }
 
-        activeIndicatorFill.transform.position = transform.position;
-        activeIndicatorFill.transform.eulerAngles = new Vector3(0, 0, angle);
+        activeIndicators.transform.position = transform.position;
+        activeIndicators.transform.eulerAngles = new Vector3(0, 0, angle);
         activeIndicatorFill.SetDistance(lengthZ / 2);
         activeIndicatorFill.SetWidth(lengthZ);
-        activeIndicator.transform.position = transform.position;
-        activeIndicator.transform.eulerAngles = new Vector3(0, 0, angle);
         activeIndicator.SetDistance(maxLengthZ / 2);
         activeIndicator.SetWidth(maxLengthZ);
     }
 
     public void RemoveIndicators()
     {
-        if (activeIndicatorFill)
+        if(activeIndicators)
         {
-            Destroy(activeIndicatorFill.gameObject);
-            activeIndicatorFill = null;
+            if (activeIndicatorFill)
+            {
+                activeIndicatorFill = null;
+            }
+            
+            if (activeIndicator)
+            {
+                activeIndicator = null;
+            }
+            Destroy(activeIndicators.gameObject);
         }
         
-        if (activeIndicator)
-        {
-            Destroy(activeIndicator.gameObject);
-            activeIndicator = null;
-        }
 
         if (activeMouseIndicator)
         {

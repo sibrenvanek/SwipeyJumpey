@@ -11,11 +11,12 @@ public class MainCollectable : Collectable
 
     public override void Collect()
     {
+        base.Collect();
+
         if (!hasBeenCollectedBefore)
         {
             ProgressionManager.Instance.IncreaseAmountOfMainCollectables(ConvertToMainCollectable());
         }
-        gameObject.SetActive(false);
     }
 
     public MinifiedMainCollectable ConvertToMainCollectable()
@@ -37,8 +38,8 @@ public class MainCollectable : Collectable
 
     public override void TurnOff()
     {
+        base.TurnOff();
         hasBeenCollectedBefore = true;
-        gameObject.SetActive(false);
     }
 
     public int GetId()

@@ -23,4 +23,9 @@ public class IntroRocket : MonoBehaviour
     {
         explosion.SetActive(true);
     }
+
+    public void FinishIntro()
+    {
+        LevelManager.Instance.LoadNextScene(false);
+    }
 }

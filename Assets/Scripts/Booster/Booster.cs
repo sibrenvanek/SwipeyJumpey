@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -25,8 +25,9 @@ public abstract class Booster : MonoBehaviour
     {
         if(root == null)
             root = transform;
-            
-        rigidbody.AddForce(root.up * force, ForceMode2D.Impulse);
+
+        rigidbody.transform.position = transform.position;
+        rigidbody.velocity = root.up * force;
         //BoostAnimation();
     }
 

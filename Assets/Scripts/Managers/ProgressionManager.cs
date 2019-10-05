@@ -9,6 +9,8 @@ public class ProgressionManager : MonoBehaviour
 {
     public static ProgressionManager Instance;
     private Progression progression;
+    private readonly int ID = 2;
+
     [SerializeField] public bool UseProgression = true;
 
     private void Awake()
@@ -25,6 +27,13 @@ public class ProgressionManager : MonoBehaviour
         }
 
         progression = Progression.LoadProgression();
+
+        if (progression.ID != ID)
+        {
+            DeleteProgression();
+            progression = Progression.LoadProgression();
+            progression.ID = ID;
+        }
     }
 
     public void HandleProgression()
@@ -93,6 +102,19 @@ public class ProgressionManager : MonoBehaviour
         return progression.GetLevel(GetSceneNameFromIndex(sceneIndex));
     }
 
+    public void ResetLevel(Level level)
+    {
+        progression.ResetLevel(level);
+    }
+
+    public void SetLatestLevel(Level level)
+    {
+        if (level != null)
+        {
+            progression.latestLevel = level;
+        }
+    }
+
     public static string GetSceneNameFromIndex(int sceneIndex)
     {
         return Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(sceneIndex));
@@ -100,11 +122,14 @@ public class ProgressionManager : MonoBehaviour
 
     public Level GetLatestLevel()
     {
-        return progression.GetFirstUnfinishedLevel();
+        return progression.latestLevel;
     }
 
     public static Checkpoint GetCheckpointFromMinified(MinifiedCheckpoint minCheckpoint)
     {
+        if (minCheckpoint == null)
+            return null;
+
         Checkpoint[] checkpoints = FindObjectsOfType<Checkpoint>();
         return Array.Find(checkpoints, checkpoint => checkpoint.GetId() == minCheckpoint.id);
     }
@@ -136,5 +161,15 @@ public class ProgressionManager : MonoBehaviour
     public bool CheckIfLevelExists(int sceneIndex)
     {
         return progression.CheckIfLevelExists(sceneIndex);
+    }
+
+    public bool GetPickedUpJetpack()
+    {
+        return progression.pickedUpJetpack;
+    }
+
+    public void SetPickedUpJetpack(bool value)
+    {
+        progression.SetPickedUpJetpack(value);
     }
 }

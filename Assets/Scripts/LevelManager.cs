@@ -37,18 +37,55 @@ public class LevelManager : MonoBehaviour
         DarthFader.Instance.FadeGameIn(fadeTime);
     }
 
-    public void LoadScene(int levelIndex)
+    public void LoadScene(int sceneIndex, bool loadingIndicator = true, bool resetLevel = false, bool fade = true)
     {
-        DarthFader.Instance.FadeGameOut(fadeTime);
-        StartCoroutine(LoadLevelAfterSeconds(levelIndex, fadeTime));
+        Level level = ProgressionManager.Instance.GetLevel(sceneIndex);
+
+        if (level != null)
+        {
+            if (resetLevel)
+            {
+                ProgressionManager.Instance.ResetLevel(level);
+            }
+
+            ProgressionManager.Instance.SetLatestLevel(level);
+        }
+
+        if (fade)
+        {
+            DarthFader.Instance.FadeGameOut(fadeTime, loadingIndicator);
+            StartCoroutine(LoadLevelAfterSeconds(sceneIndex, fadeTime));
+            return;
+        }
+
+        StartCoroutine(LoadLevelAfterSeconds(sceneIndex, 0));
     }
 
-    public void LoadNextScene()
+    public void LoadNextScene(bool loadingIndicator = true, bool resetLevel = false, bool fade = true)
     {
-        int levelIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
 
-        DarthFader.Instance.FadeGameOut(fadeTime);
-        StartCoroutine(LoadLevelAfterSeconds(levelIndex, fadeTime));
+        Level level = ProgressionManager.Instance.GetLevel(sceneIndex);
+
+        if (resetLevel)
+        {
+
+            if (level != null)
+            {
+                ProgressionManager.Instance.ResetLevel(level);
+            }
+
+            ProgressionManager.Instance.SetLatestLevel(level);
+        }
+
+        if (fade)
+        {
+            DarthFader.Instance.FadeGameOut(fadeTime, loadingIndicator);
+            StartCoroutine(LoadLevelAfterSeconds(sceneIndex, fadeTime));
+            return;
+        }
+
+        StartCoroutine(LoadLevelAfterSeconds(sceneIndex, 0));
     }
 
     private IEnumerator LoadLevelAfterSeconds(int levelIndex, float seconds)

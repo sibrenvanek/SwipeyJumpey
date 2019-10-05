@@ -8,6 +8,8 @@ public class DarthFader : MonoBehaviour
 {
     public static DarthFader Instance = null;
 
+    [SerializeField] private GameObject loadingIndicator = null;
+    private Image loadingIndicatorImage = null;
     private Image image = null;
     private Coroutine activeWaitTillFadedCoroutine = null;
 
@@ -25,16 +27,20 @@ public class DarthFader : MonoBehaviour
         }
 
         image = GetComponentInChildren<Image>();
+        loadingIndicatorImage = loadingIndicator.GetComponent<Image>();
     }
 
     public void FadeGameIn(float time = 1f)
     {
-        if (activeWaitTillFadedCoroutine != null)
-            StopCoroutine(activeWaitTillFadedCoroutine);
+        if (loadingIndicator.activeSelf)
+        {
+            loadingIndicatorImage.DOKill();
+            loadingIndicatorImage.DOFade(0, time);
+            StartCoroutine(WaitAndDisable(time));
+        }
 
         image.DOKill();
         image.DOFade(0, time);
-        activeWaitTillFadedCoroutine = StartCoroutine(WaitTillFaded(time));
     }
 
     public void FadeGameInInSeconds(float waitTime = 0f, float time = 1f)
@@ -45,19 +51,26 @@ public class DarthFader : MonoBehaviour
     private IEnumerator WaitAndFadeIn(float waitTime = 0f, float time = 1f)
     {
         yield return new WaitForSeconds(waitTime);
+
         FadeGameIn(time);
     }
 
-    public void FadeGameOut(float time = 1f)
+    public void FadeGameOut(float time = 1f, bool addLoadingIndicator = false)
     {
+        if (addLoadingIndicator)
+        {
+            loadingIndicator.SetActive(true);
+            loadingIndicatorImage.DOFade(1, time);
+        }
+
         image.DOKill();
         image.DOFade(1, time);
     }
 
-    private IEnumerator WaitTillFaded(float waitTime = 0f)
+    private IEnumerator WaitAndDisable(float time = 0f)
     {
-        yield return new WaitForSeconds(waitTime);
-        activeWaitTillFadedCoroutine = null;
+        yield return new WaitForSeconds(time);
+        loadingIndicator.SetActive(false);
     }
 
     /*
