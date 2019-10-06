@@ -154,7 +154,15 @@ public class Progression
         return GetLevel(sceneName).mainCollectables;
     }
 
-    public void ResetLevels()
+    public void ResetCheckpoints()
+    {
+        foreach (Level level in unlockedLevels)
+        {
+            level.latestCheckpoint = null;
+        }
+    }
+
+    public void RemoveLevelsProgression()
     {
         foreach (Level level in unlockedLevels)
         {
@@ -162,7 +170,7 @@ public class Progression
             level.completed = false;
         }
     }
-    public void ResetLevel(Level level)
+    public void RemoveLevelProgression(Level level)
     {
         level.latestCheckpoint = null;
         level.completed = false;
