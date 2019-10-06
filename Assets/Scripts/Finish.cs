@@ -22,6 +22,7 @@ public class Finish : MonoBehaviour
         playerMovement.Disable();
         GetComponentInChildren<ParticleSystem>().Play();
         Level level = ProgressionManager.Instance.GetLevel(SceneManager.GetActiveScene().name);
+        level.completed = true;
         finishScreen.SetMainCollectables(level.amountOfMainCollectables + "/" + level.totalAmountOfMainCollectables);
         finishScreen.SetSideCollectables(level.amountOfSideCollectables + "/" + level.totalAmountOfSideCollectables);
         finishScreen.gameObject.SetActive(true);

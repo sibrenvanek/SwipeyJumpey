@@ -9,7 +9,7 @@ public class ProgressionManager : MonoBehaviour
 {
     public static ProgressionManager Instance;
     private Progression progression;
-    private readonly int ID = 2;
+    private readonly int ID = 3;
 
     [SerializeField] public bool UseProgression = true;
 
