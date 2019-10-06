@@ -43,6 +43,7 @@ public class SlowMotion : MonoBehaviour
 
     public void Go()
     {
+        Cancel();
         curCoroutine = StartCoroutine(StartSlowMotionSequence());
     }
 
@@ -51,6 +52,7 @@ public class SlowMotion : MonoBehaviour
         if (curCoroutine != null)
         {
             StopCoroutine(curCoroutine);
+            DOTween.KillAll();
         }
         ResetTime();
     }
