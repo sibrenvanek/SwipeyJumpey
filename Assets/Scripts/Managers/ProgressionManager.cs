@@ -9,7 +9,7 @@ public class ProgressionManager : MonoBehaviour
 {
     public static ProgressionManager Instance;
     private Progression progression;
-    private readonly int ID = 2;
+    private readonly int ID = 3;
 
     [SerializeField] public bool UseProgression = true;
 
@@ -82,9 +82,14 @@ public class ProgressionManager : MonoBehaviour
         progression.SetLastActivatedCheckpoint(SceneManager.GetActiveScene().name, new MinifiedCheckpoint { id = checkpoint.GetId(), name = checkpoint.name, position = checkpoint.CheckpointTransform.position });
     }
 
+    public void ResetCheckpoints()
+    {
+        progression.ResetCheckpoints();
+    }
+
     public void ResetLevels()
     {
-        progression.ResetLevels();
+        progression.RemoveLevelsProgression();
     }
 
     public void AddLevel(Level level)
@@ -104,7 +109,7 @@ public class ProgressionManager : MonoBehaviour
 
     public void ResetLevel(Level level)
     {
-        progression.ResetLevel(level);
+        progression.RemoveLevelProgression(level);
     }
 
     public void SetLatestLevel(Level level)

@@ -15301,7 +15301,7 @@ PrefabInstance:
     - target: {fileID: 1508894441572218797, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.546516
+      value: 7.741551
       objectReference: {fileID: 0}
     - target: {fileID: 1508894441572218797, guid: 9356ec27d444a93499cf228ff166dc7b,
         type: 3}
@@ -15373,16 +15373,16 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.b
       value: 0.027035411
       objectReference: {fileID: 0}
+    - target: {fileID: 518979296, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 859533048}
     - target: {fileID: 378091846, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1582681653}
     - target: {fileID: 378091846, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
       propertyPath: cinemachineVirtualCamera
-      value: 
-      objectReference: {fileID: 859533048}
-    - target: {fileID: 518979296, guid: 9356ec27d444a93499cf228ff166dc7b, type: 3}
-      propertyPath: camera
       value: 
       objectReference: {fileID: 859533048}
     m_RemovedComponents: []

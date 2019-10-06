@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +6,12 @@ public class StarDestroyer : MonoBehaviour
 {
     void Start()
     {
-        ProgressionManager.Instance.ResetLevels();
+        DestroyTheStars();
+    }
+
+    public static void DestroyTheStars()
+    {
+        ProgressionManager.Instance.ResetCheckpoints();
         Destroy(FindObjectOfType<PauseMenu>().gameObject);
         Destroy(FindObjectOfType<PlayerManager>().gameObject);
         Destroy(FindObjectOfType<GameManager>().gameObject);

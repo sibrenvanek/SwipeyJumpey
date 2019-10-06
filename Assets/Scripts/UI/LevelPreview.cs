@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelPreview : MonoBehaviour
 {
@@ -8,10 +7,13 @@ public class LevelPreview : MonoBehaviour
     [SerializeField] private string levelName = "";
     [SerializeField] private Color enabledColor = new Color(1f, 1f, 1f);
     [SerializeField] private Color disabledColor = new Color(0.8f, 0.8f, 0.8f);
-    [SerializeField] private int amountCollectables = 0;
+    [SerializeField] private Color completedColor = Color.green;
+    [SerializeField] private int amountOfMainCollectables = 0;
+    [SerializeField] private int amountOfSideCollectables = 0;
     private SpriteRenderer spriteRenderer = null;
     private bool active = false;
     private bool unlocked = false;
+    private bool completed = false;
     private LevelSelecter levelSelecter = null;
 
     void Start()
@@ -21,9 +23,14 @@ public class LevelPreview : MonoBehaviour
         transform.localScale = inactiveSize;
     }
 
-    public int GetAmountCollectables()
+    public int GetAmountOfMainCollectables()
     {
-        return amountCollectables;
+        return amountOfMainCollectables;
+    }
+
+    public int GetAmountOfSideCollectables()
+    {
+        return amountOfSideCollectables;
     }
 
     public void SetSceneIndex(int sceneIndex)
@@ -58,17 +65,17 @@ public class LevelPreview : MonoBehaviour
         transform.localScale = inactiveSize;
     }
 
-    public void SetUnlocked(bool value)
+    public void SetColors(bool unlocked, bool completed)
     {
-        unlocked = value;
-        if (value)
-        {
+        this.unlocked = unlocked;
+        this.completed = completed;
+
+        if (completed)
+            gameObject.GetComponent<SpriteRenderer>().color = completedColor;
+        else if (unlocked)
             gameObject.GetComponent<SpriteRenderer>().color = enabledColor;
-        }
         else
-        {
             gameObject.GetComponent<SpriteRenderer>().color = disabledColor;
-        }
     }
 
     public bool GetUnlocked()

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -29,9 +29,9 @@ public class MainCollectable : Collectable
         };
     }
 
-    public void SetCollected()
+    public void SetCollected(bool collected = true)
     {
-        hasBeenCollectedBefore = true;
+        hasBeenCollectedBefore = collected;
         var renderer = this.GetComponent<SpriteRenderer>();
         renderer.color = new Color(1, 1, 1, opacity);
     }
