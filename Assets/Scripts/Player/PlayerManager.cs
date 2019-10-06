@@ -12,12 +12,7 @@ public class PlayerManager : MonoBehaviour
 
     public event Action<bool> OnGodMode = delegate { };
 
-    /**Singleton**/
     public static PlayerManager Instance;
-
-    /*************
-     * FUNCTIONS *
-     *************/
 
     void Awake()
     {
