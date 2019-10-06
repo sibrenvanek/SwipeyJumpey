@@ -72,7 +72,6 @@ public class LevelPreview : MonoBehaviour
 
         if (completed)
         {
-            Debug.Log("HEY");
             gameObject.GetComponent<SpriteRenderer>().color = completedColor;
         }
         else if (unlocked)
