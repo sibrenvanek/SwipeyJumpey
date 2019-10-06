@@ -3,10 +3,18 @@ using UnityEngine.SceneManagement;
 
 public class Finish : MonoBehaviour
 {
-    [SerializeField] FinishScreen finishScreen = null;
-    private bool finished = false;
-
+    [SerializeField]private FinishScreen finishScreen = null;
+    private bool finished = false; 
     private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.CompareTag("Player"))
+        {
+            if(!finished)
+                FinishLevel();
+        }
+    }
+
+    private void FinishLevel()
     {
         WorldManager worldManager = FindObjectOfType<WorldManager>();
         ProgressionManager.Instance.SetLastActivatedCheckpoint(worldManager.GetInitialCheckpoint());
