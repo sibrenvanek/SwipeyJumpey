@@ -6,6 +6,11 @@ public class StarDestroyer : MonoBehaviour
 {
     void Start()
     {
+        DestroyTheStars();
+    }
+
+    public static void DestroyTheStars()
+    {
         ProgressionManager.Instance.ResetCheckpoints();
         Destroy(FindObjectOfType<PauseMenu>().gameObject);
         Destroy(FindObjectOfType<PlayerManager>().gameObject);

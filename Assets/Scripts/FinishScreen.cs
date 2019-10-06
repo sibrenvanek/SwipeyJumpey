@@ -9,11 +9,21 @@ public class FinishScreen : MonoBehaviour
     [SerializeField] private Text mainCollectablesText = null;
     [SerializeField] private Text sideCollectablesText = null;
 
-    public void Continue()
+    public void Continue(bool endOfWorld = false)
     {
         PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
         playerMovement.Enable();
-        LevelManager.Instance.LoadNextScene(true, true);
+        
+        if(endOfWorld)
+        {
+            StarDestroyer.DestroyTheStars();
+            LevelManager.Instance.LoadScene(1);
+        }
+        else
+        {
+            LevelManager.Instance.LoadNextScene(true, true);
+        }
+
         gameObject.SetActive(false);
     }
 
