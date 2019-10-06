@@ -21,7 +21,7 @@ public class LevelSelecter : MonoBehaviour
     {
         levelPreviews = GetComponentsInChildren<LevelPreview>();
         SetActiveIndex(activePreviewIndex);
-        CheckUnlockedLevels();
+        SetLevelColors();
         SetStats();
         enabledColor = leftButton.color;
         leftButton.color = disabledColor;
@@ -118,7 +118,7 @@ public class LevelSelecter : MonoBehaviour
         }
     }
 
-    private void CheckUnlockedLevels()
+    private void SetLevelColors()
     {
         int unlockedLevelsCount = ProgressionManager.Instance.GetUnlockedLevels().Count;
         if (unlockedLevelsCount <= 0)
@@ -131,7 +131,12 @@ public class LevelSelecter : MonoBehaviour
         }
         foreach (LevelPreview levelPreview in levelPreviews)
         {
-            levelPreview.SetUnlocked(ProgressionManager.Instance.CheckIfLevelExists(levelPreview.GetSceneIndex()));
+            Level level = ProgressionManager.Instance.GetLevel(levelPreview.GetSceneIndex());
+
+            if (level == null)
+                levelPreview.SetColors(false, false);
+            else
+                levelPreview.SetColors(true, level.completed);
         }
     }
 }
