@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,21 +7,35 @@ public class ForegroundPlant : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer = null;
 
+    [SerializeField] private bool flip = false;
+
+    private void OnValidate()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+
+        if (flip)
+        {
+            FlipSprite();
+        }
+    }
+
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (flip)
+        {
+            FlipAnimation();
+        }
     }
 
-    private void Start() 
+    private void FlipSprite()
     {
-        SetRandomFlip();    
+        spriteRenderer.flipX = true;
     }
 
-    private void SetRandomFlip()
+    private void FlipAnimation()
     {
-        int random = Random.Range(0, 20);
-        spriteRenderer.flipX = random % 2 == 0 ? true : false;
+        animator.SetFloat("Speed", -1);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
