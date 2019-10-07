@@ -17,8 +17,8 @@ public class Finish : MonoBehaviour
         {
             if (!finished)
             {
-                playerMovement = collider.GetComponent<PlayerMovement>();
-                playerManager = collider.GetComponent<PlayerManager>();
+                playerMovement = collider.GetComponentInParent<PlayerMovement>();
+                playerManager = collider.GetComponentInParent<PlayerManager>();
                 FinishLevel();
             }
         }
