@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class FontManager : MonoBehaviour
 {
@@ -12,6 +12,7 @@ public class FontManager : MonoBehaviour
 
     private bool dyslexicFontEnabled = false;
     private bool dyslexicfFontSet = false;
+    public static bool canToggleFont = true;
 
     private void Start()
     {
@@ -28,10 +29,13 @@ public class FontManager : MonoBehaviour
         dyslexicFontEnabled = PlayerPrefs.GetInt(DYSLEXICPREF) == 1;
 
         if (dyslexicFontEnabled && !dyslexicfFontSet)
+        {
             SetDystlexicFont();
-
-        if (!dyslexicFontEnabled && dyslexicfFontSet)
+        }
+        else if (!dyslexicFontEnabled && dyslexicfFontSet)
+        {
             SetDefaultFont();
+        }
     }
 
     private void SetDystlexicFont()
@@ -55,17 +59,20 @@ public class FontManager : MonoBehaviour
 
     public void ToggleDyslexicFont()
     {
-        if (PlayerPrefs.HasKey(DYSLEXICPREF))
+        if (canToggleFont)
         {
-            int value = PlayerPrefs.GetInt(DYSLEXICPREF) == 0 ? 1 : 0;
-            PlayerPrefs.SetInt(DYSLEXICPREF, value);
+            if (PlayerPrefs.HasKey(DYSLEXICPREF))
+            {
+                int value = PlayerPrefs.GetInt(DYSLEXICPREF) == 0 ? 1 : 0;
+                PlayerPrefs.SetInt(DYSLEXICPREF, value);
 
-            dyslexicFontEnabled = value == 1;
-        }
-        else
-        {
-            PlayerPrefs.SetInt(DYSLEXICPREF, 1);
-            dyslexicFontEnabled = true;
+                dyslexicFontEnabled = value == 1;
+            }
+            else
+            {
+                PlayerPrefs.SetInt(DYSLEXICPREF, 1);
+                dyslexicFontEnabled = true;
+            }
         }
     }
 }
