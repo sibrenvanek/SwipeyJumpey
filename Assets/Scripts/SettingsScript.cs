@@ -17,7 +17,9 @@ public class SettingsScript : MonoBehaviour
 
     public void Awake()
     {
+        FontManager.canToggleFont = false;
         toggleFont.isOn = PlayerPrefs.GetInt(FontManager.DYSLEXICPREF) != 0;
+        FontManager.canToggleFont = true;
 
         if (PlayerPrefs.HasKey(MUSICPREF))
         {
