@@ -87,9 +87,9 @@ public class SlowMotion : MonoBehaviour
     {
         if (doingSlowmotion)
         {
+            OnSlowMotionDeActivated.Invoke();
             radialFill.SetActive(false);
             AudioManager.Instance.ResetAudioPitch();
-            OnSlowMotionDeActivated.Invoke();
             doingSlowmotion = false;
             playerMovement.CancelJump();
             playerMovement.RestoreGravity();

@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     private GameObject player = null;
     private SlowMotion playerSlowMotion = null;
 
+    private bool isShowing = false;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -31,12 +33,20 @@ public class UIManager : MonoBehaviour
 
     private void ShowSlowMotion()
     {
-        slowMotionGroup.DOFade(1, slowMotionFadeTime);
+        if(!isShowing)
+        {
+            slowMotionGroup.DOFade(1, slowMotionFadeTime);
+            isShowing = true;
+        }
     }
 
     private void HideSlowMotion()
     {
-        slowMotionGroup.DOFade(0, slowMotionFadeTime);
+        if(isShowing)
+        {
+            slowMotionGroup.alpha = 0;
+            isShowing = false;
+        }
     }
 
     public void SetSlowMotionGroup(CanvasGroup _slowMotionGroup)
