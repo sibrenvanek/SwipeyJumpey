@@ -117,12 +117,13 @@ public class GameManager : MonoBehaviour
             GameObject pauseMenuObject = GameObject.Instantiate(PauseMenuPrefab, Vector3.zero, Quaternion.identity);
             pauseMenu = pauseMenuObject.GetComponent<PauseMenu>();
         }
+
+        playerMovement = FindObjectOfType<PlayerMovement>();
     }
 
     private void Start()
     {
         AudioManager.Instance.StartIngameTrack();
-        player = FindObjectOfType<PlayerManager>();
     }
 
     public void SetLastCheckpoint(Checkpoint checkpoint)
@@ -142,6 +143,7 @@ public class GameManager : MonoBehaviour
     public void SendPlayerToCheckpoint(Checkpoint checkpoint)
     {
         player.transform.position = new Vector3(checkpoint.CheckpointTransform.position.x, checkpoint.CheckpointTransform.position.y + respawnYOffset);
+        Debug.Log(player.transform.position);
     }
 
     public void ResetWorld()
@@ -165,27 +167,20 @@ public class GameManager : MonoBehaviour
             canvas.EnableCanvas();
             pauseMenu.EnablePauseMenu();
 
-            ProgressionManager.Instance.SetLastActivatedCheckpoint(worldManager.GetInitialCheckpoint());
-
             ProgressionManager.Instance.SaveProgression();
             CinemachineVirtualCamera Vcam = FindObjectOfType<CinemachineVirtualCamera>();
             Vcam.Follow = player.transform;
             Checkpoint checkpoint;
-            if (ProgressionManager.Instance.UseProgression)
-            {
-                Level level = ProgressionManager.Instance.GetLevel(SceneManager.GetActiveScene().name);
 
-                ProgressionManager.Instance.SetLevelUnlocked(level);
-                checkpoint = ProgressionManager.GetCheckpointFromMinified(level.latestCheckpoint);
+            Level level = ProgressionManager.Instance.GetLevel(SceneManager.GetActiveScene().name);
 
-                if (checkpoint == null)
-                {
-                    checkpoint = worldManager.GetInitialCheckpoint();
-                }
-            }
-            else
+            ProgressionManager.Instance.SetLevelUnlocked(level);
+            checkpoint = ProgressionManager.GetCheckpointFromMinified(level.latestCheckpoint);
+
+            if (checkpoint == null)
             {
                 checkpoint = worldManager.GetInitialCheckpoint();
+                ProgressionManager.Instance.SetLastActivatedCheckpoint(worldManager.GetInitialCheckpoint());
             }
 
             if (checkpoint != worldManager.GetInitialCheckpoint())
@@ -194,6 +189,7 @@ public class GameManager : MonoBehaviour
                 if (dialog != null)
                     dialog.BlockDialog();
             }
+
             SendPlayerToCheckpoint(checkpoint);
 
             pauseMenu.SetPlayerMovement(player.GetComponent<PlayerMovement>());

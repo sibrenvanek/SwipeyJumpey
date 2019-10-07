@@ -24,14 +24,12 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        ProgressionManager.Instance.UseProgression = true;
         LevelManager.Instance.LoadScene(firstSceneIndex, true);
     }
 
     public void SelectLevel()
     {
-        ProgressionManager.Instance.UseProgression = false;
-        LevelManager.Instance.LoadScene(1, false);
+        LevelManager.Instance.LoadScene(1, false, true);
     }
 
     public void ExitGame()
