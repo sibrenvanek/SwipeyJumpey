@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ public class DialogTrigger : MonoBehaviour
 
     private void Start()
     {
-        dialogManager = DialogManager.Instance;
+        dialogManager = FindObjectOfType<DialogManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

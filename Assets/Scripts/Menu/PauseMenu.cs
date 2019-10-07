@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static PauseMenu Instance;
     [SerializeField] private GameObject pauseUI = null;
     [SerializeField] private GameObject pauseButton = null;
     [SerializeField] private TextMeshProUGUI currentLevelPlaceholder = null;
@@ -12,20 +11,6 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement = null;
     [SerializeField] private PlayerManager playerManager = null;
     [SerializeField] private WorldManager worldManager = null;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-    }
 
     public void Start()
     {
@@ -52,13 +37,10 @@ public class PauseMenu : MonoBehaviour
 
     public void BackToMenu()
     {
-        Destroy(CanvasManager.Instance.gameObject);
         Destroy(GameManager.Instance.gameObject);
-        Destroy(DialogManager.Instance.gameObject);
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
         AudioManager.Instance.StartMenuTrack();
-        Destroy(Instance.gameObject);
     }
 
     public void ChangeLevelText(Room newRoom)

@@ -50,6 +50,8 @@ MonoBehaviour:
   respawnYOffset: 0.2
   PlayerPrefab: {fileID: 585780739684234313, guid: f8a1a67ea9e524d4e9edce007c9e2311,
     type: 3}
+  PauseMenuPrefab: {fileID: 9180694856282486499, guid: a70860d62bea5354baf9ca2d9e4e60ee,
+    type: 3}
   CanvasPrefab: {fileID: 2997232390869025276, guid: cdbc8ea5fe269f246aff94bef2ffc293,
     type: 3}
   ProgressionManagerPrefab: {fileID: 7171864747170570080, guid: c813851c12dbeca4fa1aac3bf44c4796,
