@@ -11,9 +11,6 @@ public class FinishScreen : MonoBehaviour
 
     public void Continue(bool endOfWorld = false)
     {
-        PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
-        playerMovement.Enable();
-
         if(endOfWorld)
         {
             StarDestroyer.DestroyTheStars();
