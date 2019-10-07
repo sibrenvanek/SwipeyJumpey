@@ -30,7 +30,8 @@ public class LevelManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
-        playerMovement.Enable();
+        if (playerMovement)
+            playerMovement.Enable();
         FadeIn();
     }
 
@@ -104,7 +105,8 @@ public class LevelManager : MonoBehaviour
     private IEnumerator LoadLevelAfterSeconds(int levelIndex, float seconds)
     {
         PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
-        playerMovement.Disable();
+        if (playerMovement)
+            playerMovement.Disable();
         yield return new WaitForSeconds(seconds);
         SceneManager.LoadScene(levelIndex);
     }

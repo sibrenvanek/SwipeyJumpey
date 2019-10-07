@@ -21,9 +21,9 @@ public class Finish : MonoBehaviour
     private void FinishLevel()
     {
         WorldManager worldManager = FindObjectOfType<WorldManager>();
+        ProgressionManager.Instance.SetLastActivatedCheckpoint(worldManager.GetInitialCheckpoint());
         PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
         playerMovement.Disable();
-        ProgressionManager.Instance.SetLastActivatedCheckpoint(worldManager.GetInitialCheckpoint());
         GetComponentInChildren<ParticleSystem>().Play();
         level = ProgressionManager.Instance.GetLevel(SceneManager.GetActiveScene().name);
         level.completed = true;
