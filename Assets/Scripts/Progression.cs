@@ -11,6 +11,7 @@ public class Progression
     public int ID = 0;
     public Level latestLevel = null;
     private static readonly string path = Application.persistentDataPath + "/data.json";
+    public bool introPlayed = false;
 
     public void SaveProgression()
     {
@@ -200,9 +201,13 @@ public class Progression
 
     public void DeleteProgression()
     {
-        unlockedLevels = new List<Level>();
-        pickedUpJetpack = false;
-        SaveProgression();
+        if (ProgressionManager.CheckAndForcePermission(Permission.ExternalStorageRead))
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
     }
 
     public List<Level> GetUnlockedLevels()

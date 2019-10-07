@@ -25,6 +25,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         ProgressionManager.Instance.UseProgression = true;
+
         LevelManager.Instance.LoadScene(firstSceneIndex, true);
     }
 
