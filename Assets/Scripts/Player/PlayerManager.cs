@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     private bool godMode = false;
 
     public event Action<bool> OnGodMode = delegate { };
+    public event Action<Collectable> OnCollectCoin = delegate { };
 
     public static PlayerManager Instance;
 
@@ -30,6 +31,11 @@ public class PlayerManager : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         defaultScale = rigidbody2d.gravityScale;
+    }
+
+    public void Collect(Collectable collectable)
+    {
+        OnCollectCoin(collectable);
     }
 
     public void EnablePhysics()

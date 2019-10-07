@@ -10,10 +10,9 @@ public class FinishScreen : MonoBehaviour
 
     public void Continue(bool endOfWorld = false)
     {
-        PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
-        playerMovement.Enable();
-        
-        if(endOfWorld)
+        ProgressionManager.Instance.ResetSideCollectablesAll();
+
+        if (endOfWorld)
         {
             StarDestroyer.DestroyTheStars();
             LevelManager.Instance.LoadScene(1);
@@ -22,8 +21,6 @@ public class FinishScreen : MonoBehaviour
         {
             LevelManager.Instance.LoadNextScene(true, true);
         }
-
-        gameObject.SetActive(false);
     }
 
     public void SetLevelName(string text)

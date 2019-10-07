@@ -19,6 +19,11 @@ public class Level
     public bool completed;
     public int totalAmountOfMainCollectables = 0;
     public int totalAmountOfSideCollectables = 0;
+    
+    public void ResetSideCollectables()
+    {
+        amountOfSideCollectables = 0;
+    }
 }
 
 public class MinifiedCheckpoint
