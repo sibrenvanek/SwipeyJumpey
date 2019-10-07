@@ -13,7 +13,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private TrajectoryPrediction trajectoryPrediction = null;
     [SerializeField] private SlowMotion slowMotion = null;
     [SerializeField] private Jetpack jetpack = null;
-    [SerializeField] private Vector2 hopVelocity = Vector2.zero;
+    [SerializeField] private Vector2 hopVelocity = new Vector2(3, 5);
+    [SerializeField] private float boxCastDistance = 0.3f;
     public event Action OnJump = delegate {};
     public event Action OnCanJump = delegate {};
     private Rigidbody2D rigidbody2d = null;
@@ -271,9 +272,9 @@ public class PlayerMovement : MonoBehaviour
         facingLeft = jumpVelocity.x < 0;
         grounded = false;
         KillVelocity();
-        StartCoroutine(RemoveGravityTemporarily());
         rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
         dragging = false;
+        jetpack.TurnOff();
     }
 
     private void Jump()
@@ -336,7 +337,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsGrounded()
     {
-        RaycastHit2D raycastHit2d = Physics2D.BoxCast(transform.position, new Vector2(transform.localScale.x * 0.7f, 0.1f), 0, Vector2.down, 1f + transform.localScale.y * 0.5f, LayerMask.GetMask("SafeGround"));
+        RaycastHit2D raycastHit2d = Physics2D.BoxCast(transform.position, new Vector2(transform.localScale.x * 0.7f, 0.1f), 0, Vector2.down, boxCastDistance + transform.localScale.y * 0.5f, LayerMask.GetMask("SafeGround"));
 
         if (!raycastHit2d)
             return false;
