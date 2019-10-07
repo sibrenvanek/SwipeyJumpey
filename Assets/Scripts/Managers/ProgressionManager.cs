@@ -8,10 +8,10 @@ using UnityEngine.SceneManagement;
 public class ProgressionManager : MonoBehaviour
 {
     public static ProgressionManager Instance;
-    private Progression progression;
-    private readonly int ID = 9;
 
     [SerializeField] public bool UseProgression = true;
+    private Progression progression;
+    private readonly int ID = 9;
 
     private void Awake()
     {
@@ -70,16 +70,6 @@ public class ProgressionManager : MonoBehaviour
     public void IncreaseAmountOfDeaths(int deaths = 1)
     {
         progression.IncreaseAmountOfDeaths(SceneManager.GetActiveScene().name, deaths);
-    }
-
-    public void IncreaseAmountOfFuelsGrabbed()
-    {
-        progression.IncreaseAmountOfFuelsGrabbed(SceneManager.GetActiveScene().name);
-    }
-
-    public void IncreaseAmountOfCheckpointsActivated()
-    {
-        progression.IncreaseAmountCheckpointsActivated(SceneManager.GetActiveScene().name);
     }
 
     public void IncreaseAmountOfMainCollectables(MinifiedMainCollectable[] collectables)
