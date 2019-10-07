@@ -23,25 +23,35 @@ public class Progression
 
     public static Progression LoadProgression()
     {
+#if UNITY_EDITOR
+        return LoadFile();
+#else
         if (ProgressionManager.CheckAndForcePermission(Permission.ExternalStorageRead))
         {
-            if (File.Exists(path))
-            {
-                string data = File.ReadAllText(path);
-                if (data != "")
-                {
-                    Progression progression = JsonConvert.DeserializeObject<Progression>(data);
-                    return progression;
-                }
-            }
-            else
-            {
-                return new Progression();
-            }
+            return LoadFile();
         }
 
         Debug.LogError("No permission");
         return null;
+#endif
+    }
+
+    private static Progression LoadFile()
+    {
+        if (File.Exists(path))
+        {
+            string data = File.ReadAllText(path);
+            if (data != "")
+            {
+                Progression progression = JsonConvert.DeserializeObject<Progression>(data);
+                return progression;
+            }
+        }
+        else
+        {
+            return new Progression();
+        }
+        return new Progression();
     }
 
     public void IncreaseAmountOfJumps(string sceneName)
