@@ -77,9 +77,6 @@ public class GameManager : MonoBehaviour
             player = playerObject.GetComponent<PlayerManager>();
         }
 
-        playerMovement = player.GetComponent<PlayerMovement>();
-        playerMovement.OnJump += ProgressionManager.Instance.IncreaseAmountOfJumps;
-
         if (AudioManager.Instance == null)
         {
             Instantiate(AudioManagerPrefab, Vector3.zero, Quaternion.identity);

@@ -2,56 +2,61 @@ using UnityEngine;
 
 public class LevelPreview : MonoBehaviour
 {
-    [SerializeField] private int sceneIndex = 0;
+    [SerializeField] private string sceneName = "";
     [SerializeField] private Vector2 activeSize = Vector2.one, inactiveSize = Vector2.one;
-    [SerializeField] private string levelName = "";
     [SerializeField] private Color enabledColor = new Color(1f, 1f, 1f);
     [SerializeField] private Color disabledColor = new Color(0.8f, 0.8f, 0.8f);
-    [SerializeField] private int amountOfMainCollectables = 0;
-    [SerializeField] private int amountOfSideCollectables = 0;
     [SerializeField] private GameObject finishIndicator = null;
     private SpriteRenderer spriteRenderer = null;
-    private bool active = false;
-    private bool unlocked = false;
-    private bool completed = false;
-    private LevelSelecter levelSelecter = null;
+    private Level level = null;
 
-    void Start()
+    void Awake()
     {
-        finishIndicator.SetActive(completed);
-        levelSelecter = GetComponentInParent<LevelSelecter>();
+        level = ProgressionManager.Instance.GetLevel(sceneName);
+        finishIndicator.SetActive(level.completed);
         spriteRenderer = GetComponent<SpriteRenderer>();
         transform.localScale = inactiveSize;
+        SetColors();
+    }
+
+    public bool IsCompleted()
+    {
+        return level.completed;
+    }
+
+    public int GetDeaths()
+    {
+        return level.amountOfDeaths;
+    }
+
+    public int GetTotalAmountOfMainCollectables()
+    {
+        return level.totalAmountOfMainCollectables;
     }
 
     public int GetAmountOfMainCollectables()
     {
-        return amountOfMainCollectables;
+        return level.amountOfMainCollectables;
     }
 
-    public string GetLevelName()
+    public int GetTotalAmountOfSideCollectables()
     {
-        return levelName;
+        return level.totalAmountOfSideCollectables;
     }
 
     public int GetAmountOfSideCollectables()
     {
-        return amountOfSideCollectables;
-    }
-
-    public void SetSceneIndex(int sceneIndex)
-    {
-        this.sceneIndex = sceneIndex;
+        return level.amountOfSideCollectables;
     }
 
     public int GetSceneIndex()
     {
-        return sceneIndex;
+        return level.buildIndex;
     }
 
-    public string GetName()
+    public string GetLevelName()
     {
-        return levelName;
+        return level.levelName;
     }
 
     public void SetSprite(Sprite sprite)
@@ -61,39 +66,26 @@ public class LevelPreview : MonoBehaviour
 
     public void SetActivated()
     {
-        active = true;
         transform.localScale = activeSize;
     }
 
     public void SetInActive()
     {
-        active = false;
         transform.localScale = inactiveSize;
-    }
-
-    public void SetColors(bool unlocked, bool completed)
-    {
-        this.unlocked = unlocked;
-        this.completed = completed;
-
-        finishIndicator.SetActive(completed);
-
-        if (unlocked)
-            gameObject.GetComponent<SpriteRenderer>().color = enabledColor;
-        else
-            gameObject.GetComponent<SpriteRenderer>().color = disabledColor;
     }
 
     public bool GetUnlocked()
     {
-        return unlocked;
+        return level.unlocked;
     }
 
-    private void OnMouseDown()
+    private void SetColors()
     {
-        if (unlocked && !active)
-        {
-            levelSelecter.SetActiveIndexByScene(sceneIndex);
-        }
+        finishIndicator.SetActive(level.completed);
+
+        if (level.unlocked)
+            gameObject.GetComponent<SpriteRenderer>().color = enabledColor;
+        else
+            gameObject.GetComponent<SpriteRenderer>().color = disabledColor;
     }
 }

@@ -11,7 +11,7 @@ public class ProgressionManager : MonoBehaviour
 
     [SerializeField] public bool UseProgression = true;
     private Progression progression;
-    private readonly int ID = 9;
+    private readonly int ID = 10;
 
     private void Awake()
     {
@@ -60,11 +60,6 @@ public class ProgressionManager : MonoBehaviour
     public bool GetDisplayedTutorial()
     {
         return progression.GetDisplayedTutorial();
-    }
-
-    public void IncreaseAmountOfJumps()
-    {
-        progression.IncreaseAmountOfJumps(SceneManager.GetActiveScene().name);
     }
 
     public void IncreaseAmountOfDeaths(int deaths = 1)
