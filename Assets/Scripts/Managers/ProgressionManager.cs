@@ -187,4 +187,13 @@ public class ProgressionManager : MonoBehaviour
     {
         progression.SetPickedUpJetpack(value);
     }
+
+    public void ResetSideCollectables()
+    {
+        progression.ResetSideCollectables(SceneManager.GetActiveScene().name);
+    }
+
+    public void ResetSideCollectablesAll(){
+        progression.ResetSideCollectablesAll();
+    }
 }

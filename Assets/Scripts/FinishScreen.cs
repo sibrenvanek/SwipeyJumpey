@@ -11,7 +11,9 @@ public class FinishScreen : MonoBehaviour
 
     public void Continue(bool endOfWorld = false)
     {
-        if(endOfWorld)
+        ProgressionManager.Instance.ResetSideCollectablesAll();
+
+        if (endOfWorld)
         {
             StarDestroyer.DestroyTheStars();
             LevelManager.Instance.LoadScene(1);
