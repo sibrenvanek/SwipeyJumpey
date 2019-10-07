@@ -15,7 +15,6 @@ public class StarDestroyer : MonoBehaviour
         Destroy(FindObjectOfType<PauseMenu>().gameObject);
         Destroy(FindObjectOfType<PlayerManager>().gameObject);
         Destroy(FindObjectOfType<GameManager>().gameObject);
-        Destroy(FindObjectOfType<CanvasManager>().gameObject);
         Destroy(FindObjectOfType<DialogManager>().gameObject);
         Destroy(FindObjectOfType<ProgressionManager>().gameObject);
     }

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
@@ -16,10 +16,12 @@ public class DialogUIManager : MonoBehaviour
     private Image speakerImage = null;
 
     private DialogManager dialogManager;
+    private PauseMenu pauseMenu;
 
     private void Start()
     {
-        dialogManager = DialogManager.Instance;
+        pauseMenu = FindObjectOfType<PauseMenu>();
+        dialogManager = FindObjectOfType<DialogManager>();
 
         InitUIElements();
 
@@ -42,13 +44,13 @@ public class DialogUIManager : MonoBehaviour
     private void DisplayDialog()
     {
         dialogGroup.DOFade(1, fadeTime);
-        PauseMenu.Instance.DisablePauseMenu();
+        pauseMenu.DisablePauseMenu();
     }
 
     private void HideDialog()
     {
         dialogGroup.DOFade(0, fadeTime);
-        PauseMenu.Instance.EnablePauseMenu();
+        pauseMenu.EnablePauseMenu();
     }
 
     private void SetDialog(Dialog dialog)
