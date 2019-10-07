@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
 public class TutorialHand : MonoBehaviour
 {
@@ -27,6 +27,9 @@ public class TutorialHand : MonoBehaviour
         playerMovement.OnJump -= StopShowing;
 
         spriteRenderer.DOFade(0, fadeTimer);
-        Destroy(gameObject, fadeTimer);
+        if (gameObject != null)
+        {
+            Destroy(gameObject, fadeTimer);
+        }
     }
 }
