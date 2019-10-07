@@ -41,7 +41,7 @@ public class Finish : MonoBehaviour
 
     private void OpenFinishScreen()
     {
-        Destroy(FindObjectOfType<CollectionStreakManager>().gameObject);
+        FindObjectOfType<CollectionStreakManager>().EndLevel();
         finishScreen.SetLevelName(level.levelName);
         finishScreen.SetMainCollectables(level.amountOfMainCollectables + "/" + level.totalAmountOfMainCollectables);
         finishScreen.SetSideCollectables(level.amountOfSideCollectables + "/" + level.totalAmountOfSideCollectables);

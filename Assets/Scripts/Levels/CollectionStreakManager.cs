@@ -31,7 +31,7 @@ public class CollectionStreakManager : MonoBehaviour
         collectable.PlaySFX(pitchAddition);
     }
 
-    private void OnDestroy() {
+    public void EndLevel() {
         player.OnCollectCoin -= AddToStreak;
     }
 }

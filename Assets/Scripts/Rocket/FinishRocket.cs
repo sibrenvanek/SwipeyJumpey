@@ -7,11 +7,15 @@ public class FinishRocket : MonoBehaviour
 {
     private bool flying = false;
     [SerializeField] private float speed = 2f;
+    [SerializeField] private float waitAndStop = 4f;
 
     private void FixedUpdate() 
     {
         if(flying)
+        {
             transform.Translate(Vector3.up * speed * Time.deltaTime, Space.World);    
+            speed += 0.05f;
+        }
     }
 
     public void Fly(Action callback)
