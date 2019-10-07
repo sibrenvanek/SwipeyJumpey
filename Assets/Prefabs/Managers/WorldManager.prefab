@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3290357203872685996}
   - component: {fileID: 3290357203872685999}
+  - component: {fileID: 54280162}
   m_Layer: 0
   m_Name: WorldManager
   m_TagString: Untagged
@@ -45,5 +46,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialCheckpoint: {fileID: 0}
   currentRoomCheckpoint: {fileID: 0}
-  currentRoom: 
   worldName: Red planet
+--- !u!114 &54280162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3290357203872685998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb54f796ed49ca4680c5ddfe23c4a3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pitchIncreaseAmount: 0.7
+  intervalToStreakEnd: 2

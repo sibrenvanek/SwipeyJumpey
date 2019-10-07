@@ -8,6 +8,7 @@ public abstract class Collectable : MonoBehaviour
     protected new Collider2D collider = null;
     private Animator animator = null;
     private AudioSource audioSource = null;
+    private PlayerManager player = null;
 
     protected virtual void Awake() 
     {
@@ -20,6 +21,10 @@ public abstract class Collectable : MonoBehaviour
     {
         collider.enabled = false;
         animator.SetTrigger("Collect");
+        if(player == null)
+            player = FindObjectOfType<PlayerManager>();
+
+        player.Collect(this);
     }
 
     public void PlaySFX(float pitchAddition)
