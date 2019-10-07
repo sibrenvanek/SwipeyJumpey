@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
-
     [SerializeField] private float fadeTime = 1f;
+    [SerializeField] private int introSceneIndex = 0;
 
     private void Awake()
     {
@@ -37,8 +37,20 @@ public class LevelManager : MonoBehaviour
         DarthFader.Instance.FadeGameIn(fadeTime);
     }
 
+    private int GetIndexWithIntro(int sceneIndex)
+    {
+        if (sceneIndex == introSceneIndex && !ProgressionManager.Instance.GetIntroPlayed())
+        {
+            ProgressionManager.Instance.SetIntroPlayed();
+            sceneIndex--;
+        }
+
+        return sceneIndex;
+    }
+
     public void LoadScene(int sceneIndex, bool loadingIndicator = true, bool resetLevel = false, bool fade = true)
     {
+        sceneIndex = GetIndexWithIntro(sceneIndex);
         Level level = ProgressionManager.Instance.GetLevel(sceneIndex);
 
         if (level != null)
@@ -63,8 +75,7 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNextScene(bool loadingIndicator = true, bool resetLevel = false, bool fade = true)
     {
-        int sceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-
+        int sceneIndex = GetIndexWithIntro(SceneManager.GetActiveScene().buildIndex + 1);
         Level level = ProgressionManager.Instance.GetLevel(sceneIndex);
 
         if (resetLevel)

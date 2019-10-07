@@ -9,7 +9,7 @@ public class ProgressionManager : MonoBehaviour
 {
     public static ProgressionManager Instance;
     private Progression progression;
-    private readonly int ID = 3;
+    private readonly int ID = 9;
 
     [SerializeField] public bool UseProgression = true;
 
@@ -40,6 +40,16 @@ public class ProgressionManager : MonoBehaviour
     {
         progression.MarkLevelAsCompleted(SceneManager.GetActiveScene().name);
         progression.SaveProgression();
+    }
+
+    public void SetIntroPlayed()
+    {
+        progression.introPlayed = true;
+    }
+
+    public bool GetIntroPlayed()
+    {
+        return progression.introPlayed;
     }
 
     public void IncreaseAmountOfJumps()
