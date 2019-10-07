@@ -166,6 +166,7 @@ public class ProgressionManager : MonoBehaviour
     public void DeleteProgression()
     {
         progression.DeleteProgression();
+        progression = Progression.LoadProgression();
     }
 
     public List<Level> GetUnlockedLevels()
