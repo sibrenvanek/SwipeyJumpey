@@ -5,11 +5,10 @@ using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Android;
 
-public class Progression : MonoBehaviour
+public class Progression
 {
     private static readonly string path = Application.persistentDataPath + "/data.json";
     private static readonly string levelsPath = Application.dataPath + "/data/levels.json";
-    public List<Level> unlockedLevels { get; private set; } = new List<Level>();
     public List<Level> levels { get; private set; } = new List<Level>();
     public bool pickedUpJetpack { get; private set; } = false;
     public bool displayedTutorial = false;
@@ -68,10 +67,11 @@ public class Progression : MonoBehaviour
     private void LoadLevels()
     {
         string json = File.ReadAllText(levelsPath);
+
         if (json != null)
         {
             levels = JsonConvert.DeserializeObject<List<Level>>(json);
-            Debug.Log(levels.Count);
+            levels[0].unlocked = true;
         }
     }
 
@@ -111,43 +111,9 @@ public class Progression : MonoBehaviour
         GetLevel(sceneName).amountOfSideCollectables += amount;
     }
 
-    public void AddLevel(Level level)
-    {
-        if (unlockedLevels == null)
-        {
-            CreateListAndAddLevel(level);
-        }
-        else
-        {
-            AddLevelToList(level);
-        }
-    }
-
-    private void CreateListAndAddLevel(Level level)
-    {
-        unlockedLevels = new List<Level>();
-        unlockedLevels.Add(level);
-    }
-
-    private void AddLevelToList(Level level)
-    {
-        bool levelExistsInList = false;
-        foreach (Level l in unlockedLevels)
-        {
-            if (level.sceneName == l.sceneName)
-            {
-                levelExistsInList = true;
-            }
-        }
-        if (!levelExistsInList)
-        {
-            unlockedLevels.Add(level);
-        }
-    }
-
     public void MarkLevelAsCompleted(string sceneName)
     {
-        foreach (Level level in unlockedLevels)
+        foreach (Level level in levels)
         {
             if (level.sceneName == sceneName)
             {
@@ -158,7 +124,7 @@ public class Progression : MonoBehaviour
 
     public void SetLastActivatedCheckpoint(string sceneName, MinifiedCheckpoint checkpoint)
     {
-        foreach (Level level in unlockedLevels)
+        foreach (Level level in levels)
         {
             if (level.sceneName == sceneName)
             {
@@ -169,7 +135,7 @@ public class Progression : MonoBehaviour
 
     public Level GetLevel(string sceneName)
     {
-        foreach (Level level in unlockedLevels)
+        foreach (Level level in levels)
         {
             if (level.sceneName == sceneName)
             {
@@ -186,7 +152,7 @@ public class Progression : MonoBehaviour
 
     public void ResetCheckpoints()
     {
-        foreach (Level level in unlockedLevels)
+        foreach (Level level in levels)
         {
             level.latestCheckpoint = null;
         }
@@ -194,7 +160,7 @@ public class Progression : MonoBehaviour
 
     public void RemoveLevelsProgression()
     {
-        foreach (Level level in unlockedLevels)
+        foreach (Level level in levels)
         {
             level.latestCheckpoint = null;
             level.completed = false;
@@ -208,7 +174,7 @@ public class Progression : MonoBehaviour
 
     public Level GetFirstUnfinishedLevel()
     {
-        foreach (Level level in unlockedLevels)
+        foreach (Level level in levels)
         {
             if (level.completed == false)
             {
@@ -229,14 +195,9 @@ public class Progression : MonoBehaviour
         }
     }
 
-    public List<Level> GetUnlockedLevels()
-    {
-        return unlockedLevels;
-    }
-
     public bool CheckIfLevelExists(int sceneIndex)
     {
-        Level level = unlockedLevels.Find(unlockedLevel => unlockedLevel.buildIndex == sceneIndex);
+        Level level = levels.Find(unlockedLevel => unlockedLevel.buildIndex == sceneIndex);
         if (level != null)
             return true;
         return false;
@@ -247,6 +208,18 @@ public class Progression : MonoBehaviour
         pickedUpJetpack = value;
     }
 
+    public void SetLevelUnlocked(Level level)
+    {
+        foreach (Level existingLevel in levels)
+        {
+            if (existingLevel.sceneName == level.sceneName)
+            {
+                existingLevel.unlocked = true;
+                return;
+            }
+        }
+    }
+
     public void ResetSideCollectables(string sceneName)
     {
         Level level = GetLevel(sceneName);
@@ -255,6 +228,6 @@ public class Progression : MonoBehaviour
 
     public void ResetSideCollectablesAll()
     {
-        unlockedLevels.ForEach(level => level.ResetSideCollectables());
+        levels.ForEach(level => level.ResetSideCollectables());
     }
 }

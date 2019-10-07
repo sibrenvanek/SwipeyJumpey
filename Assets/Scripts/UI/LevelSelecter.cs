@@ -121,15 +121,6 @@ public class LevelSelecter : MonoBehaviour
 
     private void SetLevelColors()
     {
-        int unlockedLevelsCount = ProgressionManager.Instance.GetUnlockedLevels().Count;
-        if (unlockedLevelsCount <= 0)
-        {
-            ProgressionManager.Instance.AddLevel(new Level
-            {
-                buildIndex = levelPreviews[0].GetSceneIndex(),
-                sceneName = ProgressionManager.GetSceneNameFromIndex(levelPreviews[0].GetSceneIndex())
-            });
-        }
         foreach (LevelPreview levelPreview in levelPreviews)
         {
             Level level = ProgressionManager.Instance.GetLevel(levelPreview.GetSceneIndex());

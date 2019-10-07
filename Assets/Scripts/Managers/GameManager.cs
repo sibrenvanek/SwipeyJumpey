@@ -168,18 +168,8 @@ public class GameManager : MonoBehaviour
             canvas.EnableCanvas();
             pauseMenu.EnablePauseMenu();
 
-            ProgressionManager.Instance.AddLevel(new Level
-            {
-                completed = false,
-                sceneName = scene.name,
-                buildIndex = scene.buildIndex,
-                latestCheckpoint = new MinifiedCheckpoint
-                {
-                    id = worldManager.GetInitialCheckpoint().GetId(),
-                    name = worldManager.GetInitialCheckpoint().name,
-                    position = worldManager.GetInitialCheckpoint().transform.position
-                }
-            });
+            ProgressionManager.Instance.SetLastActivatedCheckpoint(worldManager.GetInitialCheckpoint());
+
             ProgressionManager.Instance.SaveProgression();
             CinemachineVirtualCamera Vcam = FindObjectOfType<CinemachineVirtualCamera>();
             Vcam.Follow = player.transform;
@@ -187,15 +177,11 @@ public class GameManager : MonoBehaviour
             if (ProgressionManager.Instance.UseProgression)
             {
                 Level level = ProgressionManager.Instance.GetLevel(SceneManager.GetActiveScene().name);
-                if (level != null)
-                {
-                    checkpoint = ProgressionManager.GetCheckpointFromMinified(level.latestCheckpoint);
-                    if (checkpoint == null)
-                    {
-                        checkpoint = worldManager.GetInitialCheckpoint();
-                    }
-                }
-                else
+
+                ProgressionManager.Instance.SetLevelUnlocked(level);
+                checkpoint = ProgressionManager.GetCheckpointFromMinified(level.latestCheckpoint);
+
+                if (checkpoint == null)
                 {
                     checkpoint = worldManager.GetInitialCheckpoint();
                 }
