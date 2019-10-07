@@ -178,13 +178,11 @@ public class Progression
         foreach (Level level in levels)
         {
             level.latestCheckpoint = null;
-            level.completed = false;
         }
     }
     public void RemoveLevelProgression(Level level)
     {
         level.latestCheckpoint = null;
-        level.completed = false;
     }
 
     public Level GetFirstUnfinishedLevel()
