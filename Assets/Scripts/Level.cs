@@ -14,7 +14,6 @@ public class Level
     public MinifiedCheckpoint latestCheckpoint;
     public int amountOfMainCollectables = 0;
     public int amountOfSideCollectables = 0;
-    public int amountOfJumps = 0;
     public int amountOfDeaths = 0;
     public bool completed;
 
