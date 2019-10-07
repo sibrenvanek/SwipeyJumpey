@@ -5,8 +5,6 @@ using System;
 
 public class FinishRocket : MonoBehaviour
 {
-    
-
     private bool flying = false;
     [SerializeField] private float speed = 2f;
 
