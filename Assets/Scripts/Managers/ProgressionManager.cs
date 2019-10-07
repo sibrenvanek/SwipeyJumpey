@@ -192,4 +192,8 @@ public class ProgressionManager : MonoBehaviour
     {
         progression.ResetSideCollectables(SceneManager.GetActiveScene().name);
     }
+
+    public void ResetSideCollectablesAll(){
+        progression.ResetSideCollectablesAll();
+    }
 }
