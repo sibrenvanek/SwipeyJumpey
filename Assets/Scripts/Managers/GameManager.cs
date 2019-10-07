@@ -143,7 +143,6 @@ public class GameManager : MonoBehaviour
     public void SendPlayerToCheckpoint(Checkpoint checkpoint)
     {
         player.transform.position = new Vector3(checkpoint.CheckpointTransform.position.x, checkpoint.CheckpointTransform.position.y + respawnYOffset);
-        Debug.Log(player.transform.position);
     }
 
     public void ResetWorld()
