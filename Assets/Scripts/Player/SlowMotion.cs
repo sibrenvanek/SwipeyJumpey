@@ -21,7 +21,7 @@ public class SlowMotion : MonoBehaviour
     private Coroutine curCoroutine = null;
     public DOSetter<float> FillSetter { get; private set; }
     public DOGetter<float> FillGetter { get; private set; }
-    private Sequence activeDoTweenSequence = null;
+    private Sequence activeDoTweenSequence = DOTween.Sequence();
 
     private void Awake()
     {
