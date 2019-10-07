@@ -227,4 +227,15 @@ public class Progression
     {
         pickedUpJetpack = value;
     }
+
+    public void ResetSideCollectables(string sceneName)
+    {
+        Level level = GetLevel(sceneName);
+        level.ResetSideCollectables();
+    }
+
+    public void ResetSideCollectablesAll()
+    {
+        unlockedLevels.ForEach(level => level.ResetSideCollectables());
+    }
 }
