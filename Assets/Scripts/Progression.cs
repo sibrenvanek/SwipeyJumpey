@@ -1,13 +1,16 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Android;
 
-public class Progression
+public class Progression : MonoBehaviour
 {
     private static readonly string path = Application.persistentDataPath + "/data.json";
+    private static readonly string levelsPath = Application.dataPath + "/data/levels.json";
     public List<Level> unlockedLevels { get; private set; } = new List<Level>();
+    public List<Level> levels { get; private set; } = new List<Level>();
     public bool pickedUpJetpack { get; private set; } = false;
     public bool displayedTutorial = false;
     public bool introPlayed = false;
@@ -40,20 +43,36 @@ public class Progression
 
     private static Progression LoadFile()
     {
+        Progression progression = new Progression();
         if (File.Exists(path))
         {
             string data = File.ReadAllText(path);
             if (data != "")
             {
-                Progression progression = JsonConvert.DeserializeObject<Progression>(data);
+                progression = JsonConvert.DeserializeObject<Progression>(data);
                 return progression;
             }
         }
-        else
+
+        progression.LoadLevels();
+
+        return progression;
+    }
+
+    [Serializable]
+    private class Wrapper
+    {
+        public Level[] Items;
+    }
+
+    private void LoadLevels()
+    {
+        string json = File.ReadAllText(levelsPath);
+        if (json != null)
         {
-            return new Progression();
+            levels = JsonConvert.DeserializeObject<List<Level>>(json);
+            Debug.Log(levels.Count);
         }
-        return new Progression();
     }
 
     public bool GetDisplayedTutorial()

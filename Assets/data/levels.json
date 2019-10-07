@@ -1,0 +1,37 @@
+[
+    {
+        "sceneName": "World-1-Level-4",
+        "levelName": "level-one",
+        "totalAmountOfMainCollectables": 20,
+        "totalAmountOfSideCollectables": 50,
+        "buildIndex": 1
+    },
+    {
+        "sceneName": "World-1-Level-5",
+        "levelName": "level-two",
+        "totalAmountOfMainCollectables": 20,
+        "totalAmountOfSideCollectables": 50,
+        "buildIndex": 1
+    },
+    {
+        "sceneName": "World-1-Level-6",
+        "levelName": "level-three",
+        "totalAmountOfMainCollectables": 20,
+        "totalAmountOfSideCollectables": 50,
+        "buildIndex": 1
+    },
+    {
+        "sceneName": "World-1-Level-7",
+        "levelName": "level-four",
+        "totalAmountOfMainCollectables": 20,
+        "totalAmountOfSideCollectables": 50,
+        "buildIndex": 1
+    },
+    {
+        "sceneName": "World-1-Level-8",
+        "levelName": "level-five",
+        "totalAmountOfMainCollectables": 20,
+        "totalAmountOfSideCollectables": 50,
+        "buildIndex": 1
+    }
+]
