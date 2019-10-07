@@ -7,7 +7,6 @@ public class LevelPreview : MonoBehaviour
     [SerializeField] private string levelName = "";
     [SerializeField] private Color enabledColor = new Color(1f, 1f, 1f);
     [SerializeField] private Color disabledColor = new Color(0.8f, 0.8f, 0.8f);
-    [SerializeField] private Color completedColor = Color.green;
     [SerializeField] private int amountOfMainCollectables = 0;
     [SerializeField] private int amountOfSideCollectables = 0;
     [SerializeField] private GameObject finishIndicator = null;
