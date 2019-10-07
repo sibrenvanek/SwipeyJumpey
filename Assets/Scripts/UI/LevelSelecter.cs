@@ -49,6 +49,7 @@ public class LevelSelecter : MonoBehaviour
         Level selectedLevel = ProgressionManager.Instance.GetLevel(levelPreviews[activePreviewIndex].GetSceneIndex());
         selectedLevel.totalAmountOfMainCollectables = levelPreviews[activePreviewIndex].GetAmountOfMainCollectables();
         selectedLevel.totalAmountOfSideCollectables = levelPreviews[activePreviewIndex].GetAmountOfSideCollectables();
+        selectedLevel.levelName = levelPreviews[activePreviewIndex].GetLevelName();
         amountOfCollectablesDisplay.text = selectedLevel.amountOfMainCollectables.ToString();
         if (selectedLevel.completed)
             amountOfCollectablesDisplay.text += "/" + levelPreviews[activePreviewIndex].GetAmountOfMainCollectables();

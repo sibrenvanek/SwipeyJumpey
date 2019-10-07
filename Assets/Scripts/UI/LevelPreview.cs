@@ -29,6 +29,11 @@ public class LevelPreview : MonoBehaviour
         return amountOfMainCollectables;
     }
 
+    public string GetLevelName()
+    {
+        return levelName;
+    }
+
     public int GetAmountOfSideCollectables()
     {
         return amountOfSideCollectables;
