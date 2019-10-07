@@ -73,6 +73,9 @@ TagManager:
   - name: Background 1
     uniqueID: 1739828891
     locked: 0
+  - name: BigPlants
+    uniqueID: 1627105475
+    locked: 0
   - name: Obstacle
     uniqueID: 4090997045
     locked: 0
