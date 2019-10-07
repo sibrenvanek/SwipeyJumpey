@@ -8,6 +8,7 @@ public class Level
     public string levelName;
     public int totalAmountOfMainCollectables = 0;
     public int totalAmountOfSideCollectables = 0;
+    public bool unlocked = false;
 
     public List<MinifiedMainCollectable> mainCollectables = new List<MinifiedMainCollectable>();
     public MinifiedCheckpoint latestCheckpoint;

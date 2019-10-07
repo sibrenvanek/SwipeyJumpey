@@ -102,11 +102,6 @@ public class ProgressionManager : MonoBehaviour
         progression.RemoveLevelsProgression();
     }
 
-    public void AddLevel(Level level)
-    {
-        progression.AddLevel(level);
-    }
-
     public Level GetLevel(string sceneName)
     {
         return progression.GetLevel(sceneName);
@@ -169,14 +164,14 @@ public class ProgressionManager : MonoBehaviour
         progression = Progression.LoadProgression();
     }
 
-    public List<Level> GetUnlockedLevels()
-    {
-        return progression.GetUnlockedLevels();
-    }
-
     public bool CheckIfLevelExists(int sceneIndex)
     {
         return progression.CheckIfLevelExists(sceneIndex);
+    }
+
+    public void SetLevelUnlocked(Level level)
+    {
+        progression.SetLevelUnlocked(level);
     }
 
     public bool GetPickedUpJetpack()
