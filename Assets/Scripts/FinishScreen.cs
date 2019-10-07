@@ -13,6 +13,7 @@ public class FinishScreen : MonoBehaviour
     {
         PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
         playerMovement.Enable();
+        ProgressionManager.Instance.ResetSideCollectablesAll();
 
         if (endOfWorld)
         {
@@ -24,7 +25,6 @@ public class FinishScreen : MonoBehaviour
             LevelManager.Instance.LoadNextScene(true, true);
         }
 
-        ProgressionManager.Instance.ResetSideCollectablesAll();
         gameObject.SetActive(false);
     }
 
