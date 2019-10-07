@@ -67,9 +67,9 @@ public class ProgressionManager : MonoBehaviour
         progression.IncreaseAmountOfJumps(SceneManager.GetActiveScene().name);
     }
 
-    public void IncreaseAmountOfDeaths()
+    public void IncreaseAmountOfDeaths(int deaths = 1)
     {
-        progression.IncreaseAmountOfDeaths(SceneManager.GetActiveScene().name);
+        progression.IncreaseAmountOfDeaths(SceneManager.GetActiveScene().name, deaths);
     }
 
     public void IncreaseAmountOfFuelsGrabbed()
@@ -82,9 +82,9 @@ public class ProgressionManager : MonoBehaviour
         progression.IncreaseAmountCheckpointsActivated(SceneManager.GetActiveScene().name);
     }
 
-    public void IncreaseAmountOfMainCollectables(MinifiedMainCollectable collectable)
+    public void IncreaseAmountOfMainCollectables(MinifiedMainCollectable[] collectables)
     {
-        progression.IncreaseAmountOfMainCollectables(SceneManager.GetActiveScene().name, collectable);
+        progression.IncreaseAmountOfMainCollectables(SceneManager.GetActiveScene().name, collectables);
     }
 
     public List<MinifiedMainCollectable> GetMainCollectables()
@@ -92,9 +92,9 @@ public class ProgressionManager : MonoBehaviour
         return progression.GetMainCollectables(SceneManager.GetActiveScene().name);
     }
 
-    public void IncreaseAmountOfSideCollectables()
+    public void IncreaseAmountOfSideCollectables(int amount = 1)
     {
-        progression.IncreaseAmountOfSideCollectables(SceneManager.GetActiveScene().name);
+        progression.IncreaseAmountOfSideCollectables(SceneManager.GetActiveScene().name, amount);
     }
 
     public void SetLastActivatedCheckpoint(Checkpoint checkpoint)

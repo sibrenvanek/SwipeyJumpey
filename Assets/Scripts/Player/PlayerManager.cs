@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerDeath))]
@@ -12,6 +13,7 @@ public class PlayerManager : MonoBehaviour
     public event Action<bool> OnGodMode = delegate { };
     public event Action<Collectable> OnCollectCoin = delegate { };
 
+    private List<MinifiedMainCollectable> minifiedMainCollectables = new List<MinifiedMainCollectable>();
     private int mainPickups = 0;
     private int sidePickups = 0;
     private int deaths = 0;
@@ -21,6 +23,11 @@ public class PlayerManager : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         defaultScale = rigidbody2d.gravityScale;
+    }
+
+    public MinifiedMainCollectable[] GetMinifiedMainCollectables()
+    {
+        return minifiedMainCollectables.ToArray();
     }
 
     public int GetMainPickups()
@@ -40,12 +47,19 @@ public class PlayerManager : MonoBehaviour
 
     public void Collect(Collectable collectable)
     {
+        OnCollectCoin(collectable);
+
         if (collectable is MainCollectable)
+        {
             mainPickups++;
+            MainCollectable mainCollectable = (MainCollectable) collectable;
+            if (mainCollectable.HasBeenCollectedBefore())
+                return;
+
+            minifiedMainCollectables.Add(MainCollectable.Minify(mainCollectable));
+        }
         else
             sidePickups++;
-
-        OnCollectCoin(collectable);
     }
 
     public void EnablePhysics()
@@ -83,7 +97,6 @@ public class PlayerManager : MonoBehaviour
             {
                 playerMovement.CancelJump();
                 playerMovement.KillVelocity();
-                ProgressionManager.Instance.IncreaseAmountOfDeaths();
                 deaths++;
                 GetComponent<PlayerDeath>().Die();
                 break;

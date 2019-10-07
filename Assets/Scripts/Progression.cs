@@ -71,21 +71,25 @@ public class Progression
         GetLevel(sceneName).amountOfJumps++;
     }
 
-    public void IncreaseAmountOfDeaths(string sceneName)
+    public void IncreaseAmountOfDeaths(string sceneName, int deaths)
     {
-        GetLevel(sceneName).amountOfDeaths++;
+        GetLevel(sceneName).amountOfDeaths += deaths;
     }
 
-    public void IncreaseAmountOfMainCollectables(string sceneName, MinifiedMainCollectable collectable)
+    public void IncreaseAmountOfMainCollectables(string sceneName, MinifiedMainCollectable[] collectables)
     {
         Level level = GetLevel(sceneName);
-        level.amountOfMainCollectables++;
-        level.mainCollectables.Add(collectable);
+
+        foreach (MinifiedMainCollectable collectable in collectables)
+        {
+            level.amountOfMainCollectables++;
+            level.mainCollectables.Add(collectable);
+        }
     }
 
-    public void IncreaseAmountOfSideCollectables(string sceneName)
+    public void IncreaseAmountOfSideCollectables(string sceneName, int amount)
     {
-        GetLevel(sceneName).amountOfSideCollectables++;
+        GetLevel(sceneName).amountOfSideCollectables += amount;
     }
 
     public void IncreaseAmountOfFuelsGrabbed(string sceneName)

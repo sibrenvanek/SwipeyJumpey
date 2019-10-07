@@ -33,8 +33,9 @@ public class Finish : MonoBehaviour
         GetComponentInChildren<ParticleSystem>().Play();
         level = ProgressionManager.Instance.GetLevel(SceneManager.GetActiveScene().name);
         level.completed = true;
-        
-        if(finishRocket != null)
+        UpdateProgression();
+
+        if (finishRocket != null)
         {
             finishRocket.Fly(OpenFinishScreen);
         }
@@ -43,6 +44,13 @@ public class Finish : MonoBehaviour
             OpenFinishScreen();
         }
         
+    }
+
+    private void UpdateProgression()
+    {
+        ProgressionManager.Instance.IncreaseAmountOfMainCollectables(playerManager.GetMinifiedMainCollectables());
+        ProgressionManager.Instance.IncreaseAmountOfSideCollectables(playerManager.GetSidePickups());
+        ProgressionManager.Instance.IncreaseAmountOfDeaths(playerManager.GetDeaths());
     }
 
     private void OpenFinishScreen()
