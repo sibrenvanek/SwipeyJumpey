@@ -10,7 +10,7 @@ public class LevelPreview : MonoBehaviour
     private SpriteRenderer spriteRenderer = null;
     private Level level = null;
 
-    void Awake()
+    void Start()
     {
         level = ProgressionManager.Instance.GetLevel(sceneName);
         finishIndicator.SetActive(level.completed);
