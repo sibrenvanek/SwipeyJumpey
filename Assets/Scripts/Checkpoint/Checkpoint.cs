@@ -24,7 +24,6 @@ public class Checkpoint : MonoBehaviour
         {
             OnActivate.Invoke();
             particleSystem.Play();
-            ProgressionManager.Instance.IncreaseAmountOfCheckpointsActivated();
             ProgressionManager.Instance.SetLastActivatedCheckpoint(this);
         }
         GameManager.Instance.SetLastCheckpoint(this);

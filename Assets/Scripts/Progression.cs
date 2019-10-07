@@ -6,13 +6,13 @@ using UnityEngine.Android;
 
 public class Progression
 {
+    private static readonly string path = Application.persistentDataPath + "/data.json";
     public List<Level> unlockedLevels { get; private set; } = new List<Level>();
     public bool pickedUpJetpack { get; private set; } = false;
-    public int ID = 0;
-    public Level latestLevel = null;
-    private static readonly string path = Application.persistentDataPath + "/data.json";
-    public bool introPlayed = false;
     public bool displayedTutorial = false;
+    public bool introPlayed = false;
+    public Level latestLevel = null;
+    public int ID = 0;
 
     public void SaveProgression()
     {
@@ -90,21 +90,6 @@ public class Progression
     public void IncreaseAmountOfSideCollectables(string sceneName, int amount)
     {
         GetLevel(sceneName).amountOfSideCollectables += amount;
-    }
-
-    public void IncreaseAmountOfFuelsGrabbed(string sceneName)
-    {
-        GetLevel(sceneName).amountOfFuelsGrabbed++;
-    }
-
-    public void IncreaseAmountOfBounces(string sceneName)
-    {
-        GetLevel(sceneName).amountOfBounces++;
-    }
-
-    public void IncreaseAmountCheckpointsActivated(string sceneName)
-    {
-        GetLevel(sceneName).amountOfCheckpointsActivated++;
     }
 
     public void AddLevel(Level level)
