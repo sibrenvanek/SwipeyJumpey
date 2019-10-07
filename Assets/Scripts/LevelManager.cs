@@ -6,7 +6,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
     [SerializeField] private float fadeTime = 1f;
-    [SerializeField] private float introSceneIndex = 0f;
+    [SerializeField] private int introSceneIndex = 0;
 
     private void Awake()
     {
