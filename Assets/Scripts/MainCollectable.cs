@@ -9,24 +9,14 @@ public class MainCollectable : Collectable
     [SerializeField] private float opacity = 0.2f;
     private bool hasBeenCollectedBefore = false;
 
+    public bool HasBeenCollectedBefore()
+    {
+        return hasBeenCollectedBefore;
+    }
+
     public override void Collect()
     {
         base.Collect();
-
-        if (!hasBeenCollectedBefore)
-        {
-            ProgressionManager.Instance.IncreaseAmountOfMainCollectables(ConvertToMainCollectable());
-        }
-    }
-
-    public MinifiedMainCollectable ConvertToMainCollectable()
-    {
-        return new MinifiedMainCollectable
-        {
-            id = this.id,
-                name = this.name,
-                position = this.transform.position
-        };
     }
 
     public void SetCollected(bool collected = true)
@@ -45,5 +35,15 @@ public class MainCollectable : Collectable
     public int GetId()
     {
         return id;
+    }
+
+    public static MinifiedMainCollectable Minify(MainCollectable mainCollectable)
+    {
+        return new MinifiedMainCollectable
+        {
+            id = mainCollectable.id,
+            name = mainCollectable.name,
+            position = mainCollectable.transform.position
+        };
     }
 }

@@ -52,7 +52,6 @@ public class PauseMenu : MonoBehaviour
 
     public void BackToMenu()
     {
-        Destroy(PlayerManager.Instance.gameObject);
         Destroy(CanvasManager.Instance.gameObject);
         Destroy(GameManager.Instance.gameObject);
         Destroy(DialogManager.Instance.gameObject);
