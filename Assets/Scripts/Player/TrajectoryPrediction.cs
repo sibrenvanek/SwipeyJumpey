@@ -4,7 +4,6 @@ public class TrajectoryPrediction : MonoBehaviour
 {
     [SerializeField] private GameObject indicatorsPrefab = null;
     [SerializeField] private MouseIndicator mouseIndicatorPrefab = null;
-    private Indicator activeIndicatorFill = null;
     private MouseIndicator activeMouseIndicator = null;
     private Indicator activeIndicator = null;
     private GameObject activeIndicators = null;
@@ -46,29 +45,21 @@ public class TrajectoryPrediction : MonoBehaviour
         if (!activeIndicator)
         {
             activeIndicators = Instantiate(indicatorsPrefab, transform.position, Quaternion.identity);
-            activeIndicator = activeIndicators.GetComponentInChildren<MaxIndicator>();
-            activeIndicatorFill = activeIndicators.GetComponentInChildren<FillIndicator>();
+            activeIndicator = activeIndicators.GetComponentInChildren<Indicator>();
             activeMouseIndicator = Instantiate(mouseIndicatorPrefab, baseMousePosition, Quaternion.identity);
             activeMouseIndicator.SetCancelDistance(cancelSize);
         }
 
         activeIndicators.transform.position = transform.position;
         activeIndicators.transform.eulerAngles = new Vector3(0, 0, angle);
-        activeIndicatorFill.SetDistance(lengthZ / 2);
-        activeIndicatorFill.SetWidth(lengthZ);
         activeIndicator.SetDistance(maxLengthZ / 2);
-        activeIndicator.SetWidth(maxLengthZ);
+        activeIndicator.SetWidth(lengthZ / 4);
     }
 
     public void RemoveIndicators()
     {
         if(activeIndicators)
-        {
-            if (activeIndicatorFill)
-            {
-                activeIndicatorFill = null;
-            }
-            
+        {   
             if (activeIndicator)
             {
                 activeIndicator = null;
