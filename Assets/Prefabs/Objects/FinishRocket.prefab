@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 24727054423959671}
   - component: {fileID: 4899354446746536677}
   - component: {fileID: 6680261857163681916}
+  - component: {fileID: 8433934299788324336}
   m_Layer: 2
   m_Name: FinishRocket
   m_TagString: Finish
@@ -97,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finishScreen: {fileID: 1263562350362051700}
+  finishRocket: {fileID: 8433934299788324336}
 --- !u!61 &6680261857163681916
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -123,6 +125,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 1.2670213}
   m_EdgeRadius: 0
+--- !u!114 &8433934299788324336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24727054423959658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84cb7a6c4f8113a4f94287fa41c0fd31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 6
 --- !u!1 &1263562349944346538
 GameObject:
   m_ObjectHideFlags: 0
