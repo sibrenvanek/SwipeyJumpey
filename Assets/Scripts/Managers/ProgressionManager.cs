@@ -127,14 +127,7 @@ public class ProgressionManager : MonoBehaviour
 
     public Level GetLatestLevel()
     {
-        if (progression.latestLevel != null)
-        {
-            return progression.latestLevel;
-        }
-        else
-        {
-            return progression.GetFirstUnfinishedLevel();
-        }
+        return progression.latestLevel;
     }
 
     public static Checkpoint GetCheckpointFromMinified(MinifiedCheckpoint minCheckpoint)
