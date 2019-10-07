@@ -19,44 +19,9 @@ public class LevelPreview : MonoBehaviour
         SetColors();
     }
 
-    public bool IsCompleted()
+    public Level GetLevel()
     {
-        return level.completed;
-    }
-
-    public int GetDeaths()
-    {
-        return level.amountOfDeaths;
-    }
-
-    public int GetTotalAmountOfMainCollectables()
-    {
-        return level.totalAmountOfMainCollectables;
-    }
-
-    public int GetAmountOfMainCollectables()
-    {
-        return level.amountOfMainCollectables;
-    }
-
-    public int GetTotalAmountOfSideCollectables()
-    {
-        return level.totalAmountOfSideCollectables;
-    }
-
-    public int GetAmountOfSideCollectables()
-    {
-        return level.amountOfSideCollectables;
-    }
-
-    public int GetSceneIndex()
-    {
-        return level.buildIndex;
-    }
-
-    public string GetLevelName()
-    {
-        return level.levelName;
+        return level;
     }
 
     public void SetSprite(Sprite sprite)
@@ -72,11 +37,6 @@ public class LevelPreview : MonoBehaviour
     public void SetInActive()
     {
         transform.localScale = inactiveSize;
-    }
-
-    public bool GetUnlocked()
-    {
-        return level.unlocked;
     }
 
     private void SetColors()
