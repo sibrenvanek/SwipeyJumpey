@@ -10,6 +10,7 @@ public class LevelPreview : MonoBehaviour
     [SerializeField] private Color completedColor = Color.green;
     [SerializeField] private int amountOfMainCollectables = 0;
     [SerializeField] private int amountOfSideCollectables = 0;
+    [SerializeField] private GameObject finishIndicator = null;
     private SpriteRenderer spriteRenderer = null;
     private bool active = false;
     private bool unlocked = false;
@@ -18,6 +19,7 @@ public class LevelPreview : MonoBehaviour
 
     void Start()
     {
+        finishIndicator.SetActive(completed);
         levelSelecter = GetComponentInParent<LevelSelecter>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         transform.localScale = inactiveSize;
@@ -70,9 +72,9 @@ public class LevelPreview : MonoBehaviour
         this.unlocked = unlocked;
         this.completed = completed;
 
-        if (completed)
-            gameObject.GetComponent<SpriteRenderer>().color = completedColor;
-        else if (unlocked)
+        finishIndicator.SetActive(completed);
+
+        if (unlocked)
             gameObject.GetComponent<SpriteRenderer>().color = enabledColor;
         else
             gameObject.GetComponent<SpriteRenderer>().color = disabledColor;
