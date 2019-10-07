@@ -70,6 +70,8 @@ public class PauseMenu : MonoBehaviour
 
     public void ResetWorld()
     {
+        ProgressionManager.Instance.ResetSideCollectables();
+        ProgressionManager.Instance.SaveProgression();
         Resume();
         int activeSceneIndex = SceneManager.GetActiveScene().buildIndex;
         LevelManager.Instance.LoadScene(activeSceneIndex, true, true, true);

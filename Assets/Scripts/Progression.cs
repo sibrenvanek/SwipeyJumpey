@@ -17,6 +17,8 @@ public class Progression
     {
         if (ProgressionManager.CheckAndForcePermission(Permission.ExternalStorageWrite))
         {
+            latestLevel.ResetSideCollectables();
+            unlockedLevels.ForEach(level => level.ResetSideCollectables());
             string json = JsonConvert.SerializeObject(this);
             File.WriteAllText(path, json);
         }
@@ -226,5 +228,11 @@ public class Progression
     public void SetPickedUpJetpack(bool value)
     {
         pickedUpJetpack = value;
+    }
+
+    public void ResetSideCollectables(string sceneName)
+    {
+        Level level = GetLevel(sceneName);
+        level.ResetSideCollectables();
     }
 }
