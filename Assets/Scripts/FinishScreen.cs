@@ -1,12 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class FinishScreen : MonoBehaviour
 {
-    [SerializeField] private Text mainCollectablesText = null;
-    [SerializeField] private Text sideCollectablesText = null;
-    [SerializeField] private Text deathCounterText = null;
-    [SerializeField] private Text levelNameText = null;
+    [SerializeField] private TextMeshProUGUI mainCollectablesText = null;
+    [SerializeField] private TextMeshProUGUI sideCollectablesText = null;
+    [SerializeField] private TextMeshProUGUI deathCounterText = null;
+    [SerializeField] private TextMeshProUGUI levelNameText = null;
+
+    [SerializeField] private Slider mainSlider = null;
+    [SerializeField] private Slider sideSlider = null;
 
     public void Continue(bool endOfWorld = false)
     {
@@ -28,18 +32,20 @@ public class FinishScreen : MonoBehaviour
         levelNameText.text = text;
     }
 
-    public void SetMainCollectables(string text)
+    public void SetMainCollectables(int collected, int total)
     {
-        mainCollectablesText.text = text;
+        mainCollectablesText.text = collected + " / " + total;
+        mainSlider.value = collected / total;
     }
 
-    public void SetSideCollectables(string text)
+    public void SetSideCollectables(int collected, int total)
     {
-        sideCollectablesText.text = text;
+        sideCollectablesText.text = collected + " / " + total;
+        sideSlider.value = collected / total;
     }
 
-    public void SetDeathCounter(string text)
+    public void SetDeathCounter(int deaths)
     {
-        deathCounterText.text = text;
+        deathCounterText.text = deaths + "";
     }
 }
