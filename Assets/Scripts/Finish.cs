@@ -4,7 +4,9 @@ using UnityEngine.SceneManagement;
 public class Finish : MonoBehaviour
 {
     [SerializeField]private FinishScreen finishScreen = null;
-    private bool finished = false; 
+    private bool finished = false;
+    private PlayerMovement playerMovement = null;
+    private PlayerManager playerManager = null;
     private Level level = null;
 
     [Header("Only set finish rocket if it is a finish rocket!")]
@@ -13,8 +15,12 @@ public class Finish : MonoBehaviour
     {
         if(collider.CompareTag("Player"))
         {
-            if(!finished)
+            if (!finished)
+            {
+                playerMovement = collider.GetComponent<PlayerMovement>();
+                playerManager = collider.GetComponent<PlayerManager>();
                 FinishLevel();
+            }
         }
     }
 
@@ -22,7 +28,7 @@ public class Finish : MonoBehaviour
     {
         WorldManager worldManager = FindObjectOfType<WorldManager>();
         ProgressionManager.Instance.SetLastActivatedCheckpoint(worldManager.GetInitialCheckpoint());
-        PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
+
         playerMovement.Disable();
         GetComponentInChildren<ParticleSystem>().Play();
         level = ProgressionManager.Instance.GetLevel(SceneManager.GetActiveScene().name);
@@ -43,9 +49,9 @@ public class Finish : MonoBehaviour
     {
         FindObjectOfType<CollectionStreakManager>().EndLevel();
         finishScreen.SetLevelName(level.levelName);
-        finishScreen.SetMainCollectables(level.amountOfMainCollectables, level.totalAmountOfMainCollectables);
-        finishScreen.SetSideCollectables(level.amountOfSideCollectables, level.totalAmountOfSideCollectables);
-        finishScreen.SetDeathCounter(level.amountOfDeaths);
+        finishScreen.SetMainCollectables(playerManager.GetMainPickups(), level.totalAmountOfMainCollectables);
+        finishScreen.SetSideCollectables(playerManager.GetSidePickups(), level.totalAmountOfSideCollectables);
+        finishScreen.SetDeathCounter(playerManager.GetDeaths());
         finishScreen.gameObject.SetActive(true);
     }
 }
