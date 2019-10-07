@@ -13,6 +13,9 @@ public class TutorialHand : MonoBehaviour
 
     private void Awake()
     {
+        if (ProgressionManager.Instance.GetDisplayedTutorial())
+            gameObject.SetActive(false);
+
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -25,6 +28,7 @@ public class TutorialHand : MonoBehaviour
     private void StopShowing()
     {
         playerMovement.OnJump -= StopShowing;
+        ProgressionManager.Instance.SetDisplayedTutorial();
 
         spriteRenderer.DOFade(0, fadeTimer);
         if (gameObject != null)

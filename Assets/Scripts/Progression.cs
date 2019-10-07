@@ -12,6 +12,7 @@ public class Progression
     public Level latestLevel = null;
     private static readonly string path = Application.persistentDataPath + "/data.json";
     public bool introPlayed = false;
+    public bool displayedTutorial = false;
 
     public void SaveProgression()
     {
@@ -53,6 +54,16 @@ public class Progression
             return new Progression();
         }
         return new Progression();
+    }
+
+    public bool GetDisplayedTutorial()
+    {
+        return displayedTutorial;
+    }
+
+    public void SetDisplayedTutorial()
+    {
+        displayedTutorial = true;
     }
 
     public void IncreaseAmountOfJumps(string sceneName)
