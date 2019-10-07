@@ -52,6 +52,16 @@ public class ProgressionManager : MonoBehaviour
         return progression.introPlayed;
     }
 
+    public void SetDisplayedTutorial()
+    {
+        progression.SetDisplayedTutorial();
+    }
+
+    public bool GetDisplayedTutorial()
+    {
+        return progression.GetDisplayedTutorial();
+    }
+
     public void IncreaseAmountOfJumps()
     {
         progression.IncreaseAmountOfJumps(SceneManager.GetActiveScene().name);
