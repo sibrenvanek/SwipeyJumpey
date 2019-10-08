@@ -8,32 +8,20 @@ public class DialogManager : MonoBehaviour
 {
     private Button button;
 
-    public static DialogManager Instance;
-
     public event Action OnStartDialog = delegate { };
     public event Action<Dialog> OnNewDialog = delegate { };
     public event Action OnEndDialog = delegate { };
-
+    private CanvasManager canvasManager = null;
     private Queue<Dialog> dialogs;
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         dialogs = new Queue<Dialog>();
     }
 
     private void Start()
     {
+        canvasManager = FindObjectOfType<CanvasManager>();
         InitNextButton();
     }
 
@@ -45,7 +33,7 @@ public class DialogManager : MonoBehaviour
 
     public void StartConversation(Conversation conversation)
     {
-        CanvasManager.Instance.EnableNextButton();
+        canvasManager.EnableNextButton();
         OnStartDialog.Invoke();
         dialogs.Clear();
 
@@ -62,7 +50,7 @@ public class DialogManager : MonoBehaviour
         if (dialogs.Count == 0)
         {
             EndDialog();
-            CanvasManager.Instance.DisableNextButton();
+            canvasManager.DisableNextButton();
             return;
         }
 

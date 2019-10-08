@@ -21,10 +21,9 @@ public class LevelSelecter : MonoBehaviour
     {
         levelPreviews = GetComponentsInChildren<LevelPreview>();
         SetActiveIndex(activePreviewIndex);
-        SetLevelColors();
         SetStats();
         enabledColor = leftButton.color;
-        leftButton.color = disabledColor;
+        SetColors();
     }
 
     private void SetActiveIndex(int index)
@@ -37,7 +36,7 @@ public class LevelSelecter : MonoBehaviour
         }
         activePreviewIndex = index;
         levelPreviews[activePreviewIndex].SetActivated();
-        levelNameDisplay.text = levelPreviews[activePreviewIndex].GetName();
+        levelNameDisplay.text = levelPreviews[activePreviewIndex].GetLevel().levelName;
         if (updateStats)
         {
             SetStats();
@@ -46,19 +45,17 @@ public class LevelSelecter : MonoBehaviour
 
     private void SetStats()
     {
-        Level selectedLevel = ProgressionManager.Instance.GetLevel(levelPreviews[activePreviewIndex].GetSceneIndex());
-        selectedLevel.totalAmountOfMainCollectables = levelPreviews[activePreviewIndex].GetAmountOfMainCollectables();
-        selectedLevel.totalAmountOfSideCollectables = levelPreviews[activePreviewIndex].GetAmountOfSideCollectables();
-        selectedLevel.levelName = levelPreviews[activePreviewIndex].GetLevelName();
-        amountOfCollectablesDisplay.text = selectedLevel.amountOfMainCollectables.ToString();
-        if (selectedLevel.completed)
-            amountOfCollectablesDisplay.text += "/" + levelPreviews[activePreviewIndex].GetAmountOfMainCollectables();
-        amountOfDeathsDisplay.text = selectedLevel.amountOfDeaths.ToString();
+        if (levelPreviews[activePreviewIndex].GetLevel().completed)
+            amountOfCollectablesDisplay.text += levelPreviews[activePreviewIndex].GetLevel().amountOfMainCollectables + "/" + levelPreviews[activePreviewIndex].GetLevel().totalAmountOfMainCollectables;
+        else
+            amountOfCollectablesDisplay.text = levelPreviews[activePreviewIndex].GetLevel().totalAmountOfMainCollectables.ToString();
+
+        amountOfDeathsDisplay.text = levelPreviews[activePreviewIndex].GetLevel().amountOfDeaths.ToString();
     }
 
     public void GoTo()
     {
-        int sceneIndex = levelPreviews[activePreviewIndex].GetSceneIndex();
+        int sceneIndex = levelPreviews[activePreviewIndex].GetLevel().buildIndex;
 
         LevelManager.Instance.LoadScene(sceneIndex, true, true);
     }
@@ -71,40 +68,41 @@ public class LevelSelecter : MonoBehaviour
     public void Left()
     {
         int newIndex = (activePreviewIndex > 0) ? activePreviewIndex - 1 : activePreviewIndex;
-        if (levelPreviews[newIndex].GetUnlocked())
+        if (levelPreviews[newIndex].GetLevel().unlocked)
         {
             SetActiveIndex(newIndex);
         }
 
-        if (newIndex == 0)
-        {
-            leftButton.color = disabledColor;
-        }
-        else
-        {
-            rightButton.color = enabledColor;
-        }
+        SetColors();
     }
 
     public void Right()
     {
         int newIndex = (activePreviewIndex < levelPreviews.Length - 1) ? activePreviewIndex + 1 : activePreviewIndex;
-        if (levelPreviews[newIndex].GetUnlocked())
+        if (levelPreviews[newIndex].GetLevel().unlocked)
         {
             SetActiveIndex(newIndex);
         }
 
-        if (newIndex >= levelPreviews.Length - 1)
+        SetColors();
+    }
+
+    private void SetColors()
+    {
+        leftButton.color = enabledColor;
+        rightButton.color = enabledColor;
+
+        if (activePreviewIndex == 0)
+        {
+            leftButton.color = disabledColor;
+        }
+        if (activePreviewIndex >= levelPreviews.Length - 1)
         {
             rightButton.color = disabledColor;
         }
-        else if (!levelPreviews[newIndex + 1].GetUnlocked())
+        else if (!levelPreviews[activePreviewIndex + 1].GetLevel().unlocked)
         {
             rightButton.color = disabledColor;
-        }
-        else
-        {
-            leftButton.color = enabledColor;
         }
     }
 
@@ -112,32 +110,10 @@ public class LevelSelecter : MonoBehaviour
     {
         for (int i = 0; i < levelPreviews.Length; i++)
         {
-            if (levelPreviews[i].GetSceneIndex() == sceneIndex)
+            if (levelPreviews[i].GetLevel().buildIndex == sceneIndex)
             {
                 SetActiveIndex(i);
             }
-        }
-    }
-
-    private void SetLevelColors()
-    {
-        int unlockedLevelsCount = ProgressionManager.Instance.GetUnlockedLevels().Count;
-        if (unlockedLevelsCount <= 0)
-        {
-            ProgressionManager.Instance.AddLevel(new Level
-            {
-                buildIndex = levelPreviews[0].GetSceneIndex(),
-                sceneName = ProgressionManager.GetSceneNameFromIndex(levelPreviews[0].GetSceneIndex())
-            });
-        }
-        foreach (LevelPreview levelPreview in levelPreviews)
-        {
-            Level level = ProgressionManager.Instance.GetLevel(levelPreview.GetSceneIndex());
-
-            if (level == null)
-                levelPreview.SetColors(false, false);
-            else
-                levelPreview.SetColors(true, level.completed);
         }
     }
 }

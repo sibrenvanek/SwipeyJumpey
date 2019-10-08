@@ -13,6 +13,7 @@ public abstract class Fuel : MonoBehaviour
     [SerializeField] private Animator pickUpAnimator = null;
     private new Collider2D collider = null;
     private SpriteRenderer spriteRenderer = null;
+    private FreezeManager freezeManager = null;
 
     private void Awake()
     {
@@ -20,13 +21,17 @@ public abstract class Fuel : MonoBehaviour
         collider = GetComponent<Collider2D>();
     }
 
+    private void Start()
+    {
+        freezeManager = FindObjectOfType<FreezeManager>();
+    }
+
     public void PickUp(Rigidbody2D rigidbody)
     {
         OnPickUp.Invoke();
         pickUpAnimator.SetTrigger("PickUp");
         AddForceBoost(rigidbody);
-        ProgressionManager.Instance.IncreaseAmountOfFuelsGrabbed();
-        FreezeManager.Instance.Freeze(freezeTime);
+        freezeManager.Freeze(freezeTime);
         StartCoroutine(Respawn());
     }
 

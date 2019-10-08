@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerDeath))]
@@ -6,36 +7,61 @@ public class PlayerManager : MonoBehaviour
 {
     private Rigidbody2D rigidbody2d = null;
     private PlayerMovement playerMovement = null;
-    private Jetpack jetpack = null;
     private float defaultScale = 0f;
     private bool godMode = false;
 
     public event Action<bool> OnGodMode = delegate { };
     public event Action<Collectable> OnCollectCoin = delegate { };
 
-    public static PlayerManager Instance;
+    private List<MinifiedMainCollectable> minifiedMainCollectables = new List<MinifiedMainCollectable>();
+    private int mainPickups = 0;
+    private int sidePickups = 0;
+    private int deaths = 0;
 
     void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-        jetpack = GetComponentInChildren<Jetpack>();
         playerMovement = GetComponent<PlayerMovement>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         defaultScale = rigidbody2d.gravityScale;
     }
 
+    public MinifiedMainCollectable[] GetMinifiedMainCollectables()
+    {
+        return minifiedMainCollectables.ToArray();
+    }
+
+    public int GetMainPickups()
+    {
+        return mainPickups;
+    }
+
+    public int GetSidePickups()
+    {
+        return sidePickups;
+    }
+
+    public int GetDeaths()
+    {
+        return deaths;
+    }
+
     public void Collect(Collectable collectable)
     {
         OnCollectCoin(collectable);
+
+        if (collectable is MainCollectable)
+        {
+            mainPickups++;
+            MainCollectable mainCollectable = (MainCollectable)collectable;
+            if (mainCollectable.HasBeenCollectedBefore())
+                return;
+
+            minifiedMainCollectables.Add(MainCollectable.Minify(mainCollectable));
+        }
+        else
+        {
+            sidePickups++;
+        }
     }
 
     public void EnablePhysics()
@@ -73,7 +99,7 @@ public class PlayerManager : MonoBehaviour
             {
                 playerMovement.CancelJump();
                 playerMovement.KillVelocity();
-                ProgressionManager.Instance.IncreaseAmountOfDeaths();
+                deaths++;
                 GetComponent<PlayerDeath>().Die();
                 break;
             }

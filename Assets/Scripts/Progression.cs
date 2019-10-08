@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
@@ -6,13 +7,14 @@ using UnityEngine.Android;
 
 public class Progression
 {
-    public List<Level> unlockedLevels { get; private set; } = new List<Level>();
-    public bool pickedUpJetpack { get; private set; } = false;
-    public int ID = 0;
-    public Level latestLevel = null;
     private static readonly string path = Application.persistentDataPath + "/data.json";
-    public bool introPlayed = false;
+    private static readonly string levelsPath = Application.dataPath + "/data/levels.json";
+    public List<Level> levels { get; private set; } = new List<Level>();
+    public bool pickedUpJetpack { get; private set; } = false;
     public bool displayedTutorial = false;
+    public bool introPlayed = false;
+    public Level latestLevel = null;
+    public int ID = 0;
 
     public void SaveProgression()
     {
@@ -40,20 +42,29 @@ public class Progression
 
     private static Progression LoadFile()
     {
+        Progression progression = new Progression();
+
         if (File.Exists(path))
         {
             string data = File.ReadAllText(path);
             if (data != "")
             {
-                Progression progression = JsonConvert.DeserializeObject<Progression>(data);
+                progression = JsonConvert.DeserializeObject<Progression>(data);
                 return progression;
             }
         }
-        else
-        {
-            return new Progression();
-        }
-        return new Progression();
+
+        progression.LoadLevels();
+
+        return progression;
+    }
+
+    private void LoadLevels()
+    {
+        string json = File.ReadAllText(levelsPath);
+        
+        levels = JsonConvert.DeserializeObject<List<Level>>(json);
+        levels[0].unlocked = true;
     }
 
     public bool GetDisplayedTutorial()
@@ -66,80 +77,30 @@ public class Progression
         displayedTutorial = true;
     }
 
-    public void IncreaseAmountOfJumps(string sceneName)
+    public void IncreaseAmountOfDeaths(string sceneName, int deaths)
     {
-        GetLevel(sceneName).amountOfJumps++;
+        GetLevel(sceneName).amountOfDeaths += deaths;
     }
 
-    public void IncreaseAmountOfDeaths(string sceneName)
-    {
-        GetLevel(sceneName).amountOfDeaths++;
-    }
-
-    public void IncreaseAmountOfMainCollectables(string sceneName, MinifiedMainCollectable collectable)
+    public void IncreaseAmountOfMainCollectables(string sceneName, MinifiedMainCollectable[] collectables)
     {
         Level level = GetLevel(sceneName);
-        level.amountOfMainCollectables++;
-        level.mainCollectables.Add(collectable);
-    }
 
-    public void IncreaseAmountOfSideCollectables(string sceneName)
-    {
-        GetLevel(sceneName).amountOfSideCollectables++;
-    }
-
-    public void IncreaseAmountOfFuelsGrabbed(string sceneName)
-    {
-        GetLevel(sceneName).amountOfFuelsGrabbed++;
-    }
-
-    public void IncreaseAmountOfBounces(string sceneName)
-    {
-        GetLevel(sceneName).amountOfBounces++;
-    }
-
-    public void IncreaseAmountCheckpointsActivated(string sceneName)
-    {
-        GetLevel(sceneName).amountOfCheckpointsActivated++;
-    }
-
-    public void AddLevel(Level level)
-    {
-        if (unlockedLevels == null)
+        foreach (MinifiedMainCollectable collectable in collectables)
         {
-            CreateListAndAddLevel(level);
-        }
-        else
-        {
-            AddLevelToList(level);
+            level.amountOfMainCollectables++;
+            level.mainCollectables.Add(collectable);
         }
     }
 
-    private void CreateListAndAddLevel(Level level)
+    public void IncreaseAmountOfSideCollectables(string sceneName, int amount)
     {
-        unlockedLevels = new List<Level>();
-        unlockedLevels.Add(level);
-    }
-
-    private void AddLevelToList(Level level)
-    {
-        bool levelExistsInList = false;
-        foreach (Level l in unlockedLevels)
-        {
-            if (level.sceneName == l.sceneName)
-            {
-                levelExistsInList = true;
-            }
-        }
-        if (!levelExistsInList)
-        {
-            unlockedLevels.Add(level);
-        }
+        GetLevel(sceneName).amountOfSideCollectables += amount;
     }
 
     public void MarkLevelAsCompleted(string sceneName)
     {
-        foreach (Level level in unlockedLevels)
+        foreach (Level level in levels)
         {
             if (level.sceneName == sceneName)
             {
@@ -150,7 +111,7 @@ public class Progression
 
     public void SetLastActivatedCheckpoint(string sceneName, MinifiedCheckpoint checkpoint)
     {
-        foreach (Level level in unlockedLevels)
+        foreach (Level level in levels)
         {
             if (level.sceneName == sceneName)
             {
@@ -161,7 +122,7 @@ public class Progression
 
     public Level GetLevel(string sceneName)
     {
-        foreach (Level level in unlockedLevels)
+        foreach (Level level in levels)
         {
             if (level.sceneName == sceneName)
             {
@@ -178,7 +139,7 @@ public class Progression
 
     public void ResetCheckpoints()
     {
-        foreach (Level level in unlockedLevels)
+        foreach (Level level in levels)
         {
             level.latestCheckpoint = null;
         }
@@ -186,21 +147,19 @@ public class Progression
 
     public void RemoveLevelsProgression()
     {
-        foreach (Level level in unlockedLevels)
+        foreach (Level level in levels)
         {
             level.latestCheckpoint = null;
-            level.completed = false;
         }
     }
     public void RemoveLevelProgression(Level level)
     {
         level.latestCheckpoint = null;
-        level.completed = false;
     }
 
     public Level GetFirstUnfinishedLevel()
     {
-        foreach (Level level in unlockedLevels)
+        foreach (Level level in levels)
         {
             if (level.completed == false)
             {
@@ -221,14 +180,9 @@ public class Progression
         }
     }
 
-    public List<Level> GetUnlockedLevels()
-    {
-        return unlockedLevels;
-    }
-
     public bool CheckIfLevelExists(int sceneIndex)
     {
-        Level level = unlockedLevels.Find(unlockedLevel => unlockedLevel.buildIndex == sceneIndex);
+        Level level = levels.Find(unlockedLevel => unlockedLevel.buildIndex == sceneIndex);
         if (level != null)
             return true;
         return false;
@@ -239,6 +193,18 @@ public class Progression
         pickedUpJetpack = value;
     }
 
+    public void SetLevelUnlocked(Level level)
+    {
+        foreach (Level existingLevel in levels)
+        {
+            if (existingLevel.sceneName == level.sceneName)
+            {
+                existingLevel.unlocked = true;
+                return;
+            }
+        }
+    }
+
     public void ResetSideCollectables(string sceneName)
     {
         Level level = GetLevel(sceneName);
@@ -247,6 +213,6 @@ public class Progression
 
     public void ResetSideCollectablesAll()
     {
-        unlockedLevels.ForEach(level => level.ResetSideCollectables());
+        levels.ForEach(level => level.ResetSideCollectables());
     }
 }

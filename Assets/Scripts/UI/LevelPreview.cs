@@ -2,56 +2,26 @@ using UnityEngine;
 
 public class LevelPreview : MonoBehaviour
 {
-    [SerializeField] private int sceneIndex = 0;
+    [SerializeField] private string sceneName = "";
     [SerializeField] private Vector2 activeSize = Vector2.one, inactiveSize = Vector2.one;
-    [SerializeField] private string levelName = "";
     [SerializeField] private Color enabledColor = new Color(1f, 1f, 1f);
     [SerializeField] private Color disabledColor = new Color(0.8f, 0.8f, 0.8f);
-    [SerializeField] private int amountOfMainCollectables = 0;
-    [SerializeField] private int amountOfSideCollectables = 0;
     [SerializeField] private GameObject finishIndicator = null;
     private SpriteRenderer spriteRenderer = null;
-    private bool active = false;
-    private bool unlocked = false;
-    private bool completed = false;
-    private LevelSelecter levelSelecter = null;
+    private Level level = null;
 
     void Start()
     {
-        finishIndicator.SetActive(completed);
-        levelSelecter = GetComponentInParent<LevelSelecter>();
+        level = ProgressionManager.Instance.GetLevel(sceneName);
+        finishIndicator.SetActive(level.completed);
         spriteRenderer = GetComponent<SpriteRenderer>();
         transform.localScale = inactiveSize;
+        SetColors();
     }
 
-    public int GetAmountOfMainCollectables()
+    public Level GetLevel()
     {
-        return amountOfMainCollectables;
-    }
-
-    public string GetLevelName()
-    {
-        return levelName;
-    }
-
-    public int GetAmountOfSideCollectables()
-    {
-        return amountOfSideCollectables;
-    }
-
-    public void SetSceneIndex(int sceneIndex)
-    {
-        this.sceneIndex = sceneIndex;
-    }
-
-    public int GetSceneIndex()
-    {
-        return sceneIndex;
-    }
-
-    public string GetName()
-    {
-        return levelName;
+        return level;
     }
 
     public void SetSprite(Sprite sprite)
@@ -61,39 +31,21 @@ public class LevelPreview : MonoBehaviour
 
     public void SetActivated()
     {
-        active = true;
         transform.localScale = activeSize;
     }
 
     public void SetInActive()
     {
-        active = false;
         transform.localScale = inactiveSize;
     }
 
-    public void SetColors(bool unlocked, bool completed)
+    private void SetColors()
     {
-        this.unlocked = unlocked;
-        this.completed = completed;
+        finishIndicator.SetActive(level.completed);
 
-        finishIndicator.SetActive(completed);
-
-        if (unlocked)
+        if (level.unlocked)
             gameObject.GetComponent<SpriteRenderer>().color = enabledColor;
         else
             gameObject.GetComponent<SpriteRenderer>().color = disabledColor;
-    }
-
-    public bool GetUnlocked()
-    {
-        return unlocked;
-    }
-
-    private void OnMouseDown()
-    {
-        if (unlocked && !active)
-        {
-            levelSelecter.SetActiveIndexByScene(sceneIndex);
-        }
     }
 }

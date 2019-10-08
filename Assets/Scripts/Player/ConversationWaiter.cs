@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +15,7 @@ public class ConversationWaiter : MonoBehaviour
 
     private void Start()
     {
-        dialogManager = DialogManager.Instance;
+        dialogManager = DialogManager.FindObjectOfType<DialogManager>();
 
         dialogManager.OnStartDialog += KillPlayerMovement;
         dialogManager.OnEndDialog += RevivePlayerMovement;

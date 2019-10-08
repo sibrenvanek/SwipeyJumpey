@@ -8,10 +8,9 @@ using UnityEngine.SceneManagement;
 public class ProgressionManager : MonoBehaviour
 {
     public static ProgressionManager Instance;
-    private Progression progression;
-    private readonly int ID = 9;
 
-    [SerializeField] public bool UseProgression = true;
+    private Progression progression;
+    private readonly int ID = 11;
 
     private void Awake()
     {
@@ -62,29 +61,14 @@ public class ProgressionManager : MonoBehaviour
         return progression.GetDisplayedTutorial();
     }
 
-    public void IncreaseAmountOfJumps()
+    public void IncreaseAmountOfDeaths(int deaths = 1)
     {
-        progression.IncreaseAmountOfJumps(SceneManager.GetActiveScene().name);
+        progression.IncreaseAmountOfDeaths(SceneManager.GetActiveScene().name, deaths);
     }
 
-    public void IncreaseAmountOfDeaths()
+    public void IncreaseAmountOfMainCollectables(MinifiedMainCollectable[] collectables)
     {
-        progression.IncreaseAmountOfDeaths(SceneManager.GetActiveScene().name);
-    }
-
-    public void IncreaseAmountOfFuelsGrabbed()
-    {
-        progression.IncreaseAmountOfFuelsGrabbed(SceneManager.GetActiveScene().name);
-    }
-
-    public void IncreaseAmountOfCheckpointsActivated()
-    {
-        progression.IncreaseAmountCheckpointsActivated(SceneManager.GetActiveScene().name);
-    }
-
-    public void IncreaseAmountOfMainCollectables(MinifiedMainCollectable collectable)
-    {
-        progression.IncreaseAmountOfMainCollectables(SceneManager.GetActiveScene().name, collectable);
+        progression.IncreaseAmountOfMainCollectables(SceneManager.GetActiveScene().name, collectables);
     }
 
     public List<MinifiedMainCollectable> GetMainCollectables()
@@ -92,9 +76,9 @@ public class ProgressionManager : MonoBehaviour
         return progression.GetMainCollectables(SceneManager.GetActiveScene().name);
     }
 
-    public void IncreaseAmountOfSideCollectables()
+    public void IncreaseAmountOfSideCollectables(int amount = 1)
     {
-        progression.IncreaseAmountOfSideCollectables(SceneManager.GetActiveScene().name);
+        progression.IncreaseAmountOfSideCollectables(SceneManager.GetActiveScene().name, amount);
     }
 
     public void SetLastActivatedCheckpoint(Checkpoint checkpoint)
@@ -110,11 +94,6 @@ public class ProgressionManager : MonoBehaviour
     public void ResetLevels()
     {
         progression.RemoveLevelsProgression();
-    }
-
-    public void AddLevel(Level level)
-    {
-        progression.AddLevel(level);
     }
 
     public Level GetLevel(string sceneName)
@@ -179,14 +158,14 @@ public class ProgressionManager : MonoBehaviour
         progression = Progression.LoadProgression();
     }
 
-    public List<Level> GetUnlockedLevels()
-    {
-        return progression.GetUnlockedLevels();
-    }
-
     public bool CheckIfLevelExists(int sceneIndex)
     {
         return progression.CheckIfLevelExists(sceneIndex);
+    }
+
+    public void SetLevelUnlocked(Level level)
+    {
+        progression.SetLevelUnlocked(level);
     }
 
     public bool GetPickedUpJetpack()
