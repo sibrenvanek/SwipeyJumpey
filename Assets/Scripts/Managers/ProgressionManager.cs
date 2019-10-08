@@ -10,7 +10,7 @@ public class ProgressionManager : MonoBehaviour
     public static ProgressionManager Instance;
 
     private Progression progression;
-    private readonly int ID = 10;
+    private readonly int ID = 11;
 
     private void Awake()
     {

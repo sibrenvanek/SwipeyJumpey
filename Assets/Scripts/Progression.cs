@@ -50,7 +50,6 @@ public class Progression
             if (data != "")
             {
                 progression = JsonConvert.DeserializeObject<Progression>(data);
-                progression.CheckLevels();
                 return progression;
             }
         }
@@ -60,45 +59,12 @@ public class Progression
         return progression;
     }
 
-    private void CheckLevels()
-    {
-        string json = File.ReadAllText(levelsPath);
-
-        if (json != null)
-        {
-            List<Level> newLevels = JsonConvert.DeserializeObject<List<Level>>(json);
-
-            if (levels.Count != newLevels.Count)
-            {
-                ProgressionManager.Instance.DeleteProgression();
-            }
-
-            for (int i = 0; i < newLevels.Count; i++)
-            {
-                if (newLevels[i].sceneName != levels[i].sceneName)
-                {
-                    ProgressionManager.Instance.DeleteProgression();
-                }
-                else
-                {
-                    levels[i].levelName = newLevels[i].levelName;
-                    levels[i].totalAmountOfMainCollectables = newLevels[i].totalAmountOfMainCollectables;
-                    levels[i].totalAmountOfSideCollectables = newLevels[i].totalAmountOfSideCollectables;
-                    levels[i].buildIndex = newLevels[i].buildIndex;
-                }
-            }
-        }
-    }
-
     private void LoadLevels()
     {
         string json = File.ReadAllText(levelsPath);
-
-        if (json != null)
-        {
-            levels = JsonConvert.DeserializeObject<List<Level>>(json);
-            levels[0].unlocked = true;
-        }
+        
+        levels = JsonConvert.DeserializeObject<List<Level>>(json);
+        levels[0].unlocked = true;
     }
 
     public bool GetDisplayedTutorial()
