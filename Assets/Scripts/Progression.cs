@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
@@ -8,7 +7,6 @@ using UnityEngine.Android;
 public class Progression
 {
     private static readonly string path = Application.persistentDataPath + "/data.json";
-    private static readonly string levelsPath = Application.streamingAssetsPath + "/levels.json";
     public List<Level> levels { get; private set; } = new List<Level>();
     public bool pickedUpJetpack { get; private set; } = false;
     public bool displayedTutorial = false;
@@ -61,10 +59,14 @@ public class Progression
 
     private void LoadLevels()
     {
-        string json = File.ReadAllText(levelsPath);
-        
-        levels = JsonConvert.DeserializeObject<List<Level>>(json);
-        levels[0].unlocked = true;
+        string json = Resources.Load("levels").ToString();
+
+        if (json != "")
+        {
+            levels = JsonConvert.DeserializeObject<List<Level>>(json);
+            levels[0].unlocked = true;
+        }
+
     }
 
     public bool GetDisplayedTutorial()
