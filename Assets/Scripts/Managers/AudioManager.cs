@@ -6,6 +6,8 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
+    [SerializeField] private float musicVolume = -9f;
+    [SerializeField] private float sfxVolume = 0f;
     [SerializeField] private AudioClip menuTrack = null;
     [SerializeField] private AudioClip ingameTrack = null;
     [SerializeField] private AudioMixer audioMixer = null;
@@ -29,6 +31,30 @@ public class AudioManager : MonoBehaviour
         defaultPitch = audioSource.pitch;
     }
 
+    private void Start() 
+    {
+        LoadAudioOptions();   
+    }
+
+    private void LoadAudioOptions()
+    {
+        if (PlayerPrefs.HasKey(SettingsScript.MUSICPREF))
+        {
+            if(PlayerPrefs.GetInt(SettingsScript.MUSICPREF) == 1)
+                EnableMusic();
+            else
+                MuteMusic();
+        }
+
+        if (PlayerPrefs.HasKey(SettingsScript.SOUNDEFFECTSPREF))
+        {
+            if(PlayerPrefs.GetInt(SettingsScript.SOUNDEFFECTSPREF) == 1)
+                EnableSFX();
+            else
+                MuteSFX();
+        }
+    }
+
     public void StartMenuTrack()
     {
         if (audioSource.clip == menuTrack)
@@ -37,6 +63,26 @@ public class AudioManager : MonoBehaviour
         audioSource.Stop();
         audioSource.clip = menuTrack;
         audioSource.Play();
+    }
+
+    public void EnableMusic()
+    {
+        audioMixer.SetFloat("musicVolume", musicVolume);
+    }
+
+    public void MuteMusic()
+    {
+        audioMixer.SetFloat("musicVolume", -80);
+    }
+
+    public void EnableSFX()
+    {
+        audioMixer.SetFloat("sfxVolume", sfxVolume);
+    }
+
+    public void MuteSFX()
+    {
+        audioMixer.SetFloat("sfxVolume", -80);
     }
 
     public void StartIngameTrack()
@@ -52,7 +98,7 @@ public class AudioManager : MonoBehaviour
     public void ReduceAudioPitch(float minus)
     {
         float pitchChange = minus * Time.deltaTime;
-
+        
         float audioMixerPitch = audioMixer.GetFloat("mixerPitch", out audioMixerPitch) ? audioMixerPitch : 0f;
 
         audioMixer.SetFloat("mixerPitch", audioMixerPitch + pitchChange);

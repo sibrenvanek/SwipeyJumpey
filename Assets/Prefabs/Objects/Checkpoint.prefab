@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e78dff98afbb1e4cacc0633cf2a7bbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   checkpointTransform: {fileID: 870701888281216975}
 --- !u!61 &1237001785257964816
 BoxCollider2D:
@@ -184,7 +185,8 @@ AudioSource:
   m_GameObject: {fileID: 5442375697592942206}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8480102652463891826, guid: 090acfd6e6ac38e4a9f5a83ef8549fcb,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: ce93e12187e47d24c8580c7bbc22e663, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.8
@@ -5012,7 +5014,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1065636357
-  m_SortingLayer: 14
+  m_SortingLayer: 17
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0

@@ -15,6 +15,7 @@ public class SettingsScript : MonoBehaviour
     [SerializeField] private Toggle toggleSoundEffects = null;
     [SerializeField] private Toggle toggleFont = null;
 
+
     public void Awake()
     {
         FontManager.canToggleFont = false;
@@ -68,10 +69,18 @@ public class SettingsScript : MonoBehaviour
     public void ToggleMusic()
     {
         PlayerPrefs.SetInt(MUSICPREF, toggleMusic.isOn ? 1 : 0);
+        if(toggleMusic.isOn)
+            AudioManager.Instance.EnableMusic();
+        else
+            AudioManager.Instance.MuteMusic();
     }
 
     public void ToggleSoundEffects()
     {
         PlayerPrefs.SetInt(SOUNDEFFECTSPREF, toggleSoundEffects.isOn ? 1 : 0);
+        if(toggleSoundEffects.isOn)
+            AudioManager.Instance.EnableSFX();
+        else
+            AudioManager.Instance.MuteSFX();
     }
 }
