@@ -7,17 +7,14 @@ public class CoinUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI coinCounterText;
 
-    private int coinCounter = 0;
-
     private void Start()
     {
-        coinCounterText.text = coinCounter + "";
-        FindObjectOfType<ProgressionManager>().OnSideCollectableIncreased += IncreaseCoinText;
+        FindObjectOfType<PlayerManager>().OnSideCollectableIncreased += IncreaseCoinText;
+        coinCounterText.text = 0 + "";
     }
 
-    private void IncreaseCoinText(int amount)
+    private void IncreaseCoinText(int coinsCollected)
     {
-        coinCounter = coinCounter + amount;
-        coinCounterText.text = coinCounter + "";
+        coinCounterText.text = coinsCollected + "";
     }
 }

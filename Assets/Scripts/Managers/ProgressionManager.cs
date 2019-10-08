@@ -9,8 +9,6 @@ public class ProgressionManager : MonoBehaviour
 {
     public static ProgressionManager Instance;
 
-    public event Action<int> OnSideCollectableIncreased = delegate { };
-
     private Progression progression;
     private readonly int ID = 11;
 
@@ -81,7 +79,6 @@ public class ProgressionManager : MonoBehaviour
     public void IncreaseAmountOfSideCollectables(int amount = 1)
     {
         progression.IncreaseAmountOfSideCollectables(SceneManager.GetActiveScene().name, amount);
-        OnSideCollectableIncreased.Invoke(amount);
     }
 
     public void SetLastActivatedCheckpoint(Checkpoint checkpoint)
