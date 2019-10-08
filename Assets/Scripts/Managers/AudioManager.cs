@@ -31,16 +31,16 @@ public class AudioManager : MonoBehaviour
         defaultPitch = audioSource.pitch;
     }
 
-    private void Start() 
+    private void Start()
     {
-        LoadAudioOptions();   
+        LoadAudioOptions();
     }
 
     private void LoadAudioOptions()
     {
         if (PlayerPrefs.HasKey(SettingsScript.MUSICPREF))
         {
-            if(PlayerPrefs.GetInt(SettingsScript.MUSICPREF) == 1)
+            if (PlayerPrefs.GetInt(SettingsScript.MUSICPREF) == 1)
                 EnableMusic();
             else
                 MuteMusic();
@@ -48,7 +48,7 @@ public class AudioManager : MonoBehaviour
 
         if (PlayerPrefs.HasKey(SettingsScript.SOUNDEFFECTSPREF))
         {
-            if(PlayerPrefs.GetInt(SettingsScript.SOUNDEFFECTSPREF) == 1)
+            if (PlayerPrefs.GetInt(SettingsScript.SOUNDEFFECTSPREF) == 1)
                 EnableSFX();
             else
                 MuteSFX();
@@ -98,7 +98,7 @@ public class AudioManager : MonoBehaviour
     public void ReduceAudioPitch(float minus)
     {
         float pitchChange = minus * Time.deltaTime;
-        
+
         float audioMixerPitch = audioMixer.GetFloat("mixerPitch", out audioMixerPitch) ? audioMixerPitch : 0f;
 
         audioMixer.SetFloat("mixerPitch", audioMixerPitch + pitchChange);
