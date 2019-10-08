@@ -46,7 +46,8 @@ public class GameManager : MonoBehaviour
         CheckInstances();
     }
 
-    private void CheckInstances() { 
+    private void CheckInstances()
+    {
         if (ProgressionManager.Instance == null)
         {
             Instantiate(ProgressionManagerPrefab, Vector3.zero, Quaternion.identity);
@@ -158,6 +159,7 @@ public class GameManager : MonoBehaviour
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
+        Resources.UnloadUnusedAssets();
         CheckInstances();
 
         WorldManager worldManager = FindObjectOfType<WorldManager>();
