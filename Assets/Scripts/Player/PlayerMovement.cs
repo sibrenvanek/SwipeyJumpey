@@ -49,13 +49,16 @@ public class PlayerMovement : MonoBehaviour
         JetpackPickup jetpackPickup = FindObjectOfType<JetpackPickup>();
         if (jetpackPickup)
         {
+            Debug.Log(1);
             if (!ProgressionManager.Instance.GetPickedUpJetpack())
             {
+                Debug.Log(2);
                 jetpackPickup.OnJetpackPickup += OnJetpackPickup;
                 DisableJump();
             }
             else
             {
+                Debug.Log(3);
                 jetpackPickup.gameObject.SetActive(false);
             }
         }
