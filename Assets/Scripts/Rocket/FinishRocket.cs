@@ -21,6 +21,10 @@ public class FinishRocket : MonoBehaviour
     public void Fly(Action callback)
     {
         StartCoroutine(FlyAndCallback(callback));
+        foreach(var spriteRenderer in FindObjectOfType<PlayerManager>().GetComponentsInChildren<SpriteRenderer>())
+        {
+            spriteRenderer.enabled = false;
+        }
     }
 
     private IEnumerator FlyAndCallback(Action callback)
