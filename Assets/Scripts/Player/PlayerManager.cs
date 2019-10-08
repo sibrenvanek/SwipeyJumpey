@@ -12,6 +12,7 @@ public class PlayerManager : MonoBehaviour
 
     public event Action<bool> OnGodMode = delegate { };
     public event Action<Collectable> OnCollectCoin = delegate { };
+    public event Action<int> OnSideCollectableIncreased = delegate { };
 
     private List<MinifiedMainCollectable> minifiedMainCollectables = new List<MinifiedMainCollectable>();
     private int mainPickups = 0;
@@ -61,6 +62,7 @@ public class PlayerManager : MonoBehaviour
         else
         {
             sidePickups++;
+            OnSideCollectableIncreased.Invoke(sidePickups);
         }
     }
 

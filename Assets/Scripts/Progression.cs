@@ -1,15 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Android;
-using UnityEngine.Networking;
 
 public class Progression
 {
     private static readonly string path = Application.persistentDataPath + "/data.json";
-    private static readonly string levelsPath = Application.streamingAssetsPath + "/levels.json";
     public List<Level> levels { get; private set; } = new List<Level>();
     public bool pickedUpJetpack { get; private set; } = false;
     public bool displayedTutorial = false;
@@ -62,14 +59,8 @@ public class Progression
 
     private void LoadLevels()
     {
-        string json = "";
-#if UNITY_EDITOR
-        json = File.ReadAllText(levelsPath);
-#else
-        UnityWebRequest www = UnityWebRequest.Get(levelsPath);
-        while (!www.isDone) { }
-        json = www.downloadHandler.text;
-#endif
+        string json = Resources.Load("levels").ToString();
+
         if (json != "")
         {
             levels = JsonConvert.DeserializeObject<List<Level>>(json);

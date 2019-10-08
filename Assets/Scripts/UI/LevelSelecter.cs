@@ -46,7 +46,7 @@ public class LevelSelecter : MonoBehaviour
     private void SetStats()
     {
         if (levelPreviews[activePreviewIndex].GetLevel().completed)
-            amountOfCollectablesDisplay.text += levelPreviews[activePreviewIndex].GetLevel().amountOfMainCollectables + "/" + levelPreviews[activePreviewIndex].GetLevel().totalAmountOfMainCollectables;
+            amountOfCollectablesDisplay.text = levelPreviews[activePreviewIndex].GetLevel().amountOfMainCollectables + "/" + levelPreviews[activePreviewIndex].GetLevel().totalAmountOfMainCollectables;
         else
             amountOfCollectablesDisplay.text = levelPreviews[activePreviewIndex].GetLevel().totalAmountOfMainCollectables.ToString();
 
