@@ -35,7 +35,7 @@ public class FinishScreen : MonoBehaviour
     public void SetMainCollectables(int collected, int total)
     {
         mainCollectablesText.text = collected + " / " + total;
-        sideSlider.value = (float) collected / total;
+        mainSlider.value = (float) collected / total;
     }
 
     public void SetSideCollectables(int collected, int total)
