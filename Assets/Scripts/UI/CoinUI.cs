@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class CoinUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI coinCounterText;
+    [SerializeField] private TextMeshProUGUI coinCounterText = null;
 
     private void Start()
     {

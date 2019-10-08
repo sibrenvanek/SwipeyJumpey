@@ -5,7 +5,6 @@ public class Indicator : MonoBehaviour
     [SerializeField] private Color green = new Color(99, 199, 77, 200);
     [SerializeField] private Color orange = new Color(247, 118, 34, 200);
     [SerializeField] private Color red = new Color(228, 59, 68, 200);
-    [SerializeField] private float maxDistance = 0;
     
     [SerializeField] private SpriteRenderer fillSpriteRenderer = null;
     [SerializeField] protected Transform indicatorSprite = null;
