@@ -70,16 +70,14 @@ public class Progression
 
             if (levels.Count != newLevels.Count)
             {
-                DeleteProgression();
-                LoadProgression();
+                ProgressionManager.Instance.DeleteProgression();
             }
 
             for (int i = 0; i < newLevels.Count; i++)
             {
                 if (newLevels[i].sceneName != levels[i].sceneName)
                 {
-                    DeleteProgression();
-                    LoadProgression();
+                    ProgressionManager.Instance.DeleteProgression();
                 }
                 else
                 {

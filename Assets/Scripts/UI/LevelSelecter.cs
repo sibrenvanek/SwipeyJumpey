@@ -23,7 +23,7 @@ public class LevelSelecter : MonoBehaviour
         SetActiveIndex(activePreviewIndex);
         SetStats();
         enabledColor = leftButton.color;
-        leftButton.color = disabledColor;
+        SetColors();
     }
 
     private void SetActiveIndex(int index)
