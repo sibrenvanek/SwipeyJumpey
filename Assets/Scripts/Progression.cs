@@ -63,13 +63,13 @@ public class Progression
     private void LoadLevels()
     {
         string json = "";
+
 #if UNITY_EDITOR
         json = File.ReadAllText(levelsPath);
 #else
-        UnityWebRequest www = UnityWebRequest.Get(levelsPath);
-        while (!www.isDone) { }
-        json = www.downloadHandler.text;
+        json = Resources.Load(levelsPath).ToString();
 #endif
+
         if (json != "")
         {
             levels = JsonConvert.DeserializeObject<List<Level>>(json);
