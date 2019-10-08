@@ -21,6 +21,7 @@ TagManager:
   - PlayText
   - JetpackLaunch
   - Collectable
+  - CoinUI
   layers:
   - Default
   - TransparentFX

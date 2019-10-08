@@ -8,6 +8,12 @@ public class Finish : MonoBehaviour
     private PlayerMovement playerMovement = null;
     private PlayerManager playerManager = null;
     private Level level = null;
+    private CanvasGroup coinUI = null;
+
+    private void Start()
+    {
+        coinUI = FindObjectOfType<CoinUI>().GetComponent<CanvasGroup>();
+    }
 
     [Header("Only set finish rocket if it is a finish rocket!")]
     [SerializeField]private FinishRocket finishRocket = null;
@@ -33,6 +39,7 @@ public class Finish : MonoBehaviour
         GetComponentInChildren<ParticleSystem>().Play();
         level = ProgressionManager.Instance.GetLevel(SceneManager.GetActiveScene().name);
         level.completed = true;
+        coinUI.alpha = 0;
         UpdateProgression();
 
         if (finishRocket != null)
