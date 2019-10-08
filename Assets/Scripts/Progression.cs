@@ -43,6 +43,7 @@ public class Progression
     private static Progression LoadFile()
     {
         Progression progression = new Progression();
+
         if (File.Exists(path))
         {
             string data = File.ReadAllText(path);
@@ -67,11 +68,18 @@ public class Progression
         {
             List<Level> newLevels = JsonConvert.DeserializeObject<List<Level>>(json);
 
+            if (levels.Count != newLevels.Count)
+            {
+                DeleteProgression();
+                LoadProgression();
+            }
+
             for (int i = 0; i < newLevels.Count; i++)
             {
                 if (newLevels[i].sceneName != levels[i].sceneName)
                 {
                     DeleteProgression();
+                    LoadProgression();
                 }
                 else
                 {
