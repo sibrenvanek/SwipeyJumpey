@@ -73,14 +73,7 @@ public class LevelSelecter : MonoBehaviour
             SetActiveIndex(newIndex);
         }
 
-        if (newIndex == 0)
-        {
-            leftButton.color = disabledColor;
-        }
-        else
-        {
-            rightButton.color = enabledColor;
-        }
+        SetColors();
     }
 
     public void Right()
@@ -91,17 +84,25 @@ public class LevelSelecter : MonoBehaviour
             SetActiveIndex(newIndex);
         }
 
-        if (newIndex >= levelPreviews.Length - 1)
+        SetColors();
+    }
+
+    private void SetColors()
+    {
+        leftButton.color = enabledColor;
+        rightButton.color = enabledColor;
+
+        if (activePreviewIndex == 0)
+        {
+            leftButton.color = disabledColor;
+        }
+        if (activePreviewIndex >= levelPreviews.Length - 1)
         {
             rightButton.color = disabledColor;
         }
-        else if (!levelPreviews[newIndex + 1].GetLevel().unlocked)
+        else if (!levelPreviews[activePreviewIndex + 1].GetLevel().unlocked)
         {
             rightButton.color = disabledColor;
-        }
-        else
-        {
-            leftButton.color = enabledColor;
         }
     }
 
