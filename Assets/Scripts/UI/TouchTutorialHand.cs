@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -6,16 +6,27 @@ using DG.Tweening;
 public class TouchTutorialHand : MonoBehaviour
 {
     private bool active = true;
+    private PlayerMovement playerMovement;
 
-    private void Update() 
+    private void Start()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (ProgressionManager.Instance.GetDisplayedTutorial())
         {
-            if(active)
-            {
-                StartCoroutine(FadeAndDeactivate());
-            }
-        }    
+            Destroy(gameObject);
+        }
+        else
+        {
+            playerMovement = FindObjectOfType<PlayerMovement>();
+            playerMovement.OnHop += TurnOff;
+        }
+    }
+
+    private void TurnOff()
+    {
+        if (active)
+        {
+            StartCoroutine(FadeAndDeactivate());
+        }
     }
 
     private IEnumerator FadeAndDeactivate()
@@ -23,6 +34,7 @@ public class TouchTutorialHand : MonoBehaviour
         GetComponent<SpriteRenderer>().DOFade(0, 2f);
         active = false;
         yield return new WaitForSeconds(2f);
+        playerMovement.OnHop -= TurnOff;
         Destroy(gameObject);
     }
 }

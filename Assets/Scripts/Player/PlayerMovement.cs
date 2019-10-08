@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 hopVelocity = new Vector2(3, 5);
     [SerializeField] private float boxCastDistance = 0.3f;
     public event Action OnJump = delegate {};
+    public event Action OnHop = delegate { };
     public event Action OnCanJump = delegate {};
     private Rigidbody2D rigidbody2d = null;
     private SpriteRenderer spriteRenderer = null;
@@ -271,6 +272,7 @@ public class PlayerMovement : MonoBehaviour
     {
         facingLeft = jumpVelocity.x < 0;
         grounded = false;
+        OnHop.Invoke();
         KillVelocity();
         rigidbody2d.AddForce(jumpVelocity, ForceMode2D.Impulse);
         dragging = false;
