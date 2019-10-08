@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f215a13ac5d6ee44a9b0d89de35c0ac, type: 3}
-  m_Name: 6. Core escape
+  m_Script: {fileID: 11500000, guid: d0cbe8fef814d9b428aca18cffa1b1b8, type: 3}
+  m_Name: Jetpack
   m_EditorClassIdentifier: 
-  speaker: {fileID: 11400000, guid: 21dd0c2fc90e64948860905ae563d623, type: 2}
-  text: We must find a new ship to escape this planet.
+  dialogs:
+  - {fileID: 11400000, guid: fb9155b2171fe4b5bbd080d1923e93cc, type: 2}
+  - {fileID: 11400000, guid: 8c1decc9b80c64567befb7eaeb3c2470, type: 2}

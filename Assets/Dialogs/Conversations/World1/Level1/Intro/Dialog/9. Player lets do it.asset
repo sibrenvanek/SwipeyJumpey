@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f215a13ac5d6ee44a9b0d89de35c0ac, type: 3}
-  m_Name: 6. Core escape
+  m_Name: 9. Player lets do it
   m_EditorClassIdentifier: 
-  speaker: {fileID: 11400000, guid: 21dd0c2fc90e64948860905ae563d623, type: 2}
-  text: We must find a new ship to escape this planet.
+  speaker: {fileID: 11400000, guid: 57d65257496af6e4696090b07f5edfe1, type: 2}
+  text: Let's do this.
