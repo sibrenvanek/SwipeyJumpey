@@ -30,8 +30,7 @@ public class ProgressionManager : MonoBehaviour
         if (progression.ID != ID)
         {
             DeleteProgression();
-            progression = Progression.LoadProgression();
-            progression.ID = ID;
+            progression = Progression.CreateProgression(ID);
         }
     }
 
@@ -155,7 +154,7 @@ public class ProgressionManager : MonoBehaviour
     public void DeleteProgression()
     {
         progression.DeleteProgression();
-        progression = Progression.LoadProgression();
+        progression = Progression.CreateProgression(ID);
     }
 
     public bool CheckIfLevelExists(int sceneIndex)

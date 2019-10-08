@@ -23,6 +23,31 @@ public class Progression
         }
     }
 
+    public static Progression CreateProgression(int ID)
+    {
+#if UNITY_EDITOR
+        return CreateFile(ID);
+#else
+        if (ProgressionManager.CheckAndForcePermission(Permission.ExternalStorageRead))
+        {
+            return CreateFile(ID);
+        }
+
+        Debug.LogError("No permission");
+        return null;
+#endif
+    }
+
+    private static Progression CreateFile(int ID)
+    {
+        Progression progression = new Progression();
+
+        progression.LoadLevels();
+        progression.ID = ID;
+
+        return progression;
+    }
+
     public static Progression LoadProgression()
     {
 #if UNITY_EDITOR
