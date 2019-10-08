@@ -4,6 +4,7 @@ using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Android;
+using UnityEngine.Networking;
 
 public class Progression
 {
@@ -61,7 +62,9 @@ public class Progression
 
     private void LoadLevels()
     {
-        string json = File.ReadAllText(levelsPath);
+        UnityWebRequest www = UnityWebRequest.Get(levelsPath);
+        while (!www.isDone) { }
+        string json = www.downloadHandler.text;
         
         levels = JsonConvert.DeserializeObject<List<Level>>(json);
         levels[0].unlocked = true;
