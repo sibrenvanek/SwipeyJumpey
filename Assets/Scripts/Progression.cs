@@ -8,7 +8,7 @@ using UnityEngine.Android;
 public class Progression
 {
     private static readonly string path = Application.persistentDataPath + "/data.json";
-    private static readonly string levelsPath = Application.dataPath + "/data/levels.json";
+    private static readonly string levelsPath = Application.streamingAssetsPath + "/levels.json";
     public List<Level> levels { get; private set; } = new List<Level>();
     public bool pickedUpJetpack { get; private set; } = false;
     public bool displayedTutorial = false;
