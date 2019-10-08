@@ -52,14 +52,16 @@ public class PlayerManager : MonoBehaviour
         if (collectable is MainCollectable)
         {
             mainPickups++;
-            MainCollectable mainCollectable = (MainCollectable) collectable;
+            MainCollectable mainCollectable = (MainCollectable)collectable;
             if (mainCollectable.HasBeenCollectedBefore())
                 return;
 
             minifiedMainCollectables.Add(MainCollectable.Minify(mainCollectable));
         }
         else
+        {
             sidePickups++;
+        }
     }
 
     public void EnablePhysics()
