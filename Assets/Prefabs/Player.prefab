@@ -14514,7 +14514,7 @@ MonoBehaviour:
   slowMotion: {fileID: 4857256654572397243}
   jetpack: {fileID: 0}
   hopVelocity: {x: 3, y: 5}
-  bonus: 0.3
+  boxCastDistance: 0.3
   slowMotionActivated: 0
 --- !u!114 &4857256654572397243
 MonoBehaviour:
@@ -14833,7 +14833,8 @@ AudioSource:
   m_GameObject: {fileID: 3338621100589474659}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8480102652463891826, guid: 090acfd6e6ac38e4a9f5a83ef8549fcb,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 35bc9d02d199a8f428ae62877ec71563, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -15332,7 +15333,8 @@ AudioSource:
   m_GameObject: {fileID: 8602664945032100524}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8480102652463891826, guid: 090acfd6e6ac38e4a9f5a83ef8549fcb,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 0cfc7a7c648b96748bf63cd6f5336d1a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.6
