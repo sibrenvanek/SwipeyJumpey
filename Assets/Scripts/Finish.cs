@@ -19,7 +19,7 @@ public class Finish : MonoBehaviour
     [SerializeField]private FinishRocket finishRocket = null;
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.CompareTag("Player"))
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Body"))
         {
             if (!finished)
             {
