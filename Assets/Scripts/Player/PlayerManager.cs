@@ -54,6 +54,7 @@ public class PlayerManager : MonoBehaviour
         {
             mainPickups++;
             MainCollectable mainCollectable = (MainCollectable)collectable;
+
             if (mainCollectable.HasBeenCollectedBefore())
                 return;
 
