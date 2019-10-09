@@ -105,6 +105,11 @@ public class ProgressionManager : MonoBehaviour
         return progression.GetLevel(GetSceneNameFromIndex(sceneIndex));
     }
 
+    public Level GetFirstUnfinishedLevel()
+    {
+        return progression.GetFirstUnfinishedLevel();
+    }
+
     public void ResetLevel(Level level)
     {
         progression.RemoveLevelProgression(level);
