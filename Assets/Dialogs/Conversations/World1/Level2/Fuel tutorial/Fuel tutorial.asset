@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Fuel tutorial
   m_EditorClassIdentifier: 
   dialogs:
-  - {fileID: 11400000, guid: 5a3582c679ef94a28ad436430a2bb24d, type: 2}
-  - {fileID: 11400000, guid: 90fa8d69d0ea0469494aa67597b0f579, type: 2}
-  - {fileID: 11400000, guid: faa6e697240d9454caa4862123e0f68b, type: 2}
+  - {fileID: 11400000, guid: 3a004a172c00c4f86839f19dc44b387a, type: 2}
+  - {fileID: 11400000, guid: 498a58793e12a433ab136fa952722dd5, type: 2}
+  - {fileID: 11400000, guid: 69d66fc96c4bf49198fbe357cbe778ed, type: 2}
   - {fileID: 11400000, guid: ef858018723b5410699ef2dfdaad21a4, type: 2}
-  - {fileID: 11400000, guid: 4173a77dc7e4d4fe3934b3cdda4f7596, type: 2}
+  - {fileID: 11400000, guid: 49a0c3c55676a4cb8a8c7b603ca237b5, type: 2}
+  tutorial: 1
