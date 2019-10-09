@@ -27196,6 +27196,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3308556079477232847, guid: a4202c1834093d24198f5e8fe029ad49,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.59899426
+      objectReference: {fileID: 0}
+    - target: {fileID: 3308556079477232847, guid: a4202c1834093d24198f5e8fe029ad49,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 2.1979885
+      objectReference: {fileID: 0}
     - target: {fileID: 3716547552343190896, guid: a4202c1834093d24198f5e8fe029ad49,
         type: 3}
       propertyPath: conversation
