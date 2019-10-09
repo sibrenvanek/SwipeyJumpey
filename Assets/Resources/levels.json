@@ -2,37 +2,37 @@
     {
         "sceneName": "World-1-Level-4",
         "levelName": "level-one",
-        "totalAmountOfMainCollectables": 20,
-        "totalAmountOfSideCollectables": 50,
+        "totalAmountOfMainCollectables": 1,
+        "totalAmountOfSideCollectables": 29,
         "buildIndex": 4,
         "unlocked":  true
     },
     {
         "sceneName": "World-1-Level-5",
         "levelName": "level-two",
-        "totalAmountOfMainCollectables": 20,
-        "totalAmountOfSideCollectables": 50,
+        "totalAmountOfMainCollectables": 1,
+        "totalAmountOfSideCollectables": 34,
         "buildIndex": 5
     },
     {
         "sceneName": "World-1-Level-6",
         "levelName": "level-three",
-        "totalAmountOfMainCollectables": 20,
-        "totalAmountOfSideCollectables": 50,
+        "totalAmountOfMainCollectables": 2,
+        "totalAmountOfSideCollectables": 33,
         "buildIndex": 6
     },
     {
         "sceneName": "World-1-Level-7",
         "levelName": "level-four",
-        "totalAmountOfMainCollectables": 20,
-        "totalAmountOfSideCollectables": 50,
+        "totalAmountOfMainCollectables": 3,
+        "totalAmountOfSideCollectables": 49,
         "buildIndex": 7
     },
     {
         "sceneName": "World-1-Level-8",
         "levelName": "level-five",
-        "totalAmountOfMainCollectables": 20,
-        "totalAmountOfSideCollectables": 50,
+        "totalAmountOfMainCollectables": 2,
+        "totalAmountOfSideCollectables": 76,
         "buildIndex": 8
     }
 ]

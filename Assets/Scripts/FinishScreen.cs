@@ -35,13 +35,13 @@ public class FinishScreen : MonoBehaviour
     public void SetMainCollectables(int collected, int total)
     {
         mainCollectablesText.text = collected + " / " + total;
-        mainSlider.value = collected / total;
+        mainSlider.value = (float) collected / total;
     }
 
     public void SetSideCollectables(int collected, int total)
     {
         sideCollectablesText.text = collected + " / " + total;
-        sideSlider.value = collected / total;
+        sideSlider.value = (float) collected / total;
     }
 
     public void SetDeathCounter(int deaths)

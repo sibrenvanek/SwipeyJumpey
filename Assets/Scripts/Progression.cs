@@ -8,7 +8,7 @@ public class Progression
 {
     private static readonly string path = Application.persistentDataPath + "/data.json";
     public List<Level> levels { get; private set; } = new List<Level>();
-    public bool pickedUpJetpack { get; private set; } = false;
+    public bool pickedUpJetpack = false;
     public bool displayedTutorial = false;
     public bool introPlayed = false;
     public Level latestLevel = null;

@@ -6,5 +6,11 @@ using UnityEngine;
 public class Conversation : ScriptableObject
 {
     [SerializeField] private Dialog[] dialogs = null;
+    [SerializeField] private bool tutorial = false;
     public Dialog[] Dialogs => dialogs;
+
+    public bool IsTutorial()
+    {
+        return tutorial;
+    }
 }

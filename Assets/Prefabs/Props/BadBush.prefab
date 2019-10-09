@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5467412541469215879}
   - component: {fileID: 1260508813693536779}
   - component: {fileID: 2768830823513297224}
-  - component: {fileID: 8290684723081296017}
   m_Layer: 0
   m_Name: BadBush
   m_TagString: Untagged
@@ -70,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1329887773
-  m_SortingLayer: 12
+  m_SortingLayer: 15
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 291542c49ef364231a6117dbfc329f63, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -128,15 +127,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.7746793, y: 1.4548979}
   m_EdgeRadius: 0
---- !u!114 &8290684723081296017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3103742809463570289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cf01d26df95d734badf2440f4bd2fb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

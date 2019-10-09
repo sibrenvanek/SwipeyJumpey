@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf0b707435c3114e84d453a655265ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuTrack: {fileID: 8300000, guid: 5b06e2f282e16ac448dc54b9fa90fbe6, type: 3}
-  ingameTrack: {fileID: 8300000, guid: be7a7270900fd5a45b0957afed08d45a, type: 3}
+  musicVolume: -9
+  sfxVolume: 0
+  menuTrack: {fileID: 8300000, guid: b4263dba55c2ec84f9a8eb5cd290556e, type: 3}
+  ingameTrack: {fileID: 8300000, guid: 58d18ed986d677b40a12fc9b70272d9e, type: 3}
   audioMixer: {fileID: 24100000, guid: 090acfd6e6ac38e4a9f5a83ef8549fcb, type: 2}
 --- !u!82 &8247206127766019629
 AudioSource:
