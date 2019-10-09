@@ -11,25 +11,17 @@ public class MainMenu : MonoBehaviour
     {
         AudioManager.Instance.StartMenuTrack();
 
-        Level latestLevel = ProgressionManager.Instance.GetLatestLevel();
-
-        if (latestLevel != null)
-        {
-            firstSceneIndex = latestLevel.buildIndex;
-
-            playButton.GetComponentInChildren<TextMeshProUGUI>().text = "Continue";
-            GameObject.FindGameObjectWithTag("PlayText").GetComponentInChildren<RectTransform>().sizeDelta = new Vector2(270, GameObject.FindGameObjectWithTag("PlayText").GetComponentInChildren<RectTransform>().sizeDelta.y);
-        }
+        firstSceneIndex = ProgressionManager.Instance.GetFirstUnfinishedLevel().buildIndex;
     }
 
     public void PlayGame()
     {
-        LevelManager.Instance.LoadScene(firstSceneIndex, true);
+        LevelManager.Instance.LoadScene(firstSceneIndex, true, true);
     }
 
     public void SelectLevel()
     {
-        LevelManager.Instance.LoadScene(1, false, true);
+        LevelManager.Instance.LoadScene(1, false);
     }
 
     public void ExitGame()
