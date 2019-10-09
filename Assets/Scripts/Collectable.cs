@@ -10,9 +10,9 @@ public abstract class Collectable : MonoBehaviour
     private AudioSource audioSource = null;
     private PlayerManager player = null;
 
-    protected virtual void Awake() 
+    protected virtual void Awake()
     {
-        collider = GetComponent<Collider2D>();    
+        collider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
     }
@@ -21,7 +21,7 @@ public abstract class Collectable : MonoBehaviour
     {
         collider.enabled = false;
         animator.SetTrigger("Collect");
-        if(player == null)
+        if (player == null)
             player = FindObjectOfType<PlayerManager>();
 
         player.Collect(this);
@@ -39,6 +39,11 @@ public abstract class Collectable : MonoBehaviour
         {
             Collect();
         }
+    }
+
+    public virtual int GetId()
+    {
+        return 0;
     }
 
     public virtual void TurnOff()

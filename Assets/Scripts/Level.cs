@@ -11,6 +11,7 @@ public class Level
     public bool unlocked = false;
 
     public List<MinifiedMainCollectable> mainCollectables = new List<MinifiedMainCollectable>();
+    public List<int> sideCollectables = new List<int>();
     public MinifiedCheckpoint latestCheckpoint;
     public int amountOfMainCollectables = 0;
     public int amountOfSideCollectables = 0;

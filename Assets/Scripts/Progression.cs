@@ -120,9 +120,20 @@ public class Progression
         }
     }
 
-    public void IncreaseAmountOfSideCollectables(string sceneName, int amount)
+    public void IncreaseAmountOfSideCollectables(string sceneName, List<int> sideCollectables)
     {
-        GetLevel(sceneName).amountOfSideCollectables += amount;
+        Level level = GetLevel(sceneName);
+        level.amountOfSideCollectables += sideCollectables.Count;
+        level.sideCollectables = sideCollectables;
+    }
+
+    public void IncreaseAmountOfSideCollectables(string sceneName, int sideCollectable)
+    {
+        List<int> sideCollectables = new List<int>();
+        sideCollectables.Add(sideCollectable);
+        Level level = GetLevel(sceneName);
+        level.amountOfSideCollectables += sideCollectables.Count;
+        level.sideCollectables = sideCollectables;
     }
 
     public void MarkLevelAsCompleted(string sceneName)
@@ -162,6 +173,11 @@ public class Progression
     public List<MinifiedMainCollectable> GetMainCollectables(string sceneName)
     {
         return GetLevel(sceneName).mainCollectables;
+    }
+
+    public List<int> GetSideCollectables(string sceneName)
+    {
+        return GetLevel(sceneName).sideCollectables;
     }
 
     public void ResetCheckpoints()

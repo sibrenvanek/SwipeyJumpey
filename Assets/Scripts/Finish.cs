@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class Finish : MonoBehaviour
 {
-    [SerializeField]private FinishScreen finishScreen = null;
+    [SerializeField] private FinishScreen finishScreen = null;
     private bool finished = false;
     private PlayerMovement playerMovement = null;
     private PlayerManager playerManager = null;
@@ -16,10 +16,10 @@ public class Finish : MonoBehaviour
     }
 
     [Header("Only set finish rocket if it is a finish rocket!")]
-    [SerializeField]private FinishRocket finishRocket = null;
+    [SerializeField] private FinishRocket finishRocket = null;
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.CompareTag("Player"))
+        if (collider.CompareTag("Player"))
         {
             if (!finished)
             {
@@ -50,13 +50,13 @@ public class Finish : MonoBehaviour
         {
             OpenFinishScreen();
         }
-        
+
     }
 
     private void UpdateProgression()
     {
         ProgressionManager.Instance.IncreaseAmountOfMainCollectables(playerManager.GetMinifiedMainCollectables());
-        ProgressionManager.Instance.IncreaseAmountOfSideCollectables(playerManager.GetSidePickups());
+        ProgressionManager.Instance.IncreaseAmountOfSideCollectables(playerManager.GetSideCollectables());
         ProgressionManager.Instance.IncreaseAmountOfDeaths(playerManager.GetDeaths());
     }
 

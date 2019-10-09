@@ -75,9 +75,18 @@ public class ProgressionManager : MonoBehaviour
         return progression.GetMainCollectables(SceneManager.GetActiveScene().name);
     }
 
-    public void IncreaseAmountOfSideCollectables(int amount = 1)
+    public List<int> GetSideCollectables(){
+        return progression.GetSideCollectables(SceneManager.GetActiveScene().name);
+    }
+
+    public void IncreaseAmountOfSideCollectables(int id)
     {
-        progression.IncreaseAmountOfSideCollectables(SceneManager.GetActiveScene().name, amount);
+        progression.IncreaseAmountOfSideCollectables(SceneManager.GetActiveScene().name, id);
+    }
+
+    public void IncreaseAmountOfSideCollectables(List<int> ids)
+    {
+        progression.IncreaseAmountOfSideCollectables(SceneManager.GetActiveScene().name, ids);
     }
 
     public void SetLastActivatedCheckpoint(Checkpoint checkpoint)

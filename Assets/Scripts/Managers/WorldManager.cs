@@ -11,8 +11,15 @@ public class WorldManager : MonoBehaviour
     public event Action<Room> OnCurrentRoomChanged = delegate {};
     private Room curRoom = null;
     private MainCollectable[] mainCollectables = null;
+    private SideCollectable[] sideCollectables = null;
 
     void Start()
+    {
+        DisableMainCollectables();
+        DisableSideCollectables();
+    }
+
+    private void DisableMainCollectables()
     {
         mainCollectables = FindObjectsOfType<MainCollectable>();
         List<MinifiedMainCollectable> collectables = ProgressionManager.Instance.GetMainCollectables();
@@ -23,6 +30,22 @@ public class WorldManager : MonoBehaviour
                 mainCollectable.SetCollected();
             }
         }
+    }
+
+    private void DisableSideCollectables()
+    {
+        sideCollectables = FindObjectsOfType<SideCollectable>();
+        List<int> collectables = ProgressionManager.Instance.GetSideCollectables();
+        foreach (SideCollectable sideCollectable in sideCollectables)
+        {
+            if (collectables.Exists(collectableId => collectableId == sideCollectable.GetId()))
+            {
+                sideCollectable.SetCollected();
+            }
+        }
+
+        PlayerManager playerManager = FindObjectOfType<PlayerManager>();
+        playerManager.SetSidePickups(collectables);
     }
 
     public void SetCurrentRoom(Room roomInfo)

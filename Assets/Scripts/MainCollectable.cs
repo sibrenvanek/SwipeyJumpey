@@ -32,7 +32,7 @@ public class MainCollectable : Collectable
         hasBeenCollectedBefore = true;
     }
 
-    public int GetId()
+    public override int GetId()
     {
         return id;
     }

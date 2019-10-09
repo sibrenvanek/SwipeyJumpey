@@ -37,6 +37,9 @@ public class PauseMenu : MonoBehaviour
 
     public void BackToMenu()
     {
+        ProgressionManager.Instance.IncreaseAmountOfMainCollectables(playerManager.GetMinifiedMainCollectables());
+        ProgressionManager.Instance.IncreaseAmountOfSideCollectables(playerManager.GetSidePickups());
+        ProgressionManager.Instance.IncreaseAmountOfDeaths(playerManager.GetDeaths());
         Destroy(GameManager.Instance.gameObject);
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);

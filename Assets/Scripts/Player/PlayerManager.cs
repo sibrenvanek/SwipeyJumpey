@@ -10,11 +10,12 @@ public class PlayerManager : MonoBehaviour
     private float defaultScale = 0f;
     private bool godMode = false;
 
-    public event Action<bool> OnGodMode = delegate { };
-    public event Action<Collectable> OnCollectCoin = delegate { };
-    public event Action<int> OnSideCollectableIncreased = delegate { };
+    public event Action<bool> OnGodMode = delegate {};
+    public event Action<Collectable> OnCollectCoin = delegate {};
+    public event Action<int> OnSideCollectableIncreased = delegate {};
 
     private List<MinifiedMainCollectable> minifiedMainCollectables = new List<MinifiedMainCollectable>();
+    private List<int> sideCollectables = new List<int>();
     private int mainPickups = 0;
     private int sidePickups = 0;
     private int deaths = 0;
@@ -40,6 +41,18 @@ public class PlayerManager : MonoBehaviour
     {
         return sidePickups;
     }
+    
+    public List<int> GetSideCollectables()
+    {
+        return sideCollectables;
+    }
+
+    public void SetSidePickups(List<int> ids)
+    {
+        sideCollectables = ids;
+        sidePickups = ids.Count;
+        OnSideCollectableIncreased.Invoke(sidePickups);
+    }
 
     public int GetDeaths()
     {
@@ -62,6 +75,7 @@ public class PlayerManager : MonoBehaviour
         else
         {
             sidePickups++;
+            sideCollectables.Add(collectable.GetId());
             OnSideCollectableIncreased.Invoke(sidePickups);
         }
     }
