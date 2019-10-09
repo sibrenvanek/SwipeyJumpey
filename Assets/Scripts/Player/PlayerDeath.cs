@@ -11,6 +11,7 @@ public class PlayerDeath : MonoBehaviour
     private PlayerMovement playerMovement;
     private Animator animator;
     [SerializeField] private Jetpack jetpack = null;
+    private bool dying = false;
 
     private void Awake()
     {
@@ -20,6 +21,10 @@ public class PlayerDeath : MonoBehaviour
 
     public void Die()
     {
+        if (dying)
+            return;
+
+        dying = true;
         OnDeath.Invoke();
         animator.SetTrigger("Die");
         playerMovement.KillVelocity();
@@ -41,6 +46,7 @@ public class PlayerDeath : MonoBehaviour
 
         yield return new WaitForSeconds(waitTime);
 
+        dying = false;
         GameManager.Instance.SendPlayerToLastCheckpoint();
         playerMovement.RestoreGravity();
         DarthFader.Instance.FadeGameInInSeconds(.5f, time);
