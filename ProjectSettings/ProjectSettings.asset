@@ -40,9 +40,9 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos:
-  - logo: {fileID: 21300000, guid: 9312858e328ff5f4c950d08c6e3ba06e, type: 3}
-    duration: 2
   - logo: {fileID: 10404, guid: 0000000000000000e000000000000000, type: 0}
+    duration: 2
+  - logo: {fileID: 21300000, guid: 9312858e328ff5f4c950d08c6e3ba06e, type: 3}
     duration: 2
   - logo: {fileID: 21300000, guid: e74031d20e995f647bf5efd6305b3b36, type: 3}
     duration: 3
@@ -262,7 +262,7 @@ PlayerSettings:
   clonedFromGUID: 5f34be1353de5cf4398729fda238591b
   templatePackageId: com.unity.template.2d@3.2.0
   templateDefaultScene: Assets/Scenes/SampleScene.unity
-  AndroidTargetArchitectures: 3
+  AndroidTargetArchitectures: 7
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: '{inproject}: Assets/Resources/App/key.keystore'
