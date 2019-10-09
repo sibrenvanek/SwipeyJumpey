@@ -24,15 +24,15 @@
     {
         "sceneName": "World-1-Level-7",
         "levelName": "Second life",
-        "totalAmountOfMainCollectables": 3,
-        "totalAmountOfSideCollectables": 49,
+        "totalAmountOfMainCollectables": 4,
+        "totalAmountOfSideCollectables": 50,
         "buildIndex": 7
     },
     {
         "sceneName": "World-1-Level-8",
         "levelName": "The escape",
-        "totalAmountOfMainCollectables": 2,
-        "totalAmountOfSideCollectables": 76,
+        "totalAmountOfMainCollectables": 3,
+        "totalAmountOfSideCollectables": 67,
         "buildIndex": 8
     }
 ]
