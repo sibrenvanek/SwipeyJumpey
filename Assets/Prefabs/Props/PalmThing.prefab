@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2429289709348421931}
   - component: {fileID: 2429289709348421930}
   - component: {fileID: 2429289709348421929}
-  - component: {fileID: 2429289709348421934}
   m_Layer: 0
   m_Name: PalmThing
   m_TagString: Untagged
@@ -128,16 +127,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 4}
   m_EdgeRadius: 0
---- !u!114 &2429289709348421934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2429289709348421973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cf01d26df95d734badf2440f4bd2fb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flip: 0

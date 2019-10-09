@@ -33,6 +33,9 @@ public class DialogManager : MonoBehaviour
 
     public void StartConversation(Conversation conversation)
     {
+        if (conversation.IsTutorial() && ProgressionManager.Instance.GetDisplayedTutorial())
+            return;
+
         canvasManager.EnableNextButton();
         OnStartDialog.Invoke();
         dialogs.Clear();

@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: 6. Core escape
   m_EditorClassIdentifier: 
   speaker: {fileID: 11400000, guid: 21dd0c2fc90e64948860905ae563d623, type: 2}
-  text: 'We should first escape this cave and find a new spaceship to get back to
-    our home planet. '
+  text: We must find a new ship to escape this planet.

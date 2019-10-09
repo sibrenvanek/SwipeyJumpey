@@ -11,7 +11,6 @@ public class DarthFader : MonoBehaviour
     [SerializeField] private GameObject loadingIndicator = null;
     private Image loadingIndicatorImage = null;
     private Image image = null;
-    private Coroutine activeWaitTillFadedCoroutine = null;
 
     private void Awake()
     {

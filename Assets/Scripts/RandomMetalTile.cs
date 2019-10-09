@@ -7,7 +7,7 @@ using UnityEditor;
 
 public class RandomMetalTile : Tile {
 
-    [SerializeField] private Sprite[] metalSprites;
+    [SerializeField] private Sprite[] metalSprites = null;
 
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 401875848488855040}
   - component: {fileID: 401875848488855043}
   - component: {fileID: 401875848488855042}
-  - component: {fileID: 401875848488855041}
   - component: {fileID: 401875848488855046}
   m_Layer: 0
   m_Name: BigPlantThing
@@ -102,19 +101,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &401875848488855041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 401875848488855165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cf01d26df95d734badf2440f4bd2fb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flip: 0
 --- !u!61 &401875848488855046
 BoxCollider2D:
   m_ObjectHideFlags: 0
