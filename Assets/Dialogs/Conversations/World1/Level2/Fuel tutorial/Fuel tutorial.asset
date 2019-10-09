@@ -18,4 +18,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 69d66fc96c4bf49198fbe357cbe778ed, type: 2}
   - {fileID: 11400000, guid: ef858018723b5410699ef2dfdaad21a4, type: 2}
   - {fileID: 11400000, guid: 49a0c3c55676a4cb8a8c7b603ca237b5, type: 2}
-  tutorial: 1
+  tutorial: 0

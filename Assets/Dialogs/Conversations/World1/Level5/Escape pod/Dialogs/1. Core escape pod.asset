@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 1. Core escape pod
   m_EditorClassIdentifier: 
   speaker: {fileID: 11400000, guid: 21dd0c2fc90e64948860905ae563d623, type: 2}
-  text: Look an escape pod from the people that lived here.
+  text: Look, an escape pod from the people that lived here.
