@@ -1,38 +1,38 @@
 [
     {
         "sceneName": "World-1-Level-4",
-        "levelName": "level-one",
+        "levelName": "Crashed",
         "totalAmountOfMainCollectables": 1,
         "totalAmountOfSideCollectables": 29,
         "buildIndex": 4,
-        "unlocked":  true
+        "unlocked": true
     },
     {
         "sceneName": "World-1-Level-5",
-        "levelName": "level-two",
+        "levelName": "Enter the cave",
         "totalAmountOfMainCollectables": 1,
         "totalAmountOfSideCollectables": 34,
         "buildIndex": 5
     },
     {
         "sceneName": "World-1-Level-6",
-        "levelName": "level-three",
+        "levelName": "Boosting to darkness",
         "totalAmountOfMainCollectables": 2,
         "totalAmountOfSideCollectables": 33,
         "buildIndex": 6
     },
     {
         "sceneName": "World-1-Level-7",
-        "levelName": "level-four",
-        "totalAmountOfMainCollectables": 3,
-        "totalAmountOfSideCollectables": 49,
+        "levelName": "Second life",
+        "totalAmountOfMainCollectables": 4,
+        "totalAmountOfSideCollectables": 50,
         "buildIndex": 7
     },
     {
         "sceneName": "World-1-Level-8",
-        "levelName": "level-five",
-        "totalAmountOfMainCollectables": 2,
-        "totalAmountOfSideCollectables": 76,
+        "levelName": "The escape",
+        "totalAmountOfMainCollectables": 3,
+        "totalAmountOfSideCollectables": 67,
         "buildIndex": 8
     }
 ]
