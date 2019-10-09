@@ -21,7 +21,6 @@ public class SlowMotion : MonoBehaviour
     private Coroutine curCoroutine = null;
     public DOSetter<float> FillSetter { get; private set; }
     public DOGetter<float> FillGetter { get; private set; }
-    private Sequence activeDoTweenSequence = null;
 
     private void Awake()
     {
@@ -31,7 +30,6 @@ public class SlowMotion : MonoBehaviour
 
     private void Start()
     {
-        activeDoTweenSequence = DOTween.Sequence();
         SetUpDOGettersAndSetters();
     }
 
@@ -53,7 +51,7 @@ public class SlowMotion : MonoBehaviour
     {
         if (curCoroutine != null)
         {
-            activeDoTweenSequence.Kill();
+            DOTween.Kill("slowmotionTween");
             StopCoroutine(curCoroutine);
         }
         ResetTime();
@@ -66,7 +64,7 @@ public class SlowMotion : MonoBehaviour
 
         fill.fillAmount = 1f;
         radialFill.SetActive(true);
-        activeDoTweenSequence.Append(DOTween.To(FillGetter, FillSetter, 0f, slowMotionDuration));
+        DOTween.To(FillGetter, FillSetter, 0f, slowMotionDuration).SetId("slowmotionTween");
 
         pitchReduction = totalPitchReduction / slowMotionDuration;
         doingSlowmotion = true;
