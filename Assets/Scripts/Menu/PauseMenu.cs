@@ -14,8 +14,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Start()
     {
-        currentLevelPlaceholder.text = currentRoom.RoomName;
-        worldManager.OnCurrentRoomChanged += ChangeLevelText;
+        currentLevelPlaceholder.text = ProgressionManager.Instance.GetLevel(SceneManager.GetActiveScene().buildIndex).levelName;
     }
 
     public void Resume()
@@ -41,12 +40,6 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
         AudioManager.Instance.StartMenuTrack();
-    }
-
-    public void ChangeLevelText(Room newRoom)
-    {
-        currentRoom = newRoom;
-        currentLevelPlaceholder.text = currentRoom.RoomName;
     }
 
     public void ResetWorld()
